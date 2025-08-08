@@ -7,7 +7,6 @@
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="icon" href="./assets/img/thumbnail.png" type="image/x-icon" />
-    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
     <style>
         /* Import Inter font from Google Fonts */
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap');
@@ -75,10 +74,6 @@
             max-width: 400px;
             animation: fadeIn 0.3s ease-out;
         }
-        .vocab-tag {
-            background-color: #e6fffa;
-            cursor: pointer;
-        }
     </style>
 </head>
 <body>
@@ -86,36 +81,10 @@
 
     <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
-    <script src="https://unpkg.com/react-quill@2.0.0/dist/react-quill.min.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-  
+
+    <script type="text/babel" data-presets="react" data-plugins="proposal-optional-chaining">
         const { useState, useEffect, useRef } = React;
-        const ReactQuill = window.ReactQuill.default || window.ReactQuill;
-        const Quill = window.Quill;
-
-        const Inline = Quill.import('blots/inline');
-        class VocabBlot extends Inline {
-            static create(vocabId) {
-                let node = super.create();
-                node.setAttribute('data-vocab-id', vocabId);
-                node.classList.add('vocab-tag');
-                return node;
-            }
-            static formats(node) {
-                return node.getAttribute('data-vocab-id');
-            }
-        }
-        VocabBlot.blotName = 'vocab';
-        VocabBlot.tagName = 'span';
-        Quill.register(VocabBlot);
-
-        const quillModules = {
-            toolbar: [
-                ['bold', 'italic', 'link']
-            ]
-        };
-        const quillFormats = ['bold', 'italic', 'link', 'vocab'];
 
         // Keys for storing data in localStorage and IndexedDB
         const LOCAL_STORAGE_KEY = 'chineseVocabLessons';
@@ -358,8 +327,6 @@
             const [selectedLesson, setSelectedLesson] = useState(null);
             const [allVocabularies, setAllVocabularies] = useState([]);
             const [isProcessing, setIsProcessing] = useState(false);
-            const [showSettings, setShowSettings] = useState(false);
-            const settingsRef = useRef(null);
 
             // Form states for creating/editing a lesson
             const [lessonName, setLessonName] = useState('');
@@ -401,7 +368,6 @@
             const [showReviewLimitModal, setShowReviewLimitModal] = useState({ isVisible: false, isDifficult: false });
             const [tempReviewLimit, setTempReviewLimit] = useState('');
             const [reviewSourceVocabs, setReviewSourceVocabs] = useState([]);
-            const [isCardFlipped, setIsCardFlipped] = useState(false);
             
             // For rearrangeExample question type
             const [scrambledWords, setScrambledWords] = useState([]);
@@ -418,7 +384,6 @@
             const [editingPassage, setEditingPassage] = useState(null);
             const [passageTitle, setPassageTitle] = useState('');
             const [passageSentences, setPassageSentences] = useState([{ chinese: '', pinyin: '', vietnamese: '', audioFileBlob: null, audioFileId: null, speaker: '' }]);
-            const passageEditorRefs = useRef([]);
             const [selectedPassage, setSelectedPassage] = useState(null);
             const [passageMode, setPassageMode] = useState('reading');
             const [showPassagePinyin, setShowPassagePinyin] = useState(false);
@@ -436,88 +401,6 @@
             // Ref for controlling full passage playback
             const isPlayingAllPassage = useRef(false);
             const currentPassageAudioIndex = useRef(0);
-
-            useEffect(() => {
-                const handleClickOutside = (event) => {
-                    if (settingsRef.current && !settingsRef.current.contains(event.target)) {
-                        setShowSettings(false);
-                    }
-                };
-                if (showSettings) {
-                    document.addEventListener('mousedown', handleClickOutside);
-                }
-                return () => {
-                    document.removeEventListener('mousedown', handleClickOutside);
-                };
-            }, [showSettings]);
-
-            // NEW: useEffect for keyboard controls in Review Game
-            useEffect(() => {
-                const handleKeyPress = (event) => {
-                    // Only active when in 'review' view and not processing
-                    if (view === 'review' && !isProcessing) {
-                        if (event.key === 'Enter') {
-                            event.preventDefault(); // Prevent default Enter key behavior (e.g., submitting form twice, new line in textarea)
-
-                            // If an answer has been given (isCorrect is true/false or rearrangeIsAnswered is true)
-                            // AND it's not a text input field (to allow Enter for typing)
-                            // AND it's not the rearrange example type where Enter is for checking
-                            if ((isCorrect !== null || rearrangeIsAnswered) && 
-                                !(questionType === 'typePinyin' && document.activeElement === document.getElementById('pinyin-input')) &&
-                                !(questionType === 'typeHanTu' && document.activeElement === document.getElementById('hantu-input')) &&
-                                !(questionType === 'dictation' && document.activeElement === document.getElementById('dictation-input')) &&
-                                !(questionType === 'fillInBlanks' && Array.from(document.querySelectorAll('input[id^="fill-blank-"]')).some(input => input === document.activeElement)) &&
-                                !(questionType === 'rearrangeExample' && !rearrangeIsAnswered)
-                                ) {
-                                handleNextQuestion();
-                            } else {
-                                // If no answer given yet, or it's a text input field, try to submit the answer
-                                switch (questionType) {
-                                    case 'typePinyin':
-                                        // Only submit if the input field is active or if it's not empty
-                                        if (document.activeElement === document.getElementById('pinyin-input') || pinyinInput.trim() !== '') {
-                                            handlePinyinSubmit(event);
-                                        }
-                                        break;
-                                    case 'typeHanTu':
-                                        if (document.activeElement === document.getElementById('hantu-input') || hanTuInput.trim() !== '') {
-                                            handleHanTuSubmit(event);
-                                        }
-                                        break;
-                                    case 'fillInBlanks':
-                                        // Check if any blank input is focused
-                                        const anyBlankFocused = fillInBlanksWords.some((word, idx) => 
-                                            word.isMissing && document.activeElement === document.getElementById(`fill-blank-${idx}`)
-                                        );
-                                        if (anyBlankFocused || fillInBlanksWords.some(word => word.input.trim() !== '')) {
-                                            checkFillInBlanksAnswer();
-                                        }
-                                        break;
-                                    case 'dictation':
-                                        if (document.activeElement === document.getElementById('dictation-input') || sentenceInput.trim() !== '') {
-                                            checkDictationAnswer();
-                                        }
-                                        break;
-                                    case 'rearrangeExample':
-                                        if (!rearrangeIsAnswered && selectedWords.length > 0) { // Only check if words are selected for rearrange
-                                            handleRearrangeCheck();
-                                        }
-                                        break;
-                                    // For multiple-choice, Enter doesn't select an option, so we only handle next question after selection
-                                    default:
-                                        break;
-                                }
-                            }
-                        }
-                    }
-                };
-
-                document.addEventListener('keydown', handleKeyPress);
-
-                return () => {
-                    document.removeEventListener('keydown', handleKeyPress);
-                };
-            }, [view, isProcessing, isCorrect, questionType, pinyinInput, hanTuInput, sentenceInput, fillInBlanksWords, selectedWords, rearrangeIsAnswered, handleNextQuestion, handlePinyinSubmit, handleHanTuSubmit, checkFillInBlanksAnswer, checkDictationAnswer, handleRearrangeCheck]);
 
 
             // Load data from localStorage on initial render
@@ -1214,10 +1097,8 @@
                     .toLowerCase();
             };
             
-            const stripHtml = (html) => html ? html.replace(/<[^>]*>/g, '') : '';
-
             const normalizeHanTu = (hanTuString) => {
-                return stripHtml(hanTuString).replace(/[^\u4e00-\u9fff\u3400-\u4DBF]/g, '');
+                return hanTuString.replace(/[^\u4e00-\u9fff\u3400-\u4DBF]/g, ''); 
             };
             
             const splitChineseSentence = (sentence) => {
@@ -1494,73 +1375,6 @@
                 setView('review');
                 setShowReviewLimitModal({ isVisible: false, isDifficult: false });
                 console.log(`Review session started with total questions:`, questionsToAsk.length);
-            };
-
-            const startFlashcardReview = () => {
-                const validVocab = shuffleArray(allVocabularies.filter(v => v.hanTu));
-                if (validVocab.length === 0) {
-                    setMessage({ text: "Chưa có từ vựng nào để ôn tập.", type: "error" });
-                    return;
-                }
-                setReviewVocabList(validVocab);
-                setTotalQuestions(validVocab.length);
-                setCurrentQuestionNumber(0);
-                setIsCardFlipped(false);
-                setReviewMode('flashcard');
-                setView('review');
-            };
-
-            const handleFlashcardFlip = () => {
-                if (!reviewVocabList[currentQuestionNumber]) return;
-                if (!isCardFlipped) {
-                    const vocab = reviewVocabList[currentQuestionNumber];
-                    handlePlayDetailAudio(vocab.audioFile, vocab.hanTu);
-                }
-                setIsCardFlipped(!isCardFlipped);
-            };
-
-            const handleFlashcardPrev = () => {
-                if (currentQuestionNumber > 0) {
-                    setCurrentQuestionNumber(prev => prev - 1);
-                    setIsCardFlipped(false);
-                }
-            };
-
-            const handleFlashcardNext = () => {
-                if (currentQuestionNumber < reviewVocabList.length - 1) {
-                    setCurrentQuestionNumber(prev => prev + 1);
-                    setIsCardFlipped(false);
-                }
-            };
-
-            const handleFlashcardMark = (isAnswerCorrect) => {
-                const vocab = reviewVocabList[currentQuestionNumber];
-                if (!vocab) return;
-                const vocabId = vocab.id;
-                setLessons(prevLessons =>
-                    prevLessons.map(lesson => ({
-                        ...lesson,
-                        vocabularies: lesson.vocabularies.map(v =>
-                            v.id === vocabId
-                                ? (isAnswerCorrect
-                                    ? {
-                                        ...v,
-                                        correctStreak: (v.correctStreak || 0) + 1,
-                                        wrongAttempts: (v.correctStreak || 0) + 1 >= CORRECT_STREAK_TO_GRADUATE ? 0 : v.wrongAttempts
-                                      }
-                                    : {
-                                        ...v,
-                                        wrongAttempts: (v.wrongAttempts || 0) + 1,
-                                        correctStreak: 0
-                                      })
-                                : v
-                        )
-                    }))
-                );
-                if (currentQuestionNumber < reviewVocabList.length - 1) {
-                    setCurrentQuestionNumber(prev => prev + 1);
-                    setIsCardFlipped(false);
-                }
             };
 
 
@@ -2279,53 +2093,8 @@
 
 
             const renderLessonList = () => (
-                <div className="relative">
+                <>
                     {loading && <FullPageLoadingOverlay message="Đang tải dữ liệu từ bộ nhớ cục bộ..." />}
-
-                    <button
-                        onClick={() => setShowSettings(!showSettings)}
-                        className={`absolute top-4 right-4 text-gray-600 hover:text-gray-800 transition-colors ${isProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
-                        disabled={isProcessing}
-                    >
-                        {isProcessing ? <LoadingSpinner /> : <i className="fas fa-cog text-2xl"></i>}
-                    </button>
-
-                    {showSettings && (
-                        <div ref={settingsRef} className="absolute top-14 right-4 bg-white border border-gray-200 rounded-md shadow-lg z-50">
-                            <button
-                                onClick={() => { setShowSettings(false); handleExportData(); }}
-                                className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100"
-                                disabled={isProcessing}
-                            >
-                                Xuất Dữ Liệu (Backup)
-                            </button>
-                            <label
-                                className={`block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer ${isProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
-                            >
-                                Nhập Dữ Liệu (Restore)
-                                <input
-                                    type="file"
-                                    accept="application/json"
-                                    onChange={(e) => { handleImportData(e); setShowSettings(false); e.target.value = ''; }}
-                                    className="hidden"
-                                    disabled={isProcessing}
-                                />
-                            </label>
-                            <label
-                                className={`block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer ${isProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
-                            >
-                                Nhập từ HTML
-                                <input
-                                    type="file"
-                                    accept="text/html"
-                                    onChange={(e) => { handleImportFromHtmlFile(e); setShowSettings(false); e.target.value = ''; }}
-                                    className="hidden"
-                                    disabled={isProcessing}
-                                />
-                            </label>
-                        </div>
-                    )}
-
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
                         <div className="bg-blue-50 p-4 rounded-xl shadow-sm border border-blue-200 text-center">
                             <h3 className="text-lg font-bold text-blue-800 mb-2">Mục Tiêu Học Tập</h3>
@@ -2350,6 +2119,26 @@
                                 {isProcessing ? <LoadingSpinner /> : <i className="fas fa-check-circle mr-2"></i>} Điểm Danh Hôm Nay
                             </button>
                         </div>
+                    </div>
+
+                    <div className="flex space-x-4 mb-6">
+                        <button onClick={handleExportData}
+                                className={`flex-1 bg-gray-600 text-white py-3 px-4 rounded-xl hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-all duration-200 shadow-md ${isProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
+                                disabled={isProcessing}>
+                            {isProcessing ? <LoadingSpinner /> : <i className="fas fa-file-export mr-2"></i>} Xuất Dữ Liệu (Backup)
+                        </button>
+                        <label htmlFor="import-file-input"
+                               className={`flex-1 flex items-center justify-center bg-gray-400 text-white py-3 px-4 rounded-xl hover:bg-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-all duration-200 shadow-md cursor-pointer ${isProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
+                               disabled={isProcessing}>
+                            {isProcessing ? <LoadingSpinner /> : <i className="fas fa-file-import mr-2"></i>} Nhập Dữ Liệu (Restore)
+                            <input type="file" id="import-file-input" accept="application/json" onChange={handleImportData} className="hidden" disabled={isProcessing} />
+                        </label>
+                        <label htmlFor="import-html-file-input"
+                               className={`flex-1 flex items-center justify-center bg-blue-400 text-white py-3 px-4 rounded-xl hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all duration-200 shadow-md cursor-pointer ${isProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
+                               disabled={isProcessing}>
+                            {isProcessing ? <LoadingSpinner /> : <i className="fas fa-file-code mr-2"></i>} Nhập từ HTML
+                            <input type="file" id="import-html-file-input" accept="text/html" onChange={handleImportFromHtmlFile} className="hidden" disabled={isProcessing} />
+                        </label>
                     </div>
 
                     <h2 className="text-3xl font-bold text-gray-800 mb-6 flex justify-between items-center">
@@ -2380,13 +2169,6 @@
                             disabled={allVocabularies.filter(v => v.wrongAttempts >= 2).length === 0 || isProcessing}>
                         {isProcessing ? <LoadingSpinner /> : <i className="fas fa-exclamation-triangle mr-2"></i>}
                         Ôn Tập Từ Khó ({allVocabularies.filter(v => v.wrongAttempts >= 2).length})
-                    </button>
-
-                    <button onClick={startFlashcardReview}
-                            className={`w-full bg-yellow-500 text-white py-3 px-4 rounded-xl hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2 transition-all duration-200 shadow-md mb-6 ${allVocabularies.length === 0 || isProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
-                            disabled={allVocabularies.length === 0 || isProcessing}>
-                        {isProcessing ? <LoadingSpinner /> : <i className="fas fa-clone mr-2"></i>}
-                        Ôn Tập Flashcard
                     </button>
 
                     {error ? (
@@ -2510,7 +2292,7 @@
                         </div>
                     )}
                     {renderReviewLimitModal()}
-                </div>
+                </>
             );
 
             const renderCreateLessonForm = () => (
@@ -2958,21 +2740,8 @@
                 );
             };
 
-            const handleTagVocabulary = (index) => {
-                const vocabId = prompt('Nhập ID từ vựng:');
-                if (!vocabId) return;
-                const quill = passageEditorRefs.current[index]?.getEditor();
-                if (quill) {
-                    const range = quill.getSelection();
-                    if (range && range.length > 0) {
-                        quill.format('vocab', vocabId);
-                    }
-                }
-            };
-
             // NEW: Add new empty sentence row
             const handleAddPassageSentence = (speaker = '') => {
-                passageEditorRefs.current.push(null);
                 setPassageSentences(prev => [...prev, { chinese: '', pinyin: '', vietnamese: '', audioFileBlob: null, audioFileId: null, speaker: speaker }]);
             };
 
@@ -2987,7 +2756,6 @@
                     if (sentenceToRemove.audioFileId) {
                         await deleteAudioFile(sentenceToRemove.audioFileId);
                     }
-                    passageEditorRefs.current.splice(index, 1);
                     setPassageSentences(prev => prev.filter((_, i) => i !== index));
                     setMessage({ text: "Câu đã được xóa khỏi bài khóa.", type: "success" });
                 }
@@ -3005,7 +2773,7 @@
                     setMessage({ text: "Tiêu đề bài khóa không được để trống.", type: "error" });
                     return;
                 }
-                const filteredSentences = passageSentences.filter(s => stripHtml(s.chinese).trim());
+                const filteredSentences = passageSentences.filter(s => s.chinese.trim());
                 if (filteredSentences.length === 0) {
                     setMessage({ text: "Bài khóa phải có ít nhất một câu Hán tự.", type: "error" });
                     return;
@@ -3015,14 +2783,14 @@
                 console.log("Starting passage creation process...");
 
                 const processedSentencesPromises = passageSentences.map(async (s) => {
-                    if (!stripHtml(s.chinese).trim()) return null;
+                    if (!s.chinese.trim()) return null;
 
                     let sentenceAudioId = null;
                     if (s.audioFileBlob instanceof File) { 
                         try {
                             sentenceAudioId = await processAndStoreAudio(s.audioFileBlob, s.audioFileId);
                         } catch (e) {
-                            setMessage({ text: `Lỗi lưu file âm thanh cho câu "${stripHtml(s.chinese)}": ${e.message}`, type: "error" });
+                            setMessage({ text: `Lỗi lưu file âm thanh cho câu "${s.chinese}": ${e.message}`, type: "error" });
                             console.error(`Error storing passage sentence audio:`, e);
                             throw e; 
                         }
@@ -3056,7 +2824,6 @@
                 );
                 setMessage({ text: "Bài khóa đã được thêm vào bài học!", type: "success" });
                 setPassageTitle('');
-                passageEditorRefs.current = [];
                 setPassageSentences([{ chinese: '', pinyin: '', vietnamese: '', audioFileBlob: null, audioFileId: null, speaker: '' }]);
                 setView('passageList');
                 setIsProcessing(false);
@@ -3068,7 +2835,6 @@
                 console.log("Entering edit passage mode for:", passage);
                 setEditingPassage(passage);
                 setPassageTitle(passage.title);
-                passageEditorRefs.current = [];
                 const hydratedSentences = passage.sentences.map(s => ({
                     chinese: s.chinese,
                     pinyin: s.pinyin,
@@ -3096,7 +2862,7 @@
                     setMessage({ text: "Tiêu đề bài khóa không được để trống.", type: "error" });
                     return;
                 }
-                const filteredSentences = passageSentences.filter(s => stripHtml(s.chinese).trim());
+                const filteredSentences = passageSentences.filter(s => s.chinese.trim());
                 if (filteredSentences.length === 0) {
                     setMessage({ text: "Bài khóa phải có ít nhất một câu Hán tự.", type: "error" });
                     return;
@@ -3106,7 +2872,7 @@
                 console.log("Starting passage update process for:", editingPassage.id);
 
                 const processedSentencesPromises = passageSentences.map(async (s, index) => {
-                    if (!stripHtml(s.chinese).trim()) {
+                    if (!s.chinese.trim()) { 
                         const oldSentenceAudioId = editingPassage.sentences?.[index]?.audioFile || null;
                         if (oldSentenceAudioId) {
                             await deleteAudioFile(oldSentenceAudioId);
@@ -3121,7 +2887,7 @@
                         try {
                             sentenceAudioId = await processAndStoreAudio(s.audioFileBlob, oldSentenceAudioId);
                         } catch (e) {
-                            setMessage({ text: `Lỗi xử lý file âm thanh cho câu "${stripHtml(s.chinese)}": ${e.message}`, type: "error" });
+                            setMessage({ text: `Lỗi xử lý file âm thanh cho câu "${s.chinese}": ${e.message}`, type: "error" });
                             console.error(`Error during passage sentence audio update:`, e);
                             throw e;
                         }
@@ -3163,7 +2929,6 @@
                 );
                 setMessage({ text: "Bài khóa đã được cập nhật thành công!", type: "success" });
                 setPassageTitle('');
-                passageEditorRefs.current = [];
                 setPassageSentences([{ chinese: '', pinyin: '', vietnamese: '', audioFileBlob: null, audioFileId: null, speaker: '' }]);
                 setEditingPassage(null);
                 setView('passageList');
@@ -3222,7 +2987,7 @@
             // NEW: Play Passage Sentence Audio (now uses speakText)
             const speakSentence = async (sentence) => {
                 if (!sentence || !sentence.chinese) return;
-                speakText(stripHtml(sentence.chinese), sentence.audioFile, passagePlaybackRate);
+                speakText(sentence.chinese, sentence.audioFile, passagePlaybackRate);
             };
             
             // NEW: Function to play entire passage sequentially (now uses speakText)
@@ -3242,8 +3007,8 @@
                     }
 
                     const sentence = selectedPassage.sentences[currentPassageAudioIndex.current];
-
-                    speakText(stripHtml(sentence.chinese), sentence.audioFile, passagePlaybackRate, () => {
+                    
+                    speakText(sentence.chinese, sentence.audioFile, passagePlaybackRate, () => {
                         currentPassageAudioIndex.current++;
                         playNextSentenceInPassage();
                     });
@@ -3260,23 +3025,55 @@
             };
 
 
-            // NEW: Handle click for word pop-up (Reading Mode) using tagged vocab spans
-            const handleWordClickInPassage = (event) => {
+            // NEW: Handle click for word pop-up (Reading Mode) - ADVANCED MATCHING
+            const handleWordClickInPassage = (event, sentenceText) => {
                 stopSpeaking();
                 setPopupWord(null);
                 if (popupRef.current) popupRef.current.style.display = 'none';
 
-                const target = event.target.closest('.vocab-tag');
-                if (!target) return;
-                const vocabId = target.getAttribute('data-vocab-id');
-                const bestMatch = allVocabularies.find(vocab => vocab.id === vocabId);
+                const clickedElement = event.target;
+                if (!clickedElement.classList.contains('hanzi-char-span')) return;
+
+                const textContentBefore = Array.from(clickedElement.parentNode.childNodes)
+                                            .slice(0, Array.from(clickedElement.parentNode.childNodes).indexOf(clickedElement))
+                                            .map(node => node.textContent)
+                                            .join('');
+                const clickedCharIndexInSentence = textContentBefore.length;
+
+                let bestMatch = null;
+                const MAX_WORD_LEN = 4; 
+
+                for (let len = MAX_WORD_LEN; len >= 1; len--) {
+                    for (let startOffset = 0; startOffset < len; startOffset++) {
+                        const wordStart = clickedCharIndexInSentence - startOffset;
+                        if (wordStart < 0) continue; 
+
+                        const wordEnd = wordStart + len;
+                        if (wordEnd > sentenceText.length) continue; 
+
+                        const potentialWordHanTu = sentenceText.substring(wordStart, wordEnd);
+                        if (!potentialWordHanTu.match(/^[\u4e00-\u9fff\u3400-\u4DBF]+$/)) continue; 
+
+                        const foundVocab = allVocabularies.find(vocab => 
+                            normalizeHanTu(vocab.hanTu) === normalizeHanTu(potentialWordHanTu)
+                        );
+
+                        if (foundVocab) {
+                            bestMatch = foundVocab;
+                            break;
+                        }
+                    }
+                    if (bestMatch) break;
+                }
+
 
                 if (bestMatch) {
                     setPopupWord(bestMatch);
+                    console.log("Found best match for popup:", bestMatch);
                     if (popupRef.current) {
                         const { clientX, clientY } = event;
-                        const popupWidth = 300;
-                        const popupHeight = 250;
+                        const popupWidth = 300; 
+                        const popupHeight = 250; 
 
                         const mainContent = document.querySelector('.max-w-7xl');
                         const mainContentRect = mainContent ? mainContent.getBoundingClientRect() : { left: 0, top: 0, right: window.innerWidth, bottom: window.innerHeight };
@@ -3298,10 +3095,15 @@
                         }
                         if (left < mainContentRect.left) left = mainContentRect.left + 10;
                         if (top < mainContentRect.top) top = mainContentRect.top + 10;
-
+                        
                         popupRef.current.style.left = `${left}px`;
                         popupRef.current.style.top = `${top}px`;
                         popupRef.current.style.display = 'block';
+                    }
+                } else {
+                    setPopupWord(null);
+                    if (popupRef.current) {
+                        popupRef.current.style.display = 'none';
                     }
                 }
             };
@@ -3338,7 +3140,7 @@
                 if (!selectedPassage || !selectedPassage.sentences || selectedPassage.sentences.length === 0) return;
 
                 const sentence = selectedPassage.sentences[currentSentenceIndex];
-                const hanTuChars = stripHtml(sentence.chinese).split('');
+                const hanTuChars = sentence.chinese.split(''); 
                 
                 const eligibleIndices = hanTuChars
                                         .map((char, idx) => ({ char, idx }))
@@ -3416,11 +3218,79 @@
                     await speakSentence(selectedPassage.sentences[currentSentenceIndex]);
                 } else {
                     setIsCorrect(false);
-                    setMessage({ text: `Sai rồi! Đáp án đúng là: "${stripHtml(selectedPassage.sentences[currentSentenceIndex].chinese)}"`, type: "error" });
+                    setMessage({ text: `Sai rồi! Đáp án đúng là: "${selectedPassage.sentences[currentSentenceIndex].chinese}"`, type: "error" });
                     setShaking(true);
                     setTimeout(() => setShaking(false), 500);
                 }
             };
+
+            // NEW: useEffect for keyboard controls in Review Game
+            useEffect(() => {
+                const handleKeyPress = (event) => {
+                    // Only active when in 'review' view and not processing
+                    if (view === 'review' && !isProcessing) {
+                        if (event.key === 'Enter') {
+                            event.preventDefault(); // Prevent default Enter key behavior (e.g., submitting form twice, new line in textarea)
+
+                            // If an answer has been given (isCorrect is true/false or rearrangeIsAnswered is true)
+                            // AND it's not a text input field (to allow Enter for typing)
+                            // AND it's not the rearrange example type where Enter is for checking
+                            if ((isCorrect !== null || rearrangeIsAnswered) &&
+                                !(questionType === 'typePinyin' && document.activeElement === document.getElementById('pinyin-input')) &&
+                                !(questionType === 'typeHanTu' && document.activeElement === document.getElementById('hantu-input')) &&
+                                !(questionType === 'dictation' && document.activeElement === document.getElementById('dictation-input')) &&
+                                !(questionType === 'fillInBlanks' && Array.from(document.querySelectorAll('input[id^="fill-blank-"]')).some(input => input === document.activeElement)) &&
+                                !(questionType === 'rearrangeExample' && !rearrangeIsAnswered)
+                                ) {
+                                handleNextQuestion();
+                            } else {
+                                // If no answer given yet, or it's a text input field, try to submit the answer
+                                switch (questionType) {
+                                    case 'typePinyin':
+                                        // Only submit if the input field is active or if it's not empty
+                                        if (document.activeElement === document.getElementById('pinyin-input') || pinyinInput.trim() !== '') {
+                                            handlePinyinSubmit(event);
+                                        }
+                                        break;
+                                    case 'typeHanTu':
+                                        if (document.activeElement === document.getElementById('hantu-input') || hanTuInput.trim() !== '') {
+                                            handleHanTuSubmit(event);
+                                        }
+                                        break;
+                                    case 'fillInBlanks':
+                                        // Check if any blank input is focused
+                                        const anyBlankFocused = fillInBlanksWords.some((word, idx) =>
+                                            word.isMissing && document.activeElement === document.getElementById(`fill-blank-${idx}`)
+                                        );
+                                        if (anyBlankFocused || fillInBlanksWords.some(word => word.input.trim() !== '')) {
+                                            checkFillInBlanksAnswer();
+                                        }
+                                        break;
+                                    case 'dictation':
+                                        if (document.activeElement === document.getElementById('dictation-input') || sentenceInput.trim() !== '') {
+                                            checkDictationAnswer();
+                                        }
+                                        break;
+                                    case 'rearrangeExample':
+                                        if (!rearrangeIsAnswered && selectedWords.length > 0) { // Only check if words are selected for rearrange
+                                            handleRearrangeCheck();
+                                        }
+                                        break;
+                                    // For multiple-choice, Enter doesn't select an option, so we only handle next question after selection
+                                    default:
+                                        break;
+                                }
+                            }
+                        }
+                    }
+                };
+
+                document.addEventListener('keydown', handleKeyPress);
+
+                return () => {
+                    document.removeEventListener('keydown', handleKeyPress);
+                };
+            }, [view, isProcessing, isCorrect, questionType, pinyinInput, hanTuInput, sentenceInput, fillInBlanksWords, selectedWords, rearrangeIsAnswered, handleNextQuestion, handlePinyinSubmit, handleHanTuSubmit, checkFillInBlanksAnswer, checkDictationAnswer, handleRearrangeCheck]);
 
             const handleNextSentence = () => {
                 stopSpeaking();
@@ -3512,34 +3382,21 @@
                                 </div>
                                 <div>
                                     <label className="block text-sm font-medium text-gray-700">Câu {index + 1} (Hán tự):</label>
-                                    <ReactQuill ref={el => passageEditorRefs.current[index] = el}
-                                                theme="snow"
-                                                value={sentence.chinese}
-                                                onChange={(content) => handlePassageSentenceChange(index, 'chinese', content)}
-                                                modules={quillModules}
-                                                formats={quillFormats}
-                                                readOnly={isProcessing} />
-                                    <button type="button" onClick={() => handleTagVocabulary(index)}
-                                            className="mt-2 bg-yellow-100 text-yellow-800 py-1 px-2 rounded hover:bg-yellow-200 text-sm"
-                                            disabled={isProcessing}>Gắn ID từ vựng</button>
+                                    <input type="text" value={sentence.chinese} onChange={(e) => handlePassageSentenceChange(index, 'chinese', e.target.value)}
+                                           className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
+                                           disabled={isProcessing} />
                                 </div>
                                 <div>
                                     <label className="block text-sm font-medium text-gray-700">Bính âm:</label>
-                                    <ReactQuill theme="snow"
-                                                value={sentence.pinyin}
-                                                onChange={(content) => handlePassageSentenceChange(index, 'pinyin', content)}
-                                                modules={quillModules}
-                                                formats={quillFormats}
-                                                readOnly={isProcessing} />
+                                    <input type="text" value={sentence.pinyin} onChange={(e) => handlePassageSentenceChange(index, 'pinyin', e.target.value)}
+                                           className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
+                                           disabled={isProcessing} />
                                 </div>
                                 <div className="col-span-2">
                                     <label className="block text-sm font-medium text-gray-700">Nghĩa tiếng Việt:</label>
-                                    <ReactQuill theme="snow"
-                                                value={sentence.vietnamese}
-                                                onChange={(content) => handlePassageSentenceChange(index, 'vietnamese', content)}
-                                                modules={quillModules}
-                                                formats={quillFormats}
-                                                readOnly={isProcessing} />
+                                    <input type="text" value={sentence.vietnamese} onChange={(e) => handlePassageSentenceChange(index, 'vietnamese', e.target.value)}
+                                           className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
+                                           disabled={isProcessing} />
                                 </div>
                                 <div className="col-span-2">
                                     <label className="block text-sm font-medium text-gray-700">File âm thanh câu (MP3):</label>
@@ -3774,10 +3631,17 @@
                                             </button>
                                             <div className="flex-grow">
                                                 {sentence.speaker && <span className="font-bold mr-2 text-gray-700">{sentence.speaker}：</span>}
-                                                <div className="passage-sentence-text" onClick={handleWordClickInPassage}
-                                                     dangerouslySetInnerHTML={{__html: sentence.chinese}}></div>
-                                                {showPassagePinyin && <p className="text-indigo-600 text-lg mt-1" dangerouslySetInnerHTML={{__html: sentence.pinyin}}></p>}
-                                                {showPassageMeaning && <p className="text-gray-700 text-lg mt-1" dangerouslySetInnerHTML={{__html: sentence.vietnamese}}></p>}
+                                                <span className="passage-sentence-text">
+                                                    {sentence.chinese.split('').map((char, index) => (
+                                                        <span key={`${sIdx}-${index}`}
+                                                              onClick={(e) => handleWordClickInPassage(e, sentence.chinese)}
+                                                              className="hanzi-char-span inline-block cursor-pointer hover:bg-blue-100 rounded-sm px-1 py-0.5 transition-colors duration-100">
+                                                            {char}
+                                                        </span>
+                                                    ))}
+                                                </span>
+                                                {showPassagePinyin && <p className="text-indigo-600 text-lg mt-1">{sentence.pinyin}</p>}
+                                                {showPassageMeaning && <p className="text-gray-700 text-lg mt-1">{sentence.vietnamese}</p>}
                                             </div>
                                         </div>
                                     ))}
@@ -3822,7 +3686,7 @@
                                     )}
                                     {isCorrect !== null && (
                                         <p className={`mt-2 font-bold ${isCorrect ? 'text-green-600' : 'text-red-600'}`}>
-                                            {isCorrect ? 'Chính xác!' : `Sai! Đáp án đúng: ${stripHtml(currentSentence.chinese)}`}
+                                            {isCorrect ? 'Chính xác!' : `Sai! Đáp án đúng: ${currentSentence.chinese}`}
                                         </p>
                                     )}
                                 </div>
@@ -3851,7 +3715,7 @@
                                     )}
                                     {isCorrect !== null && (
                                         <p className={`mt-2 font-bold ${isCorrect ? 'text-green-600' : 'text-red-600'}`}>
-                                            {isCorrect ? 'Chính xác!' : `Sai! Đáp án đúng: ${stripHtml(currentSentence.chinese)}`}
+                                            {isCorrect ? 'Chính xác!' : `Sai! Đáp án đúng: ${currentSentence.chinese}`}
                                         </p>
                                     )}
                                 </div>
@@ -3910,61 +3774,7 @@
                 );
             };
 
-            const renderFlashcard = () => {
-                const vocab = reviewVocabList[currentQuestionNumber];
-                if (!vocab) {
-                    return <p className="text-gray-600 text-center py-8">Không có thẻ nào để ôn tập.</p>;
-                }
-                return (
-                    <>
-                        <h2 className="text-3xl font-bold text-gray-800 mb-6 flex justify-between items-center">
-                            Flashcards ({currentQuestionNumber + 1} / {totalQuestions})
-                            <label className="flex items-center space-x-2 text-base font-normal">
-                                <input
-                                    type="checkbox"
-                                    checked={showPinyin}
-                                    onChange={(e) => setShowPinyin(e.target.checked)}
-                                    className="form-checkbox h-5 w-5 text-indigo-600 rounded"
-                                    disabled={isProcessing}
-                                />
-                                <span>Hiện Bính Âm</span>
-                            </label>
-                        </h2>
-                        <div className="flex justify-center" onClick={handleFlashcardFlip}>
-                            <div className="w-80 h-52 cursor-pointer" style={{ perspective: '1000px' }}>
-                                <div className="relative w-full h-full transition-transform duration-500" style={{ transformStyle: 'preserve-3d', transform: isCardFlipped ? 'rotateY(180deg)' : 'rotateY(0deg)' }}>
-                                    <div className="absolute w-full h-full flex items-center justify-center bg-white rounded-xl shadow-xl text-5xl font-bold" style={{ backfaceVisibility: 'hidden' }}>
-                                        {vocab.hanTu}
-                                    </div>
-                                    <div className="absolute w-full h-full bg-indigo-100 rounded-xl shadow-xl p-4 text-center flex flex-col items-center justify-center" style={{ backfaceVisibility: 'hidden', transform: 'rotateY(180deg)' }}>
-                                        {vocab.image && <img src={vocab.image} alt={vocab.hanTu} className="w-16 h-16 mb-2 rounded" />}
-                                        {showPinyin && <p className="text-2xl text-indigo-800 mb-2">{vocab.pinyin}</p>}
-                                        <p className="text-gray-700 mb-2">{vocab.hanVietMeaning && <span className="text-gray-500">[{vocab.hanVietMeaning}] </span>}{vocab.meaning}</p>
-                                        {vocab.examples && vocab.examples.map((ex, idx) => (
-                                            ex.chinese && ex.vietnamese && <p key={idx} className="text-sm text-gray-600">{ex.chinese} - {ex.vietnamese}</p>
-                                        ))}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="mt-6 flex justify-center space-x-4">
-                            <button onClick={handleFlashcardPrev} className="bg-gray-300 text-gray-800 py-2 px-4 rounded-lg hover:bg-gray-400"><i className="fas fa-arrow-left mr-1"></i>Trước</button>
-                            <button onClick={() => handleFlashcardMark(true)} className="bg-green-500 text-white py-2 px-4 rounded-lg hover:bg-green-600">Đúng</button>
-                            <button onClick={() => handleFlashcardMark(false)} className="bg-red-500 text-white py-2 px-4 rounded-lg hover:bg-red-600">Sai</button>
-                            <button onClick={handleFlashcardNext} className="bg-gray-300 text-gray-800 py-2 px-4 rounded-lg hover:bg-gray-400">Sau<i className="fas fa-arrow-right ml-1"></i></button>
-                        </div>
-                        <button onClick={() => { setView('lessonList'); setReviewMode(''); setIsCardFlipped(false); }} className="w-full mt-8 bg-gray-300 text-gray-800 py-3 px-4 rounded-xl hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-all duration-200 shadow-md">
-                            <i className="fas fa-arrow-left mr-2"></i> Quay Lại Danh Sách Bài Học
-                        </button>
-                    </>
-                );
-            };
-
-            const renderReviewGame = () => {
-                if (reviewMode === 'flashcard') {
-                    return renderFlashcard();
-                }
-                return (
+            const renderReviewGame = () => (
                 <>
                     <h2 className="text-3xl font-bold text-gray-800 mb-6 flex justify-between items-center">
                         Ôn Tập ({currentQuestionNumber + 1} / {totalQuestions})
@@ -4210,7 +4020,6 @@
                     )}
                 </>
             );
-            };
 
             return (
                 <div className="min-h-screen bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 flex items-center justify-center p-4">
