@@ -2112,8 +2112,8 @@
             };
 
 
-            const renderLessonList = () => (
-                <>
+            const LessonList = () => (
+                <div className="container mx-auto grid gap-4">
                     {loading && <FullPageLoadingOverlay message="Đang tải dữ liệu từ bộ nhớ cục bộ..." />}
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
                         <div className="bg-blue-50 p-4 rounded-xl shadow-sm border border-blue-200 text-center">
@@ -2312,10 +2312,11 @@
                         </div>
                     )}
                     {renderReviewLimitModal()}
-                </>
+                </div>
             );
 
-            const renderCreateLessonForm = () => (
+            const CreateLessonForm = () => (
+                <div className="container mx-auto grid gap-4">
                 <form onSubmit={handleCreateLessonSubmit} className="space-y-4 relative">
                     {isProcessing && <div className="form-overlay"><LoadingSpinner /><p className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center text-lg font-semibold text-gray-700 mt-16">Đang tạo...</p></div>}
                     <h2 className="text-3xl font-bold text-gray-800 mb-6">Tạo Bài Học Mới</h2>
@@ -2344,6 +2345,7 @@
                         <i className="fas fa-arrow-left mr-2"></i> Quay Lại Danh Sách Bài Học
                     </button>
                 </form>
+                </div>
             );
 
             const renderEditLessonForm = () => (
@@ -3794,8 +3796,8 @@
                 );
             };
 
-            const renderReviewGame = () => (
-                <>
+            const ReviewGame = () => (
+                <div className="container mx-auto grid gap-4">
                     <h2 className="text-3xl font-bold text-gray-800 mb-6 flex justify-between items-center">
                         Ôn Tập ({currentQuestionNumber + 1} / {totalQuestions})
                         {reviewMode === 'singleLesson' && selectedLesson && (
@@ -4038,7 +4040,21 @@
                             </button>
                         </div>
                     )}
-                </>
+                </div>
+            );
+
+            const NavigationMenu = () => (
+                <nav className="grid grid-cols-3 gap-4 mb-6">
+                    <button onClick={() => setView('lessonList')} className="flex items-center justify-center bg-primary text-white py-2 px-4 rounded-lg shadow hover:bg-primary-700">
+                        Danh Sách
+                    </button>
+                    <button onClick={() => setView('createLesson')} className="flex items-center justify-center bg-primary text-white py-2 px-4 rounded-lg shadow hover:bg-primary-700">
+                        Tạo Bài Học
+                    </button>
+                    <button onClick={() => setView('review')} className="flex items-center justify-center bg-primary text-white py-2 px-4 rounded-lg shadow hover:bg-primary-700">
+                        Ôn Tập
+                    </button>
+                </nav>
             );
 
             return (
@@ -4048,8 +4064,9 @@
                     {/* Dòng gây lỗi đã bị loại bỏ khỏi đây */}
                     <div className="bg-white dark:bg-gray-900 bg-opacity-90 dark:bg-opacity-90 backdrop-blur-md py-8 px-4 sm:px-6 rounded-3xl shadow-2xl w-full max-w-screen-lg mx-auto text-left transform transition-all duration-300">
                         {renderMessageBox()}
-                        {view === 'lessonList' && renderLessonList()}
-                        {view === 'createLesson' && renderCreateLessonForm()}
+                        <NavigationMenu />
+                        {view === 'lessonList' && <LessonList />}
+                        {view === 'createLesson' && <CreateLessonForm />}
                         {view === 'editLesson' && renderEditLessonForm()}
                         {view === 'createCourse' && renderCreateCourseForm()}
                         {view === 'editCourse' && renderEditCourseForm()}
@@ -4059,7 +4076,7 @@
                         {view === 'passageList' && renderPassageList()}
                         {view === 'createPassage' && renderPassageForm(false)}
                         {view === 'editPassage' && renderPassageForm(true)}
-                        {view === 'review' && renderReviewGame()}
+                        {view === 'review' && <ReviewGame />}
                         {view === 'passageStudy' && renderPassageStudy()}
                     </div>
                 </div>
