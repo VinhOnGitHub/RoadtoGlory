@@ -1,0 +1,786 @@
+﻿<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第十六课：我的一天</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.8;
+            color: #333;
+            max-width: 960px;
+            margin: 30px auto;
+            padding: 0 25px;
+            background-color: #f4f7f6;
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 2.5em;
+            letter-spacing: 1px;
+        }
+        h2 {
+            color: #1a5276;
+            border-bottom: 3px solid #1a5276;
+            padding-bottom: 8px;
+            margin-top: 50px;
+            font-size: 1.8em;
+        }
+        .vocab-item {
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            padding: 30px;
+            margin-bottom: 35px;
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        }
+        .vocab-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+        }
+        .vocab-item strong {
+            color: #c0392b;
+            font-size: 1.4em;
+        }
+        .pinyin {
+            font-style: italic;
+            color: #2980b9;
+            margin-left: 15px;
+            font-size: 1.1em;
+        }
+        .meaning {
+            margin-top: 10px;
+            margin-bottom: 20px;
+            color: #555;
+            font-size: 1.1em;
+        }
+        .examples ol {
+            list-style: none; /* Remove default numbering */
+            counter-reset: example-counter; /* Initialize counter */
+            padding-left: 0;
+        }
+        .examples li {
+            counter-increment: example-counter; /* Increment counter for each list item */
+            margin-bottom: 15px;
+            position: relative;
+            padding-left: 35px; /* Space for custom number */
+        }
+        .examples li::before {
+            content: counter(example-counter) ".";
+            position: absolute;
+            left: 0;
+            top: 0;
+            font-weight: bold;
+            color: #1abc9c;
+            font-size: 1.1em;
+        }
+        .examples li .chinese {
+            font-weight: bold;
+            color: #16a085;
+            display: block;
+            margin-bottom: 3px;
+        }
+        .examples li .vietnamese {
+            color: #7f8c8d;
+            font-size: 0.98em;
+            font-style: italic;
+        }
+        hr {
+            border: 0;
+            height: 1px;
+            background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0));
+            margin: 50px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>第十六课：我的一天</h1>
+
+    <div class="vocab-item">
+        <h2><strong>职员</strong> <span class="pinyin">(zhí yuán)</span></h2>
+        <p class="meaning">nhân viên</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">我是一名公司职员，每天早上九点上班，晚上六点下班。</span><br><span class="vietnamese">Tôi là một nhân viên công ty, mỗi sáng chín giờ đi làm, tối sáu giờ tan làm.</span></li>
+                <li><span class="chinese">这家公司的职员都非常努力，工作效率很高。</span><br><span class="vietnamese">Nhân viên của công ty này đều rất cố gắng, hiệu suất làm việc rất cao.</span></li>
+                <li><span class="chinese">他是我们部门的新职员，刚来公司不久。</span><br><span class="vietnamese">Anh ấy là nhân viên mới của bộ phận chúng tôi, vừa mới đến công ty không lâu.</span></li>
+                <li><span class="chinese">银行的职员告诉我现在可以换美元。</span><br><span class="vietnamese">Nhân viên ngân hàng nói với tôi bây giờ có thể đổi đô la Mỹ.</span></li>
+                <li><span class="chinese">他从一名普通职员做起，现在已经成为经理了。</span><br><span class="vietnamese">Anh ấy bắt đầu từ một nhân viên bình thường, bây giờ đã trở thành giám đốc rồi.</span></li>
+                <li><span class="chinese">办公室里有很多职员在忙碌地工作。</span><br><span class="vietnamese">Trong văn phòng có rất nhiều nhân viên đang bận rộn làm việc.</span></li>
+                <li><span class="chinese">她想成为一名优秀的职员。</span><br><span class="vietnamese">Cô ấy muốn trở thành một nhân viên xuất sắc.</span></li>
+                <li><span class="chinese">公司的职员们经常一起出去吃饭。</span><br><span class="vietnamese">Các nhân viên của công ty thường xuyên cùng nhau ra ngoài ăn cơm.</span></li>
+                <li><span class="chinese">你是一名职员吗？</span><br><span class="vietnamese">Bạn là một nhân viên sao?</span></li>
+                <li><span class="chinese">他是一名售货员，也是公司的职员。</span><br><span class="vietnamese">Anh ấy là một nhân viên bán hàng, cũng là nhân viên của công ty.</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>点</strong> <span class="pinyin">(diǎn)</span></h2>
+        <p class="meaning">giờ; điểm</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">我每天早上七点起床，然后去公园跑步。</span><br><span class="vietnamese">Tôi mỗi sáng bảy giờ thức dậy, sau đó đi công viên chạy bộ.</span></li>
+                <li><span class="chinese">现在几点了？我们该去吃饭了。</span><br><span class="vietnamese">Bây giờ mấy giờ rồi? Chúng ta nên đi ăn cơm rồi.</span></li>
+                <li><span class="chinese">请给我一点儿水，我口渴了。</span><br><span class="vietnamese">Vui lòng cho tôi một chút nước, tôi khát rồi.</span></li>
+                <li><span class="chinese">电影晚上七点半开始，请准时到。</span><br><span class="vietnamese">Phim tối bảy giờ rưỡi bắt đầu, vui lòng đến đúng giờ.</span></li>
+                <li><span class="chinese">老师给我讲了一个重要的知识点。</span><br><span class="vietnamese">Thầy giáo đã giảng cho tôi một điểm kiến thức quan trọng.</span></li>
+                <li><span class="chinese">他下午三点下班，然后回家。</span><br><span class="vietnamese">Anh ấy ba giờ chiều tan làm, sau đó về nhà.</span></li>
+                <li><span class="chinese">请你把声音调小一点儿。</span><br><span class="vietnamese">Bạn vui lòng vặn nhỏ tiếng xuống một chút.</span></li>
+                <li><span class="chinese">这本书的优点和缺点在哪里？</span><br><span class="vietnamese">Ưu điểm và nhược điểm của cuốn sách này ở đâu?</span></li>
+                <li><span class="chinese">我一点儿中文都不会说。</span><br><span class="vietnamese">Tôi một chút tiếng Trung cũng không biết nói.</span></li>
+                <li><span class="chinese">我们中午十二点吃饭。</span><br><span class="vietnamese">Chúng tôi mười hai giờ trưa ăn cơm.</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>起床</strong> <span class="pinyin">(qǐ chuáng)</span></h2>
+        <p class="meaning">thức dậy, ngủ dậy</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">我每天早上七点起床，然后去公园跑步。</span><br><span class="vietnamese">Tôi mỗi sáng bảy giờ thức dậy, sau đó đi công viên chạy bộ.</span></li>
+                <li><span class="chinese">你通常几点起床？我通常八点起床。</span><br><span class="vietnamese">Bạn thường mấy giờ thức dậy? Tôi thường tám giờ thức dậy.</span></li>
+                <li><span class="chinese">他今天早上很晚才起床，所以上班迟到了。</span><br><span class="vietnamese">Sáng nay anh ấy rất muộn mới thức dậy, nên đi làm muộn rồi.</span></li>
+                <li><span class="chinese">周末的时候，我喜欢晚一点儿起床。</span><br><span class="vietnamese">Vào cuối tuần, tôi thích thức dậy muộn hơn một chút.</span></li>
+                <li><span class="chinese">小孩子应该早点儿起床，不要睡懒觉。</span><br><span class="vietnamese">Trẻ con nên dậy sớm một chút, đừng ngủ nướng.</span></li>
+                <li><span class="chinese">我起床后会先喝一杯水。</span><br><span class="vietnamese">Tôi sau khi thức dậy sẽ uống một cốc nước trước.</span></li>
+                <li><span class="chinese">他每天早上闹钟一响就起床。</span><br><span class="vietnamese">Anh ấy mỗi sáng chuông báo thức vừa reo là thức dậy.</span></li>
+                <li><span class="chinese">你昨天晚上几点睡觉？今天几点起床？</span><br><span class="vietnamese">Tối qua bạn mấy giờ đi ngủ? Hôm nay mấy giờ thức dậy?</span></li>
+                <li><span class="chinese">我不太喜欢早上起床。</span><br><span class="vietnamese">Tôi không thích thức dậy vào buổi sáng lắm.</span></li>
+                <li><span class="chinese">他起床后会先做早饭。</span><br><span class="vietnamese">Anh ấy sau khi thức dậy sẽ làm bữa sáng trước.</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>每</strong> <span class="pinyin">(měi)</span></h2>
+        <p class="meaning">mỗi, mỗi một</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">我每天早上七点起床，然后去公园跑步。</span><br><span class="vietnamese">Tôi mỗi sáng bảy giờ thức dậy, sau đó đi công viên chạy bộ.</span></li>
+                <li><span class="chinese">他每个月都会给家里打电话，问候父母。</span><br><span class="vietnamese">Anh ấy mỗi tháng đều gọi điện về nhà, hỏi thăm bố mẹ.</span></li>
+                <li><span class="chinese">我们班的每个同学都很努力学习。</span><br><span class="vietnamese">Mỗi bạn học của lớp chúng tôi đều rất cố gắng học tập.</span></li>
+                <li><span class="chinese">他每天都会读一个小时的中文书。</span><br><span class="vietnamese">Anh ấy mỗi ngày đều sẽ đọc sách tiếng Trung một tiếng đồng hồ.</span></li>
+                <li><span class="chinese">每个国家都有自己独特的文化。</span><br><span class="vietnamese">Mỗi quốc gia đều có nền văn hóa độc đáo của riêng mình.</span></li>
+                <li><span class="chinese">每件衣服都有它的价格。</span><br><span class="vietnamese">Mỗi bộ quần áo đều có giá của nó.</span></li>
+                <li><span class="chinese">他每周都会去一次超市买菜。</span><br><span class="vietnamese">Anh ấy mỗi tuần đều sẽ đi siêu thị một lần để mua rau.</span></li>
+                <li><span class="chinese">每年的十二月，我们都会举行婚礼。</span><br><span class="vietnamese">Tháng Mười Hai mỗi năm, chúng tôi đều sẽ tổ chức đám cưới.</span></li>
+                <li><span class="chinese">每一个人都有自己的梦想。</span><br><span class="vietnamese">Mỗi một người đều có ước mơ của riêng mình.</span></li>
+                <li><span class="chinese">我每天都喝八杯水。</span><br><span class="vietnamese">Tôi mỗi ngày đều uống tám cốc nước.</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>然后</strong> <span class="pinyin">(rán hòu)</span></h2>
+        <p class="meaning">sau đó, rồi thì</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">我每天早上七点起床，然后去公园跑步，接着吃早饭。</span><br><span class="vietnamese">Tôi mỗi sáng bảy giờ thức dậy, sau đó đi công viên chạy bộ, rồi ăn sáng.</span></li>
+                <li><span class="chinese">他先去商店买衣服，然后回家。</span><br><span class="vietnamese">Anh ấy đi cửa hàng mua quần áo trước, sau đó về nhà.</span></li>
+                <li><span class="chinese">我们先吃饭，然后去看电影吧。</span><br><span class="vietnamese">Chúng ta ăn cơm trước, sau đó đi xem phim nhé.</span></li>
+                <li><span class="chinese">我把书放在桌子上，然后离开了教室。</span><br><span class="vietnamese">Tôi để sách lên bàn, sau đó rời khỏi phòng học.</span></li>
+                <li><span class="chinese">他听了我的话，然后笑着说：“谢谢你！”</span><br><span class="vietnamese">Anh ấy nghe lời tôi nói, sau đó cười nói: "Cảm ơn bạn!"</span></li>
+                <li><span class="chinese">你先写作业，然后才能玩游戏。</span><br><span class="vietnamese">Bạn viết bài tập trước, sau đó mới có thể chơi game.</span></li>
+                <li><span class="chinese">我把钱给他了，然后他就走了。</span><br><span class="vietnamese">Tôi đưa tiền cho anh ấy rồi, sau đó anh ấy liền đi rồi.</span></li>
+                <li><span class="chinese">他先洗澡，然后睡觉。</span><br><span class="vietnamese">Anh ấy tắm trước, sau đó đi ngủ.</span></li>
+                <li><span class="chinese">我们先学习语法，然后做练习。</span><br><span class="vietnamese">Chúng tôi học ngữ pháp trước, sau đó làm bài tập.</span></li>
+                <li><span class="chinese">他看完电视，然后去睡觉了。</span><br><span class="vietnamese">Anh ấy xem xong TV, sau đó đi ngủ rồi.</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>公园</strong> <span class="pinyin">(gōng yuán)</span></h2>
+        <p class="meaning">công viên</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">我每天早上都会去公园跑步，锻炼身体。</span><br><span class="vietnamese">Tôi mỗi sáng đều sẽ đi công viên chạy bộ, rèn luyện sức khỏe.</span></li>
+                <li><span class="chinese">这个公园很大，里面有很多树和花。</span><br><span class="vietnamese">Công viên này rất lớn, bên trong có rất nhiều cây và hoa.</span></li>
+                <li><span class="chinese">我们周末经常去公园散步，放松心情。</span><br><span class="vietnamese">Cuối tuần chúng tôi thường xuyên đi công viên đi dạo, thư giãn tâm trạng.</span></li>
+                <li><span class="chinese">他喜欢在公园里骑自行车。</span><br><span class="vietnamese">Anh ấy thích đạp xe đạp trong công viên.</span></li>
+                <li><span class="chinese">公园里有很多老人和小孩在玩耍。</span><br><span class="vietnamese">Trong công viên có rất nhiều người già và trẻ em đang chơi đùa.</span></li>
+                <li><span class="chinese">我们去公园野餐吧，带一些水果和饮料。</span><br><span class="vietnamese">Chúng ta đi công viên dã ngoại nhé, mang một ít trái cây và đồ uống.</span></li>
+                <li><span class="chinese">这个公园很漂亮，有很多好看的风景。</span><br><span class="vietnamese">Công viên này rất đẹp, có rất nhiều phong cảnh đẹp.</span></li>
+                <li><span class="chinese">他每天下午都会在公园里坐一会儿。</span><br><span class="vietnamese">Anh ấy mỗi chiều đều sẽ ngồi một lát trong công viên.</span></li>
+                <li><span class="chinese">公园里有很多人在跑步。</span><br><span class="vietnamese">Trong công viên có rất nhiều người đang chạy bộ.</span></li>
+                <li><span class="chinese">我喜欢去公园，因为那里很安静。</span><br><span class="vietnamese">Tôi thích đi công viên, vì ở đó rất yên tĩnh.</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>跑步</strong> <span class="pinyin">(pǎo bù)</span></h2>
+        <p class="meaning">chạy bộ</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">我每天早上都会去公园跑步，锻炼身体。</span><br><span class="vietnamese">Tôi mỗi sáng đều sẽ đi công viên chạy bộ, rèn luyện sức khỏe.</span></li>
+                <li><span class="chinese">他喜欢跑步，每天都会跑半个小时。</span><br><span class="vietnamese">Anh ấy thích chạy bộ, mỗi ngày đều chạy nửa tiếng đồng hồ.</span></li>
+                <li><span class="chinese">跑步对身体很好，可以保持健康。</span><br><span class="vietnamese">Chạy bộ rất tốt cho sức khỏe, có thể giữ gìn sức khỏe.</span></li>
+                <li><span class="chinese">我们一起去跑步吧，你跑得快吗？</span><br><span class="vietnamese">Chúng ta cùng nhau đi chạy bộ nhé, bạn chạy nhanh không?</span></li>
+                <li><span class="chinese">我喜欢早上跑步，空气很新鲜。</span><br><span class="vietnamese">Tôi thích chạy bộ vào buổi sáng, không khí rất trong lành.</span></li>
+                <li><span class="chinese">他每天都会在操场跑步。</span><br><span class="vietnamese">Anh ấy mỗi ngày đều chạy bộ ở sân tập.</span></li>
+                <li><span class="chinese">跑步的时候要注意安全。</span><br><span class="vietnamese">Khi chạy bộ cần chú ý an toàn.</span></li>
+                <li><span class="chinese">她喜欢听着音乐跑步。</span><br><span class="vietnamese">Cô ấy thích vừa nghe nhạc vừa chạy bộ.</span></li>
+                <li><span class="chinese">他跑得很快，像一只兔子。</span><br><span class="vietnamese">Anh ấy chạy rất nhanh, như một con thỏ.</span></li>
+                <li><span class="chinese">我每天都坚持跑步。</span><br><span class="vietnamese">Tôi mỗi ngày đều kiên trì chạy bộ.</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>散步</strong> <span class="pinyin">(sàn bù)</span></h2>
+        <p class="meaning">đi dạo</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">我们周末经常去公园散步，放松心情，呼吸新鲜空气。</span><br><span class="vietnamese">Cuối tuần chúng tôi thường xuyên đi công viên đi dạo, thư giãn tâm trạng, hít thở không khí trong lành.</span></li>
+                <li><span class="chinese">吃完晚饭后，我喜欢和家人一起去外面散步。</span><br><span class="vietnamese">Sau khi ăn tối xong, tôi thích cùng gia đình ra ngoài đi dạo.</span></li>
+                <li><span class="chinese">你喜欢一个人散步还是和朋友一起散步？</span><br><span class="vietnamese">Bạn thích đi dạo một mình hay đi dạo cùng bạn bè?</span></li>
+                <li><span class="chinese">今天天气很好，我们去外面散步吧。</span><br><span class="vietnamese">Hôm nay thời tiết rất đẹp, chúng ta ra ngoài đi dạo nhé.</span></li>
+                <li><span class="chinese">他喜欢在晚上散步，看看城市的夜景。</span><br><span class="vietnamese">Anh ấy thích đi dạo vào buổi tối, ngắm cảnh đêm thành phố.</span></li>
+                <li><span class="chinese">散步是一种很好的锻炼方式。</span><br><span class="vietnamese">Đi dạo là một cách rèn luyện sức khỏe rất tốt.</span></li>
+                <li><span class="chinese">她喜欢在海边散步。</span><br><span class="vietnamese">Cô ấy thích đi dạo ở bãi biển.</span></li>
+                <li><span class="chinese">我们边散步边聊天儿。</span><br><span class="vietnamese">Chúng tôi vừa đi dạo vừa trò chuyện.</span></li>
+                <li><span class="chinese">请你陪我散步一会儿。</span><br><span class="vietnamese">Bạn vui lòng đi dạo cùng tôi một lát.</span></li>
+                <li><span class="chinese">饭后散步有助于消化。</span><br><span class="vietnamese">Đi dạo sau bữa ăn giúp tiêu hóa.</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>分钟</strong> <span class="pinyin">(fēn zhōng)</span></h2>
+        <p class="meaning">phút</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">他每天早上跑步三十分钟，然后回家吃早饭。</span><br><span class="vietnamese">Anh ấy mỗi sáng chạy bộ ba mươi phút, sau đó về nhà ăn sáng.</span></li>
+                <li><span class="chinese">请等我五分钟，我马上就来。</span><br><span class="vietnamese">Vui lòng đợi tôi năm phút, tôi sẽ đến ngay.</span></li>
+                <li><span class="chinese">从我家到学校走路需要十分钟。</span><br><span class="vietnamese">Từ nhà tôi đến trường đi bộ cần mười phút.</span></li>
+                <li><span class="chinese">他只用了两分钟就完成了这个工作。</span><br><span class="vietnamese">Anh ấy chỉ mất hai phút đã hoàn thành công việc này.</span></li>
+                <li><span class="chinese">我还有三十分钟下班。</span><br><span class="vietnamese">Tôi còn ba mươi phút nữa tan làm.</span></li>
+                <li><span class="chinese">请你给我两分钟时间。</span><br><span class="vietnamese">Bạn vui lòng cho tôi hai phút thời gian.</span></li>
+                <li><span class="chinese">他五分钟后会到。</span><br><span class="vietnamese">Anh ấy năm phút nữa sẽ đến.</span></li>
+                <li><span class="chinese">这个电影还有二十分钟就结束了。</span><br><span class="vietnamese">Bộ phim này còn hai mươi phút nữa là kết thúc rồi.</span></li>
+                <li><span class="chinese">请你再给我一点儿时间，几分钟就好。</span><br><span class="vietnamese">Bạn vui lòng cho tôi thêm một chút thời gian, vài phút là được rồi.</span></li>
+                <li><span class="chinese">他每天看电视半个小时。</span><br><span class="vietnamese">Anh ấy mỗi ngày xem TV nửa tiếng đồng hồ.</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>早饭</strong> <span class="pinyin">(zǎo fàn)</span></h2>
+        <p class="meaning">bữa sáng</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">我每天早上七点起床，然后吃早饭。</span><br><span class="vietnamese">Tôi mỗi sáng bảy giờ thức dậy, sau đó ăn sáng.</span></li>
+                <li><span class="chinese">你早上喜欢吃什么早饭？我喜欢吃包子。</span><br><span class="vietnamese">Sáng bạn thích ăn bữa sáng gì? Tôi thích ăn bánh bao.</span></li>
+                <li><span class="chinese">他每天早上都会在家吃早饭，很少在外面吃。</span><br><span class="vietnamese">Anh ấy mỗi sáng đều sẽ ăn sáng ở nhà, rất ít khi ăn ngoài.</span></li>
+                <li><span class="chinese">我早上没有时间吃早饭，所以有点儿饿。</span><br><span class="vietnamese">Sáng tôi không có thời gian ăn sáng, nên hơi đói.</span></li>
+                <li><span class="chinese">早饭是一天中最重要的一餐。</span><br><span class="vietnamese">Bữa sáng là bữa ăn quan trọng nhất trong ngày.</span></li>
+                <li><span class="chinese">他起床后会先做早饭。</span><br><span class="vietnamese">Anh ấy sau khi thức dậy sẽ làm bữa sáng trước.</span></li>
+                <li><span class="chinese">我喜欢喝牛奶和吃面包当早饭。</span><br><span class="vietnamese">Tôi thích uống sữa và ăn bánh mì làm bữa sáng.</span></li>
+                <li><span class="chinese">你吃早饭了吗？</span><br><span class="vietnamese">Bạn đã ăn sáng chưa?</span></li>
+                <li><span class="chinese">我们一家人每天早上都会一起吃早饭。</span><br><span class="vietnamese">Gia đình tôi mỗi sáng đều sẽ cùng nhau ăn sáng.</span></li>
+                <li><span class="chinese">他今天早上没吃早饭，所以有点儿头疼。</span><br><span class="vietnamese">Sáng nay anh ấy không ăn sáng, nên hơi đau đầu.</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>午饭</strong> <span class="pinyin">(wǔ fàn)</span></h2>
+        <p class="meaning">bữa trưa</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">我们中午去饭馆吃午饭吧，我请客。</span><br><span class="vietnamese">Trưa chúng ta đi nhà hàng ăn trưa đi, tôi mời.</span></li>
+                <li><span class="chinese">你今天中午饭打算吃什么？</span><br><span class="vietnamese">Trưa nay bạn định ăn bữa trưa gì?</span></li>
+                <li><span class="chinese">他每天中午都会在家吃午饭。</span><br><span class="vietnamese">Anh ấy mỗi trưa đều sẽ ăn trưa ở nhà.</span></li>
+                <li><span class="chinese">我们吃完午饭再去商店买东西吧。</span><br><span class="vietnamese">Chúng ta ăn trưa xong rồi đi cửa hàng mua đồ nhé.</span></li>
+                <li><span class="chinese">你通常几点吃午饭？我通常十二点吃。</span><br><span class="vietnamese">Bạn thường mấy giờ ăn trưa? Tôi thường mười hai giờ ăn.</span></li>
+                <li><span class="chinese">他今天中午和同事一起去吃了外卖。</span><br><span class="vietnamese">Trưa nay anh ấy cùng đồng nghiệp ra ngoài ăn đồ ăn đặt ship.</span></li>
+                <li><span class="chinese">午饭时间到了，大家都去吃饭了。</span><br><span class="vietnamese">Giờ ăn trưa đến rồi, mọi người đều đi ăn cơm rồi.</span></li>
+                <li><span class="chinese">我还没有吃午饭。</span><br><span class="vietnamese">Tôi vẫn chưa ăn trưa.</span></li>
+                <li><span class="chinese">午饭我们吃了米饭和炒牛肉。</span><br><span class="vietnamese">Bữa trưa chúng tôi ăn cơm và thịt bò xào.</span></li>
+                <li><span class="chinese">午饭后，他会休息一会儿。</span><br><span class="vietnamese">Sau bữa trưa, anh ấy sẽ nghỉ ngơi một lát.</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>晚饭</strong> <span class="pinyin">(wǎn fàn)</span></h2>
+        <p class="meaning">bữa tối</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">我今天晚上想吃饺子，你喜欢吃饺子吗？我们一起吃晚饭吧。</span><br><span class="vietnamese">Tối nay tôi muốn ăn bánh chẻo, bạn thích ăn bánh chẻo không? Chúng ta cùng ăn tối nhé.</span></li>
+                <li><span class="chinese">你晚上想吃什么晚饭？我打算做一些中国菜。</span><br><span class="vietnamese">Tối bạn muốn ăn bữa tối gì? Tôi dự định làm một ít món Trung Quốc.</span></li>
+                <li><span class="chinese">吃完晚饭后，我喜欢和家人一起去外面散步。</span><br><span class="vietnamese">Sau khi ăn tối xong, tôi thích cùng gia đình ra ngoài đi dạo.</span></li>
+                <li><span class="chinese">他每天晚上都会在家里吃晚饭，很少在外面吃。</span><br><span class="vietnamese">Anh ấy mỗi tối đều sẽ ăn tối ở nhà, rất ít khi ăn ngoài.</span></li>
+                <li><span class="chinese">你通常几点吃晚饭？我通常七点吃。</span><br><span class="vietnamese">Bạn thường mấy giờ ăn tối? Tôi thường bảy giờ ăn.</span></li>
+                <li><span class="chinese">我还没有吃晚饭，所以有点儿饿了。</span><br><span class="vietnamese">Tôi vẫn chưa ăn tối, nên hơi đói rồi.</span></li>
+                <li><span class="chinese">晚饭我们吃了米饭和炒鸡蛋。</span><br><span class="vietnamese">Bữa tối chúng tôi ăn cơm và trứng xào.</span></li>
+                <li><span class="chinese">你晚上想喝什么饮料？</span><br><span class="vietnamese">Tối bạn muốn uống đồ uống gì?</span></li>
+                <li><span class="chinese">我们一家人每天晚上都会一起吃晚饭。</span><br><span class="vietnamese">Gia đình tôi mỗi tối đều sẽ cùng nhau ăn tối.</span></li>
+                <li><span class="chinese">晚饭后，他会看电视或者聊天儿。</span><br><span class="vietnamese">Sau bữa tối, anh ấy sẽ xem TV hoặc trò chuyện.</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>到</strong> <span class="pinyin">(dào)</span></h2>
+        <p class="meaning">đến</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">我每天早上七点准时到公司上班。</span><br><span class="vietnamese">Tôi mỗi sáng bảy giờ đúng giờ đến công ty làm việc.</span></li>
+                <li><span class="chinese">他刚到家，你有什么事情吗？</span><br><span class="vietnamese">Anh ấy vừa mới về đến nhà, bạn có việc gì không?</span></li>
+                <li><span class="chinese">你什么时候到学校？我等你。</span><br><span class="vietnamese">Bạn khi nào đến trường? Tôi đợi bạn.</span></li>
+                <li><span class="chinese">从我家到学校走路需要十分钟。</span><br><span class="vietnamese">Từ nhà tôi đến trường đi bộ cần mười phút.</span></li>
+                <li><span class="chinese">我们坐公共汽车到火车站。</span><br><span class="vietnamese">Chúng tôi đi xe buýt đến nhà ga.</span></li>
+                <li><span class="chinese">他每天工作到很晚才回家。</span><br><span class="vietnamese">Anh ấy mỗi ngày làm việc đến rất muộn mới về nhà.</span></li>
+                <li><span class="chinese">我到商店买了一些水果。</span><br><span class="vietnamese">Tôi đến cửa hàng mua một ít trái cây.</span></li>
+                <li><span class="chinese">老师八点准时到教室。</span><br><span class="vietnamese">Thầy giáo tám giờ đúng giờ đến lớp học.</span></li>
+                <li><span class="chinese">他每天晚上九点半到家。</span><br><span class="vietnamese">Anh ấy mỗi tối chín giờ rưỡi về đến nhà.</span></li>
+                <li><span class="chinese">你到中国多长时间了？</span><br><span class="vietnamese">Bạn đến Trung Quốc bao lâu rồi?</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>准时</strong> <span class="pinyin">(zhǔn shí)</span></h2>
+        <p class="meaning">đúng giờ</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">我每天早上七点准时到公司上班，从不迟到。</span><br><span class="vietnamese">Tôi mỗi sáng bảy giờ đúng giờ đến công ty làm việc, không bao giờ đến muộn.</span></li>
+                <li><span class="chinese">请你准时参加会议，不要迟到。</span><br><span class="vietnamese">Bạn vui lòng đúng giờ tham gia cuộc họp, đừng đến muộn.</span></li>
+                <li><span class="chinese">火车准时到达车站了。</span><br><span class="vietnamese">Tàu hỏa đã đến ga đúng giờ rồi.</span></li>
+                <li><span class="chinese">他每天早上都准时起床。</span><br><span class="vietnamese">Anh ấy mỗi sáng đều đúng giờ thức dậy.</span></li>
+                <li><span class="chinese">老师要求我们准时交作业。</span><br><span class="vietnamese">Thầy giáo yêu cầu chúng tôi nộp bài tập đúng giờ.</span></li>
+                <li><span class="chinese">你一定要准时来接我。</span><br><span class="vietnamese">Bạn nhất định phải đúng giờ đến đón tôi.</span></li>
+                <li><span class="chinese">飞机准时起飞了。</span><br><span class="vietnamese">Máy bay đã cất cánh đúng giờ rồi.</span></li>
+                <li><span class="chinese">我准时完成了我的工作。</span><br><span class="vietnamese">Tôi đã hoàn thành công việc của mình đúng giờ.</span></li>
+                <li><span class="chinese">请你准时吃饭。</span><br><span class="vietnamese">Bạn vui lòng ăn cơm đúng giờ.</span></li>
+                <li><span class="chinese">会议准时开始了。</span><span class="vietnamese">Cuộc họp đã bắt đầu đúng giờ.</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>上班</strong> <span class="pinyin">(shàng bān)</span></h2>
+        <p class="meaning">đi làm, vào ca</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">我每天早上九点准时上班，从来没有迟到过。</span><br><span class="vietnamese">Tôi mỗi sáng chín giờ đúng giờ đi làm, chưa từng đến muộn bao giờ.</span></li>
+                <li><span class="chinese">他每天早上都坐公共汽车上班。</span><br><span class="vietnamese">Anh ấy mỗi sáng đều đi xe buýt đi làm.</span></li>
+                <li><span class="chinese">你通常几点上班？我通常八点上班。</span><br><span class="vietnamese">Bạn thường mấy giờ đi làm? Tôi thường tám giờ đi làm.</span></li>
+                <li><span class="chinese">我今天有点儿不舒服，所以不能上班了。</span><br><span class="vietnamese">Hôm nay tôi hơi không thoải mái, nên không thể đi làm được nữa.</span></li>
+                <li><span class="chinese">他早上八点就出门去上班了。</span><br><span class="vietnamese">Anh ấy tám giờ sáng đã ra khỏi nhà đi làm rồi.</span></li>
+                <li><span class="chinese">上班的时候不要玩手机。</span><br><span class="vietnamese">Khi đi làm đừng chơi điện thoại.</span></li>
+                <li><span class="chinese">他每天开车上班。</span><br><span class="vietnamese">Anh ấy mỗi ngày lái ô tô đi làm.</span></li>
+                <li><span class="chinese">我今天下午还要上班。</span><br><span class="vietnamese">Chiều nay tôi vẫn phải đi làm.</span></li>
+                <li><span class="chinese">他不喜欢上班。</span><br><span class="vietnamese">Anh ấy không thích đi làm.</span></li>
+                <li><span class="chinese">你明天上班吗？</span><br><span class="vietnamese">Ngày mai bạn đi làm không?</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>下班</strong> <span class="pinyin">(xià bān)</span></h2>
+        <p class="meaning">tan làm, tan ca</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">我每天晚上六点下班，然后回家吃饭。</span><br><span class="vietnamese">Tôi mỗi tối sáu giờ tan làm, sau đó về nhà ăn cơm.</span></li>
+                <li><span class="chinese">你通常几点下班？我通常五点下班。</span><br><span class="vietnamese">Bạn thường mấy giờ tan làm? Tôi thường năm giờ tan làm.</span></li>
+                <li><span class="chinese">他今天很晚才下班，所以没有时间吃晚饭。</span><br><span class="vietnamese">Hôm nay anh ấy rất muộn mới tan làm, nên không có thời gian ăn tối.</span></li>
+                <li><span class="chinese">下班以后，我喜欢和同事一起去吃饭。</span><br><span class="vietnamese">Sau khi tan làm, tôi thích cùng đồng nghiệp đi ăn cơm.</span></li>
+                <li><span class="chinese">你下班以后有什么打算？</span><br><span class="vietnamese">Sau khi tan làm bạn có dự định gì không?</span></li>
+                <li><span class="chinese">我还有半个小时就下班了。</span><br><span class="vietnamese">Tôi còn nửa tiếng nữa là tan làm rồi.</span></li>
+                <li><span class="chinese">他每天下班都会去健身房。</span><br><span class="vietnamese">Anh ấy mỗi ngày tan làm đều sẽ đi phòng gym.</span></li>
+                <li><span class="chinese">下班了，大家可以回家了。</span><br><span class="vietnamese">Tan làm rồi, mọi người có thể về nhà rồi.</span></li>
+                <li><span class="chinese">他下班后会给家人打电话。</span><br><span class="vietnamese">Anh ấy sau khi tan làm sẽ gọi điện thoại cho gia đình.</span></li>
+                <li><span class="chinese">你什么时候下班？</span><br><span class="vietnamese">Bạn khi nào tan làm?</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>公司</strong> <span class="pinyin">(gōng sī)</span></h2>
+        <p class="meaning">công ty</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">我是一家公司的职员，每天早上九点上班。</span><br><span class="vietnamese">Tôi là nhân viên của một công ty, mỗi sáng chín giờ đi làm.</span></li>
+                <li><span class="chinese">他在这家公司工作了十年，非常有经验。</span><br><span class="vietnamese">Anh ấy đã làm việc ở công ty này mười năm, rất có kinh nghiệm.</span></li>
+                <li><span class="chinese">我们公司有很多外国同事。</span><br><span class="vietnamese">Công ty chúng tôi có rất nhiều đồng nghiệp nước ngoài.</span></li>
+                <li><span class="chinese">你喜欢你的公司吗？</span><br><span class="vietnamese">Bạn có thích công ty của bạn không?</span></li>
+                <li><span class="chinese">他打算开一家自己的公司。</span><br><span class="vietnamese">Anh ấy dự định mở một công ty của riêng mình.</span></li>
+                <li><span class="chinese">我公司的老板是一个很和蔼的人。</span><br><span class="vietnamese">Ông chủ công ty của tôi là một người rất hòa nhã.</span></li>
+                <li><span class="chinese">他每天开车去公司上班。</span><br><span class="vietnamese">Anh ấy mỗi ngày lái ô tô đi công ty làm việc.</span></li>
+                <li><span class="chinese">这家公司很有名。</span><br><span class="vietnamese">Công ty này rất nổi tiếng.</span></li>
+                <li><span class="chinese">我公司的办公室在市中心。</span><br><span class="vietnamese">Văn phòng công ty tôi ở trung tâm thành phố.</span></li>
+                <li><span class="chinese">他想换一家公司工作。</span><br><span class="vietnamese">Anh ấy muốn đổi một công ty khác làm việc.</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>有时候</strong> <span class="pinyin">(yǒu shí hou)</span></h2>
+        <p class="meaning">có lúc, đôi khi</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">我有时候会和同事一起出去吃饭，有时候会自己带饭。</span><br><span class="vietnamese">Tôi đôi khi sẽ cùng đồng nghiệp ra ngoài ăn cơm, đôi khi sẽ tự mang cơm.</span></li>
+                <li><span class="chinese">他有时候会来我的办公室找我聊天儿。</span><br><span class="vietnamese">Anh ấy đôi khi sẽ đến văn phòng của tôi tìm tôi trò chuyện.</span></li>
+                <li><span class="chinese">我有时候会觉得中文很难学，但是很有趣。</span><br><span class="vietnamese">Tôi đôi khi sẽ cảm thấy tiếng Trung rất khó học, nhưng rất thú vị.</span></li>
+                <li><span class="chinese">他有时候会睡得很晚，有时候会很早起床。</span><br><span class="vietnamese">Anh ấy đôi khi sẽ ngủ rất muộn, đôi khi sẽ thức dậy rất sớm.</span></li>
+                <li><span class="chinese">我有时候喜欢一个人看书，有时候喜欢和朋友一起玩儿。</span><br><span class="vietnamese">Tôi đôi khi thích một mình đọc sách, đôi khi thích chơi cùng bạn bè.</span></li>
+                <li><span class="chinese">他有时候会在公园跑步，有时候会散步。</span><br><span class="vietnamese">Anh ấy đôi khi sẽ chạy bộ ở công viên, đôi khi sẽ đi dạo.</span></li>
+                <li><span class="chinese">我有时候会坐公共汽车上班。</span><br><span class="vietnamese">Tôi đôi khi sẽ đi xe buýt đi làm.</span></li>
+                <li><span class="chinese">他有时候会给我打电话。</span><br><span class="vietnamese">Anh ấy đôi khi sẽ gọi điện thoại cho tôi.</span></li>
+                <li><span class="chinese">我有时候会吃外卖。</span><br><span class="vietnamese">Tôi đôi khi sẽ ăn đồ ăn đặt ship.</span></li>
+                <li><span class="chinese">他有时候会有点儿不高兴。</span><br><span class="vietnamese">Anh ấy đôi khi sẽ hơi không vui.</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>同事</strong> <span class="pinyin">(tóng shì)</span></h2>
+        <p class="meaning">đồng nghiệp</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">我有时候会和同事一起出去吃饭，大家都很友好。</span><br><span class="vietnamese">Tôi đôi khi sẽ cùng đồng nghiệp ra ngoài ăn cơm, mọi người đều rất thân thiện.</span></li>
+                <li><span class="chinese">我的同事们都非常努力，工作效率很高。</span><br><span class="vietnamese">Các đồng nghiệp của tôi đều rất cố gắng, hiệu suất làm việc rất cao.</span></li>
+                <li><span class="chinese">他是我公司的新同事，刚来不久。</span><br><span class="vietnamese">Anh ấy là đồng nghiệp mới của công ty tôi, vừa mới đến không lâu.</span></li>
+                <li><span class="chinese">我们经常和同事一起聊天儿，分享工作和生活中的事情。</span><br><span class="vietnamese">Chúng tôi thường xuyên cùng đồng nghiệp trò chuyện, chia sẻ những chuyện trong công việc và cuộc sống.</span></li>
+                <li><span class="chinese">他是一个很好的同事，总是乐意帮助别人。</span><br><span class="vietnamese">Anh ấy là một đồng nghiệp rất tốt, luôn sẵn lòng giúp đỡ người khác.</span></li>
+                <li><span class="chinese">老板对我们的同事都很好。</span><br><span class="vietnamese">Ông chủ đối xử với đồng nghiệp của chúng tôi đều rất tốt.</span></li>
+                <li><span class="chinese">我请同事帮我解决了一个电脑问题。</span><br><span class="vietnamese">Tôi nhờ đồng nghiệp giúp tôi giải quyết một vấn đề về máy tính.</span></li>
+                <li><span class="chinese">你和你的同事关系怎么样？</span><br><span class="vietnamese">Bạn và đồng nghiệp của bạn quan hệ thế nào?</span></li>
+                <li><span class="chinese">他下班后经常和同事一起去健身。</span><br><span class="vietnamese">Anh ấy sau khi tan làm thường xuyên cùng đồng nghiệp đi tập gym.</span></li>
+                <li><span class="chinese">我有很多外国同事。</span><br><span class="vietnamese">Tôi có rất nhiều đồng nghiệp nước ngoài.</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>出去</strong> <span class="pinyin">(chū qù)</span></h2>
+        <p class="meaning">đi ra ngoài</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">我有时候会和同事一起出去吃饭，不自己带饭。</span><br><span class="vietnamese">Tôi đôi khi sẽ cùng đồng nghiệp ra ngoài ăn cơm, không tự mang cơm.</span></li>
+                <li><span class="chinese">外面下雨了，我们不能出去玩儿了。</span><br><span class="vietnamese">Ngoài trời mưa rồi, chúng ta không thể ra ngoài chơi được nữa.</span></li>
+                <li><span class="chinese">他每天下班后都喜欢出去散步。</span><br><span class="vietnamese">Anh ấy mỗi ngày sau khi tan làm đều thích ra ngoài đi dạo.</span></li>
+                <li><span class="chinese">你晚上想出去吗？我们可以去看看电影。</span><br><span class="vietnamese">Tối bạn có muốn ra ngoài không? Chúng ta có thể đi xem phim.</span></li>
+                <li><span class="chinese">这个周末我打算和朋友一起出去旅行。</span><br><span class="vietnamese">Cuối tuần này tôi dự định cùng bạn bè ra ngoài đi du lịch.</span></li>
+                <li><span class="chinese">他不想出去，只想在家休息。</span><br><span class="vietnamese">Anh ấy không muốn ra ngoài, chỉ muốn ở nhà nghỉ ngơi.</span></li>
+                <li><span class="chinese">我们一起出去走走吧。</span><br><span class="vietnamese">Chúng ta cùng nhau ra ngoài đi dạo đi.</span></li>
+                <li><span class="chinese">他每天早上都会出去跑步。</span><br><span class="vietnamese">Anh ấy mỗi sáng đều sẽ ra ngoài chạy bộ.</span></li>
+                <li><span class="chinese">你什么时候出去？</span><br><span class="vietnamese">Bạn khi nào ra ngoài?</span></li>
+                <li><span class="chinese">孩子们喜欢出去玩儿。</span><br><span class="vietnamese">Trẻ con thích ra ngoài chơi.</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>办公室</strong> <span class="pinyin">(bàn gōng shì)</span></h2>
+        <p class="meaning">văn phòng</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">我每天早上九点准时到办公室开始一天的工作。</span><br><span class="vietnamese">Tôi mỗi sáng chín giờ đúng giờ đến văn phòng bắt đầu một ngày làm việc.</span></li>
+                <li><span class="chinese">老师现在办公室里吗？我想去找他问一个问题。</span><br><span class="vietnamese">Thầy giáo bây giờ có ở văn phòng không? Tôi muốn đến tìm thầy ấy hỏi một vấn đề.</span></li>
+                <li><span class="chinese">我有时候会和同事一起在办公室吃午饭。</span><br><span class="vietnamese">Tôi đôi khi sẽ cùng đồng nghiệp ăn trưa ở văn phòng.</span></li>
+                <li><span class="chinese">他的办公室在三楼，你可以直接上去找他。</span><br><span class="vietnamese">Văn phòng của anh ấy ở tầng ba, bạn có thể trực tiếp lên đó tìm anh ấy.</span></li>
+                <li><span class="chinese">请把这些文件送到经理的办公室。</span><br><span class="vietnamese">Vui lòng gửi những tài liệu này đến văn phòng của giám đốc.</span></li>
+                <li><span class="chinese">办公室里有很多电脑和桌子。</span><br><span class="vietnamese">Trong văn phòng có rất nhiều máy tính và bàn.</span></li>
+                <li><span class="chinese">他每天都工作到很晚才离开办公室。</span><br><span class="vietnamese">Anh ấy mỗi ngày đều làm việc đến rất muộn mới rời khỏi văn phòng.</span></li>
+                <li><span class="chinese">你办公室的电话号码是多少？</span><br><span class="vietnamese">Số điện thoại văn phòng của bạn là bao nhiêu?</span></li>
+                <li><span class="chinese">我有时候会在办公室加班。</span><br><span class="vietnamese">Tôi đôi khi sẽ tăng ca ở văn phòng.</span></li>
+                <li><span class="chinese">办公室里没有人。</span><br><span class="vietnamese">Trong văn phòng không có ai.</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>外卖</strong> <span class="pinyin">(wài mài)</span></h2>
+        <p class="meaning">đồ ăn đặt ship, đồ ăn mang đi</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">我今天中午和同事一起去吃了外卖，非常方便。</span><br><span class="vietnamese">Trưa nay tôi cùng đồng nghiệp ra ngoài ăn đồ ăn đặt ship, rất tiện lợi.</span></li>
+                <li><span class="chinese">我有时候不想做饭，就会点外卖吃。</span><br><span class="vietnamese">Tôi đôi khi không muốn nấu cơm, sẽ đặt đồ ăn ship đến ăn.</span></li>
+                <li><span class="chinese">这家饭馆的外卖很好吃，我很喜欢点他们家的菜。</span><br><span class="vietnamese">Đồ ăn đặt ship của nhà hàng này rất ngon, tôi rất thích gọi món của nhà họ.</span></li>
+                <li><span class="chinese">现在点外卖很方便，有很多App可以选择。</span><br><span class="vietnamese">Bây giờ đặt đồ ăn ship rất tiện lợi, có rất nhiều ứng dụng để lựa chọn.</span></li>
+                <li><span class="chinese">他每天中午都会点外卖到办公室吃。</span><br><span class="vietnamese">Anh ấy mỗi trưa đều sẽ đặt đồ ăn ship đến văn phòng ăn.</span></li>
+                <li><span class="chinese">你喜欢吃什么外卖？</span><br><span class="vietnamese">Bạn thích ăn đồ ăn ship loại nào?</span></li>
+                <li><span class="chinese">外卖送到了。</span><br><span class="vietnamese">Đồ ăn ship đã đến rồi.</span></li>
+                <li><span class="chinese">他想点一份炒牛肉外卖。</span><br><span class="vietnamese">Anh ấy muốn đặt một phần thịt bò xào ship đến.</span></li>
+                <li><span class="chinese">我有时候太忙了，就只能吃外卖。</span><br><span class="vietnamese">Tôi đôi khi quá bận, chỉ có thể ăn đồ ăn ship.</span></li>
+                <li><span class="chinese">这个饭馆的外卖服务很好。</span><br><span class="vietnamese">Dịch vụ đặt đồ ăn ship của nhà hàng này rất tốt.</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>一边一边</strong> <span class="pinyin">(yī biān yī biān)</span></h2>
+        <p class="meaning">vừa...vừa...</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">他喜欢一边吃饭一边看电视，这样感觉很放松。</span><br><span class="vietnamese">Anh ấy thích vừa ăn cơm vừa xem TV, như vậy cảm thấy rất thư giãn.</span></li>
+                <li><span class="chinese">我喜欢一边听音乐一边做作业，这样效率更高。</span><br><span class="vietnamese">Tôi thích vừa nghe nhạc vừa làm bài tập, như vậy hiệu suất cao hơn.</span></li>
+                <li><span class="chinese">我们一边散步一边聊天儿，度过了一个愉快的下午。</span><br><span class="vietnamese">Chúng tôi vừa đi dạo vừa trò chuyện, đã trải qua một buổi chiều vui vẻ.</span></li>
+                <li><span class="chinese">他一边工作一边学习中文，非常努力。</span><br><span class="vietnamese">Anh ấy vừa làm việc vừa học tiếng Trung, rất cố gắng.</span></li>
+                <li><span class="chinese">小孩子喜欢一边玩儿一边吃东西。</span><br><span class="vietnamese">Trẻ con thích vừa chơi vừa ăn.</span></li>
+                <li><span class="chinese">她一边喝咖啡一边看书。</span><br><span class="vietnamese">Cô ấy vừa uống cà phê vừa đọc sách.</span></li>
+                <li><span class="chinese">他一边打电话一边写字。</span><br><span class="vietnamese">Anh ấy vừa gọi điện thoại vừa viết chữ.</span></li>
+                <li><span class="chinese">我们一边走一边说。</span><br><span class="vietnamese">Chúng tôi vừa đi vừa nói.</span></li>
+                <li><span class="chinese">老师一边讲课一边写板书。</span><br><span class="vietnamese">Thầy giáo vừa giảng bài vừa viết bảng.</span></li>
+                <li><span class="chinese">他一边听歌一边跑步。</span><br><span class="vietnamese">Anh ấy vừa nghe nhạc vừa chạy bộ.</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>以后</strong> <span class="pinyin">(yǐ hòu)</span></h2>
+        <p class="meaning">sau này, sau đó</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">吃完晚饭以后，我喜欢和家人一起出去散步。</span><br><span class="vietnamese">Sau khi ăn tối xong, tôi thích cùng gia đình ra ngoài đi dạo.</span></li>
+                <li><span class="chinese">开学以后，我每天都要很早起床去上课。</span><br><span class="vietnamese">Sau khi khai giảng, tôi mỗi ngày đều phải dậy rất sớm để đi học.</span></li>
+                <li><span class="chinese">你以后有什么打算？想去中国留学吗？</span><br><span class="vietnamese">Sau này bạn có dự định gì không? Muốn đi du học Trung Quốc không?</span></li>
+                <li><span class="chinese">我们看完电影以后去喝咖啡吧。</span><br><span class="vietnamese">Chúng ta xem xong phim rồi đi uống cà phê nhé.</span></li>
+                <li><span class="chinese">他以后想成为一名医生。</span><br><span class="vietnamese">Sau này anh ấy muốn trở thành một bác sĩ.</span></li>
+                <li><span class="chinese">工作以后，我每天都很忙。</span><br><span class="vietnamese">Sau khi đi làm, tôi mỗi ngày đều rất bận.</span></li>
+                <li><span class="chinese">我们以后再见面吧。</span><br><span class="vietnamese">Chúng ta sau này lại gặp mặt nhé.</span></li>
+                <li><span class="chinese">他感冒以后，身体一直不太好。</span><br><span class="vietnamese">Anh ấy sau khi bị cảm, sức khỏe luôn không được tốt lắm.</span></li>
+                <li><span class="chinese">下课以后，同学们都去食堂吃饭了。</span><br><span class="vietnamese">Sau khi tan học, các bạn học đều đã đi căng tin ăn cơm rồi.</span></li>
+                <li><span class="chinese">我以后一定会努力学习。</span><br><span class="vietnamese">Sau này tôi nhất định sẽ cố gắng học tập.</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>半</strong> <span class="pinyin">(bàn)</span></h2>
+        <p class="meaning">nửa, một nửa</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">他每天早上跑步半个小时，然后回家吃早饭。</span><br><span class="vietnamese">Anh ấy mỗi sáng chạy bộ nửa tiếng đồng hồ, sau đó về nhà ăn sáng.</span></li>
+                <li><span class="chinese">现在是八点半，我们该去上班了。</span><br><span class="vietnamese">Bây giờ là tám giờ rưỡi, chúng ta nên đi làm rồi.</span></li>
+                <li><span class="chinese">我还有半个小时下班。</span><br><span class="vietnamese">Tôi còn nửa tiếng nữa là tan làm.</span></li>
+                <li><span class="chinese">他喝了半瓶水，然后把剩下的给我了。</span><br><span class="vietnamese">Anh ấy đã uống nửa chai nước, sau đó đưa phần còn lại cho tôi.</span></li>
+                <li><span class="chinese">我只有半天时间可以玩儿。</span><br><span class="vietnamese">Tôi chỉ có nửa ngày thời gian có thể chơi.</span></li>
+                <li><span class="chinese">他半年前来中国学习中文。</span><br><span class="vietnamese">Anh ấy nửa năm trước đến Trung Quốc học tiếng Trung.</span></li>
+                <li><span class="chinese">我们等了半个小时的公共汽车。</span><br><span class="vietnamese">Chúng tôi đã đợi xe buýt nửa tiếng đồng hồ.</span></li>
+                <li><span class="chinese">这个西瓜只有半个了。</span><br><span class="vietnamese">Quả dưa hấu này chỉ còn nửa quả rồi.</span></li>
+                <li><span class="chinese">请给我半斤苹果。</span><br><span class="vietnamese">Vui lòng cho tôi nửa cân táo.</span></li>
+                <li><span class="chinese">他住在我家附近，走路只需要半个小时。</span><br><span class="vietnamese">Anh ấy sống gần nhà tôi, đi bộ chỉ cần nửa tiếng đồng hồ.</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>超市</strong> <span class="pinyin">(chāo shì)</span></h2>
+        <p class="meaning">siêu thị</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">我打算周末去超市买一些新鲜的蔬菜和水果。</span><br><span class="vietnamese">Tôi dự định cuối tuần đi siêu thị mua một ít rau và hoa quả tươi.</span></li>
+                <li><span class="chinese">这家超市的东西很便宜，而且种类很多。</span><br><span class="vietnamese">Đồ ở siêu thị này rất rẻ, hơn nữa chủng loại rất nhiều.</span></li>
+                <li><span class="chinese">你知道附近有没有超市吗？我想买一些牛奶。</span><br><span class="vietnamese">Bạn có biết gần đây có siêu thị nào không? Tôi muốn mua một ít sữa.</span></li>
+                <li><span class="chinese">他每天下班后都会去超市买菜回家做饭。</span><br><span class="vietnamese">Anh ấy mỗi ngày sau khi tan làm đều sẽ đi siêu thị mua rau về nhà nấu cơm.</span></li>
+                <li><span class="chinese">我在超市买了一件新衣服，正在打折。</span><br><span class="vietnamese">Tôi đã mua một bộ quần áo mới ở siêu thị, đang giảm giá.</span></li>
+                <li><span class="chinese">超市里人很多，有点儿挤。</span><br><span class="vietnamese">Trong siêu thị rất nhiều người, hơi chật chội.</span></li>
+                <li><span class="chinese">我们去超市买一些饮料吧。</span><br><span class="vietnamese">Chúng ta đi siêu thị mua một ít đồ uống đi.</span></li>
+                <li><span class="chinese">他喜欢去大超市购物。</span><br><span class="vietnamese">Anh ấy thích đi siêu thị lớn mua sắm.</span></li>
+                <li><span class="chinese">超市的营业时间是早上八点到晚上十点。</span><br><span class="vietnamese">Giờ mở cửa của siêu thị là tám giờ sáng đến mười giờ tối.</span></li>
+                <li><span class="chinese">我需要去超市买一些日常用品。</span><br><span class="vietnamese">Tôi cần đi siêu thị mua một số đồ dùng hàng ngày.</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>电视</strong> <span class="pinyin">(diàn shì)</span></h2>
+        <p class="meaning">ti vi</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">他喜欢一边吃饭一边看电视，这样感觉很放松。</span><br><span class="vietnamese">Anh ấy thích vừa ăn cơm vừa xem TV, như vậy cảm thấy rất thư giãn.</span></li>
+                <li><span class="chinese">我今天晚上想看电视，你陪我一起看吗？</span><br><span class="vietnamese">Tối nay tôi muốn xem TV, bạn xem cùng tôi không?</span></li>
+                <li><span class="chinese">他每天晚上都会看一个小时的电视。</span><br><span class="vietnamese">Anh ấy mỗi tối đều sẽ xem TV một tiếng đồng hồ.</span></li>
+                <li><span class="chinese">电视上正在播放新闻。</span><br><span class="vietnamese">Trên TV đang phát tin tức.</span></li>
+                <li><span class="chinese">我买了一台新电视。</span><br><span class="vietnamese">Tôi đã mua một cái TV mới.</span></li>
+                <li><span class="chinese">你喜欢看什么类型的电视节目？</span><br><span class="vietnamese">Bạn thích xem loại chương trình TV nào?</span></li>
+                <li><span class="chinese">他一边看电视一边聊天儿。</span><br><span class="vietnamese">Anh ấy vừa xem TV vừa trò chuyện.</span></li>
+                <li><span class="chinese">请你把电视关掉。</span><br><span class="vietnamese">Bạn vui lòng tắt TV đi.</span></li>
+                <li><span class="chinese">我们坐在沙发上看电视。</span><br><span class="vietnamese">Chúng tôi ngồi trên ghế sofa xem TV.</span></li>
+                <li><span class="chinese">电视的声音有点儿大。</span><br><span class="vietnamese">Tiếng TV hơi lớn.</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>聊天儿</strong> <span class="pinyin">(liáo tiānr)</span></h2>
+        <p class="meaning">trò chuyện, tán gẫu</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">我喜欢跟朋友一起吃饭聊天儿，分享生活中的趣事。</span><br><span class="vietnamese">Tôi thích cùng bạn bè ăn cơm trò chuyện, chia sẻ những chuyện thú vị trong cuộc sống.</span></li>
+                <li><span class="chinese">他很喜欢和同事一起聊天儿，所以人缘很好。</span><br><span class="vietnamese">Anh ấy rất thích trò chuyện cùng đồng nghiệp, nên mối quan hệ rất tốt.</span></li>
+                <li><span class="chinese">我们一边散步一边聊天儿，度过了一个愉快的下午。</span><br><span class="vietnamese">Chúng tôi vừa đi dạo vừa trò chuyện, đã trải qua một buổi chiều vui vẻ.</span></li>
+                <li><span class="chinese">你有没有时间？我想找你聊聊天儿，说说话。</span><br><span class="vietnamese">Bạn có thời gian không? Tôi muốn tìm bạn trò chuyện, nói chuyện một chút.</span></li>
+                <li><span class="chinese">他们经常在网上聊天儿，分享彼此的学习经验。</span><br><span class="vietnamese">Họ thường xuyên trò chuyện trên mạng, chia sẻ kinh nghiệm học tập của nhau.</span></li>
+                <li><span class="chinese">我喜欢听别人聊天儿，可以学到很多东西。</span><br><span class="vietnamese">Tôi thích nghe người khác trò chuyện, có thể học được rất nhiều điều.</span></li>
+                <li><span class="chinese">他一边看电视一边聊天儿。</span><br><span class="vietnamese">Anh ấy vừa xem TV vừa trò chuyện.</span></li>
+                <li><span class="chinese">我们聊得很开心。</span><br><span class="vietnamese">Chúng tôi trò chuyện rất vui vẻ.</span></li>
+                <li><span class="chinese">他不喜欢和陌生人聊天儿。</span><br><span class="vietnamese">Anh ấy không thích trò chuyện với người lạ.</span></li>
+                <li><span class="chinese">晚上有空的时候，我们可以聊聊天儿。</span><br><span class="vietnamese">Khi tối rảnh rỗi, chúng ta có thể trò chuyện.</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>差</strong> <span class="pinyin">(chà)</span></h2>
+        <p class="meaning">kém, tệ; thiếu</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">现在差五分九点，我们该去上班了。</span><br><span class="vietnamese">Bây giờ kém năm phút chín giờ, chúng ta nên đi làm rồi.</span></li>
+                <li><span class="chinese">我的中文水平还比较差，需要继续努力。</span><br><span class="vietnamese">Trình độ tiếng Trung của tôi vẫn còn khá kém, cần tiếp tục cố gắng.</span></li>
+                <li><span class="chinese">今天天气有点儿差，可能会下雨。</span><br><span class="vietnamese">Hôm nay thời tiết hơi tệ, có thể sẽ mưa.</span></li>
+                <li><span class="chinese">他的学习成绩很差，让老师很担心。</span><br><span class="vietnamese">Thành tích học tập của anh ấy rất kém, khiến thầy giáo rất lo lắng.</span></li>
+                <li><span class="chinese">还差两块钱才能买这本书。</span><br><span class="vietnamese">Còn thiếu hai tệ nữa mới mua được cuốn sách này.</span></li>
+                <li><span class="chinese">这件衣服的质量很差。</span><br><span class="vietnamese">Chất lượng bộ quần áo này rất kém.</span></li>
+                <li><span class="chinese">他的身体有点儿差。</span><br><span class="vietnamese">Sức khỏe của anh ấy hơi kém.</span></li>
+                <li><span class="chinese">我感觉差一点儿就迟到了。</span><br><span class="vietnamese">Tôi cảm thấy suýt chút nữa thì đến muộn rồi.</span></li>
+                <li><span class="chinese">他今天的心情有点儿差。</span><br><span class="vietnamese">Tâm trạng anh ấy hôm nay hơi tệ.</span></li>
+                <li><span class="chinese">这个地方的环境有点儿差。</span><br><span class="vietnamese">Môi trường nơi này hơi tệ.</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>刻</strong> <span class="pinyin">(kè)</span></h2>
+        <p class="meaning">khắc (15 phút); khắc (khắc chữ, khắc gỗ)</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">现在是七点一刻，我们该去吃饭了。</span><br><span class="vietnamese">Bây giờ là bảy giờ mười lăm, chúng ta nên đi ăn cơm rồi.</span></li>
+                <li><span class="chinese">电影八点三刻开始，请准时到。</span><br><span class="vietnamese">Phim tám giờ bốn mươi lăm bắt đầu, vui lòng đến đúng giờ.</span></li>
+                <li><span class="chinese">他还差一刻就到公司了。</span><br><span class="vietnamese">Anh ấy còn kém một khắc nữa là đến công ty rồi.</span></li>
+                <li><span class="chinese">他花了一刻钟的时间做作业。</span><br><span class="vietnamese">Anh ấy đã dành một khắc đồng hồ để làm bài tập.</span></li>
+                <li><span class="chinese">现在是两点一刻。</span><br><span class="vietnamese">Bây giờ là hai giờ mười lăm.</span></li>
+                <li><span class="chinese">他把自己的名字刻在了石头上。</span><br><span class="vietnamese">Anh ấy đã khắc tên mình lên đá.</span></li>
+                <li><span class="chinese">我每天早上六点一刻起床。</span><br><span class="vietnamese">Tôi mỗi sáng sáu giờ mười lăm thức dậy.</span></li>
+                <li><span class="chinese">这个钟每到整点就会响。</span><br><span class="vietnamese">Cái đồng hồ này mỗi khi đến giờ chẵn sẽ kêu.</span></li>
+                <li><span class="chinese">我等了你一刻钟。</span><br><span class="vietnamese">Tôi đã đợi bạn một khắc đồng hồ.</span></li>
+                <li><span class="chinese">他会在五点一刻下班。</span><br><span class="vietnamese">Anh ấy sẽ tan làm vào lúc năm giờ mười lăm.</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>上课</strong> <span class="pinyin">(shàng kè)</span></h2>
+        <p class="meaning">lên lớp, vào học</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">我每天早上八点准时上课，从不迟到。</span><br><span class="vietnamese">Tôi mỗi sáng tám giờ đúng giờ vào học, không bao giờ đến muộn.</span></li>
+                <li><span class="chinese">老师来了，请同学们坐好，我们要上课了。</span><br><span class="vietnamese">Thầy giáo đến rồi, các bạn học vui lòng ngồi ngay ngắn, chúng ta sắp vào học rồi.</span></li>
+                <li><span class="chinese">他今天生病了，所以不能来上课。</span><br><span class="vietnamese">Hôm nay anh ấy bị ốm rồi, nên không thể đến lớp học.</span></li>
+                <li><span class="chinese">你什么时候上课？我上午有中文课。</span><br><span class="vietnamese">Bạn khi nào vào học? Tôi sáng có tiết tiếng Trung.</span></li>
+                <li><span class="chinese">上课的时候请不要玩手机。</span><br><span class="vietnamese">Khi lên lớp vui lòng đừng chơi điện thoại.</span></li>
+                <li><span class="chinese">他每天都认真上课。</span><br><span class="vietnamese">Anh ấy mỗi ngày đều chăm chú học.</span></li>
+                <li><span class="chinese">老师正在上课。</span><br><span class="vietnamese">Thầy giáo đang giảng bài.</span></li>
+                <li><span class="chinese">我们班的中文课是每天下午上课。</span><br><span class="vietnamese">Tiết tiếng Trung của lớp chúng tôi là mỗi chiều học.</span></li>
+                <li><span class="chinese">他下课以后就去吃饭了。</span><br><span class="vietnamese">Anh ấy sau khi tan học liền đi ăn cơm rồi.</span></li>
+                <li><span class="chinese">你喜欢上中文课吗？</span><br><span class="vietnamese">Bạn có thích học tiết tiếng Trung không?</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>下课</strong> <span class="pinyin">(xià kè)</span></h2>
+        <p class="meaning">tan học, hết giờ học</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">下课以后，同学们都去食堂吃饭了。</span><br><span class="vietnamese">Sau khi tan học, các bạn học đều đã đi căng tin ăn cơm rồi.</span></li>
+                <li><span class="chinese">你什么时候下课？我等你一起回家。</span><br><span class="vietnamese">Bạn khi nào tan học? Tôi đợi bạn cùng về nhà.</span></li>
+                <li><span class="chinese">老师下课后会给我们一些练习。</span><br><span class="vietnamese">Thầy giáo sau khi tan học sẽ cho chúng tôi một số bài tập.</span></li>
+                <li><span class="chinese">下课了，大家可以休息一会儿了。</span><br><span class="vietnamese">Tan học rồi, mọi người có thể nghỉ ngơi một lát rồi.</span></li>
+                <li><span class="chinese">他一下课就去办公室找老师。</span><br><span class="vietnamese">Anh ấy vừa tan học liền đi văn phòng tìm thầy giáo.</span></li>
+                <li><span class="chinese">我们还有十分钟就下课了。</span><br><span class="vietnamese">Chúng tôi còn mười phút nữa là tan học rồi.</span></li>
+                <li><span class="chinese">下课后他会去图书馆看书。</span><br><span class="vietnamese">Sau khi tan học anh ấy sẽ đi thư viện đọc sách.</span></li>
+                <li><span class="chinese">老师下课后会回答同学们的问题。</span><br><span class="vietnamese">Thầy giáo sau khi tan học sẽ trả lời câu hỏi của các bạn học.</span></li>
+                <li><span class="chinese">下课了，你饿不饿？</span><br><span class="vietnamese">Tan học rồi, bạn có đói không?</span></li>
+                <li><span class="chinese">我们放学了，下课了。</span><br><span class="vietnamese">Chúng tôi tan học rồi.</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>或者</strong> <span class="pinyin">(huò zhě)</span></h2>
+        <p class="meaning">hoặc là (dùng trong câu trần thuật)</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">你喜欢喝茶或者咖啡？我都可以。</span><br><span class="vietnamese">Bạn thích uống trà hoặc cà phê? Tôi thế nào cũng được.</span></li>
+                <li><span class="chinese">周末我们可以去公园散步，或者去看电影。</span><br><span class="vietnamese">Cuối tuần chúng ta có thể đi công viên đi dạo, hoặc đi xem phim.</span></li>
+                <li><span class="chinese">他今天下午有空，或者明天上午也有空。</span><br><span class="vietnamese">Chiều nay anh ấy có rảnh, hoặc sáng mai cũng có rảnh.</span></li>
+                <li><span class="chinese">你可以在家学习，或者去图书馆学习。</span><br><span class="vietnamese">Bạn có thể học ở nhà, hoặc đi thư viện học.</span></li>
+                <li><span class="chinese">你想吃饺子或者包子？</span><br><span class="vietnamese">Bạn muốn ăn bánh chẻo hoặc bánh bao?</span></li>
+                <li><span class="chinese">我不知道他住在北京或者上海。</span><br><span class="vietnamese">Tôi không biết anh ấy sống ở Bắc Kinh hoặc Thượng Hải.</span></li>
+                <li><span class="chinese">你可以坐公共汽车去，或者骑自行车去。</span><br><span class="vietnamese">Bạn có thể đi xe buýt, hoặc đạp xe đạp đi.</span></li>
+                <li><span class="chinese">他喜欢红色或者黑色。</span><br><span class="vietnamese">Anh ấy thích màu đỏ hoặc màu đen.</span></li>
+                <li><span class="chinese">你可以在网上买衣服，或者去商店买。</span><br><span class="vietnamese">Bạn có thể mua quần áo trên mạng, hoặc đi cửa hàng mua.</span></li>
+                <li><span class="chinese">我有时候会自己做饭，或者点外卖。</span><br><span class="vietnamese">Tôi đôi khi sẽ tự mình nấu cơm, hoặc đặt đồ ăn ship.</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>玩儿</strong> <span class="pinyin">(wánr)</span></h2>
+        <p class="meaning">chơi, chơi đùa</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">我们周末经常去公园玩儿，放松心情。</span><br><span class="vietnamese">Cuối tuần chúng tôi thường xuyên đi công viên chơi, thư giãn tâm trạng.</span></li>
+                <li><span class="chinese">小孩子喜欢出去玩儿。</span><br><span class="vietnamese">Trẻ con thích ra ngoài chơi.</span></li>
+                <li><span class="chinese">你喜欢玩电脑游戏吗？</span><br><span class="vietnamese">Bạn có thích chơi game máy tính không?</span></li>
+                <li><span class="chinese">他喜欢和朋友一起玩儿。</span><br><span class="vietnamese">Anh ấy thích chơi cùng bạn bè.</span></li>
+                <li><span class="chinese">下课以后，同学们都去操场上玩儿了。</span><br><span class="vietnamese">Sau khi tan học, các bạn học đều đã ra sân chơi rồi.</span></li>
+                <li><span class="chinese">你有没有时间和我一起玩儿？</span><br><span class="vietnamese">Bạn có thời gian chơi cùng tôi không?</span></li>
+                <li><span class="chinese">别玩手机了，认真学习吧。</span><br><span class="vietnamese">Đừng chơi điện thoại nữa, chăm chỉ học đi.</span></li>
+                <li><span class="chinese">他喜欢玩儿乐器。</span><br><span class="vietnamese">Anh ấy thích chơi nhạc cụ.</span></li>
+                <li><span class="chinese">这个地方很好玩儿。</span><br><span class="vietnamese">Nơi này rất vui.</span></li>
+                <li><span class="chinese">她玩得很开心。</span><br><span class="vietnamese">Cô ấy chơi rất vui.</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>睡觉</strong> <span class="pinyin">(shuì jiào)</span></h2>
+        <p class="meaning">ngủ</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">我每天晚上十一点睡觉，保证充足的睡眠。</span><br><span class="vietnamese">Tôi mỗi tối mười một giờ đi ngủ, đảm bảo giấc ngủ đầy đủ.</span></li>
+                <li><span class="chinese">他昨天晚上睡得很晚，所以今天早上起不来。</span><br><span class="vietnamese">Anh ấy tối qua ngủ rất muộn, nên sáng nay không dậy nổi.</span></li>
+                <li><span class="chinese">你通常几点睡觉？</span><br><span class="vietnamese">Bạn thường mấy giờ đi ngủ?</span></li>
+                <li><span class="chinese">小孩子应该早点儿睡觉，这样才能长高。</span><br><span class="vietnamese">Trẻ con nên đi ngủ sớm một chút, như vậy mới có thể cao lớn.</span></li>
+                <li><span class="chinese">我感觉有点儿困了，我想去睡觉了。</span><br><span class="vietnamese">Tôi cảm thấy hơi buồn ngủ rồi, tôi muốn đi ngủ rồi.</span></li>
+                <li><span class="chinese">他睡觉的时候喜欢听音乐。</span><br><span class="vietnamese">Anh ấy khi ngủ thích nghe nhạc.</span></li>
+                <li><span class="chinese">别说话了，他正在睡觉。</span><br><span class="vietnamese">Đừng nói chuyện nữa, anh ấy đang ngủ.</span></li>
+                <li><span class="chinese">睡觉前，我喜欢看一会儿书。</span><br><span class="vietnamese">Trước khi ngủ, tôi thích đọc sách một lát.</span></li>
+                <li><span class="chinese">你睡得好吗？</span><br><span class="vietnamese">Bạn ngủ ngon không?</span></li>
+                <li><span class="chinese">他每天睡八个小时。</span><br><span class="vietnamese">Anh ấy mỗi ngày ngủ tám tiếng.</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>复习</strong> <span class="pinyin">(fù xí)</span></h2>
+        <p class="meaning">ôn tập</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">我最近在努力复习中文，准备下个月的考试。</span><br><span class="vietnamese">Gần đây tôi đang cố gắng ôn tập tiếng Trung, chuẩn bị cho kỳ thi tháng sau.</span></li>
+                <li><span class="chinese">每天复习一下儿今天学过的生词和语法，很有帮助。</span><br><span class="vietnamese">Mỗi ngày ôn tập một chút từ mới và ngữ pháp đã học hôm nay, rất hữu ích.</span></li>
+                <li><span class="chinese">老师让我们回家复习课文，明天要听写。</span><br><span class="vietnamese">Thầy giáo yêu cầu chúng tôi về nhà ôn tập bài khóa, ngày mai sẽ nghe viết.</span></li>
+                <li><span class="chinese">期末考试前，我需要认真复习所有内容。</span><br><span class="vietnamese">Trước kỳ thi cuối kỳ, tôi cần ôn tập nghiêm túc tất cả nội dung.</span></li>
+                <li><span class="chinese">他每天都会花半个小时复习。</span><br><span class="vietnamese">Anh ấy mỗi ngày đều sẽ dành nửa tiếng để ôn tập.</span></li>
+                <li><span class="chinese">复习旧知识很重要。</span><br><span class="vietnamese">Ôn tập kiến thức cũ rất quan trọng.</span></li>
+                <li><span class="chinese">你复习好了吗？</span><br><span class="vietnamese">Bạn đã ôn tập xong chưa?</span></li>
+                <li><span class="chinese">我们一起复习吧。</span><br><span class="vietnamese">Chúng ta cùng nhau ôn tập đi.</span></li>
+                <li><span class="chinese">他复习得很好，所以考试得了高分。</span><br><span class="vietnamese">Anh ấy ôn tập rất tốt, nên thi được điểm cao.</span></li>
+                <li><span class="chinese">老师帮助我复习语法。</span><br><span class="vietnamese">Thầy giáo giúp tôi ôn tập ngữ pháp.</span></li>
+            </ol>
+        </div>
+    </div>
+
+</body>
+</html>

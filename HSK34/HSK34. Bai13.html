@@ -1,0 +1,843 @@
+﻿<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第十三课：请把你的护照给我</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.8;
+            color: #333;
+            max-width: 960px;
+            margin: 30px auto;
+            padding: 0 25px;
+            background-color: #f4f7f6;
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 2.5em;
+            letter-spacing: 1px;
+        }
+        h2 {
+            color: #1a5276;
+            border-bottom: 3px solid #1a5276;
+            padding-bottom: 8px;
+            margin-top: 50px;
+            font-size: 1.8em;
+        }
+        .vocab-item {
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            padding: 30px;
+            margin-bottom: 35px;
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        }
+        .vocab-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+        }
+        .vocab-item strong {
+            color: #c0392b;
+            font-size: 1.4em;
+        }
+        .pinyin {
+            font-style: italic;
+            color: #2980b9;
+            margin-left: 15px;
+            font-size: 1.1em;
+        }
+        .meaning {
+            margin-top: 10px;
+            margin-bottom: 20px;
+            color: #555;
+            font-size: 1.1em;
+        }
+        .examples ol {
+            list-style: none; /* Remove default numbering */
+            counter-reset: example-counter; /* Initialize counter */
+            padding-left: 0;
+        }
+        .examples li {
+            counter-increment: example-counter; /* Increment counter for each list item */
+            margin-bottom: 15px;
+            position: relative;
+            padding-left: 35px; /* Space for custom number */
+        }
+        .examples li::before {
+            content: counter(example-counter) ".";
+            position: absolute;
+            left: 0;
+            top: 0;
+            font-weight: bold;
+            color: #1abc9c;
+            font-size: 1.1em;
+        }
+        .examples li .chinese {
+            font-weight: bold;
+            color: #16a085;
+            display: block;
+            margin-bottom: 3px;
+        }
+        .examples li .vietnamese {
+            color: #7f8c8d;
+            font-size: 0.98em;
+            font-style: italic;
+        }
+        hr {
+            border: 0;
+            height: 1px;
+            background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0));
+            margin: 50px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>第十三课：请把你的护照给我</h1>
+
+    <div class="vocab-item">
+        <h2><strong>酒店</strong> <span class="pinyin">(jiǔ diàn)</span></h2>
+        <p class="meaning">khách sạn</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">去北京旅行，我提前在网上预订了一家酒店，离市中心很近。</span><br><span class="vietnamese">Đi du lịch Bắc Kinh, tôi đã đặt trước một khách sạn trên mạng, rất gần trung tâm thành phố.</span></li>
+                <li><span class="chinese">请把你的护照给我，酒店需要办理入住手续。</span><br><span class="vietnamese">Vui lòng đưa hộ chiếu của bạn cho tôi, khách sạn cần làm thủ tục nhận phòng.</span></li>
+                <li><span class="chinese">这家酒店的服务非常好，房间也很干净，让人很满意。</span><br><span class="vietnamese">Dịch vụ của khách sạn này rất tốt, phòng cũng rất sạch sẽ, khiến người ta rất hài lòng.</span></li>
+                <li><span class="chinese">我们在酒店大堂等朋友，他马上就从机场过来了。</span><br><span class="vietnamese">Chúng tôi đang đợi bạn ở sảnh khách sạn, anh ấy sắp từ sân bay đến rồi.</span></li>
+                <li><span class="chinese">酒店里有标准间和豪华间，你可以根据自己的需要选择。</span><br><span class="vietnamese">Trong khách sạn có phòng tiêu chuẩn và phòng sang trọng, bạn có thể lựa chọn theo nhu cầu của mình.</span></li>
+                <li><span class="chinese">这家酒店的早餐很丰富。</span><br><span class="vietnamese">Bữa sáng của khách sạn này rất phong phú.</span></li>
+                <li><span class="chinese">他预订了一间单人房。</span><br><span class="vietnamese">Anh ấy đã đặt một phòng đơn.</span></li>
+                <li><span class="chinese">酒店的电梯有点儿旧了。</span><br><span class="vietnamese">Thang máy của khách sạn hơi cũ rồi.</span></li>
+                <li><span class="chinese">他住在一家五星级酒店。</span><br><span class="vietnamese">Anh ấy ở trong một khách sạn năm sao.</span></li>
+                <li><span class="chinese">这家酒店的服务员很热情。</span><br><span class="vietnamese">Nhân viên phục vụ của khách sạn này rất nhiệt tình.</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>开房</strong> <span class="pinyin">(kāi fáng)</span></h2>
+        <p class="meaning">mở phòng (đăng ký phòng ở khách sạn)</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">请把你的护照给我，我帮你去酒店前台开房，办理入住手续。</span><br><span class="vietnamese">Vui lòng đưa hộ chiếu của bạn cho tôi, tôi giúp bạn đến quầy lễ tân khách sạn mở phòng, làm thủ tục nhận phòng.</span></li>
+                <li><span class="chinese">我们昨天晚上很晚才到酒店，所以很快就去开房休息了。</span><br><span class="vietnamese">Tối qua chúng tôi rất muộn mới đến khách sạn, nên rất nhanh đã đi mở phòng nghỉ ngơi rồi.</span></li>
+                <li><span class="chinese">请问，开房需要提供身份证或者护照吗？</span><br><span class="vietnamese">Xin hỏi, mở phòng có cần cung cấp chứng minh thư hoặc hộ chiếu không?</span></li>
+                <li><span class="chinese">他去酒店前台开房，要了一个标准间。</span><br><span class="vietnamese">Anh ấy đi quầy lễ tân khách sạn mở phòng, muốn một phòng tiêu chuẩn.</span></li>
+                <li><span class="chinese">这个酒店的开房手续很简单，几分钟就办好了。</span><br><span class="vietnamese">Thủ tục mở phòng của khách sạn này rất đơn giản, mấy phút đã làm xong rồi.</span></li>
+                <li><span class="chinese">他开房了。</span><br><span class="vietnamese">Anh ấy đã mở phòng rồi.</span></li>
+                <li><span class="chinese">请你帮我开房。</span><br><span class="vietnamese">Bạn vui lòng giúp tôi mở phòng.</span></li>
+                <li><span class="chinese">开房需要护照。</span><br><span class="vietnamese">Mở phòng cần hộ chiếu.</span></li>
+                <li><span class="chinese">他去酒店开房了。</span><br><span class="vietnamese">Anh ấy đi khách sạn mở phòng rồi.</span></li>
+                <li><span class="chinese">这个酒店的开房服务很好。</span><br><span class="vietnamese">Dịch vụ mở phòng của khách sạn này rất tốt.</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>标准</strong> <span class="pinyin">(biāo zhǔn)</span></h2>
+        <p class="meaning">tiêu chuẩn</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">酒店里有标准间和豪华间，你可以根据自己的预算和需求选择。</span><br><span class="vietnamese">Trong khách sạn có phòng tiêu chuẩn và phòng sang trọng, bạn có thể lựa chọn theo ngân sách và nhu cầu của mình.</span></li>
+                <li><span class="chinese">他的中文发音非常标准，老师都夸他学得好。</span><br><span class="vietnamese">Phát âm tiếng Trung của anh ấy vô cùng chuẩn, thầy giáo đều khen anh ấy học tốt.</span></li>
+                <li><span class="chinese">这个产品的质量达到了国际标准，所以很受欢迎。</span><br><span class="vietnamese">Chất lượng của sản phẩm này đã đạt tiêu chuẩn quốc tế, nên rất được yêu thích.</span></li>
+                <li><span class="chinese">老师要求我们写汉字要写得标准，不能马虎。</span><br><span class="vietnamese">Thầy giáo yêu cầu chúng tôi viết chữ Hán phải viết chuẩn, không được cẩu thả.</span></li>
+                <li><span class="chinese">这个考试的标准很高，不是那么容易通过的。</span><br><span class="vietnamese">Tiêu chuẩn của kỳ thi này rất cao, không dễ dàng vượt qua như vậy.</span></li>
+                <li><span class="chinese">他用标准的普通话和大家交流。</span><br><span class="vietnamese">Anh ấy dùng tiếng phổ thông chuẩn để giao tiếp với mọi người.</span></li>
+                <li><span class="chinese">这个服务达到了标准。</span><br><span class="vietnamese">Dịch vụ này đã đạt tiêu chuẩn.</span></li>
+                <li><span class="chinese">他对自己要求很高，总是追求最高标准。</span><br><span class="vietnamese">Anh ấy có yêu cầu rất cao với bản thân, luôn theo đuổi tiêu chuẩn cao nhất.</span></li>
+                <li><span class="chinese">请你告诉我这个答案的标准是什么。</span><br><span class="vietnamese">Bạn vui lòng nói cho tôi biết tiêu chuẩn của đáp án này là gì.</span></li>
+                <li><span class="chinese">他希望自己的中文水平达到HSK六级标准。</span><br><span class="vietnamese">Anh ấy hy vọng trình độ tiếng Trung của mình đạt tiêu chuẩn HSK cấp 6.</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>豪华</strong> <span class="pinyin">(háo huá)</span></h2>
+        <p class="meaning">xa hoa, sang trọng</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">他为妻子预订了一间酒店的豪华套房，作为结婚纪念日礼物。</span><br><span class="vietnamese">Anh ấy đã đặt trước một phòng suite sang trọng của khách sạn cho vợ, làm quà kỷ niệm ngày cưới.</span></li>
+                <li><span class="chinese">这家酒店的豪华间非常舒适，里面有很大的床和独立的卫生间。</span><br><span class="vietnamese">Phòng sang trọng của khách sạn này vô cùng thoải mái, bên trong có giường rất lớn và nhà vệ sinh riêng.</span></li>
+                <li><span class="chinese">他开了一辆非常豪华的汽车，吸引了很多路人的目光。</span><br><span class="vietnamese">Anh ấy lái một chiếc ô tô vô cùng sang trọng, thu hút ánh nhìn của rất nhiều người qua đường.</span></li>
+                <li><span class="chinese">她喜欢穿豪华的名牌衣服，每次购物都要花很多钱。</span><br><span class="vietnamese">Cô ấy thích mặc quần áo hàng hiệu sang trọng, mỗi lần mua sắm đều phải tốn rất nhiều tiền.</span></li>
+                <li><span class="chinese">这个购物中心有很多豪华品牌店，卖各种各样的名牌商品。</span><br><span class="vietnamese">Trung tâm mua sắm này có rất nhiều cửa hàng hàng hiệu sang trọng, bán đủ loại sản phẩm hàng hiệu.</span></li>
+                <li><span class="chinese">他住在一栋豪华的别墅里。</span><br><span class="vietnamese">Anh ấy sống trong một căn biệt thự sang trọng.</span></li>
+                <li><span class="chinese">这个饭馆的装修很豪华。</span><br><span class="vietnamese">Trang trí của nhà hàng này rất xa hoa.</span></li>
+                <li><span class="chinese">他希望过上豪华的生活。</span><br><span class="vietnamese">Anh ấy hy vọng sống một cuộc sống xa hoa.</span></li>
+                <li><span class="chinese">这次旅行的酒店非常豪华。</span><br><span class="vietnamese">Khách sạn của chuyến du lịch lần này vô cùng sang trọng.</span></li>
+                <li><span class="chinese">他买了一件豪华的家具。</span><br><span class="vietnamese">Anh ấy đã mua một món đồ nội thất sang trọng.</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>单人</strong> <span class="pinyin">(dān rén)</span></h2>
+        <p class="meaning">một người, cá nhân (thường dùng cho phòng, ghế)</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">我一个人去北京旅行，所以在酒店开了一个单人房。</span><br><span class="vietnamese">Tôi đi du lịch Bắc Kinh một mình, nên đã mở một phòng đơn ở khách sạn.</span></li>
+                <li><span class="chinese">酒店里有单人房和双人房，你可以根据自己的需要选择。</span><br><span class="vietnamese">Trong khách sạn có phòng đơn và phòng đôi, bạn có thể lựa chọn theo nhu cầu của mình.</span></li>
+                <li><span class="chinese">这张沙发是单人的，只能坐一个人，不够我们坐。</span><br><span class="vietnamese">Cái ghế sofa này là loại đơn, chỉ có thể ngồi một người, không đủ cho chúng tôi ngồi.</span></li>
+                <li><span class="chinese">他喜欢一个人吃饭，所以经常去单人餐厅吃饭。</span><br><span class="vietnamese">Anh ấy thích ăn cơm một mình, nên thường xuyên đi nhà hàng một người ăn.</span></li>
+                <li><span class="chinese">这个座位是单人的，没有人坐，你可以坐这里。</span><br><span class="vietnamese">Chỗ ngồi này là loại đơn, không có ai ngồi, bạn có thể ngồi đây.</span></li>
+                <li><span class="chinese">他买了一个单人沙发。</span><br><span class="vietnamese">Anh ấy đã mua một cái ghế sofa đơn.</span></li>
+                <li><span class="chinese">他喜欢玩单人游戏。</span><br><span class="vietnamese">Anh ấy thích chơi game một người.</span></li>
+                <li><span class="chinese">这个任务需要单人完成。</span><br><span class="vietnamese">Nhiệm vụ này cần một người hoàn thành.</span></li>
+                <li><span class="chinese">他预订了一间单人房。</span><br><span class="vietnamese">Anh ấy đã đặt một phòng đơn.</span></li>
+                <li><span class="chinese">这辆自行车是单人自行车。</span><br><span class="vietnamese">Chiếc xe đạp này là xe đạp đơn.</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>双人</strong> <span class="pinyin">(shuāng rén)</span></h2>
+        <p class="meaning">hai người, đôi (thường dùng cho phòng, ghế)</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">我和朋友一起去旅行，所以在酒店开了一个双人房。</span><br><span class="vietnamese">Tôi và bạn bè cùng nhau đi du lịch, nên đã mở một phòng đôi ở khách sạn.</span></li>
+                <li><span class="chinese">酒店里有单人房和双人房，你可以根据自己的需要选择。</span><br><span class="vietnamese">Trong khách sạn có phòng đơn và phòng đôi, bạn có thể lựa chọn theo nhu cầu của mình.</span></li>
+                <li><span class="chinese">这张沙发是双人的，可以坐两个人，比较方便。</span><br><span class="vietnamese">Cái ghế sofa này là loại đôi, có thể ngồi hai người, tương đối tiện lợi.</span></li>
+                <li><span class="chinese">我们去电影院买了两张双人票，可以和朋友一起坐。</span><br><span class="vietnamese">Chúng tôi đi rạp chiếu phim mua hai vé đôi, có thể ngồi cùng bạn bè.</span></li>
+                <li><span class="chinese">这个游戏可以双人玩，你喜欢和朋友一起玩吗？</span><br><span class="vietnamese">Trò chơi này có thể hai người chơi, bạn có thích chơi cùng bạn bè không?</span></li>
+                <li><span class="chinese">他预订了一间双人房。</span><br><span class="vietnamese">Anh ấy đã đặt một phòng đôi.</span></li>
+                <li><span class="chinese">他喜欢玩双人游戏。</span><br><span class="vietnamese">Anh ấy thích chơi game hai người.</span></li>
+                <li><span class="chinese">这张床是双人床。</span><br><span class="vietnamese">Cái giường này là giường đôi.</span></li>
+                <li><span class="chinese">我们一起去坐双人自行车吧。</span><br><span class="vietnamese">Chúng ta cùng nhau đi xe đạp đôi nhé.</span></li>
+                <li><span class="chinese">他买了一双人鞋。</span><br><span class="vietnamese">Anh ấy đã mua một đôi giày đôi.</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>满足</strong> <span class="pinyin">(mǎn zú)</span></h2>
+        <p class="meaning">thỏa mãn, đáp ứng (yêu cầu, nhu cầu)</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">这家酒店的服务很好，可以满足客人的各种要求。</span><br><span class="vietnamese">Dịch vụ của khách sạn này rất tốt, có thể đáp ứng các yêu cầu khác nhau của khách hàng.</span></li>
+                <li><span class="chinese">他对自己的生活非常满意，因为所有愿望都得到了满足。</span><br><span class="vietnamese">Anh ấy vô cùng hài lòng với cuộc sống của mình, vì tất cả mong muốn đều được thỏa mãn.</span></li>
+                <li><span class="chinese">这个产品可以满足大部分客户的需求。</span><br><span class="vietnamese">Sản phẩm này có thể đáp ứng nhu cầu của đa số khách hàng.</span></li>
+                <li><span class="chinese">他努力工作，希望能满足家人的生活需要。</span><br><span class="vietnamese">Anh ấy làm việc chăm chỉ, hy vọng có thể đáp ứng nhu cầu cuộc sống của gia đình.</span></li>
+                <li><span class="chinese">老师的回答没有满足我的要求。</span><br><span class="vietnamese">Câu trả lời của thầy giáo không đáp ứng yêu cầu của tôi.</span></li>
+                <li><span class="chinese">他很容易满足。</span><br><span class="vietnamese">Anh ấy rất dễ thỏa mãn.</span></li>
+                <li><span class="chinese">我希望这个结果能让你满意。</span><br><span class="vietnamese">Tôi hy vọng kết quả này có thể khiến bạn hài lòng.</span></li>
+                <li><span class="chinese">这个电影无法满足所有观众的期待。</span><br><span class="vietnamese">Bộ phim này không thể đáp ứng kỳ vọng của tất cả khán giả.</span></li>
+                <li><span class="chinese">他努力学习，以满足父母的期望。</span><br><span class="vietnamese">Anh ấy cố gắng học tập, để đáp ứng kỳ vọng của bố mẹ.</span></li>
+                <li><span class="chinese">他需要更多的钱来满足他的生活。</span><br><span class="vietnamese">Anh ấy cần nhiều tiền hơn để đáp ứng cuộc sống của mình.</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>退房</strong> <span class="pinyin">(tuì fáng)</span></h2>
+        <p class="meaning">trả phòng (khách sạn)</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">我们明天早上十二点之前就要退房了，所以得早点儿起床。</span><br><span class="vietnamese">Chúng tôi sáng mai phải trả phòng trước mười hai giờ, nên phải dậy sớm một chút.</span></li>
+                <li><span class="chinese">请问，退房手续在哪里办理？需要带护照吗？</span><br><span class="vietnamese">Xin hỏi, thủ tục trả phòng làm ở đâu? Có cần mang hộ chiếu không?</span></li>
+                <li><span class="chinese">他提前退房了，因为他有急事需要离开。</span><br><span class="vietnamese">Anh ấy đã trả phòng sớm, vì anh ấy có việc gấp cần rời đi.</span></li>
+                <li><span class="chinese">退房的时候，酒店会检查房间是否损坏。</span><br><span class="vietnamese">Khi trả phòng, khách sạn sẽ kiểm tra phòng có bị hư hại không.</span></li>
+                <li><span class="chinese">我们昨天下午三点就退房了。</span><br><span class="vietnamese">Chúng tôi ba giờ chiều hôm qua đã trả phòng rồi.</span></li>
+                <li><span class="chinese">他去酒店退房了。</span><br><span class="vietnamese">Anh ấy đi khách sạn trả phòng rồi.</span></li>
+                <li><span class="chinese">退房时间是中午十二点。</span><br><span class="vietnamese">Giờ trả phòng là mười hai giờ trưa.</span></li>
+                <li><span class="chinese">请你帮我办理退房手续。</span><br><span class="vietnamese">Bạn vui lòng giúp tôi làm thủ tục trả phòng.</span></li>
+                <li><span class="chinese">他忘记退房了。</span><br><span class="vietnamese">Anh ấy quên trả phòng rồi.</span></li>
+                <li><span class="chinese">退房以后，他去了机场。</span><br><span class="vietnamese">Sau khi trả phòng, anh ấy đi sân bay.</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>入住</strong> <span class="pinyin">(rù zhù)</span></h2>
+        <p class="meaning">nhận phòng, vào ở</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">请把你的护照给我，酒店需要办理入住手续。</span><br><span class="vietnamese">Vui lòng đưa hộ chiếu của bạn cho tôi, khách sạn cần làm thủ tục nhận phòng.</span></li>
+                <li><span class="chinese">我们下午三点才能入住酒店，所以现在我们先去逛逛街。</span><br><span class="vietnamese">Chúng tôi ba giờ chiều mới có thể nhận phòng khách sạn, nên bây giờ chúng tôi đi dạo phố trước.</span></li>
+                <li><span class="chinese">办理入住手续需要提供身份证或者护照。</span><br><span class="vietnamese">Làm thủ tục nhận phòng cần cung cấp chứng minh thư hoặc hộ chiếu.</span></li>
+                <li><span class="chinese">这个酒店的入住时间是下午两点。</span><br><span class="vietnamese">Thời gian nhận phòng của khách sạn này là hai giờ chiều.</span></li>
+                <li><span class="chinese">他已经办理了入住手续。</span><br><span class="vietnamese">Anh ấy đã làm thủ tục nhận phòng rồi.</span></li>
+                <li><span class="chinese">请你帮我办理入住手续。</span><br><span class="vietnamese">Bạn vui lòng giúp tôi làm thủ tục nhận phòng.</span></li>
+                <li><span class="chinese">他今天下午会入住酒店。</span><br><span class="vietnamese">Chiều nay anh ấy sẽ nhận phòng khách sạn.</span></li>
+                <li><span class="chinese">入住手续很简单。</span><br><span class="vietnamese">Thủ tục nhận phòng rất đơn giản.</span></li>
+                <li><span class="chinese">他明天就可以入住了。</span><br><span class="vietnamese">Anh ấy ngày mai có thể nhận phòng rồi.</span></li>
+                <li><span class="chinese">我今天晚上入住这家酒店。</span><br><span class="vietnamese">Tối nay tôi nhận phòng khách sạn này.</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>手续</strong> <span class="pinyin">(shǒu xù)</span></h2>
+        <p class="meaning">thủ tục</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">请把你的护照给我，酒店需要办理入住手续。</span><br><span class="vietnamese">Vui lòng đưa hộ chiếu của bạn cho tôi, khách sạn cần làm thủ tục nhận phòng.</span></li>
+                <li><span class="chinese">去银行换钱需要带身份证，办理手续比较麻烦。</span><br><span class="vietnamese">Đi ngân hàng đổi tiền cần mang chứng minh thư, làm thủ tục tương đối phiền phức.</span></li>
+                <li><span class="chinese">这个手续很简单，几分钟就可以办好。</span><br><span class="vietnamese">Thủ tục này rất đơn giản, mấy phút là có thể làm xong rồi.</span></li>
+                <li><span class="chinese">他正在办理入学手续。</span><br><span class="vietnamese">Anh ấy đang làm thủ tục nhập học.</span></li>
+                <li><span class="chinese">请问，退房手续在哪里办理？</span><br><span class="vietnamese">Xin hỏi, thủ tục trả phòng làm ở đâu?</span></li>
+                <li><span class="chinese">这个手续有点儿复杂。</span><br><span class="vietnamese">Thủ tục này hơi phức tạp.</span></li>
+                <li><span class="chinese">他去办理了签证手续。</span><br><span class="vietnamese">Anh ấy đi làm thủ tục visa rồi.</span></li>
+                <li><span class="chinese">请你帮我办理一下儿这个手续。</span><br><span class="vietnamese">Bạn vui lòng giúp tôi làm thủ tục này một chút.</span></li>
+                <li><span class="chinese">这些手续都需要完成。</span><br><span class="vietnamese">Những thủ tục này đều cần hoàn thành.</span></li>
+                <li><span class="chinese">他不知道怎么办理这个手续。</span><br><span class="vietnamese">Anh ấy không biết làm thủ tục này thế nào.</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>密码</strong> <span class="pinyin">(mì mǎ)</span></h2>
+        <p class="meaning">mật khẩu</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">请问，你的银行卡密码是多少？我帮你去取钱。</span><br><span class="vietnamese">Xin hỏi, mật khẩu thẻ ngân hàng của bạn là bao nhiêu? Tôi giúp bạn đi rút tiền.</span></li>
+                <li><span class="chinese">他忘记了他的手机密码，所以手机打不开。</span><br><span class="vietnamese">Anh ấy quên mật khẩu điện thoại rồi, nên điện thoại không mở được.</span></li>
+                <li><span class="chinese">请你保管好你的银行卡密码，不要告诉别人。</span><br><span class="vietnamese">Bạn vui lòng giữ gìn cẩn thận mật khẩu thẻ ngân hàng của bạn, đừng nói cho người khác.</span></li>
+                <li><span class="chinese">我的电脑密码很复杂，不容易被猜到。</span><br><span class="vietnamese">Mật khẩu máy tính của tôi rất phức tạp, không dễ bị đoán ra.</span></li>
+                <li><span class="chinese">请你输入密码。</span><br><span class="vietnamese">Bạn vui lòng nhập mật khẩu.</span></li>
+                <li><span class="chinese">我忘记了我的密码。</span><br><span class="vietnamese">Tôi quên mật khẩu của tôi rồi.</span></li>
+                <li><span class="chinese">这个密码是六位数。</span><br><span class="vietnamese">Mật khẩu này có sáu chữ số.</span></li>
+                <li><span class="chinese">他把密码写在纸上了。</span><br><span class="vietnamese">Anh ấy đã viết mật khẩu lên giấy rồi.</span></li>
+                <li><span class="chinese">请你记住你的密码。</span><br><span class="vietnamese">Bạn vui lòng nhớ mật khẩu của bạn.</span></li>
+                <li><span class="chinese">这个密码很容易被破解。</span><br><span class="vietnamese">Mật khẩu này rất dễ bị phá.</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>卡</strong> <span class="pinyin">(kǎ)</span></h2>
+        <p class="meaning">thẻ (tín dụng, ngân hàng, sim); kẹt</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">请问，你的银行卡密码是多少？我帮你去取钱。</span><br><span class="vietnamese">Xin hỏi, mật khẩu thẻ ngân hàng của bạn là bao nhiêu? Tôi giúp bạn đi rút tiền.</span></li>
+                <li><span class="chinese">我忘记带银行卡了，只能用现金或者手机支付。</span><br><span class="vietnamese">Tôi quên mang thẻ ngân hàng rồi, chỉ có thể dùng tiền mặt hoặc điện thoại thanh toán.</span></li>
+                <li><span class="chinese">这个手机卡没有信号，所以不能打电话。</span><br><span class="vietnamese">Thẻ điện thoại này không có tín hiệu, nên không thể gọi điện thoại.</span></li>
+                <li><span class="chinese">我的电脑有点儿卡，可能是内存不够了。</span><br><span class="vietnamese">Máy tính của tôi hơi bị đơ, có lẽ là bộ nhớ không đủ rồi.</span></li>
+                <li><span class="chinese">请你刷卡付款。</span><br><span class="vietnamese">Bạn vui lòng quẹt thẻ thanh toán.</span></li>
+                <li><span class="chinese">他有一张信用卡。</span><br><span class="vietnamese">Anh ấy có một thẻ tín dụng.</span></li>
+                <li><span class="chinese">这张卡是新的。</span><br><span class="vietnamese">Tấm thẻ này là mới.</span></li>
+                <li><span class="chinese">请你把卡给我。</span><br><span class="vietnamese">Bạn vui lòng đưa thẻ cho tôi.</span></li>
+                <li><span class="chinese">我的手机卡坏了。</span><br><span class="vietnamese">Thẻ điện thoại của tôi hỏng rồi.</span></li>
+                <li><span class="chinese">他有一张会员卡。</span><br><span class="vietnamese">Anh ấy có một thẻ thành viên.</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>背面</strong> <span class="pinyin">(bèi miàn)</span></h2>
+        <p class="meaning">mặt sau, phía sau</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">请问，你的银行卡密码写在卡背面了吗？这样不安全。</span><br><span class="vietnamese">Xin hỏi, mật khẩu thẻ ngân hàng của bạn có viết ở mặt sau thẻ không? Như vậy không an toàn.</span></li>
+                <li><span class="chinese">这张照片的背面写着日期和地点，是去年的旅行照片。</span><br><span class="vietnamese">Mặt sau của tấm ảnh này có viết ngày tháng và địa điểm, là ảnh du lịch năm ngoái.</span></li>
+                <li><span class="chinese">请你把这张纸翻过来，看背面有什么内容。</span><br><span class="vietnamese">Bạn vui lòng lật tờ giấy này lại, xem mặt sau có nội dung gì.</span></li>
+                <li><span class="chinese">这件衣服的背面有一个图案，非常好看。</span><br><span class="vietnamese">Mặt sau của bộ quần áo này có một họa tiết, vô cùng đẹp.</span></li>
+                <li><span class="chinese">他坐在我的背面，所以我看不到他。</span><br><span class="vietnamese">Anh ấy ngồi ở phía sau tôi, nên tôi không nhìn thấy anh ấy.</span></li>
+                <li><span class="chinese">这本书的背面是作者的介绍。</span><br><span class="vietnamese">Mặt sau của cuốn sách này là giới thiệu về tác giả.</span></li>
+                <li><span class="chinese">请你把卡翻到背面。</span><br><span class="vietnamese">Bạn vui lòng lật thẻ sang mặt sau.</span></li>
+                <li><span class="chinese">房子的背面有一个小花园。</span><br><span class="vietnamese">Mặt sau của căn nhà có một khu vườn nhỏ.</span></li>
+                <li><span class="chinese">他把手提包放在背面上。</span><br><span class="vietnamese">Anh ấy đặt túi xách lên mặt sau.</span></li>
+                <li><span class="chinese">这张纸的背面很干净。</span><br><span class="vietnamese">Mặt sau của tờ giấy này rất sạch sẽ.</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>行李</strong> <span class="pinyin">(xíng li)</span></h2>
+        <p class="meaning">hành lý</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">我的行李有点儿重，你帮我提到房间去吧。</span><br><span class="vietnamese">Hành lý của tôi hơi nặng, bạn giúp tôi xách vào phòng đi.</span></li>
+                <li><span class="chinese">他带着很多行李去机场，差点儿赶不上飞机。</span><br><span class="vietnamese">Anh ấy mang rất nhiều hành lý đi sân bay, suýt chút nữa thì không kịp máy bay.</span></li>
+                <li><span class="chinese">请问，我的行李是在哪儿丢的？里面有护照。</span><br><span class="vietnamese">Xin hỏi, hành lý của tôi bị mất ở đâu? Bên trong có hộ chiếu.</span></li>
+                <li><span class="chinese">行李员帮我把行李送到了房间。</span><br><span class="vietnamese">Nhân viên hành lý đã giúp tôi mang hành lý đến phòng.</span></li>
+                <li><span class="chinese">你打算带多少行李去中国留学？</span><br><span class="vietnamese">Bạn dự định mang bao nhiêu hành lý đi du học Trung Quốc?</span></li>
+                <li><span class="chinese">这个行李箱很小。</span><br><span class="vietnamese">Cái vali này rất nhỏ.</span></li>
+                <li><span class="chinese">请你帮我拿一下儿行李。</span><br><span class="vietnamese">Bạn vui lòng giúp tôi xách hành lý một chút.</span></li>
+                <li><span class="chinese">他正在收拾行李。</span><br><span class="vietnamese">Anh ấy đang dọn dẹp hành lý.</span></li>
+                <li><span class="chinese">我的行李很重。</span><br><span class="vietnamese">Hành lý của tôi rất nặng.</span></li>
+                <li><span class="chinese">请你把行李放在这里。</span><br><span class="vietnamese">Bạn vui lòng để hành lý ở đây.</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>行李员</strong> <span class="pinyin">(xíng li yuán)</span></h2>
+        <p class="meaning">nhân viên hành lý</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">请问行李员，我的行李什么时候能送到房间？</span><br><span class="vietnamese">Xin hỏi nhân viên hành lý, hành lý của tôi khi nào có thể gửi đến phòng?</span></li>
+                <li><span class="chinese">行李员帮我把行李拿到了房间，服务非常好，我很满意。</span><br><span class="vietnamese">Nhân viên hành lý đã giúp tôi mang hành lý vào phòng, dịch vụ rất tốt, tôi rất hài lòng.</span></li>
+                <li><span class="chinese">酒店的行李员都很热情，总是乐意帮助客人。</span><br><span class="vietnamese">Nhân viên hành lý của khách sạn đều rất nhiệt tình, luôn sẵn lòng giúp đỡ khách.</span></li>
+                <li><span class="chinese">他给了行李员一些小费，表示感谢。</span><br><span class="vietnamese">Anh ấy đã cho nhân viên hành lý một ít tiền boa, biểu thị sự cảm ơn.</span></li>
+                <li><span class="chinese">请你叫一下儿行李员，我有很多行李需要帮忙。</span><br><span class="vietnamese">Bạn vui lòng gọi nhân viên hành lý một chút, tôi có rất nhiều hành lý cần giúp đỡ.</span></li>
+                <li><span class="chinese">行李员正在搬行李。</span><br><span class="vietnamese">Nhân viên hành lý đang khiêng hành lý.</span></li>
+                <li><span class="chinese">他是一名行李员。</span><br><span class="vietnamese">Anh ấy là một nhân viên hành lý.</span></li>
+                <li><span class="chinese">行李员的服务很周到。</span><br><span class="vietnamese">Dịch vụ của nhân viên hành lý rất chu đáo.</span></li>
+                <li><span class="chinese">他向行李员问好。</span><br><span class="vietnamese">Anh ấy hỏi thăm nhân viên hành lý.</span></li>
+                <li><span class="chinese">行李员帮他提行李。</span><br><span class="vietnamese">Nhân viên hành lý giúp anh ấy xách hành lý.</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>稍</strong> <span class="pinyin">(shāo)</span></h2>
+        <p class="meaning">hơi, chút (rút gọn của 稍微)</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">请稍等，我马上就来，你不要着急。</span><br><span class="vietnamese">Vui lòng đợi một chút, tôi sẽ đến ngay, bạn đừng lo lắng.</span></li>
+                <li><span class="chinese">他稍微有点儿不舒服，所以请假回家休息了。</span><br><span class="vietnamese">Anh ấy hơi không thoải mái, nên xin nghỉ phép về nhà nghỉ ngơi rồi.</span></li>
+                <li><span class="chinese">这个菜稍微有点儿辣，你吃得惯吗？</span><br><span class="vietnamese">Món này hơi cay một chút, bạn ăn quen không?</span></li>
+                <li><span class="chinese">请你把声音调小一点儿，稍微低一点儿。</span><br><span class="vietnamese">Bạn vui lòng vặn nhỏ tiếng xuống một chút, hơi thấp xuống một chút.</span></li>
+                <li><span class="chinese">他稍作休息，然后继续工作。</span><br><span class="vietnamese">Anh ấy nghỉ ngơi một lát, sau đó tiếp tục làm việc.</span></li>
+                <li><span class="chinese">稍等一下儿。</span><br><span class="vietnamese">Đợi một chút.</span></li>
+                <li><span class="chinese">他稍微胖了点儿。</span><br><span class="vietnamese">Anh ấy hơi béo lên một chút rồi.</span></li>
+                <li><span class="chinese">我稍微有点儿困。</span><br><span class="vietnamese">Tôi hơi buồn ngủ.</span></li>
+                <li><span class="chinese">他稍作思考。</span><br><span class="vietnamese">Anh ấy suy nghĩ một lát.</span></li>
+                <li><span class="chinese">请你稍微等一下儿。</span><br><span class="vietnamese">Bạn vui lòng đợi một lát.</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>稍微</strong> <span class="pinyin">(shāo wēi)</span></h2>
+        <p class="meaning">hơi, một chút (biểu thị mức độ nhỏ)</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">他稍微有点儿不舒服，所以请假回家休息了，希望他快点儿好起来。</span><br><span class="vietnamese">Anh ấy hơi không thoải mái, nên xin nghỉ phép về nhà nghỉ ngơi rồi, hy vọng anh ấy nhanh chóng khỏe lại.</span></li>
+                <li><span class="chinese">这个菜的味道稍微有点儿咸，可能是盐放多了。</span><br><span class="vietnamese">Hương vị của món này hơi mặn một chút, có lẽ là cho nhiều muối rồi.</span></li>
+                <li><span class="chinese">他中文说得稍微有点儿进步了，现在可以进行简单交流了。</span><br><span class="vietnamese">Tiếng Trung của anh ấy nói hơi tiến bộ rồi, bây giờ có thể giao tiếp đơn giản rồi.</span></li>
+                <li><span class="chinese">今天天气稍微有点儿冷，你多穿点儿衣服吧。</span><br><span class="vietnamese">Hôm nay thời tiết hơi lạnh một chút, bạn mặc thêm quần áo đi.</span></li>
+                <li><span class="chinese">这个房间稍微有点儿小，但是很干净。</span><br><span class="vietnamese">Căn phòng này hơi nhỏ một chút, nhưng rất sạch sẽ.</span></li>
+                <li><span class="chinese">他稍微停了一下儿。</span><br><span class="vietnamese">Anh ấy dừng lại một chút.</span></li>
+                <li><span class="chinese">我稍微有点儿饿了。</span><br><span class="vietnamese">Tôi hơi đói rồi.</span></li>
+                <li><span class="chinese">他稍微看了一下儿书。</span><br><span class="vietnamese">Anh ấy xem qua sách một chút.</span></li>
+                <li><span class="chinese">请你稍微慢一点儿。</span><br><span class="vietnamese">Bạn vui lòng chậm lại một chút.</span></li>
+                <li><span class="chinese">他稍微有点儿胖。</span><br><span class="vietnamese">Anh ấy hơi béo một chút.</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>果然</strong> <span class="pinyin">(guǒ rán)</span></h2>
+        <p class="meaning">quả nhiên, đúng như dự đoán</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">我猜他会赢，结果他果然赢了比赛，真是太棒了！</span><br><span class="vietnamese">Tôi đoán anh ấy sẽ thắng, kết quả quả nhiên anh ấy đã thắng trận đấu, thật là tuyệt vời!</span></li>
+                <li><span class="chinese">大家都说这家饭馆的菜很好吃，我今天来尝了尝，果然名不虚传。</span><br><span class="vietnamese">Mọi người đều nói món ăn của nhà hàng này rất ngon, hôm nay tôi đến nếm thử, quả nhiên danh bất hư truyền.</span></li>
+                <li><span class="chinese">我感觉他有点儿不高兴，果然他最后告诉我他生气了。</span><br><span class="vietnamese">Tôi cảm thấy anh ấy hơi không vui, quả nhiên cuối cùng anh ấy nói với tôi anh ấy giận rồi.</span></li>
+                <li><span class="chinese">天气预报说今天会下雨，果然下午就下起了大雨。</span><br><span class="vietnamese">Dự báo thời tiết nói hôm nay sẽ mưa, quả nhiên chiều liền đổ mưa lớn.</span></li>
+                <li><span class="chinese">他每天都努力学习，果然这次考试取得了高分。</span><br><span class="vietnamese">Anh ấy mỗi ngày đều cố gắng học tập, quả nhiên kỳ thi lần này đạt được điểm cao.</span></li>
+                <li><span class="chinese">他果然来了。</span><br><span class="vietnamese">Anh ấy quả nhiên đến rồi.</span></li>
+                <li><span class="chinese">我猜对了，果然是这样。</span><br><span class="vietnamese">Tôi đoán đúng rồi, quả nhiên là như vậy.</span></li>
+                <li><span class="chinese">他果然很厉害。</span><br><span class="vietnamese">Anh ấy quả nhiên rất giỏi.</span></li>
+                <li><span class="chinese">果然不出我所料。</span><br><span class="vietnamese">Quả nhiên không ngoài dự liệu của tôi.</span></li>
+                <li><span class="chinese">他果然不知道这件事。</span><br><span class="vietnamese">Anh ấy quả nhiên không biết chuyện này.</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>名不虚传</strong> <span class="pinyin">(míng bù xū chuán)</span></h2>
+        <p class="meaning">danh bất hư truyền (danh tiếng không hề hư dối)</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">大家都说这家饭馆的菜很好吃，我今天来尝了尝，果然名不虚传。</span><br><span class="vietnamese">Mọi người đều nói món ăn của nhà hàng này rất ngon, hôm nay tôi đến nếm thử, quả nhiên danh bất hư truyền.</span></li>
+                <li><span class="chinese">北京路步行街果然名不虚传，非常热闹，人山人海。</span><br><span class="vietnamese">Phố đi bộ Bắc Kinh Lộ quả nhiên danh bất hư truyền, vô cùng nhộn nhịp, người đông như núi biển.</span></li>
+                <li><span class="chinese">他的中文说得非常流利，发音也很标准，真是名不虚传。</span><br><span class="vietnamese">Tiếng Trung của anh ấy nói vô cùng lưu loát, phát âm cũng rất chuẩn, đúng là danh bất hư truyền.</span></li>
+                <li><span class="chinese">这个地方的风景非常美丽，真是名不虚传，值得一来。</span><br><span class="vietnamese">Phong cảnh nơi này vô cùng đẹp, đúng là danh bất hư truyền, đáng để đến một lần.</span></li>
+                <li><span class="chinese">他做的蛋糕非常好吃，果然名不虚传，我下次还要吃。</span><br><span class="vietnamese">Bánh kem anh ấy làm vô cùng ngon, quả nhiên danh bất hư truyền, lần sau tôi vẫn muốn ăn.</span></li>
+                <li><span class="chinese">这个景点名不虚传。</span><br><span class="vietnamese">Điểm tham quan này danh bất hư truyền.</span></li>
+                <li><span class="chinese">他果然名不虚传。</span><br><span class="vietnamese">Anh ấy quả nhiên danh bất hư truyền.</span></li>
+                <li><span class="chinese">这个地方的口碑很好，果然名不虚传。</span><br><span class="vietnamese">Tiếng tăm của nơi này rất tốt, quả nhiên danh bất hư truyền.</span></li>
+                <li><span class="chinese">这家店的烤串名不虚传。</span><br><span class="vietnamese">Xiên nướng của cửa hàng này danh bất hư truyền.</span></li>
+                <li><span class="chinese">他的实力名不虚传。</span><br><span class="vietnamese">Thực lực của anh ấy danh bất hư truyền.</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>胡同</strong> <span class="pinyin">(hú tòng)</span></h2>
+        <p class="meaning">ngõ, hẻm (đặc trưng của Bắc Kinh)</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">北京有很多有特色的胡同，我喜欢在那里散步，体验老北京的生活。</span><br><span class="vietnamese">Bắc Kinh có rất nhiều ngõ hẻm đặc trưng, tôi thích đi dạo ở đó, trải nghiệm cuộc sống Bắc Kinh cũ.</span></li>
+                <li><span class="chinese">这个胡同里有很多老房子，看起来很有历史感。</span><br><span class="vietnamese">Trong ngõ hẻm này có rất nhiều nhà cũ, trông rất có cảm giác lịch sử.</span></li>
+                <li><span class="chinese">他住在一条很安静的胡同里，周围环境很舒服。</span><br><span class="vietnamese">Anh ấy sống trong một con ngõ hẻm rất yên tĩnh, môi trường xung quanh rất thoải mái.</span></li>
+                <li><span class="chinese">胡同里有很多小吃店，味道非常地道。</span><br><span class="vietnamese">Trong ngõ hẻm có rất nhiều quán ăn vặt, hương vị vô cùng chuẩn.</span></li>
+                <li><span class="chinese">我喜欢在胡同里骑自行车，感受不一样的城市风情。</span><br><span class="vietnamese">Tôi thích đạp xe đạp trong ngõ hẻm, cảm nhận phong tình thành phố khác biệt.</span></li>
+                <li><span class="chinese">这个胡同很长。</span><br><span class="vietnamese">Con ngõ hẻm này rất dài.</span></li>
+                <li><span class="chinese">他住在胡同里。</span><br><span class="vietnamese">Anh ấy sống trong ngõ hẻm.</span></li>
+                <li><span class="chinese">胡同里有很多老北京人。</span><br><span class="vietnamese">Trong ngõ hẻm có rất nhiều người Bắc Kinh cũ.</span></li>
+                <li><span class="chinese">胡同的建筑风格很特别。</span><br><span class="vietnamese">Phong cách kiến trúc của ngõ hẻm rất đặc biệt.</span></li>
+                <li><span class="chinese">他喜欢逛胡同。</span><br><span class="vietnamese">Anh ấy thích dạo ngõ hẻm.</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>院子</strong> <span class="pinyin">(yuàn zi)</span></h2>
+        <p class="meaning">sân, sân vườn</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">他家的房子有一个大院子，里面种满了各种各样的花和树。</span><br><span class="vietnamese">Căn nhà của anh ấy có một cái sân lớn, bên trong trồng đầy đủ loại hoa và cây.</span></li>
+                <li><span class="chinese">这个胡同里有很多四合院，每个四合院都有自己的小院子。</span><br><span class="vietnamese">Trong ngõ hẻm này có rất nhiều tứ hợp viện, mỗi tứ hợp viện đều có sân nhỏ của riêng mình.</span></li>
+                <li><span class="chinese">小孩子们喜欢在院子里玩儿，追逐打闹，非常开心。</span><br><span class="vietnamese">Trẻ con thích chơi đùa trong sân, rượt đuổi nhau, vô cùng vui vẻ.</span></li>
+                <li><span class="chinese">他喜欢在院子里喝茶，享受安静的时光。</span><br><span class="vietnamese">Anh ấy thích uống trà trong sân, tận hưởng khoảng thời gian yên tĩnh.</span></li>
+                <li><span class="chinese">我打算在院子里种一些蔬菜，这样就可以吃到新鲜的了。</span><br><span class="vietnamese">Tôi dự định trồng một ít rau trong sân, như vậy có thể ăn loại tươi rồi.</span></li>
+                <li><span class="chinese">院子里有很多花。</span><br><span class="vietnamese">Trong sân có rất nhiều hoa.</span></li>
+                <li><span class="chinese">他把车停在院子里了。</span><br><span class="vietnamese">Anh ấy đã đỗ xe ở trong sân rồi.</span></li>
+                <li><span class="chinese">院子很干净。</span><br><span class="vietnamese">Sân rất sạch sẽ.</span></li>
+                <li><span class="chinese">他喜欢在院子里看书。</span><br><span class="vietnamese">Anh ấy thích đọc sách trong sân.</span></li>
+                <li><span class="chinese">这个院子很大。</span><br><span class="vietnamese">Cái sân này rất lớn.</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>同音</strong> <span class="pinyin">(tóng yīn)</span></h2>
+        <p class="meaning">đồng âm</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">在中文里，有很多同音字，学习的时候需要特别注意。</span><br><span class="vietnamese">Trong tiếng Trung, có rất nhiều từ đồng âm, khi học cần đặc biệt chú ý.</span></li>
+                <li><span class="chinese">“福”字倒着贴，因为“倒”和“到”是同音字，表示福到了。</span><br><span class="vietnamese">Chữ "福" dán ngược, vì "倒" (dào) và "到" (dào) là từ đồng âm, biểu thị phúc đến rồi.</span></li>
+                <li><span class="chinese">他的中文发音很标准，很少把同音字读错。</span><br><span class="vietnamese">Phát âm tiếng Trung của anh ấy rất chuẩn, rất ít khi đọc sai từ đồng âm.</span></li>
+                <li><span class="chinese">这个词有很多同音词，所以有时候会引起误会。</span><br><span class="vietnamese">Từ này có rất nhiều từ đồng âm, nên đôi khi sẽ gây ra hiểu lầm.</span></li>
+                <li><span class="chinese">学习中文的难点之一就是同音字很多。</span><br><span class="vietnamese">Một trong những điểm khó của việc học tiếng Trung chính là có nhiều từ đồng âm.</span></li>
+                <li><span class="chinese">这两个字是同音字。</span><br><span class="vietnamese">Hai chữ này là từ đồng âm.</span></li>
+                <li><span class="chinese">他解释了同音词的意思。</span><br><span class="vietnamese">Anh ấy giải thích nghĩa của từ đồng âm.</span></li>
+                <li><span class="chinese">中文有很多同音字。</span><br><span class="vietnamese">Tiếng Trung có rất nhiều từ đồng âm.</span></li>
+                <li><span class="chinese">同音字的学习很重要。</span><br><span class="vietnamese">Việc học từ đồng âm rất quan trọng.</span></li>
+                <li><span class="chinese">他把同音字弄错了。</span><br><span class="vietnamese">Anh ấy đã nhầm từ đồng âm rồi.</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>设</strong> <span class="pinyin">(shè)</span></h2>
+        <p class="meaning">thiết lập, đặt, bố trí</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">他设计了一个很漂亮的院子，里面种了很多花和树。</span><br><span class="vietnamese">Anh ấy thiết kế một cái sân rất đẹp, bên trong trồng rất nhiều hoa và cây.</span></li>
+                <li><span class="chinese">我们公司在新城市设立了一个分公司，扩大了业务范围。</span><br><span class="vietnamese">Công ty chúng tôi đã thành lập một chi nhánh mới ở thành phố mới, mở rộng phạm vi kinh doanh.</span></li>
+                <li><span class="chinese">这个房间的家具摆设得很合理，让人感觉很舒服。</span><br><span class="vietnamese">Đồ nội thất của căn phòng này được bố trí rất hợp lý, khiến người ta cảm thấy rất thoải mái.</span></li>
+                <li><span class="chinese">他们正在设计一个新产品，希望能够满足客户的需求。</span><br><span class="vietnamese">Họ đang thiết kế một sản phẩm mới, hy vọng có thể đáp ứng nhu cầu của khách hàng.</span></li>
+                <li><span class="chinese">这个地方的建筑设计得很特别，很有艺术感。</span><br><span class="vietnamese">Kiến trúc của nơi này được thiết kế rất đặc biệt, rất có tính nghệ thuật.</span></li>
+                <li><span class="chinese">他设计了一个新的方案。</span><br><span class="vietnamese">Anh ấy đã thiết kế một phương án mới.</span></li>
+                <li><span class="chinese">这个城市设立了一个新的购物中心。</span><br><span class="vietnamese">Thành phố này đã thiết lập một trung tâm mua sắm mới.</span></li>
+                <li><span class="chinese">他负责设计这个节目。</span><br><span class="vietnamese">Anh ấy phụ trách thiết kế tiết mục này.</span></li>
+                <li><span class="chinese">这个屋子的设计很合理。</span><br><span class="vietnamese">Thiết kế của căn phòng này rất hợp lý.</span></li>
+                <li><span class="chinese">他希望设计一个美好的家。</span><br><span class="vietnamese">Anh ấy hy vọng thiết kế một ngôi nhà đẹp.</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>风水</strong> <span class="pinyin">(fēng shuǐ)</span></h2>
+        <p class="meaning">phong thủy</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">中国人买房子的时候，很重视风水，认为会影响家庭的幸福。</span><br><span class="vietnamese">Người Trung Quốc khi mua nhà, rất coi trọng phong thủy, cho rằng sẽ ảnh hưởng đến hạnh phúc gia đình.</span></li>
+                <li><span class="chinese">他家的房子风水很好，所以他们生活得很幸福，事业也很成功。</span><br><span class="vietnamese">Phong thủy căn nhà của anh ấy rất tốt, nên họ sống rất hạnh phúc, sự nghiệp cũng rất thành công.</span></li>
+                <li><span class="chinese">你相信风水吗？我觉得风水在中国文化中很重要。</span><br><span class="vietnamese">Bạn có tin phong thủy không? Tôi thấy phong thủy rất quan trọng trong văn hóa Trung Quốc.</span></li>
+                <li><span class="chinese">请一位专业的风水师来看看这个房子的风水。</span><br><span class="vietnamese">Mời một thầy phong thủy chuyên nghiệp đến xem phong thủy căn nhà này.</span></li>
+                <li><span class="chinese">他家的客厅家具摆设得很讲究风水。</span><br><span class="vietnamese">Đồ nội thất phòng khách nhà anh ấy được bố trí rất chú trọng phong thủy.</span></li>
+                <li><span class="chinese">这个地方的风水很好。</span><br><span class="vietnamese">Phong thủy nơi này rất tốt.</span></li>
+                <li><span class="chinese">他很相信风水。</span><br><span class="vietnamese">Anh ấy rất tin phong thủy.</span></li>
+                <li><span class="chinese">风水是一门很深的学问。</span><br><span class="vietnamese">Phong thủy là một môn học rất sâu sắc.</span></li>
+                <li><span class="chinese">他研究风水。</span><br><span class="vietnamese">Anh ấy nghiên cứu phong thủy.</span></li>
+                <li><span class="chinese">风水对他的生活有影响。</span><br><span class="vietnamese">Phong thủy có ảnh hưởng đến cuộc sống của anh ấy.</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>有关</strong> <span class="pinyin">(yǒu guān)</span></h2>
+        <p class="meaning">có liên quan, có quan hệ</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">风水和家庭的幸福生活有关，所以中国人很重视。</span><br><span class="vietnamese">Phong thủy có liên quan đến cuộc sống hạnh phúc gia đình, nên người Trung Quốc rất coi trọng.</span></li>
+                <li><span class="chinese">你有什么问题可以问我，只要是和学习中文有关的，我都会帮你。</span><br><span class="vietnamese">Bạn có vấn đề gì có thể hỏi tôi, chỉ cần có liên quan đến việc học tiếng Trung, tôi đều sẽ giúp bạn.</span></li>
+                <li><span class="chinese">这份资料是关于中国经济发展的，和我们的工作有关。</span><br><span class="vietnamese">Tài liệu này là về phát triển kinh tế Trung Quốc, có liên quan đến công việc của chúng tôi.</span></li>
+                <li><span class="chinese">你说的这件事和这个项目没有关系。</span><br><span class="vietnamese">Chuyện bạn nói này không liên quan gì đến dự án này.</span></li>
+                <li><span class="chinese">请你告诉我所有和这个问题有关的信息。</span><br><span class="vietnamese">Bạn vui lòng nói cho tôi biết tất cả thông tin liên quan đến vấn đề này.</span></li>
+                <li><span class="chinese">他正在看一本和中国文化有关的书。</span><br><span class="vietnamese">Anh ấy đang đọc một cuốn sách có liên quan đến văn hóa Trung Quốc.</span></li>
+                <li><span class="chinese">这件事情和她有关。</span><br><span class="vietnamese">Chuyện này có liên quan đến cô ấy.</span></li>
+                <li><span class="chinese">这个问题和我们没有关系。</span><br><span class="vietnamese">Vấn đề này không liên quan gì đến chúng ta.</span></li>
+                <li><span class="chinese">他喜欢看和运动有关的电影。</span><br><span class="vietnamese">Anh ấy thích xem phim có liên quan đến thể thao.</span></li>
+                <li><span class="chinese">这个消息和我的工作有关。</span><br><span class="vietnamese">Tin tức này có liên quan đến công việc của tôi.</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>通风</strong> <span class="pinyin">(tōng fēng)</span></h2>
+        <p class="meaning">thông gió</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">这套房子周围的环境很好，通风也很好，住在里面很舒服。</span><br><span class="vietnamese">Môi trường xung quanh căn nhà này rất tốt, thông gió cũng rất tốt, ở bên trong rất thoải mái.</span></li>
+                <li><span class="chinese">卧室需要经常开窗通风，保持空气新鲜。</span><br><span class="vietnamese">Phòng ngủ cần thường xuyên mở cửa sổ thông gió, giữ không khí trong lành.</span></li>
+                <li><span class="chinese">这个房间的窗户很大，所以通风很好，很凉快。</span><br><span class="vietnamese">Cửa sổ của căn phòng này rất lớn, nên thông gió rất tốt, rất mát mẻ.</span></li>
+                <li><span class="chinese">厨房要保持通风，才能避免油烟。</span><br><span class="vietnamese">Nhà bếp phải giữ thông gió, mới có thể tránh được khói dầu.</span></li>
+                <li><span class="chinese">这个地方不通风，感觉有点儿闷。</span><br><span class="vietnamese">Nơi này không thông gió, cảm thấy hơi ngột ngạt.</span></li>
+                <li><span class="chinese">他打开窗户通风。</span><br><span class="vietnamese">Anh ấy mở cửa sổ thông gió.</span></li>
+                <li><span class="chinese">通风很重要。</span><br><span class="vietnamese">Thông gió rất quan trọng.</span></li>
+                <li><span class="chinese">这个房子的设计很通风。</span><br><span class="vietnamese">Thiết kế của căn nhà này rất thông gió.</span></li>
+                <li><span class="chinese">请你保持房间通风。</span><br><span class="vietnamese">Bạn vui lòng giữ phòng thông gió.</span></li>
+                <li><span class="chinese">这里通风不好。</span><br><span class="vietnamese">Nơi này thông gió không tốt.</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>吉祥</strong> <span class="pinyin">(jí xiáng)</span></h2>
+        <p class="meaning">cát tường, may mắn</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">春节的时候，家家户户都贴福字和对联，表示吉祥如意。</span><br><span class="vietnamese">Khi Tết Nguyên đán đến, nhà nhà đều dán chữ Phúc và câu đối, biểu thị cát tường như ý.</span></li>
+                <li><span class="chinese">红色在中国是一种吉祥的颜色，所以结婚的时候新娘会穿红色。</span><br><span class="vietnamese">Màu đỏ ở Trung Quốc là một màu sắc may mắn, nên khi kết hôn cô dâu sẽ mặc màu đỏ.</span></li>
+                <li><span class="chinese">我希望这个礼物能带给你吉祥和好运。</span><br><span class="vietnamese">Tôi hy vọng món quà này có thể mang lại cho bạn cát tường và may mắn.</span></li>
+                <li><span class="chinese">他是一个很吉祥的人，总是能带来好运。</span><br><span class="vietnamese">Anh ấy là một người rất cát tường, luôn có thể mang lại may mắn.</span></li>
+                <li><span class="chinese">祝你吉祥如意，万事顺利。</span><br><span class="vietnamese">Chúc bạn cát tường như ý, vạn sự thuận lợi.</span></li>
+                <li><span class="chinese">吉祥的象征。</span><br><span class="vietnamese">Biểu tượng của sự may mắn.</span></li>
+                <li><span class="chinese">他说了句吉祥话。</span><br><span class="vietnamese">Anh ấy nói một câu chúc may mắn.</span></li>
+                <li><span class="chinese">这个数字很吉祥。</span><br><span class="vietnamese">Con số này rất may mắn.</span></li>
+                <li><span class="chinese">吉祥的图案。</span><br><span class="vietnamese">Họa tiết cát tường.</span></li>
+                <li><span class="chinese">祝你新婚吉祥。</span><br><span class="vietnamese">Chúc bạn tân hôn cát tường.</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>方向</strong> <span class="pinyin">(fāng xiàng)</span></h2>
+        <p class="meaning">phương hướng</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">你迷路了吗？我来告诉你方向，一直往前走。</span><br><span class="vietnamese">Bạn lạc đường rồi phải không? Để tôi nói cho bạn phương hướng, cứ đi thẳng về phía trước.</span></li>
+                <li><span class="chinese">这个房间的窗户朝南，阳光很好，所以很温暖。</span><br><span class="vietnamese">Cửa sổ của căn phòng này hướng nam, nắng rất đẹp, nên rất ấm áp.</span></li>
+                <li><span class="chinese">他不知道该往哪个方向走，所以向路人问路。</span><br><span class="vietnamese">Anh ấy không biết nên đi về hướng nào, nên đã hỏi đường người qua đường.</span></li>
+                <li><span class="chinese">这个指南针可以帮助你找到正确的方向。</span><br><span class="vietnamese">Cái la bàn này có thể giúp bạn tìm thấy phương hướng đúng.</span></li>
+                <li><span class="chinese">他对自己的未来方向很清楚，知道自己想做什么。</span><br><span class="vietnamese">Anh ấy rất rõ ràng về phương hướng tương lai của mình, biết mình muốn làm gì.</span></li>
+                <li><span class="chinese">请你告诉我方向。</span><br><span class="vietnamese">Bạn vui lòng nói cho tôi biết phương hướng.</span></li>
+                <li><span class="chinese">他往东边走了。</span><br><span class="vietnamese">Anh ấy đi về phía đông rồi.</span></li>
+                <li><span class="chinese">我们走错方向了。</span><br><span class="vietnamese">Chúng ta đi sai hướng rồi.</span></li>
+                <li><span class="chinese">他指着一个方向。</span><br><span class="vietnamese">Anh ấy chỉ vào một hướng.</span></li>
+                <li><span class="chinese">这个方向是正确的。</span><br><span class="vietnamese">Hướng này là đúng.</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>看来</strong> <span class="pinyin">(kàn lái)</span></h2>
+        <p class="meaning">có vẻ, xem ra</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">你穿这件红色的衣服真好看，看来你很喜欢这个颜色。</span><br><span class="vietnamese">Bạn mặc bộ quần áo màu đỏ này thật đẹp, xem ra bạn rất thích màu này.</span></li>
+                <li><span class="chinese">外面下雨了，看来我们不能出去玩儿了，只好待在家里。</span><br><span class="vietnamese">Ngoài trời mưa rồi, xem ra chúng ta không thể ra ngoài chơi được nữa rồi, đành phải ở nhà thôi.</span></li>
+                <li><span class="chinese">他这么努力学习中文，看来这次考试一定能通过。</span><br><span class="vietnamese">Anh ấy học tiếng Trung chăm chỉ như vậy, xem ra kỳ thi lần này nhất định có thể vượt qua.</span></li>
+                <li><span class="chinese">他看起来有点儿累，看来昨天晚上又熬夜了。</span><br><span class="vietnamese">Anh ấy trông có vẻ hơi mệt, xem ra tối qua lại thức khuya rồi.</span></li>
+                <li><span class="chinese">这个菜的味道很好，看来厨师的水平很高。</span><br><span class="vietnamese">Hương vị của món này rất ngon, xem ra trình độ của đầu bếp rất cao.</span></li>
+                <li><span class="chinese">看来他知道了。</span><br><span class="vietnamese">Xem ra anh ấy biết rồi.</span></li>
+                <li><span class="chinese">看来我们要迟到了。</span><br><span class="vietnamese">Xem ra chúng ta sắp đến muộn rồi.</span></li>
+                <li><span class="chinese">看来他是个好人。</span><br><span class="vietnamese">Xem ra anh ấy là một người tốt.</span></li>
+                <li><span class="chinese">看来这个计划行不通。</span><br><span class="vietnamese">Xem ra kế hoạch này không khả thi.</span></li>
+                <li><span class="chinese">看来我得走了。</span><br><span class="vietnamese">Xem ra tôi phải đi rồi.</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>主人</strong> <span class="pinyin">(zhǔ rén)</span></h2>
+        <p class="meaning">chủ nhà, chủ nhân</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">他家的狗很乖，很听主人的话，从来不会乱跑。</span><br><span class="vietnamese">Con chó nhà anh ấy rất ngoan, rất nghe lời chủ nhân, chưa bao giờ chạy lung tung.</span></li>
+                <li><span class="chinese">欢迎来到我的家，我就是这里的主人。</span><br><span class="vietnamese">Chào mừng đến nhà tôi, tôi chính là chủ nhà ở đây.</span></li>
+                <li><span class="chinese">这个节目的主持人非常幽默，总是能把大家逗得哈哈大笑。</span><br><span class="vietnamese">Người dẫn chương trình này rất hài hước, luôn có thể chọc cho mọi người cười ha ha.</span></li>
+                <li><span class="chinese">他是一个很热情的主人，总是把最好的东西拿出来招待客人。</span><br><span class="vietnamese">Anh ấy là một chủ nhà rất nhiệt tình, luôn lấy ra những thứ tốt nhất để đãi khách.</span></li>
+                <li><span class="chinese">请你把钥匙交给主人。</span><br><span class="vietnamese">Bạn vui lòng giao chìa khóa cho chủ nhà.</span></li>
+                <li><span class="chinese">他是一个很好的主人。</span><br><span class="vietnamese">Anh ấy là một chủ nhà rất tốt.</span></li>
+                <li><span class="chinese">主人很欢迎我们。</span><br><span class="vietnamese">Chủ nhà rất hoan nghênh chúng tôi.</span></li>
+                <li><span class="chinese">这个房子的主人是谁？</span><br><span class="vietnamese">Chủ của căn nhà này là ai?</span></li>
+                <li><span class="chinese">他很尊重主人。</span><br><span class="vietnamese">Anh ấy rất tôn trọng chủ nhà.</span></li>
+                <li><span class="chinese">主人很客气。</span><br><span class="vietnamese">Chủ nhà rất khách sáo.</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>长辈</strong> <span class="pinyin">(zhǎng bèi)</span></h2>
+        <p class="meaning">bề trên, người lớn tuổi</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">春节的时候，晚辈都会去长辈家拜年，然后收到压岁钱。</span><br><span class="vietnamese">Khi Tết Nguyên đán đến, con cháu đều sẽ đến nhà người lớn tuổi chúc Tết, sau đó nhận được tiền lì xì.</span></li>
+                <li><span class="chinese">我们应该尊重长辈，听他们的话，学习他们的经验。</span><br><span class="vietnamese">Chúng ta nên tôn trọng người lớn tuổi, nghe lời họ, học hỏi kinh nghiệm của họ.</span></li>
+                <li><span class="chinese">他是一个很懂事的孩子，总是知道如何关心长辈。</span><br><span class="vietnamese">Anh ấy là một đứa trẻ rất hiểu chuyện, luôn biết cách quan tâm người lớn tuổi.</span></li>
+                <li><span class="chinese">在一些传统文化中，长辈的意见非常重要。</span><br><span class="vietnamese">Trong một số nền văn hóa truyền thống, ý kiến của người lớn tuổi vô cùng quan trọng.</span></li>
+                <li><span class="chinese">他经常向长辈请教一些生活中的问题。</span><br><span class="vietnamese">Anh ấy thường xuyên hỏi người lớn tuổi một số vấn đề trong cuộc sống.</span></li>
+                <li><span class="chinese">长辈们都很喜欢他。</span><br><span class="vietnamese">Những người lớn tuổi đều rất thích anh ấy.</span></li>
+                <li><span class="chinese">我们应该尊敬长辈。</span><br><span class="vietnamese">Chúng ta nên kính trọng người lớn tuổi.</span></li>
+                <li><span class="chinese">他总是听长辈的话。</span><br><span class="vietnamese">Anh ấy luôn nghe lời người lớn tuổi.</span></li>
+                <li><span class="chinese">长辈们的经验很丰富。</span><br><span class="vietnamese">Kinh nghiệm của những người lớn tuổi rất phong phú.</span></li>
+                <li><span class="chinese">他很会和长辈聊天儿。</span><br><span class="vietnamese">Anh ấy rất biết trò chuyện với người lớn tuổi.</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>晚辈</strong> <span class="pinyin">(wǎn bèi)</span></h2>
+        <p class="meaning">vãn bối, người nhỏ tuổi hơn</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">春节的时候，晚辈都会去长辈家拜年，然后收到压岁钱。</span><br><span class="vietnamese">Khi Tết Nguyên đán đến, con cháu đều sẽ đến nhà người lớn tuổi chúc Tết, sau đó nhận được tiền lì xì.</span></li>
+                <li><span class="chinese">长辈们总是很关心晚辈的成长和学习。</span><br><span class="vietnamese">Những người lớn tuổi luôn rất quan tâm đến sự trưởng thành và học tập của con cháu.</span></li>
+                <li><span class="chinese">他教导晚辈们要努力学习，将来才能有出息。</span><br><span class="vietnamese">Anh ấy dạy dỗ con cháu phải cố gắng học tập, sau này mới có tiền đồ.</span></li>
+                <li><span class="chinese">作为晚辈，我们应该多向长辈请教问题。</span><br><span class="vietnamese">Là con cháu, chúng ta nên hỏi người lớn tuổi nhiều vấn đề hơn.</span></li>
+                <li><span class="chinese">长辈们给晚辈发红包是春节的传统习俗。</span><br><span class="vietnamese">Người lớn tuổi lì xì cho con cháu là phong tục truyền thống của Tết Nguyên đán.</span></li>
+                <li><span class="chinese">他很关心家里的晚辈。</span><br><span class="vietnamese">Anh ấy rất quan tâm đến con cháu trong nhà.</span></li>
+                <li><span class="chinese">晚辈们都很尊敬他。</span><br><span class="vietnamese">Con cháu đều rất kính trọng anh ấy.</span></li>
+                <li><span class="chinese">他喜欢和晚辈们聊天儿。</span><br><span class="vietnamese">Anh ấy thích trò chuyện cùng con cháu.</span></li>
+                <li><span class="chinese">晚辈应该孝顺长辈。</span><br><span class="vietnamese">Con cháu nên hiếu thảo với người lớn tuổi.</span></li>
+                <li><span class="chinese">他教导晚辈们如何做人。</span><br><span class="vietnamese">Anh ấy dạy dỗ con cháu cách làm người.</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>过去</strong> <span class="pinyin">(guò qù)</span></h2>
+        <p class="meaning">quá khứ; đi qua</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">过去的几年里，这个城市的经济发展得非常快，变化很大。</span><br><span class="vietnamese">Trong mấy năm qua, kinh tế của thành phố này phát triển rất nhanh, thay đổi rất lớn.</span></li>
+                <li><span class="chinese">他总是活在过去，不肯面对现实。</span><br><span class="vietnamese">Anh ấy luôn sống trong quá khứ, không chịu đối mặt với hiện thực.</span></li>
+                <li><span class="chinese">请你把这个消息告诉他，他听到以后就过去了。</span><br><span class="vietnamese">Bạn vui lòng nói tin tức này cho anh ấy, anh ấy nghe xong liền qua rồi.</span></li>
+                <li><span class="chinese">过去的经历让我们学到了很多东西，变得更成熟。</span><br><span class="vietnamese">Những trải nghiệm trong quá khứ khiến chúng ta học được rất nhiều điều, trở nên trưởng thành hơn.</span></li>
+                <li><span class="chinese">现在一切都过去了，你不用再担心了，可以放心了。</span><br><span class="vietnamese">Bây giờ mọi thứ đều đã qua rồi, bạn không cần lo lắng nữa, có thể yên tâm rồi.</span></li>
+                <li><span class="chinese">他从我家门口过去了。</span><br><span class="vietnamese">Anh ấy đã đi qua cửa nhà tôi rồi.</span></li>
+                <li><span class="chinese">这个星期过得很慢。</span><br><span class="vietnamese">Tuần này trôi qua rất chậm.</span></li>
+                <li><span class="chinese">他不想回忆过去。</span><br><span class="vietnamese">Anh ấy không muốn hồi tưởng quá khứ.</span></li>
+                <li><span class="chinese">时间过得很快。</span><br><span class="vietnamese">Thời gian trôi qua rất nhanh.</span></li>
+                <li><span class="chinese">他把以前的烦恼都忘记了。</span><br><span class="vietnamese">Anh ấy đã quên hết những phiền não trước đây rồi.</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>家庭</strong> <span class="pinyin">(jiā tíng)</span></h2>
+        <p class="meaning">gia đình</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">我希望我的家庭能够平平安安，幸福快乐，这是我最大的追求。</span><br><span class="vietnamese">Tôi hy vọng gia đình tôi có thể bình an, hạnh phúc vui vẻ, đây là sự theo đuổi lớn nhất của tôi.</span></li>
+                <li><span class="chinese">他有一个幸福的家庭，妻子温柔，儿子懂事。</span><br><span class="vietnamese">Anh ấy có một gia đình hạnh phúc, vợ dịu dàng, con trai hiểu chuyện.</span></li>
+                <li><span class="chinese">每个家庭都有自己独特的生活方式和文化。</span><br><span class="vietnamese">Mỗi gia đình đều có lối sống và văn hóa độc đáo của riêng mình.</span></li>
+                <li><span class="chinese">春节是中国最重要的团圆节日，家家户户都会和家庭成员一起过。</span><br><span class="vietnamese">Tết Nguyên đán là ngày lễ đoàn tụ quan trọng nhất của Trung Quốc, nhà nhà đều sẽ đón cùng các thành viên gia đình.</span></li>
+                <li><span class="chinese">他为了家庭，努力工作，承担起所有的责任。</span><br><span class="vietnamese">Anh ấy vì gia đình, cố gắng làm việc, gánh vác tất cả trách nhiệm.</span></li>
+                <li><span class="chinese">他的家庭很幸福。</span><br><span class="vietnamese">Gia đình của anh ấy rất hạnh phúc.</span></li>
+                <li><span class="chinese">家庭教育很重要。</span><br><span class="vietnamese">Giáo dục gia đình rất quan trọng.</span></li>
+                <li><span class="chinese">他很爱他的家庭。</span><br><span class="vietnamese">Anh ấy rất yêu gia đình của anh ấy.</span></li>
+                <li><span class="chinese">他来自一个幸福的家庭。</span><br><span class="vietnamese">Anh ấy đến từ một gia đình hạnh phúc.</span></li>
+                <li><span class="chinese">他把所有的钱都花在家庭上了。</span><br><span class="vietnamese">Anh ấy đã tiêu hết tất cả tiền cho gia đình rồi.</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>装修</strong> <span class="pinyin">(zhuāng xiū)</span></h2>
+        <p class="meaning">trang trí, sửa sang (nhà cửa)</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">他新买的房子正在装修，所以暂时还不能搬进去住。</span><br><span class="vietnamese">Căn nhà mới anh ấy mua đang sửa sang, nên tạm thời vẫn chưa thể chuyển vào ở.</span></li>
+                <li><span class="chinese">这个房间的装修风格很特别，看起来很温馨。</span><br><span class="vietnamese">Phong cách trang trí của căn phòng này rất đặc biệt, trông rất ấm cúng.</span></li>
+                <li><span class="chinese">他花了很多钱装修房子，希望给家人一个舒服的家。</span><br><span class="vietnamese">Anh ấy đã tốn rất nhiều tiền sửa sang nhà cửa, hy vọng mang lại cho gia đình một ngôi nhà thoải mái.</span></li>
+                <li><span class="chinese">这个饭馆的装修很豪华，吸引了很多客户。</span><br><span class="vietnamese">Trang trí của nhà hàng này rất xa hoa, thu hút rất nhiều khách hàng.</span></li>
+                <li><span class="chinese">他自己设计了房子的装修方案。</span><br><span class="vietnamese">Anh ấy tự mình thiết kế phương án trang trí nhà cửa.</span></li>
+                <li><span class="chinese">这套房子装修得很漂亮。</span><br><span class="vietnamese">Căn nhà này được sửa sang rất đẹp.</span></li>
+                <li><span class="chinese">他正在考虑房子的装修问题。</span><br><span class="vietnamese">Anh ấy đang cân nhắc vấn đề trang trí nhà cửa.</span></li>
+                <li><span class="chinese">装修房子需要很长时间。</span><br><span class="vietnamese">Sửa sang nhà cửa cần rất nhiều thời gian.</span></li>
+                <li><span class="chinese">这个酒店的装修风格很独特。</span><br><span class="vietnamese">Phong cách trang trí của khách sạn này rất độc đáo.</span></li>
+                <li><span class="chinese">他想重新装修他的办公室。</span><br><span class="vietnamese">Anh ấy muốn sửa sang lại văn phòng của mình.</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>体现</strong> <span class="pinyin">(tǐ xiàn)</span></h2>
+        <p class="meaning">thể hiện, biểu hiện</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">家庭的装修风格，可以体现出主人的生活品味和对美好的追求。</span><br><span class="vietnamese">Phong cách trang trí của gia đình, có thể thể hiện ra phẩm vị cuộc sống và sự theo đuổi cái đẹp của chủ nhà.</span></li>
+                <li><span class="chinese">他的言行举止都体现了他对中国文化的了解和热爱。</span><br><span class="vietnamese">Lời nói và hành động của anh ấy đều thể hiện sự hiểu biết và tình yêu của anh ấy đối với văn hóa Trung Quốc.</span></li>
+                <li><span class="chinese">这个节目的表演充分体现了演员们的专业水平。</span><br><span class="vietnamese">Màn biểu diễn của tiết mục này thể hiện đầy đủ trình độ chuyên nghiệp của các diễn viên.</span></li>
+                <li><span class="chinese">这个计划体现了公司对员工的关心。</span><br><span class="vietnamese">Kế hoạch này thể hiện sự quan tâm của công ty đối với nhân viên.</span></li>
+                <li><span class="chinese">他的努力学习，体现了他对未来的希望。</span><br><span class="vietnamese">Việc anh ấy cố gắng học tập, thể hiện hy vọng của anh ấy đối với tương lai.</span></li>
+                <li><span class="chinese">这个设计体现了环保理念。</span><br><span class="vietnamese">Thiết kế này thể hiện ý tưởng bảo vệ môi trường.</span></li>
+                <li><span class="chinese">他的画作体现了独特的艺术风格。</span><br><span class="vietnamese">Các tác phẩm hội họa của anh ấy thể hiện phong cách nghệ thuật độc đáo.</span></li>
+                <li><span class="chinese">这个城市的经济发展体现了它的活力。</span><br><span class="vietnamese">Phát triển kinh tế của thành phố này thể hiện sức sống của nó.</span></li>
+                <li><span class="chinese">他用自己的行动体现了责任。</span><br><span class="vietnamese">Anh ấy dùng hành động của mình để thể hiện trách nhiệm.</span></li>
+                <li><span class="chinese">这个结果体现了我们的努力。</span><br><span class="vietnamese">Kết quả này thể hiện nỗ lực của chúng tôi.</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>美好</strong> <span class="pinyin">(měi hǎo)</span></h2>
+        <p class="meaning">tốt đẹp, mỹ hảo</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">家庭的装修风格，可以体现出主人对美好生活的追求。</span><br><span class="vietnamese">Phong cách trang trí của gia đình, có thể thể hiện ra sự theo đuổi cuộc sống tốt đẹp của chủ nhà.</span></li>
+                <li><span class="chinese">我希望我的家人都能平平安安，生活美好。</span><br><span class="vietnamese">Tôi hy vọng gia đình tôi đều có thể bình an, cuộc sống tốt đẹp.</span></li>
+                <li><span class="chinese">我们有很多美好的回忆，特别是大学时期一起学习的日子。</span><br><span class="vietnamese">Chúng tôi có rất nhiều kỷ niệm tốt đẹp, đặc biệt là những ngày học cùng nhau thời đại học.</span></li>
+                <li><span class="chinese">他正在努力创造一个美好的未来。</span><br><span class="vietnamese">Anh ấy đang cố gắng tạo ra một tương lai tốt đẹp.</span></li>
+                <li><span class="chinese">祝你们新婚快乐，永远幸福美好。</span><br><span class="vietnamese">Chúc hai bạn tân hôn vui vẻ, mãi mãi hạnh phúc tốt đẹp.</span></li>
+                <li><span class="chinese">我希望你有一个美好的周末。</span><br><span class="vietnamese">Tôi hy vọng bạn có một cuối tuần tốt đẹp.</span></li>
+                <li><span class="chinese">这个地方的风景很美好。</span><br><span class="vietnamese">Phong cảnh nơi này rất tốt đẹp.</span></li>
+                <li><span class="chinese">生活很美好。</span><br><span class="vietnamese">Cuộc sống rất tốt đẹp.</span></li>
+                <li><span class="chinese">他有一个美好的梦想。</span><br><span class="vietnamese">Anh ấy có một ước mơ tốt đẹp.</span></li>
+                <li><span class="chinese">这个故事很美好。</span><br><span class="vietnamese">Câu chuyện này rất tốt đẹp.</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>追求</strong> <span class="pinyin">(zhuī qiú)</span></h2>
+        <p class="meaning">theo đuổi</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">家庭的装修风格，可以体现出主人对美好生活的追求。</span><br><span class="vietnamese">Phong cách trang trí của gia đình, có thể thể hiện ra sự theo đuổi cuộc sống tốt đẹp của chủ nhà.</span></li>
+                <li><span class="chinese">他一直在追求自己的梦想，从来没有放弃过。</span><br><span class="vietnamese">Anh ấy luôn theo đuổi ước mơ của mình, chưa bao giờ từ bỏ.</span></li>
+                <li><span class="chinese">每个人都有自己的追求，我们应该尊重别人的选择。</span><br><span class="vietnamese">Mỗi người đều có sự theo đuổi của riêng mình, chúng ta nên tôn trọng lựa chọn của người khác.</span></li>
+                <li><span class="chinese">她对艺术有很高的追求，希望自己的画作能达到更高的水平。</span><br><span class="vietnamese">Cô ấy có sự theo đuổi rất cao đối với nghệ thuật, hy vọng tác phẩm hội họa của mình có thể đạt trình độ cao hơn.</span></li>
+                <li><span class="chinese">他为了追求知识，去了很多地方学习。</span><br><span class="vietnamese">Anh ấy vì theo đuổi kiến thức, đã đi rất nhiều nơi học tập.</span></li>
+                <li><span class="chinese">他正在追求幸福。</span><br><span class="vietnamese">Anh ấy đang theo đuổi hạnh phúc.</span></li>
+                <li><span class="chinese">他对这个工作有很高的追求。</span><br><span class="vietnamese">Anh ấy có sự theo đuổi rất cao đối với công việc này.</span></li>
+                <li><span class="chinese">他追求真理。</span><br><span class="vietnamese">Anh ấy theo đuổi chân lý.</span></li>
+                <li><span class="chinese">他追求完美。</span><br><span class="vietnamese">Anh ấy theo đuổi sự hoàn hảo.</span></li>
+                <li><span class="chinese">她喜欢追求时尚。</span><br><span class="vietnamese">Cô ấy thích theo đuổi thời trang.</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>其实</strong> <span class="pinyin">(qí shí)</span></h2>
+        <p class="meaning">thực ra, kỳ thực</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">他看起来很凶，其实人很好，总是乐意帮助别人。</span><br><span class="vietnamese">Anh ấy trông có vẻ rất hung dữ, thực ra người rất tốt, luôn sẵn lòng giúp đỡ người khác.</span></li>
+                <li><span class="chinese">我以为中文很难学，其实只要坚持练习，就会越来越容易。</span><br><span class="vietnamese">Tôi cứ tưởng tiếng Trung rất khó học, kỳ thực chỉ cần kiên trì luyện tập, sẽ ngày càng dễ hơn.</span></li>
+                <li><span class="chinese">他嘴上说不喜欢你，其实心里很喜欢你。</span><br><span class="vietnamese">Miệng anh ấy nói không thích bạn, kỳ thực trong lòng rất thích bạn.</span></li>
+                <li><span class="chinese">我以为他生气了，其实他只是有点儿累而已。</span><br><span class="vietnamese">Tôi cứ tưởng anh ấy giận rồi, thực ra anh ấy chỉ hơi mệt mà thôi.</span></li>
+                <li><span class="chinese">这个地方看起来很远，其实坐地铁很快就到了。</span><br><span class="vietnamese">Nơi này trông có vẻ rất xa, kỳ thực đi tàu điện ngầm rất nhanh sẽ đến.</span></li>
+                <li><span class="chinese">其实我都知道了。</span><br><span class="vietnamese">Kỳ thực tôi đều biết rồi.</span></li>
+                <li><span class="chinese">他看起来很忙，其实他有空。</span><br><span class="vietnamese">Anh ấy trông có vẻ rất bận, kỳ thực anh ấy rảnh.</span></li>
+                <li><span class="chinese">其实这个很简单。</span><br><span class="vietnamese">Kỳ thực cái này rất đơn giản.</span></li>
+                <li><span class="chinese">他其实是想帮助你。</span><br><span class="vietnamese">Anh ấy kỳ thực là muốn giúp đỡ bạn.</span></li>
+                <li><span class="chinese">她其实不喜欢那件衣服。</span><br><span class="vietnamese">Cô ấy kỳ thực không thích bộ quần áo kia.</span></li>
+            </ol>
+        </div>
+    </div>
+
+</body>
+</html>

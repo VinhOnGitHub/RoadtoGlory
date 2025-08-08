@@ -1,0 +1,463 @@
+﻿<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第十七课：你在做什么呢？</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.8;
+            color: #333;
+            max-width: 960px;
+            margin: 30px auto;
+            padding: 0 25px;
+            background-color: #f4f7f6;
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 2.5em;
+            letter-spacing: 1px;
+        }
+        h2 {
+            color: #1a5276;
+            border-bottom: 3px solid #1a5276;
+            padding-bottom: 8px;
+            margin-top: 50px;
+            font-size: 1.8em;
+        }
+        .vocab-item {
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            padding: 30px;
+            margin-bottom: 35px;
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        }
+        .vocab-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+        }
+        .vocab-item strong {
+            color: #c0392b;
+            font-size: 1.4em;
+        }
+        .pinyin {
+            font-style: italic;
+            color: #2980b9;
+            margin-left: 15px;
+            font-size: 1.1em;
+        }
+        .meaning {
+            margin-top: 10px;
+            margin-bottom: 20px;
+            color: #555;
+            font-size: 1.1em;
+        }
+        .examples ol {
+            list-style: none; /* Remove default numbering */
+            counter-reset: example-counter; /* Initialize counter */
+            padding-left: 0;
+        }
+        .examples li {
+            counter-increment: example-counter; /* Increment counter for each list item */
+            margin-bottom: 15px;
+            position: relative;
+            padding-left: 35px; /* Space for custom number */
+        }
+        .examples li::before {
+            content: counter(example-counter) ".";
+            position: absolute;
+            left: 0;
+            top: 0;
+            font-weight: bold;
+            color: #1abc9c;
+            font-size: 1.1em;
+        }
+        .examples li .chinese {
+            font-weight: bold;
+            color: #16a085;
+            display: block;
+            margin-bottom: 3px;
+        }
+        .examples li .vietnamese {
+            color: #7f8c8d;
+            font-size: 0.98em;
+            font-style: italic;
+        }
+        hr {
+            border: 0;
+            height: 1px;
+            background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0));
+            margin: 50px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>第十七课：你在做什么呢？</h1>
+
+    <div class="vocab-item">
+        <h2><strong>喂</strong> <span class="pinyin">(wèi)</span></h2>
+        <p class="meaning">alo (khi nghe điện thoại); cho ăn (HSK 1)</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">喂，你好！请问是李明吗？我是小王。</span><br><span class="vietnamese">Alo, xin chào! Xin hỏi có phải Lý Minh không? Tôi là Tiểu Vương.</span></li>
+                <li><span class="chinese">喂，你在做什么呢？现在方便说话吗？</span><br><span class="vietnamese">Alo, bạn đang làm gì đấy? Bây giờ có tiện nói chuyện không?</span></li>
+                <li><span class="chinese">他拿起电话，喂了一声，然后开始说话。</span><br><span class="vietnamese">Anh ấy nhấc điện thoại lên, nói "alo" một tiếng, rồi bắt đầu nói chuyện.</span></li>
+                <li><span class="chinese">喂，请问您找哪位？</span><br><span class="vietnamese">Alo, xin hỏi ông/bà tìm ai ạ?</span></li>
+                <li><span class="chinese">妈妈正在喂小狗吃东西。</span><br><span class="vietnamese">Mẹ đang cho chú chó con ăn.</span></li>
+                <li><span class="chinese">喂，你听到我说话了吗？</span><br><span class="vietnamese">Alo, bạn có nghe thấy tôi nói không?</span></li>
+                <li><span class="chinese">他每天都会喂家里的猫。</span><br><span class="vietnamese">Anh ấy mỗi ngày đều cho mèo ở nhà ăn.</span></li>
+                <li><span class="chinese">喂，请问您有什么事吗？</span><br><span class="vietnamese">Alo, xin hỏi ông/bà có việc gì không?</span></li>
+                <li><span class="chinese">他大声地喂了一声。</span><br><span class="vietnamese">Anh ấy nói to "alo" một tiếng.</span></li>
+                <li><span class="chinese">请你喂一下儿鱼。</span><br><span class="vietnamese">Bạn vui lòng cho cá ăn một chút.</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>在</strong> <span class="pinyin">(zài)</span></h2>
+        <p class="meaning">ở, đang, trong, vào (HSK 1)</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">喂，你在做什么呢？是正在准备明天的考试吗？</span><br><span class="vietnamese">Alo, bạn đang làm gì vậy? Có phải đang chuẩn bị cho kỳ thi ngày mai không?</span></li>
+                <li><span class="chinese">我妈妈正在厨房里做饭，准备我们晚上的晚餐。</span><br><span class="vietnamese">Mẹ tôi đang nấu cơm trong bếp, chuẩn bị bữa tối cho chúng tôi.</span></li>
+                <li><span class="chinese">孩子们都在学校里认真学习，准备下周的考试。</span><br><span class="vietnamese">Những đứa trẻ đều đang chăm chỉ học tập ở trường, chuẩn bị cho kỳ thi tuần tới.</span></li>
+                <li><span class="chinese">你的书在桌子上面，你仔细找一下儿就能找到。</span><br><span class="vietnamese">Sách của bạn ở trên bàn, bạn tìm kỹ một chút là có thể tìm thấy.</span></li>
+                <li><span class="chinese">你在哪里工作？是住在公司附近还是每天坐车去？</span><br><span class="vietnamese">Bạn làm việc ở đâu? Là ở gần công ty hay mỗi ngày đều đi xe đến?</span></li>
+                <li><span class="chinese">我正在图书馆里看一本很有意思的小说。</span><br><span class="vietnamese">Tôi đang đọc một cuốn tiểu thuyết rất thú vị ở trong thư viện.</span></li>
+                <li><span class="chinese">他现在不在家，可能在公司开会，或者出去办事了。</span><br><span class="vietnamese">Anh ấy bây giờ không có ở nhà, có thể đang họp ở công ty, hoặc đã ra ngoài làm việc rồi.</span></li>
+                <li><span class="chinese">我们都在饭店吃饭，庆祝朋友的生日。</span><br><span class="vietnamese">Chúng tôi đều đang ăn cơm ở nhà hàng, kỷ niệm sinh nhật bạn.</span></li>
+                <li><span class="chinese">我喜欢在中国生活，因为这里的人很友好。</span><br><span class="vietnamese">Tôi thích sống ở Trung Quốc, bởi vì người ở đây rất thân thiện.</span></li>
+                <li><span class="chinese">他坐在椅子上，手里拿着一本书。</span><br><span class="vietnamese">Anh ấy ngồi trên ghế, tay cầm một cuốn sách.</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>作业</strong> <span class="pinyin">(zuò yè)</span></h2>
+        <p class="meaning">bài tập (HSK 1)</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">我正在家里写作业呢，你有什么事吗？</span><br><span class="vietnamese">Tôi đang ở nhà làm bài tập đây, bạn có việc gì không?</span></li>
+                <li><span class="chinese">他每天晚上都会写很多作业，所以学习成绩很好。</span><br><span class="vietnamese">Anh ấy mỗi tối đều sẽ viết rất nhiều bài tập, nên thành tích học tập rất tốt.</span></li>
+                <li><span class="chinese">老师布置了很多作业，我有点儿担心做不完。</span><br><span class="vietnamese">Thầy giáo đã giao rất nhiều bài tập, tôi hơi lo không làm xong.</span></li>
+                <li><span class="chinese">你写完作业了吗？写完了就可以去玩儿了。</span><br><span class="vietnamese">Bạn đã viết xong bài tập chưa? Viết xong có thể đi chơi rồi.</span></li>
+                <li><span class="chinese">这份作业有点儿难，我需要找老师帮忙。</span><br><span class="vietnamese">Bài tập này hơi khó, tôi cần tìm thầy giáo giúp đỡ.</span></li>
+                <li><span class="chinese">他写作业的时候很认真，从不玩手机。</span><br><span class="vietnamese">Anh ấy khi làm bài tập rất nghiêm túc, không bao giờ chơi điện thoại.</span></li>
+                <li><span class="chinese">我把作业放在书包里了。</span><br><span class="vietnamese">Tôi đã để bài tập vào trong cặp sách rồi.</span></li>
+                <li><span class="chinese">老师每天都会检查我们的作业。</span><br><span class="vietnamese">Thầy giáo mỗi ngày đều sẽ kiểm tra bài tập của chúng tôi.</span></li>
+                <li><span class="chinese">他正在写中文作业。</span><br><span class="vietnamese">Anh ấy đang viết bài tập tiếng Trung.</span></li>
+                <li><span class="chinese">做完作业以后，我就可以看电视了。</span><br><span class="vietnamese">Sau khi làm xong bài tập, tôi có thể xem TV rồi.</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>正在</strong> <span class="pinyin">(zhèng zài)</span></h2>
+        <p class="meaning">đang (biểu thị hành động đang diễn ra) (HSK 1)</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">喂，你在做什么呢？是正在准备明天的考试吗？</span><br><span class="vietnamese">Alo, bạn đang làm gì vậy? Có phải đang chuẩn bị cho kỳ thi ngày mai không?</span></li>
+                <li><span class="chinese">我妈妈正在厨房里做饭，准备我们晚上的晚餐。</span><br><span class="vietnamese">Mẹ tôi đang nấu cơm trong bếp, chuẩn bị bữa tối cho chúng tôi.</span></li>
+                <li><span class="chinese">他正在看电视呢，所以没有听到你说话。</span><br><span class="vietnamese">Anh ấy đang xem TV đó, nên không nghe thấy bạn nói chuyện.</span></li>
+                <li><span class="chinese">老师正在教室里讲课，请你不要进去打扰。</span><br><span class="vietnamese">Thầy giáo đang giảng bài trong phòng học, bạn vui lòng đừng vào làm phiền.</span></li>
+                <li><span class="chinese">我正在写作业呢，写完就去玩儿。</span><br><span class="vietnamese">Tôi đang làm bài tập đây, làm xong sẽ đi chơi.</span></li>
+                <li><span class="chinese">他正在打电话，你等他一会儿吧。</span><br><span class="vietnamese">Anh ấy đang gọi điện thoại, bạn đợi anh ấy một lát đi.</span></li>
+                <li><span class="chinese">孩子们正在公园里玩儿，玩得很开心。</span><br><span class="vietnamese">Những đứa trẻ đang chơi ở công viên, chơi rất vui.</span></li>
+                <li><span class="chinese">她正在准备一个唱歌节目，打算参加比赛。</span><br><span class="vietnamese">Cô ấy đang chuẩn bị một tiết mục ca hát, dự định tham gia cuộc thi.</span></li>
+                <li><span class="chinese">我们正在吃饭呢，你要不要一起来？</span><br><span class="vietnamese">Chúng tôi đang ăn cơm đó, bạn có muốn đến cùng không?</span></li>
+                <li><span class="chinese">他正在练习中文口语，所以不能和你聊天儿。</span><br><span class="vietnamese">Anh ấy đang luyện tập khẩu ngữ tiếng Trung, nên không thể trò chuyện với bạn.</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>准备</strong> <span class="pinyin">(zhǔn bèi)</span></h2>
+        <p class="meaning">chuẩn bị (HSK 1)</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">喂，你在做什么呢？是正在准备明天的考试吗？</span><br><span class="vietnamese">Alo, bạn đang làm gì vậy? Có phải đang chuẩn bị cho kỳ thi ngày mai không?</span></li>
+                <li><span class="chinese">我们正在准备一个节目，打算在晚会上表演。</span><br><span class="vietnamese">Chúng tôi đang chuẩn bị một tiết mục, dự định biểu diễn trong buổi liên hoan.</span></li>
+                <li><span class="chinese">他正在准备去中国留学，所以每天都很忙。</span><br><span class="vietnamese">Anh ấy đang chuẩn bị đi du học Trung Quốc, nên mỗi ngày đều rất bận.</span></li>
+                <li><span class="chinese">我妈妈正在厨房里做饭，准备我们晚上的晚餐。</span><br><span class="vietnamese">Mẹ tôi đang nấu cơm trong bếp, chuẩn bị bữa tối cho chúng tôi.</span></li>
+                <li><span class="chinese">你准备好了吗？我们该出发了。</span><br><span class="vietnamese">Bạn đã chuẩn bị xong chưa? Chúng ta nên xuất phát rồi.</span></li>
+                <li><span class="chinese">她正在准备一份礼物，打算送给朋友。</span><br><span class="vietnamese">Cô ấy đang chuẩn bị một món quà, dự định tặng cho bạn.</span></li>
+                <li><span class="chinese">我们为这次比赛准备了很久。</span><br><span class="vietnamese">Chúng tôi đã chuẩn bị rất lâu cho cuộc thi này.</span></li>
+                <li><span class="chinese">他准备了很多中文书来学习。</span><br><span class="vietnamese">Anh ấy đã chuẩn bị rất nhiều sách tiếng Trung để học.</span></li>
+                <li><span class="chinese">开学前，我们需要准备很多学习用品。</span><br><span class="vietnamese">Trước khi khai giảng, chúng tôi cần chuẩn bị rất nhiều đồ dùng học tập.</span></li>
+                <li><span class="chinese">我准备好了。</span><br><span class="vietnamese">Tôi đã chuẩn bị xong rồi.</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>节目</strong> <span class="pinyin">(jié mù)</span></h2>
+        <p class="meaning">tiết mục, chương trình (HSK 2)</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">我们正在准备一个节目，打算在晚会上表演。</span><br><span class="vietnamese">Chúng tôi đang chuẩn bị một tiết mục, dự định biểu diễn trong buổi liên hoan.</span></li>
+                <li><span class="chinese">你喜欢看什么电视节目？我喜欢看新闻节目。</span><br><span class="vietnamese">Bạn thích xem chương trình TV gì? Tôi thích xem chương trình thời sự.</span></li>
+                <li><span class="chinese">这个节目非常精彩，吸引了很多观众。</span><br><span class="vietnamese">Tiết mục này rất đặc sắc, thu hút rất nhiều khán giả.</span></li>
+                <li><span class="chinese">她正在准备一个唱歌节目，打算参加比赛。</span><br><span class="vietnamese">Cô ấy đang chuẩn bị một tiết mục ca hát, dự định tham gia cuộc thi.</span></li>
+                <li><span class="chinese">这个春节晚会节目很多。</span><br><span class="vietnamese">Buổi liên hoan Tết này có rất nhiều tiết mục.</span></li>
+                <li><span class="chinese">我们班准备了一个中文节目。</span><br><span class="vietnamese">Lớp chúng tôi đã chuẩn bị một tiết mục tiếng Trung.</span></li>
+                <li><span class="chinese">你喜欢看什么样的节目？</span><br><span class="vietnamese">Bạn thích xem loại chương trình nào?</span></li>
+                <li><span class="chinese">这个节目很受欢迎。</span><br><span class="vietnamese">Tiết mục này rất được yêu thích.</span></li>
+                <li><span class="chinese">他参加了一个唱歌节目比赛。</span><br><span class="vietnamese">Anh ấy tham gia một cuộc thi tiết mục ca hát.</span></li>
+                <li><span class="chinese">这个节目表演得很成功。</span><br><span class="vietnamese">Tiết mục này biểu diễn rất thành công.</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>表演</strong> <span class="pinyin">(biǎo yǎn)</span></h2>
+        <p class="meaning">biểu diễn (HSK 2)</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">我们正在准备一个节目，打算在晚会上表演。</span><br><span class="vietnamese">Chúng tôi đang chuẩn bị một tiết mục, dự định biểu diễn trong buổi liên hoan.</span></li>
+                <li><span class="chinese">这个表演非常精彩，吸引了很多观众。</span><br><span class="vietnamese">Màn biểu diễn này rất đặc sắc, thu hút rất nhiều khán giả.</span></li>
+                <li><span class="chinese">她唱歌唱得很好，表演也很棒。</span><br><span class="vietnamese">Cô ấy hát rất hay, biểu diễn cũng rất tuyệt.</span></li>
+                <li><span class="chinese">你喜欢看什么样的表演？</span><br><span class="vietnamese">Bạn thích xem loại biểu diễn nào?</span></li>
+                <li><span class="chinese">他们正在排练一个舞蹈表演。</span><br><span class="vietnamese">Họ đang tập một tiết mục biểu diễn múa.</span></li>
+                <li><span class="chinese">这个节目表演得很成功。</span><br><span class="vietnamese">Tiết mục này biểu diễn rất thành công.</span></li>
+                <li><span class="chinese">他很喜欢看京剧表演。</span><br><span class="vietnamese">Anh ấy rất thích xem biểu diễn kinh kịch.</span></li>
+                <li><span class="chinese">他们的表演赢得了大家的掌声。</span><br><span class="vietnamese">Màn biểu diễn của họ đã nhận được tràng pháo tay của mọi người.</span></li>
+                <li><span class="chinese">这个节目将在下个月进行表演。</span><br><span class="vietnamese">Tiết mục này sẽ được biểu diễn vào tháng sau.</span></li>
+                <li><span class="chinese">他是一个很有才华的表演者。</span><br><span class="vietnamese">Anh ấy là một nghệ sĩ biểu diễn rất tài năng.</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>比赛</strong> <span class="pinyin">(bǐ sài)</span></h2>
+        <p class="meaning">cuộc thi, trận đấu (HSK 2)</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">她正在准备一个唱歌节目，打算参加比赛。</span><br><span class="vietnamese">Cô ấy đang chuẩn bị một tiết mục ca hát, dự định tham gia cuộc thi.</span></li>
+                <li><span class="chinese">你喜欢看足球比赛吗？我最喜欢看世界杯。</span><br><span class="vietnamese">Bạn thích xem trận bóng đá không? Tôi thích xem World Cup nhất.</span></li>
+                <li><span class="chinese">这次比赛我们班得了第一名，大家都很高兴。</span><br><span class="vietnamese">Cuộc thi lần này lớp chúng tôi đã giành giải nhất, mọi người đều rất vui.</span></li>
+                <li><span class="chinese">他每天都练习跑步，为的是参加明年的马拉松比赛。</span><br><span class="vietnamese">Anh ấy mỗi ngày đều luyện tập chạy bộ, là để tham gia cuộc thi marathon năm sau.</span></li>
+                <li><span class="chinese">比赛结果怎么样？我们赢了吗？</span><br><span class="vietnamese">Kết quả trận đấu thế nào? Chúng ta thắng rồi phải không?</span></li>
+                <li><span class="chinese">学校每年都会举行一次中文比赛。</span><br><span class="vietnamese">Trường học mỗi năm đều sẽ tổ chức một lần cuộc thi tiếng Trung.</span></li>
+                <li><span class="chinese">他参加了一个唱歌比赛。</span><br><span class="vietnamese">Anh ấy tham gia một cuộc thi ca hát.</span></li>
+                <li><span class="chinese">这场比赛非常精彩。</span><br><span class="vietnamese">Trận đấu này rất đặc sắc.</span></li>
+                <li><span class="chinese">我们为比赛做了很多准备。</span><br><span class="vietnamese">Chúng tôi đã chuẩn bị rất nhiều cho cuộc thi.</span></li>
+                <li><span class="chinese">他赢得了一场重要的比赛。</span><br><span class="vietnamese">Anh ấy đã thắng một trận đấu quan trọng.</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>唱歌</strong> <span class="pinyin">(chàng gē)</span></h2>
+        <p class="meaning">hát (HSK 1)</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">她正在准备一个唱歌节目，打算参加比赛。</span><br><span class="vietnamese">Cô ấy đang chuẩn bị một tiết mục ca hát, dự định tham gia cuộc thi.</span></li>
+                <li><span class="chinese">我喜欢唱歌，但是唱得不太好。</span><br><span class="vietnamese">Tôi thích hát, nhưng hát không được tốt lắm.</span></li>
+                <li><span class="chinese">他喜欢听中文歌，也喜欢唱歌。</span><br><span class="vietnamese">Anh ấy thích nghe nhạc Trung Quốc, cũng thích hát.</span></li>
+                <li><span class="chinese">我们一起去KTV唱歌吧。</span><br><span class="vietnamese">Chúng ta cùng nhau đi KTV hát nhé.</span></li>
+                <li><span class="chinese">她唱歌唱得很好听，像个专业歌手。</span><br><span class="vietnamese">Cô ấy hát rất hay, như một ca sĩ chuyên nghiệp vậy.</span></li>
+                <li><span class="chinese">小鸟在树上唱歌。</span><br><span class="vietnamese">Chú chim nhỏ đang hót trên cây.</span></li>
+                <li><span class="chinese">他喜欢一边洗澡一边唱歌。</span><br><span class="vietnamese">Anh ấy thích vừa tắm vừa hát.</span></li>
+                <li><span class="chinese">唱歌可以让人心情放松。</span><br><span class="vietnamese">Hát có thể khiến người ta thư giãn tâm trạng.</span></li>
+                <li><span class="chinese">你喜欢唱中文歌吗？</span><br><span class="vietnamese">Bạn có thích hát nhạc Trung Quốc không?</span></li>
+                <li><span class="chinese">他正在练习唱歌。</span><br><span class="vietnamese">Anh ấy đang luyện tập ca hát.</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>首</strong> <span class="pinyin">(shǒu)</span></h2>
+        <p class="meaning">bài (lượng từ cho bài hát, bài thơ) (HSK 2)</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">她正在练习一首中文歌，打算在比赛中表演。</span><br><span class="vietnamese">Cô ấy đang luyện tập một bài hát tiếng Trung, dự định biểu diễn trong cuộc thi.</span></li>
+                <li><span class="chinese">你最喜欢哪一首中文歌？</span><br><span class="vietnamese">Bạn thích bài hát tiếng Trung nào nhất?</span></li>
+                <li><span class="chinese">他写了一首很漂亮的诗。</span><br><span class="vietnamese">Anh ấy đã viết một bài thơ rất đẹp.</span></li>
+                <li><span class="chinese">我喜欢听这首音乐。</span><br><span class="vietnamese">Tôi thích nghe bài nhạc này.</span></li>
+                <li><span class="chinese">请你再唱一首吧。</span><br><span class="vietnamese">Bạn vui lòng hát thêm một bài nữa đi.</span></li>
+                <li><span class="chinese">这首中文歌很好听，我很喜欢。</span><br><span class="vietnamese">Bài hát tiếng Trung này rất hay, tôi rất thích.</span></li>
+                <li><span class="chinese">他创作了很多首歌曲。</span><br><span class="vietnamese">Anh ấy đã sáng tác rất nhiều bài hát.</span></li>
+                <li><span class="chinese">我今天学了一首新歌。</span><br><span class="vietnamese">Hôm nay tôi đã học một bài hát mới.</span></li>
+                <li><span class="chinese">这首诗很有意义。</span><br><span class="vietnamese">Bài thơ này rất có ý nghĩa.</span></li>
+                <li><span class="chinese">他最近在听一首英文歌。</span><br><span class="vietnamese">Gần đây anh ấy đang nghe một bài hát tiếng Anh.</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>中文</strong> <span class="pinyin">(Zhōng wén)</span></h2>
+        <p class="meaning">tiếng Trung (HSK 1)</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">我正在努力学习中文，希望以后能说得很流利。</span><br><span class="vietnamese">Tôi đang cố gắng học tiếng Trung, hy vọng sau này có thể nói rất lưu loát.</span></li>
+                <li><span class="chinese">你觉得学习中文容易吗？我觉得语法有点儿难。</span><br><span class="vietnamese">Bạn thấy học tiếng Trung có dễ không? Tôi thấy ngữ pháp hơi khó.</span></li>
+                <li><span class="chinese">他会说一点儿中文，但是说得不太流利。</span><br><span class="vietnamese">Anh ấy biết nói một chút tiếng Trung, nhưng nói không được lưu loát lắm.</span></li>
+                <li><span class="chinese">我喜欢听中文歌，这样可以提高听力。</span><br><span class="vietnamese">Tôi thích nghe nhạc Trung Quốc, như vậy có thể nâng cao khả năng nghe.</span></li>
+                <li><span class="chinese">我们班的中文老师教得非常好。</span><br><span class="vietnamese">Thầy giáo tiếng Trung của lớp chúng tôi dạy rất tốt.</span></li>
+                <li><span class="chinese">你喜欢读中文书吗？</span><br><span class="vietnamese">Bạn có thích đọc sách tiếng Trung không?</span></li>
+                <li><span class="chinese">他每天都练习写中文汉字。</span><br><span class="vietnamese">Anh ấy mỗi ngày đều luyện tập viết chữ Hán tiếng Trung.</span></li>
+                <li><span class="chinese">我用中文和我的中国朋友交流。</span><br><span class="vietnamese">Tôi dùng tiếng Trung giao tiếp với bạn bè Trung Quốc của tôi.</span></li>
+                <li><span class="chinese">他很喜欢学习中国文化，所以学习中文。</span><br><span class="vietnamese">Anh ấy rất thích học văn hóa Trung Quốc, nên học tiếng Trung.</span></li>
+                <li><span class="chinese">你觉得中文好看吗？</span><br><span class="vietnamese">Bạn thấy tiếng Trung có đẹp không?</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>时间</strong> <span class="pinyin">(shí jiān)</span></h2>
+        <p class="meaning">thời gian (HSK 1)</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">你什么时候有空？我们找个时间一起去吃饭吧。</span><br><span class="vietnamese">Bạn khi nào rảnh? Chúng ta tìm một lúc nào đó cùng nhau đi ăn cơm nhé.</span></li>
+                <li><span class="chinese">我没有时间做作业，因为我还有很多工作要做。</span><br><span class="vietnamese">Tôi không có thời gian làm bài tập, vì tôi còn rất nhiều việc phải làm.</span></li>
+                <li><span class="chinese">他每天都会花很多时间学习中文。</span><br><span class="vietnamese">Anh ấy mỗi ngày đều sẽ dành rất nhiều thời gian học tiếng Trung.</span></li>
+                <li><span class="chinese">请你再给我一点儿时间，我马上就来。</span><br><span class="vietnamese">Bạn vui lòng cho tôi thêm một chút thời gian nữa, tôi sẽ đến ngay.</span></li>
+                <li><span class="chinese">你每天学习多长时间？</span><br><span class="vietnamese">Bạn mỗi ngày học bao nhiêu thời gian?</span></li>
+                <li><span class="chinese">我们没有时间看电视。</span><br><span class="vietnamese">Chúng tôi không có thời gian xem TV.</span></li>
+                <li><span class="chinese">他没有时间去玩儿。</span><br><span class="vietnamese">Anh ấy không có thời gian đi chơi.</span></li>
+                <li><span class="chinese">现在时间不早了，我们该回家了。</span><br><span class="vietnamese">Bây giờ thời gian không còn sớm nữa, chúng ta nên về nhà rồi.</span></li>
+                <li><span class="chinese">请问，你什么时候有空？</span><br><span class="vietnamese">Xin hỏi, bạn khi nào rảnh?</span></li>
+                <li><span class="chinese">他没有时间陪家人。</span><br><span class="vietnamese">Anh ấy không có thời gian ở bên gia đình.</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>练</strong> <span class="pinyin">(liàn)</span></h2>
+        <p class="meaning">luyện (tập) (HSK 2)</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">我每天都会花很多时间练中文口语，希望能说得更流利。</span><br><span class="vietnamese">Tôi mỗi ngày đều sẽ dành rất nhiều thời gian luyện khẩu ngữ tiếng Trung, hy vọng có thể nói lưu loát hơn.</span></li>
+                <li><span class="chinese">他正在练习唱歌，准备参加学校的比赛。</span><br><span class="vietnamese">Anh ấy đang luyện tập ca hát, chuẩn bị tham gia cuộc thi của trường.</span></li>
+                <li><span class="chinese">学习中文需要多练听、说、读、写。</span><br><span class="vietnamese">Học tiếng Trung cần luyện nghe, nói, đọc, viết nhiều.</span></li>
+                <li><span class="chinese">他每天都会练习跑步半个小时。</span><br><span class="vietnamese">Anh ấy mỗi ngày đều sẽ luyện tập chạy bộ nửa tiếng đồng hồ.</span></li>
+                <li><span class="chinese">这个语法点比较难，你需要多练才能掌握。</span><br><span class="vietnamese">Điểm ngữ pháp này tương đối khó, bạn cần luyện tập nhiều mới có thể nắm vững.</span></li>
+                <li><span class="chinese">他喜欢练书法。</span><br><span class="vietnamese">Anh ấy thích luyện thư pháp.</span></li>
+                <li><span class="chinese">我每天都会练钢琴。</span><br><span class="vietnamese">Tôi mỗi ngày đều sẽ luyện tập piano.</span></li>
+                <li><span class="chinese">他练得很努力。</span><br><span class="vietnamese">Anh ấy luyện tập rất cố gắng.</span></li>
+                <li><span class="chinese">请你再练一次。</span><br><span class="vietnamese">Bạn vui lòng luyện tập lại một lần nữa.</span></li>
+                <li><span class="chinese">练中文对你很有帮助。</span><br><span class="vietnamese">Luyện tiếng Trung rất hữu ích cho bạn.</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>租</strong> <span class="pinyin">(zū)</span></h2>
+        <p class="meaning">thuê (HSK 2)</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">我打算在学校附近租一个房间，这样上学比较方便。</span><br><span class="vietnamese">Tôi dự định thuê một căn phòng gần trường, như vậy đi học sẽ tiện hơn.</span></li>
+                <li><span class="chinese">他租了一辆汽车去旅行，这样可以去很多地方。</span><br><span class="vietnamese">Anh ấy đã thuê một chiếc ô tô đi du lịch, như vậy có thể đi nhiều nơi.</span></li>
+                <li><span class="chinese">我们租了一套房子，里面有很多家具。</span><br><span class="vietnamese">Chúng tôi đã thuê một căn nhà, bên trong có rất nhiều đồ nội thất.</span></li>
+                <li><span class="chinese">请问，这里可以租自行车吗？</span><br><span class="vietnamese">Xin hỏi, ở đây có thể thuê xe đạp không?</span></li>
+                <li><span class="chinese">他租了一套西服，为了参加明天的表演。</span><br><span class="vietnamese">Anh ấy đã thuê một bộ vest, để tham gia buổi biểu diễn ngày mai.</span></li>
+                <li><span class="chinese">我需要租一间办公室。</span><br><span class="vietnamese">Tôi cần thuê một văn phòng.</span></li>
+                <li><span class="chinese">他想租一个房子住。</span><br><span class="vietnamese">Anh ấy muốn thuê một căn nhà để ở.</span></li>
+                <li><span class="chinese">我们租了一辆摩托车去海边玩儿。</span><br><span class="vietnamese">Chúng tôi thuê một chiếc xe máy đi chơi biển.</span></li>
+                <li><span class="chinese">这里的租金有点儿贵。</span><br><span class="vietnamese">Tiền thuê ở đây hơi đắt.</span></li>
+                <li><span class="chinese">他打算租一套婚纱。</span><br><span class="vietnamese">Cô ấy dự định thuê một bộ váy cưới.</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>服装</strong> <span class="pinyin">(fú zhuāng)</span></h2>
+        <p class="meaning">quần áo, trang phục (HSK 2)</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">我们为了表演租了一些漂亮的服装。</span><br><span class="vietnamese">Chúng tôi đã thuê một số bộ trang phục đẹp để biểu diễn.</span></li>
+                <li><span class="chinese">这家商店卖很多种服装，款式很新颖。</span><br><span class="vietnamese">Cửa hàng này bán rất nhiều loại trang phục, kiểu dáng rất mới lạ.</span></li>
+                <li><span class="chinese">你喜欢什么风格的服装？我喜欢休闲服装。</span><br><span class="vietnamese">Bạn thích phong cách trang phục nào? Tôi thích trang phục thường ngày.</span></li>
+                <li><span class="chinese">他是一个服装设计师。</span><br><span class="vietnamese">Anh ấy là một nhà thiết kế thời trang.</span></li>
+                <li><span class="chinese">表演的时候需要穿正式的服装。</span><br><span class="vietnamese">Khi biểu diễn cần mặc trang phục trang trọng.</span></li>
+                <li><span class="chinese">这些服装的颜色都很漂亮。</span><br><span class="vietnamese">Màu sắc của những bộ trang phục này đều rất đẹp.</span></li>
+                <li><span class="chinese">我打算买一些新服装。</span><br><span class="vietnamese">Tôi dự định mua một ít trang phục mới.</span></li>
+                <li><span class="chinese">这家店的服装很便宜。</span><br><span class="vietnamese">Trang phục của cửa hàng này rất rẻ.</span></li>
+                <li><span class="chinese">他喜欢穿黑色的服装。</span><br><span class="vietnamese">Anh ấy thích mặc trang phục màu đen.</span></li>
+                <li><span class="chinese">这种服装很受年轻人喜欢。</span><br><span class="vietnamese">Loại trang phục này rất được giới trẻ yêu thích.</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>高</strong> <span class="pinyin">(gāo)</span></h2>
+        <p class="meaning">cao (HSK 1)</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">他很高，有一米八五。</span><br><span class="vietnamese">Anh ấy rất cao, cao một mét tám lăm.</span></li>
+                <li><span class="chinese">这栋楼很高，有几十层。</span><br><span class="vietnamese">Tòa nhà này rất cao, có mấy chục tầng.</span></li>
+                <li><span class="chinese">他的学习成绩很高。</span><br><span class="vietnamese">Thành tích học tập của anh ấy rất cao.</span></li>
+                <li><span class="chinese">这个箱子有点儿高，我够不着。</span><br><span class="vietnamese">Cái hộp này hơi cao, tôi không với tới.</span></li>
+                <li><span class="chinese">他希望自己的女儿能长得很高。</span><br><span class="vietnamese">Anh ấy hy vọng con gái mình có thể lớn lên rất cao.</span></li>
+                <li><span class="chinese">这座山很高。</span><br><span class="vietnamese">Ngọn núi này rất cao.</span></li>
+                <li><span class="chinese">他跳得很高。</span><br><span class="vietnamese">Anh ấy nhảy rất cao.</span></li>
+                <li><span class="chinese">这个地方海拔很高。</span><br><span class="vietnamese">Độ cao so với mực nước biển của nơi này rất cao.</span></li>
+                <li><span class="chinese">她的声音很高。</span><br><span class="vietnamese">Giọng cô ấy rất cao.</span></li>
+                <li><span class="chinese">他是一个高个子。</span><br><span class="vietnamese">Anh ấy là một người cao.</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>重</strong> <span class="pinyin">(zhòng)</span></h2>
+        <p class="meaning">nặng (HSK 1)</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">这个箱子很重，我一个人搬不动。</span><br><span class="vietnamese">Cái thùng này rất nặng, một mình tôi không khiêng nổi.</span></li>
+                <li><span class="chinese">我的书包很重，里面有很多书。</span><br><span class="vietnamese">Cặp sách của tôi rất nặng, bên trong có rất nhiều sách.</span></li>
+                <li><span class="chinese">这件行李有点儿重，你需要我帮你拿吗？</span><br><span class="vietnamese">Cái hành lý này hơi nặng, bạn có cần tôi giúp bạn xách không?</span></li>
+                <li><span class="chinese">这个电脑很重。</span><br><span class="vietnamese">Cái máy tính này rất nặng.</span></li>
+                <li><span class="chinese">他生病了，身体很重。</span><br><span class="vietnamese">Anh ấy bị ốm rồi, cơ thể rất nặng (mệt mỏi, uể oải).</span></li>
+                <li><span class="chinese">这件事对他来说很重要。</span><br><span class="vietnamese">Việc này đối với anh ấy rất quan trọng.</span></li>
+                <li><span class="chinese">这个桌子很重。</span><br><span class="vietnamese">Cái bàn này rất nặng.</span></li>
+                <li><span class="chinese">你不要拿太重的东西。</span><br><span class="vietnamese">Bạn đừng cầm đồ quá nặng.</span></li>
+                <li><span class="chinese">他的身体很重。</span><br><span class="vietnamese">Cơ thể của anh ấy rất nặng (cân nặng).</span></li>
+                <li><span class="chinese">这个西瓜很重。</span><br><span class="vietnamese">Quả dưa hấu này rất nặng.</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>米</strong> <span class="pinyin">(mǐ)</span></h2>
+        <p class="meaning">mét; gạo (HSK 1)</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">他身高一米八五，很高。</span><br><span class="vietnamese">Anh ấy cao một mét tám lăm, rất cao.</span></li>
+                <li><span class="chinese">请给我两公斤米，谢谢。</span><br><span class="vietnamese">Vui lòng cho tôi hai cân gạo, cảm ơn.</span></li>
+                <li><span class="chinese">这条路有几百米长。</span><br><span class="vietnamese">Con đường này dài mấy trăm mét.</span></li>
+                <li><span class="chinese">这个房间长五米，宽四米。</span><br><span class="vietnamese">Căn phòng này dài năm mét, rộng bốn mét.</span></li>
+                <li><span class="chinese">我每天都吃米饭。</span><br><span class="vietnamese">Tôi mỗi ngày đều ăn cơm.</span></li>
+                <li><span class="chinese">这个地方离这里有几千米。</span><br><span class="vietnamese">Nơi này cách đây mấy nghìn mét.</span></li>
+                <li><span class="chinese">我买了一袋米。</span><br><span class="vietnamese">Tôi đã mua một túi gạo.</span></li>
+                <li><span class="chinese">他每天早上都跑步五千米。</span><br><span class="vietnamese">Anh ấy mỗi sáng đều chạy bộ năm nghìn mét.</span></li>
+                <li><span class="chinese">这棵树有十米高。</span><br><span class="vietnamese">Cây này cao mười mét.</span></li>
+                <li><span class="chinese">米饭是中国人的主食。</span><br><span class="vietnamese">Cơm là lương thực chủ yếu của người Trung Quốc.</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>选</strong> <span class="pinyin">(xuǎn)</span></h2>
+        <p class="meaning">chọn, lựa chọn (HSK 2)</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">你喜欢哪种颜色的衣服？你可以自己选。</span><br><span class="vietnamese">Bạn thích quần áo màu nào? Bạn có thể tự mình chọn.</span></li>
+                <li><span class="chinese">他正在选择去哪个城市留学，北京还是上海。</span><br><span class="vietnamese">Anh ấy đang lựa chọn đi thành phố nào du học, Bắc Kinh hay Thượng Hải.</span></li>
+                <li><span class="chinese">菜单上的菜很多，我不知道选哪个好。</span><br><span class="vietnamese">Trên thực đơn có rất nhiều món, tôi không biết chọn món nào tốt.</span></li>
+                <li><span class="chinese">你选一个座位吧。</span><br><span class="vietnamese">Bạn chọn một chỗ ngồi đi.</span></li>
+                <li><span class="chinese">他选择了这个工作。</span><br><span class="vietnamese">Anh ấy đã chọn công việc này.</span></li>
+                <li><span class="chinese">我们正在选一个礼物送给老师。</span><br><span class="vietnamese">Chúng tôi đang chọn một món quà tặng thầy giáo.</span></li>
+                <li><span class="chinese">你可以自己选。</span><br><span class="vietnamese">Bạn có thể tự mình chọn.</span></li>
+                <li><span class="chinese">他选择了一辆黑色的汽车。</span><br><span class="vietnamese">Anh ấy đã chọn một chiếc ô tô màu đen.</span></li>
+                <li><span class="chinese">我不知道该怎么选。</span><br><span class="vietnamese">Tôi không biết phải chọn thế nào.</span></li>
+                <li><span class="chinese">你选哪一个？</span><br><span class="vietnamese">Bạn chọn cái nào?</span></li>
+            </ol>
+        </div>
+    </div>
+
+</body>
+</html>

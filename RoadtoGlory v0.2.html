@@ -1,0 +1,2577 @@
+﻿<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web học tiếng Trung của Vinh</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="icon" href="./assets/img/thumbnail.png" type="image/x-icon" />
+    <style>
+        /* Import Inter font from Google Fonts */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        /* Keyframe animation for fade-in effect */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in {
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+
+        /* Keyframe animation for shake effect (for wrong answer) */
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+            20%, 40%, 60%, 80% { transform: translateX(5px); }
+        }
+        .animate-shake {
+            animation: shake 0.5s ease-in-out;
+        }
+
+        /* Overlay for processing state on forms */
+        .form-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(255, 255, 255, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+            border-radius: inherit;
+        }
+
+        /* Modal specific styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.6);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 400px;
+            animation: fadeIn 0.3s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <script type="text/babel">
+        const { useState, useEffect, useRef } = React;
+
+        // Keys for storing data in localStorage and IndexedDB
+        const LOCAL_STORAGE_KEY = 'chineseVocabLessons'; // For text data
+        const DB_NAME = 'ChineseVocabDB'; // For audio Blobs
+        const STORE_NAME = 'audioFiles';
+        const DB_VERSION = 1;
+
+        // Correct streak required to "graduate" a difficult word
+        const CORRECT_STREAK_TO_GRADUATE = 10;
+
+        // --- IndexedDB Helper Functions ---
+        const openDB = () => {
+            return new Promise((resolve, reject) => {
+                const request = indexedDB.open(DB_NAME, DB_VERSION);
+
+                request.onupgradeneeded = (event) => {
+                    const db = event.target.result;
+                    if (!db.objectStoreNames.contains(STORE_NAME)) {
+                        db.createObjectStore(STORE_NAME, { keyPath: 'id' });
+                    }
+                };
+
+                request.onsuccess = (event) => {
+                    resolve(event.target.result);
+                };
+
+                request.onerror = (event) => {
+                    reject('Error opening IndexedDB: ' + event.target.errorCode);
+                };
+            });
+        };
+
+        const storeAudioFile = async (id, fileBlob) => {
+            const db = await openDB();
+            return new Promise((resolve, reject) => {
+                const transaction = db.transaction([STORE_NAME], 'readwrite');
+                const store = transaction.objectStore(STORE_NAME);
+                const request = store.put({ id: id, data: fileBlob }); // Store Blob directly
+
+                request.onsuccess = () => resolve();
+                request.onerror = (event) => reject('Error storing audio: ' + event.target.errorCode);
+            });
+        };
+
+        const getAudioFile = async (id) => {
+            const db = await openDB();
+            return new Promise((resolve, reject) => {
+                const transaction = db.transaction([STORE_NAME], 'readonly');
+                const store = transaction.objectStore(STORE_NAME);
+                const request = store.get(id);
+
+                request.onsuccess = (event) => {
+                    const result = event.target.result;
+                    resolve(result ? result.data : null); // Return the Blob
+                };
+                request.onerror = (event) => reject('Error getting audio: ' + event.target.errorCode);
+            });
+        };
+
+        const deleteAudioFile = async (id) => {
+            const db = await openDB();
+            return new Promise((resolve, reject) => {
+                const transaction = db.transaction([STORE_NAME], 'readwrite');
+                const store = transaction.objectStore(STORE_NAME);
+                const request = store.delete(id);
+
+                request.onsuccess = () => resolve();
+                request.onerror = (event) => reject('Error deleting audio: ' + event.target.errorCode);
+            });
+        };
+
+        const getAllAudioFiles = async () => {
+            const db = await openDB();
+            return new Promise((resolve, reject) => {
+                const transaction = db.transaction([STORE_NAME], 'readonly');
+                const store = transaction.objectStore(STORE_NAME);
+                const request = store.getAll();
+
+                request.onsuccess = (event) => {
+                    resolve(event.target.result); // Returns an array of {id, data: Blob}
+                };
+                request.onerror = (event) => reject('Error getting all audio: ' + event.target.errorCode);
+            });
+        };
+
+        const clearAllAudioFiles = async () => {
+            const db = await openDB();
+            return new Promise((resolve, reject) => {
+                const transaction = db.transaction([STORE_NAME], 'readwrite');
+                const store = transaction.objectStore(STORE_NAME);
+                const request = store.clear();
+
+                request.onsuccess = () => resolve();
+                request.onerror = (event) => reject('Error clearing audio files: ' + event.target.errorCode);
+            });
+        };
+
+
+        // Function to play audio from a Blob
+        let currentAudio = null; // Keep track of the currently playing audio
+        const playAudioBlob = async (audioBlob) => {
+            if (!audioBlob) return;
+
+            // Stop any currently playing audio
+            if (currentAudio) {
+                currentAudio.pause();
+                currentAudio.src = ''; // Clear src
+                URL.revokeObjectURL(currentAudio.src); // Revoke previous URL
+            }
+
+            const audioUrl = URL.createObjectURL(audioBlob);
+            currentAudio = new Audio(audioUrl);
+            currentAudio.play().catch(e => console.error("Error playing audio:", e));
+
+            // Revoke URL after audio finishes playing or if paused
+            currentAudio.onended = () => {
+                URL.revokeObjectURL(audioUrl);
+                currentAudio = null;
+            };
+            currentAudio.onpause = () => {
+                if (currentAudio) { // Only revoke if not already null (e.g., from onended)
+                    URL.revokeObjectURL(audioUrl);
+                    currentAudio = null;
+                }
+            };
+        };
+
+        // --- Utility components/functions ---
+        const LoadingSpinner = () => (
+            <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-indigo-500"></div>
+        );
+
+        const FullPageLoadingOverlay = ({ message = "Đang tải...", showSpinner = true }) => (
+            <div className="fixed inset-0 bg-white bg-opacity-80 flex flex-col items-center justify-center z-50">
+                {showSpinner && <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-500 mb-4"></div>}
+                <p className="text-lg text-gray-700">{message}</p>
+            </div>
+        );
+
+        const MessageBox = ({ message, type, onClose }) => (
+            <div className={`p-4 rounded-lg shadow-md flex items-center justify-between mt-4 ${
+                type === 'success' ? 'bg-green-100 text-green-800' :
+                type === 'error' ? 'bg-red-100 text-red-800' :
+                'bg-blue-100 text-blue-800'
+            }`}>
+                <p>{message}</p>
+                {onClose && (
+                    <button onClick={onClose} className="text-gray-500 hover:text-gray-700 focus:outline-none">
+                        <i className="fas fa-times"></i>
+                    </button>
+                )}
+            </div>
+        );
+
+        // Safely parse date from string or existing Date object
+        const safeParseDate = (dateValue) => {
+            if (dateValue instanceof Date && !isNaN(dateValue)) {
+                return dateValue;
+            }
+            if (typeof dateValue === 'string') {
+                const date = new Date(dateValue);
+                if (!isNaN(date)) { // Check if the parsed date is valid
+                    return date;
+                }
+            }
+            return null; // Return null for invalid or non-date values
+        };
+
+        // --- Main App Component ---
+        const App = () => {
+            const [lessons, setLessons] = useState([]);
+            const [vocabularies, setVocabularies] = useState([]); // Vocab for the currently selected lesson
+            const [loading, setLoading] = useState(true); // For initial data loading
+            const [error, setError] = useState(null);
+            const [message, setMessage] = useState(null); // For success/error messages
+            const [view, setView] = useState('lessonList'); // 'lessonList', 'createLesson', 'vocabularyList', 'createVocabulary', 'editVocabulary', 'review', 'editLesson'
+            const [selectedLesson, setSelectedLesson] = useState(null); // The lesson object for vocabularyList/createVocabulary/review
+            const [allVocabularies, setAllVocabularies] = useState([]); // All vocab across all lessons for "Review All"
+            const [isProcessing, setIsProcessing] = useState(false); // General state for ongoing async operations
+
+            // Form states for creating/editing a lesson
+            const [lessonName, setLessonName] = useState('');
+            const [editingLesson, setEditingLesson] = useState(null); // Stores the lesson object being edited (null if creating)
+
+            // Form states for creating/editing a vocabulary
+            const [editingVocab, setEditingVocab] = useState(null); // Stores the vocab object being edited (null if creating)
+            const [hanTu, setHanTu] = useState('');
+            const [pinyin, setPinyin] = useState('');
+            const [meaning, setMeaning] = useState('');
+            const [notes, setNotes] = useState('');
+            const [audioFileBlob, setAudioFileBlob] = useState(null); // Stores the actual File Blob object for main vocab audio
+            const [currentAudioFileId, setCurrentAudioFileId] = useState(null); // Stores the ID of existing vocab audio
+            const [examples, setExamples] = useState(Array(6).fill({ chinese: '', vietnamese: '', audioFileBlob: null, audioFileId: null }));
+
+
+            // Review game states
+            const [showPinyin, setShowPinyin] = useState(false); // State for toggling Pinyin visibility, now default to false
+            const [question, setQuestion] = useState(null);
+            const [options, setOptions] = useState([]);
+            const [correctAnswerIndex, setCorrectAnswerIndex] = useState(-1);
+            const [selectedOption, setSelectedOption] = useState(null);
+            const [isCorrect, setIsCorrect] = useState(null); // true, false, null (not answered yet)
+            const [score, setScore] = useState(0); // Keeping score state for internal logic (e.g. calculation) but not displaying
+            const [currentQuestionNumber, setCurrentQuestionNumber] = useState(0); // Start from 0 for array index
+            const [totalQuestions, setTotalQuestions] = useState(0);
+            const [shaking, setShaking] = useState(false); // State for shake animation
+            const [reviewVocabList, setReviewVocabList] = useState([]); // List of vocab to review in current session
+            const [reviewMode, setReviewMode] = useState(''); // 'singleLesson' or 'allLessons' or 'difficultWords'
+            const [questionType, setQuestionType] = useState(''); // 'translateWord', 'typePinyin', 'translateMeaning', 'translateExample', 'typeHanTu', 'rearrangeExample', 'translateVietToHanTuMC'
+            const [pinyinInput, setPinyinInput] = useState(''); // For typePinyin question type
+            const [hanTuInput, setHanTuInput] = useState(''); // For typeHanTu question type
+            const [showReviewLimitModal, setShowReviewLimitModal] = useState({ isVisible: false, isDifficult: false }); // State for modal visibility
+            const [tempReviewLimit, setTempReviewLimit] = useState(''); // Input for modal
+            const [reviewSourceVocabs, setReviewSourceVocabs] = useState([]); // Store original list for shuffling/repeating
+            
+            // For rearrangeExample question type
+            const [scrambledWords, setScrambledWords] = useState([]);
+            const [selectedWords, setSelectedWords] = useState([]);
+            const [rearrangeIsAnswered, setRearrangeIsAnswered] = useState(false);
+
+            // New states for study goals and daily check-in
+            const [targetDate, setTargetDate] = useState(''); // For countdown date
+            const [daysRemaining, setDaysRemaining] = useState(null);
+            const [checkInStreak, setCheckInStreak] = useState(0);
+            const [lastCheckInDate, setLastCheckInDate] = useState(null);
+
+            // --- Data Loading/Saving (localStorage & IndexedDB) ---
+            // Load data from localStorage on initial render
+            useEffect(() => {
+                console.log("Attempting to load data from localStorage...");
+                try {
+                    const storedLessons = localStorage.getItem(LOCAL_STORAGE_KEY);
+                    if (storedLessons) {
+                        const parsedLessons = JSON.parse(storedLessons);
+                        console.log("Parsed lessons from localStorage:", parsedLessons);
+                        // Convert createdAt strings back to Date objects and ensure vocabularies array exists
+                        const hydratedLessons = parsedLessons.map(lesson => {
+                            const createdAtDate = safeParseDate(lesson.createdAt);
+                            const updatedAtDate = safeParseDate(lesson.updatedAt);
+
+                            return {
+                                ...lesson,
+                                createdAt: createdAtDate || new Date(), // Fallback to current date if invalid
+                                ...(updatedAtDate && { updatedAt: updatedAtDate }),
+                                vocabularies: (lesson.vocabularies || []).map(vocab => {
+                                    const vocabCreatedAtDate = safeParseDate(vocab.createdAt);
+                                    const vocabUpdatedAtDate = safeParseDate(vocab.updatedAt);
+                                    return {
+                                        ...vocab,
+                                        createdAt: vocabCreatedAtDate || new Date(),
+                                        ...(vocabUpdatedAtDate && { updatedAt: vocabUpdatedAtDate }),
+                                        // Ensure wrongAttempts and correctStreak exist, default to 0 if not present in old data
+                                        wrongAttempts: vocab.wrongAttempts || 0,
+                                        correctStreak: vocab.correctStreak || 0 
+                                    };
+                                })
+                            };
+                        });
+                        setLessons(hydratedLessons);
+                        console.log("Hydrated lessons set:", hydratedLessons);
+                        // Update allVocabularies for review pool
+                        fetchAllVocabulariesFromCurrentLessons(hydratedLessons);
+                    } else {
+                        console.log("No lessons found in localStorage.");
+                    }
+
+                    // Load new features data
+                    const storedTargetDate = localStorage.getItem('chineseTargetDate');
+                    if (storedTargetDate) {
+                        setTargetDate(storedTargetDate);
+                        calculateDaysRemaining(storedTargetDate);
+                    }
+                    const storedCheckInStreak = localStorage.getItem('chineseCheckInStreak');
+                    if (storedCheckInStreak) {
+                        setCheckInStreak(parseInt(storedCheckInStreak, 10));
+                    }
+                    const storedLastCheckInDate = localStorage.getItem('chineseLastCheckInDate');
+                    if (storedLastCheckInDate) {
+                        setLastCheckInDate(new Date(storedLastCheckInDate));
+                    }
+
+                } catch (e) {
+                    console.error("Failed to load data from localStorage:", e);
+                    setError("Lỗi khi tải dữ liệu từ bộ nhớ cục bộ. Dữ liệu có thể bị hỏng. Vui lòng thử xóa dữ liệu trình duyệt và nhập lại backup nếu có.");
+                } finally {
+                    setLoading(false);
+                    console.log("Initial loading complete.");
+                }
+            }, []); // Empty dependency array means this runs once on mount
+
+            // Save data to localStorage whenever 'lessons' state changes
+            useEffect(() => {
+                if (!loading) { // Only save after initial load is complete
+                    console.log("Lessons state changed, attempting to save to localStorage...");
+                    try {
+                        // Prepare data for serialization (convert Date objects to ISO strings)
+                        // Only store audioFile ID, not the Blob itself in localStorage
+                        const serializableLessons = lessons.map(lesson => ({
+                            ...lesson,
+                            // Ensure createdAt is a Date object before converting, fallback if not
+                            createdAt: (lesson.createdAt instanceof Date) ? lesson.createdAt.toISOString() : new Date().toISOString(),
+                            ...(lesson.updatedAt instanceof Date && { updatedAt: lesson.updatedAt.toISOString() }),
+                            vocabularies: (lesson.vocabularies || []).map(vocab => ({
+                                ...vocab,
+                                createdAt: (vocab.createdAt instanceof Date) ? vocab.createdAt.toISOString() : new Date().toISOString(),
+                                ...(vocab.updatedAt instanceof Date && { updatedAt: vocab.updatedAt.toISOString() }),
+                                audioFile: vocab.audioFile, // This should be the ID string
+                                examples: (vocab.examples || []).map(ex => ({
+                                    ...ex,
+                                    audioFile: ex.audioFile // This should be the ID string
+                                })),
+                                wrongAttempts: vocab.wrongAttempts || 0, // Ensure this is saved
+                                correctStreak: vocab.correctStreak || 0 // Ensure this is saved
+                            }))
+                        }));
+                        localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(serializableLessons));
+                        console.log("Lessons successfully saved to localStorage.");
+                        // Keep allVocabularies updated for review pool
+                        fetchAllVocabulariesFromCurrentLessons(lessons); 
+                    } catch (e) {
+                        console.error("Failed to save data to localStorage:", e);
+                        setError("Lỗi khi lưu dữ liệu vào bộ nhớ cục bộ.");
+                    }
+                }
+            }, [lessons, loading]); // Save whenever lessons or loading state changes
+
+            // Update vocabularies for selected lesson when selectedLesson changes
+            useEffect(() => {
+                if (selectedLesson) {
+                    // Find the current version of the selected lesson from the 'lessons' state
+                    const currentLesson = lessons.find(l => l.id === selectedLesson.id);
+                    if (currentLesson) {
+                        setVocabularies(currentLesson.vocabularies || []);
+                        console.log("Vocabularies for selected lesson updated:", currentLesson.vocabularies);
+                    } else {
+                        setVocabularies([]);
+                        console.log("Selected lesson not found, vocabularies cleared.");
+                    }
+                } else {
+                    setVocabularies([]);
+                    console.log("No lesson selected, vocabularies cleared.");
+                }
+            }, [selectedLesson, lessons]); // Re-run when selectedLesson or lessons (for updates) changes
+
+            // Function to collect all vocabularies from the current lessons state
+            const fetchAllVocabulariesFromCurrentLessons = (currentLessons) => {
+                let allVocab = [];
+                currentLessons.forEach(lesson => {
+                    if (lesson.vocabularies) {
+                        lesson.vocabularies.forEach(vocab => {
+                            allVocab.push({ ...vocab, lessonId: lesson.id }); // Add lessonId for context in review
+                        });
+                    }
+                });
+                setAllVocabularies(allVocab);
+                console.log("All vocabularies for review pool updated:", allVocab);
+            };
+
+            // --- Lesson Handlers ---
+            const handleCreateLessonSubmit = (e) => {
+                e.preventDefault();
+                if (!lessonName.trim()) {
+                    setMessage({ text: "Tên bài học không được để trống.", type: "error" });
+                    return;
+                }
+
+                const newLesson = {
+                    id: Date.now().toString(), // Simple unique ID
+                    name: lessonName,
+                    createdAt: new Date(),
+                    vocabularies: [] // Start with an empty vocabulary array
+                };
+
+                setLessons(prevLessons => [...prevLessons, newLesson]);
+                setMessage({ text: "Bài học đã được tạo thành công!", type: "success" });
+                setLessonName('');
+                setView('lessonList');
+                console.log("Created new lesson locally:", newLesson);
+            };
+
+            const handleEditLesson = (lesson) => {
+                setEditingLesson(lesson);
+                setLessonName(lesson.name);
+                setView('editLesson');
+                console.log("Entering edit lesson mode for:", lesson);
+            };
+
+            const handleUpdateLessonSubmit = (e) => {
+                e.preventDefault();
+                if (!editingLesson) return;
+                if (!lessonName.trim()) {
+                    setMessage({ text: "Tên bài học không được để trống.", type: "error" });
+                    return;
+                }
+
+                setLessons(prevLessons =>
+                    prevLessons.map(lesson =>
+                        lesson.id === editingLesson.id
+                            ? { ...lesson, name: lessonName, updatedAt: new Date() }
+                            : lesson
+                    )
+                );
+                setMessage({ text: "Tên bài học đã được cập nhật!", type: "success" });
+                setLessonName('');
+                setEditingLesson(null);
+                setView('lessonList');
+                console.log("Updated lesson name locally to:", lessonName);
+            };
+
+            const handleMoveLesson = (lessonId, direction) => {
+                setLessons(prevLessons => {
+                    const newLessons = [...prevLessons];
+                    const index = newLessons.findIndex(lesson => lesson.id === lessonId);
+
+                    if (index === -1) return newLessons;
+
+                    if (direction === 'up') {
+                        if (index > 0) {
+                            [newLessons[index - 1], newLessons[index]] = [newLessons[index], newLessons[index - 1]];
+                        }
+                    } else if (direction === 'down') {
+                        if (index < newLessons.length - 1) {
+                            [newLessons[index + 1], newLessons[index]] = [newLessons[index], newLessons[index + 1]];
+                        }
+                    }
+                    console.log("Moved lesson locally:", lessonId, "direction:", direction);
+                    return newLessons;
+                });
+            };
+
+            const handleDeleteLesson = async (lessonId) => {
+                if (window.confirm("Bạn có chắc muốn xóa bài học này và TẤT CẢ từ vựng bên trong không?")) {
+                    console.log("Attempting to delete lesson:", lessonId);
+                    const lessonToDelete = lessons.find(l => l.id === lessonId);
+                    if (lessonToDelete && lessonToDelete.vocabularies) {
+                        for (const vocab of lessonToDelete.vocabularies) {
+                            if (vocab.audioFile) {
+                                await deleteAudioFile(vocab.audioFile); // Delete from IndexedDB
+                                console.log("Deleted associated audio from IndexedDB:", vocab.audioFile);
+                            }
+                            if (vocab.examples) {
+                                for (const ex of vocab.examples) {
+                                    if (ex.audioFile) {
+                                        await deleteAudioFile(ex.audioFile); // Delete from IndexedDB
+                                        console.log("Deleted associated example audio from IndexedDB:", ex.audioFile);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    setLessons(prevLessons => prevLessons.filter(lesson => lesson.id !== lessonId));
+                    setMessage({ text: "Bài học và từ vựng đã được xóa thành công!", type: "success" });
+                    if (selectedLesson && selectedLesson.id === lessonId) {
+                        setSelectedLesson(null);
+                        setView('lessonList');
+                    }
+                    console.log("Lesson deleted locally:", lessonId);
+                }
+            };
+
+            // --- Vocabulary Handlers ---
+            const handleAudioFileChange = (e, isExample = false, index = null) => {
+                const file = e.target.files[0];
+                if (!file) return;
+
+                if (!file.type.startsWith('audio/')) {
+                    setMessage({ text: "Vui lòng chọn một file âm thanh (MP3).", type: "error" });
+                    if (e.target) e.target.value = '';
+                    return;
+                }
+
+                if (isExample) {
+                    const newExamples = [...examples];
+                    newExamples[index] = { ...newExamples[index], audioFileBlob: file }; // Store Blob
+                    setExamples(newExamples);
+                } else {
+                    setAudioFileBlob(file); // Store Blob
+                }
+                console.log("Audio file selected:", file.name, "for example:", isExample, "index:", index);
+            };
+
+            const handleRemoveAudio = async (isExample = false, index = null) => {
+                if (isExample) {
+                    const newExamples = [...examples];
+                    const audioIdToDelete = newExamples[index].audioFileId; // Get current ID to delete from IndexedDB
+
+                    if (audioIdToDelete) {
+                        await deleteAudioFile(audioIdToDelete); // Delete from IndexedDB
+                        console.log("Removed audio from IndexedDB:", audioIdToDelete);
+                    }
+                    newExamples[index] = { ...newExamples[index], audioFileBlob: null, audioFileId: null }; // Clear blob/ID from state
+                    setExamples(newExamples);
+                } else {
+                    const audioIdToDelete = currentAudioFileId; // Get current ID to delete from IndexedDB
+                    setAudioFileBlob(null); // Clear blob
+                    setCurrentAudioFileId(null); // Clear ID
+
+                    if (audioIdToDelete) {
+                        await deleteAudioFile(audioIdToDelete); // Delete from IndexedDB
+                        console.log("Removed audio from IndexedDB:", audioIdToDelete);
+                    }
+                }
+                console.log("Audio removed for example:", isExample, "index:", index);
+            };
+
+            const handleExampleChange = (index, field, value) => {
+                const newExamples = [...examples];
+                newExamples[index] = { ...newExamples[index], [field]: value };
+                setExamples(newExamples);
+            };
+
+            const resetVocabularyForm = () => {
+                setHanTu('');
+                setPinyin('');
+                setMeaning('');
+                setNotes('');
+                setAudioFileBlob(null);
+                setCurrentAudioFileId(null);
+                setExamples(Array(6).fill({ chinese: '', vietnamese: '', audioFileBlob: null, audioFileId: null }));
+                console.log("Vocabulary form reset.");
+            };
+
+            // Helper to process audio files (store to IndexedDB and return ID) for create/update
+            const processAndStoreAudio = async (fileBlob, oldAudioId = null) => {
+                console.log("Processing audio file:", fileBlob, "old ID:", oldAudioId);
+                if (fileBlob instanceof File) { // New file selected (it's a Blob)
+                    if (oldAudioId) { // If replacing existing audio, delete old one
+                        await deleteAudioFile(oldAudioId);
+                        console.log("Deleted old audio from IndexedDB:", oldAudioId);
+                    }
+                    const newAudioId = `audio-${Date.now()}-${Math.random().toString(36).substring(7)}`;
+                    await storeAudioFile(newAudioId, fileBlob);
+                    console.log("Stored new audio to IndexedDB:", newAudioId);
+                    return newAudioId;
+                } else if (fileBlob === null && oldAudioId) { // Audio explicitly removed
+                    await deleteAudioFile(oldAudioId);
+                    console.log("Removed audio from IndexedDB:", oldAudioId);
+                    return null;
+                } else if (typeof fileBlob === 'string') { // Existing audio ID (string), no new file selected
+                    console.log("Keeping existing audio ID:", fileBlob);
+                    return fileBlob;
+                }
+                console.log("No audio file to process.");
+                return null; // No audio file
+            };
+
+
+            const handleCreateVocabularySubmit = async (e) => {
+                e.preventDefault();
+                if (!selectedLesson || isProcessing) {
+                    setMessage({ text: "Chưa chọn bài học hoặc đang xử lý. Vui lòng đợi.", type: "error" });
+                    return;
+                }
+                if (!hanTu.trim() || !pinyin.trim() || !meaning.trim()) {
+                    setMessage({ text: "Hán tự, Bính âm, Nghĩa tiếng Việt không được để trống.", type: "error" });
+                    return;
+                }
+
+                setIsProcessing(true);
+                console.log("Starting vocabulary creation process...");
+                let vocabAudioId = null;
+                try {
+                    vocabAudioId = await processAndStoreAudio(audioFileBlob);
+                } catch (e) {
+                    setMessage({ text: `Lỗi lưu file âm thanh từ vựng: ${e.message}`, type: "error" });
+                    setIsProcessing(false);
+                    console.error("Error during main vocabulary audio storage:", e);
+                    return;
+                }
+
+                const processedExamplesPromises = examples.map(async (ex, index) => {
+                    let exampleAudioId = null;
+                    if (ex.audioFileBlob instanceof File) {
+                        try {
+                            exampleAudioId = await processAndStoreAudio(ex.audioFileBlob);
+                        } catch (e) {
+                            setMessage({ text: `Lỗi lưu file âm thanh ví dụ ${index + 1}: ${e.message}`, type: "error" });
+                            console.error(`Error during example ${index+1} audio storage:`, e);
+                            throw e;
+                        }
+                    }
+                    return { chinese: ex.chinese, vietnamese: ex.vietnamese, audioFile: exampleAudioId };
+                });
+
+                let processedExamples;
+                try {
+                    processedExamples = await Promise.all(processedExamplesPromises);
+                } catch (e) {
+                    setIsProcessing(false);
+                    return;
+                }
+
+                const newVocabulary = {
+                    id: Date.now().toString(), // Simple unique ID
+                    hanTu,
+                    pinyin,
+                    meaning,
+                    notes,
+                    audioFile: vocabAudioId, // Store ID
+                    examples: processedExamples.filter(ex => ex.chinese || ex.vietnamese),
+                    createdAt: new Date(),
+                    wrongAttempts: 0, // Initialize wrong attempts for new vocabulary
+                    correctStreak: 0 // Initialize correct streak
+                };
+
+                // Update lessons state (localStorage will automatically save)
+                setLessons(prevLessons =>
+                    prevLessons.map(lesson =>
+                        lesson.id === selectedLesson.id
+                            ? { ...lesson, vocabularies: [...(lesson.vocabularies || []), newVocabulary] }
+                            : lesson
+                    )
+                );
+                setMessage({ text: "Từ vựng đã được thêm vào bài học!", type: "success" });
+                resetVocabularyForm();
+                setView('vocabularyList');
+                setIsProcessing(false);
+                console.log("Vocabulary successfully created and added locally:", newVocabulary);
+            };
+
+            const handleEditVocabulary = (vocab) => {
+                console.log("Entering edit vocabulary mode for:", vocab);
+                setEditingVocab(vocab);
+                setHanTu(vocab.hanTu);
+                setPinyin(vocab.pinyin);
+                setMeaning(vocab.meaning);
+                setNotes(vocab.notes);
+                setCurrentAudioFileId(vocab.audioFile); // Set existing audio ID
+                setAudioFileBlob(null); // Clear file input for new selection
+                
+                const hydratedExamples = Array(6).fill({ chinese: '', vietnamese: '', audioFileBlob: null, audioFileId: null });
+
+                (vocab.examples || []).forEach((ex, idx) => {
+                    if (idx < 6) {
+                        hydratedExamples[idx] = { 
+                            chinese: ex.chinese, 
+                            vietnamese: ex.vietnamese, 
+                            audioFileBlob: null, // No blob initially for existing files
+                            audioFileId: ex.audioFile // Store existing ID
+                        };
+                    }
+                });
+                setExamples(hydratedExamples);
+                setView('editVocabulary');
+            };
+
+            const handleUpdateVocabularySubmit = async (e) => {
+                e.preventDefault();
+                if (!editingVocab || !selectedLesson || isProcessing) {
+                    setMessage({ text: "Chưa chọn bài học hoặc từ vựng để chỉnh sửa, hoặc đang xử lý. Vui lòng đợi.", type: "error" });
+                    return;
+                }
+                if (!hanTu.trim() || !pinyin.trim() || !meaning.trim()) {
+                    setMessage({ text: "Hán tự, Bính âm, Nghĩa tiếng Việt không được để trống.", type: "error" });
+                    return;
+                }
+
+                setIsProcessing(true);
+                console.log("Starting vocabulary update process for:", editingVocab.id);
+                let updatedVocabAudioId = null;
+                try {
+                    updatedVocabAudioId = await processAndStoreAudio(audioFileBlob, currentAudioFileId);
+                } catch (e) {
+                    setMessage({ text: `Lỗi xử lý file âm thanh từ vựng: ${e.message}`, type: "error" });
+                    setIsProcessing(false);
+                    console.error("Error during main vocabulary audio update:", e);
+                    return;
+                }
+
+                const updatedExamplesPromises = examples.map(async (ex, index) => {
+                    let exampleAudioId = null;
+                    const oldExampleAudioId = editingVocab.examples?.[index]?.audioFile || null; // Get original ID for example
+
+                    if (ex.chinese || ex.vietnamese) { // Only process if example has content
+                         exampleAudioId = await processAndStoreAudio(ex.audioFileBlob, oldExampleAudioId);
+                    } else if (oldExampleAudioId) { // If example is now empty but had audio, delete old audio
+                        await deleteAudioFile(oldExampleAudioId);
+                        console.log("Deleted old example audio because example is now empty:", oldExampleAudioId);
+                    }
+                    return { chinese: ex.chinese, vietnamese: ex.vietnamese, audioFile: exampleAudioId };
+                });
+
+                let processedExamples;
+                try {
+                    processedExamples = await Promise.all(updatedExamplesPromises);
+                } catch (e) {
+                    setIsProcessing(false);
+                    return;
+                }
+
+                const updatedVocabulary = {
+                    ...editingVocab, // Keep original ID and creation time
+                    hanTu,
+                    pinyin,
+                    meaning,
+                    notes,
+                    audioFile: updatedVocabAudioId,
+                    examples: processedExamples.filter(ex => ex.chinese || ex.vietnamese),
+                    updatedAt: new Date(),
+                    // Keep existing wrongAttempts and correctStreak untouched
+                };
+
+                setLessons(prevLessons =>
+                    prevLessons.map(lesson =>
+                        lesson.id === selectedLesson.id
+                            ? {
+                                ...lesson,
+                                vocabularies: (lesson.vocabularies || []).map(vocab =>
+                                    vocab.id === updatedVocabulary.id ? updatedVocabulary : vocab
+                                )
+                            }
+                            : lesson
+                    )
+                );
+                setMessage({ text: "Từ vựng đã được cập nhật thành công!", type: "success" });
+                resetVocabularyForm();
+                setEditingVocab(null);
+                setView('vocabularyList');
+                setIsProcessing(false);
+                console.log("Vocabulary successfully updated locally:", updatedVocabulary);
+            };
+
+
+            const handleDeleteVocabulary = async (vocabId) => {
+                if (window.confirm("Bạn có chắc muốn xóa từ vựng này không?")) {
+                    setIsProcessing(true);
+                    console.log("Starting vocabulary deletion process for:", vocabId);
+                    const lessonIndex = lessons.findIndex(l => l.id === selectedLesson.id);
+                    if (lessonIndex === -1) { setIsProcessing(false); return; }
+
+                    const vocabToDelete = lessons[lessonIndex].vocabularies.find(v => v.id === vocabId);
+                    if (vocabToDelete) {
+                        if (vocabToDelete.audioFile) {
+                            await deleteAudioFile(vocabToDelete.audioFile); // Delete from IndexedDB
+                            console.log("Deleted associated audio from IndexedDB:", vocabToDelete.audioFile);
+                        }
+                        if (vocabToDelete.examples) {
+                            for (const ex of vocabToDelete.examples) {
+                                if (ex.audioFile) {
+                                    await deleteAudioFile(ex.audioFile); // Delete from IndexedDB
+                                    console.log("Deleted example audio from IndexedDB:", ex.audioFile);
+                                }
+                            }
+                        }
+                    }
+
+                    setLessons(prevLessons =>
+                        prevLessons.map(lesson =>
+                            lesson.id === selectedLesson.id
+                                ? { ...lesson, vocabularies: (lesson.vocabularies || []).filter(vocab => vocab.id !== vocabId) }
+                                : lesson
+                        )
+                    );
+                    setMessage({ text: "Từ vựng đã được xóa thành công!", type: "success" });
+                    setIsProcessing(false);
+                    console.log("Vocabulary deleted locally:", vocabId);
+                }
+            };
+
+            // --- Game Logic ---
+            const shuffleArray = (array) => {
+                const newArray = [...array];
+                for (let i = newArray.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+                }
+                return newArray;
+            };
+
+            const playQuestionAudio = async (questionData) => {
+                let audioIdToPlay = null;
+                // For rearrangeExample and translateExample, play the example audio if available
+                if ((questionData.type === 'rearrangeExample' || questionData.type === 'translateExample') && questionData.exampleAudioId) { 
+                    audioIdToPlay = questionData.exampleAudioId;
+                } else if (questionData.vocab && questionData.vocab.audioFile) { // Default for vocab-based questions
+                    audioIdToPlay = questionData.vocab.audioFile;
+                }
+
+                if (audioIdToPlay) {
+                    try {
+                        const audioBlob = await getAudioFile(audioIdToPlay);
+                        if (audioBlob) {
+                            playAudioBlob(audioBlob);
+                            console.log("Playing question audio from IndexedDB:", audioIdToPlay);
+                        } else {
+                            console.warn("Audio file not found in IndexedDB for question:", audioIdToPlay);
+                        }
+                    } catch (e) {
+                        console.error("Error retrieving or playing audio for question:", e);
+                    }
+                } else {
+                    console.log("No audio ID to play for this question type or vocab.");
+                }
+            };
+
+            const handlePlayDetailAudio = async (audioId) => {
+                if (audioId) {
+                    try {
+                        const audioBlob = await getAudioFile(audioId);
+                        if (audioBlob) {
+                            playAudioBlob(audioBlob);
+                            console.log("Playing detail audio from IndexedDB:", audioId);
+                        } else {
+                            setMessage({ text: "Không tìm thấy file âm thanh này.", type: "error" });
+                            console.warn("Audio file not found in IndexedDB:", audioId);
+                        }
+                    } catch (e) {
+                        setMessage({ text: "Lỗi khi phát âm thanh.", type: "error" });
+                        console.error("Error retrieving or playing audio:", e);
+                    }
+                } else {
+                    setMessage({ text: "Không có file âm thanh đính kèm.", type: "info" });
+                }
+            };
+
+            const normalizePinyin = (pinyinString) => {
+                // Remove spaces and tone marks (simplified for typing)
+                return pinyinString
+                    .normalize("NFD")
+                    .replace(/[\u0300-\u036f]/g, "") // Remove diacritics
+                    .replace(/\s+/g, '') // Remove spaces
+                    .toLowerCase();
+            };
+            
+            // Function to strip non-Hanzi characters and spaces for HanTu comparison
+            const normalizeHanTu = (hanTuString) => {
+                // Keep only CJK Unified Ideographs, remove spaces and other characters
+                return hanTuString.replace(/[^\u4e00-\u9fff\u3400-\u4DBF]/g, '').replace(/\s+/g, ''); 
+            };
+            
+            // Function to split a Chinese sentence into words based on common patterns
+            const splitChineseSentence = (sentence) => {
+                // This is a basic split; a more advanced solution would use NLP libraries
+                // It splits by space or between Hanzi characters (to separate multi-character words if no space)
+                return sentence.split(/\s+|(?=[\u4e00-\u9fff])|(?<=[\u4e00-\u9fff])/).filter(word => word.trim() !== '');
+            };
+
+
+            const displayQuestion = async (questionIndex, vocabList) => {
+                if (!vocabList || vocabList.length === 0 || questionIndex >= vocabList.length) {
+                    setQuestion(null);
+                    return;
+                }
+
+                // Get the vocabulary for the current question
+                const questionVocab = vocabList[questionIndex];
+                
+                let questionData = {};
+                let allOptionsCombined = [];
+                let correctOption = null;
+                let correctIdx = -1;
+
+                // For rearrangeExample, we need to handle example sentence selection carefully
+                let currentVocabSuitableExamples = questionVocab.examples ? questionVocab.examples.filter(ex => ex.chinese && splitChineseSentence(ex.chinese).length > 1) : [];
+
+                // Randomly select question type for variety
+                const availableQuestionTypes = [];
+
+                // Always include translateWord if meaning exists
+                if (questionVocab.meaning) {
+                    availableQuestionTypes.push('translateWord'); // Hán tự -> Nghĩa Việt (Multiple Choice)
+                }
+                
+                // Include typePinyin if pinyin exists
+                if (questionVocab.pinyin) {
+                    availableQuestionTypes.push('typePinyin');    // Hán tự -> Gõ Bính âm
+                }
+
+                // Add 'translateMeaning' (Meaning -> HanTu - MC with Vietnamese options) if enough unique Vietnamese meanings exist
+                const uniqueVietMeaningsForMC = [...new Set(allVocabularies.map(v => v.meaning))].filter(m => m && m !== questionVocab.meaning);
+                if (questionVocab.hanTu && uniqueVietMeaningsForMC.length >= 3) { // Need at least 3 wrong options
+                    availableQuestionTypes.push('translateMeaning'); // Hán tự -> Nghĩa Việt (MC, with VN options)
+                }
+                
+                // Add 'translateVietToHanTuMC' (Meaning -> HanTu - MC with HanTu options) if meaning and hanTu exist for question vocab
+                const otherHanTusForMC = [...new Set(allVocabularies.map(v => v.hanTu))].filter(h => h && h !== questionVocab.hanTu);
+                if (questionVocab.meaning && questionVocab.hanTu && otherHanTusForMC.length >= 3) {
+                    availableQuestionTypes.push('translateVietToHanTuMC'); // Tiếng Việt -> Chọn Hán tự (MC)
+                }
+
+                // Add 'translateExample' if there are examples with both Chinese and Vietnamese parts
+                if (currentVocabSuitableExamples.length > 0) {
+                    availableQuestionTypes.push('translateExample'); // Ví dụ Trung -> Nghĩa Ví dụ Việt (Multiple Choice)
+                }
+                
+                // Add 'typeHanTu' if meaning and HanTu exist
+                if (questionVocab.hanTu && questionVocab.meaning) {
+                     availableQuestionTypes.push('typeHanTu'); // Tiếng Việt -> Gõ Hán tự
+                }
+
+                // Add 'rearrangeExample' if there are examples with at least two words
+                if (currentVocabSuitableExamples.length > 0) {
+                    availableQuestionTypes.push('rearrangeExample'); // Sắp xếp từ thành câu
+                }
+
+
+                if (availableQuestionTypes.length === 0) {
+                    console.warn("No suitable question types available for this vocabulary.", questionVocab);
+                    setMessage({ text: "Từ vựng này không có đủ thông tin để tạo câu hỏi. Chuyển sang câu hỏi khác hoặc hoàn thành.", type: "info" });
+                    setQuestion(null); // No question can be generated for this specific vocab with available types.
+                    return; // Exit to allow handleNextQuestion to potentially advance or finish.
+                }
+                
+                const randomQuestionType = shuffleArray(availableQuestionTypes)[0];
+                setQuestionType(randomQuestionType);
+                setPinyinInput(''); // Reset Pinyin input field
+                setHanTuInput(''); // Reset HanTu input field
+                setSelectedOption(null); // Reset selected option for MC
+                setIsCorrect(null); // Reset answer status
+                setScrambledWords([]); // Reset for rearrange
+                setSelectedWords([]); // Reset for rearrange
+                setRearrangeIsAnswered(false); // Reset for rearrange
+
+                console.log("Selected question type:", randomQuestionType, "for vocab:", questionVocab.hanTu);
+
+                switch (randomQuestionType) {
+                    case 'translateWord': // Hán tự -> Nghĩa Việt (Multiple Choice)
+                        questionData = {
+                            vocab: questionVocab,
+                            text: questionVocab.hanTu,
+                            type: 'translateWord',
+                            pinyin: questionVocab.pinyin // Include pinyin for display toggle
+                        };
+                        correctOption = questionVocab.meaning;
+                        
+                        let wrongMeanings = [];
+                        const meaningPool = allVocabularies.filter(v => v.id !== questionVocab.id && v.meaning);
+                        const uniqueMeaningPool = [...new Set(meaningPool.map(v => v.meaning))].filter(m => m !== correctOption);
+
+                        while (wrongMeanings.length < 3 && uniqueMeaningPool.length > 0) {
+                            const randomIndex = Math.floor(Math.random() * uniqueMeaningPool.length);
+                            wrongMeanings.push(uniqueMeaningPool.splice(randomIndex, 1)[0]);
+                        }
+                        // Fallback if not enough unique meanings (create generic wrong answers)
+                        while (wrongMeanings.length < 3) {
+                            wrongMeanings.push(`Đáp án sai ${wrongMeanings.length + 1}`);
+                        }
+                        allOptionsCombined = shuffleArray([correctOption, ...wrongMeanings]);
+                        correctIdx = allOptionsCombined.indexOf(correctOption);
+                        break;
+
+                    case 'typePinyin': // Hán tự -> Gõ Bính âm
+                        questionData = {
+                            vocab: questionVocab,
+                            text: questionVocab.hanTu, // Display Hán tự
+                            type: 'typePinyin',
+                            correctAnswer: normalizePinyin(questionVocab.pinyin), // Store normalized pinyin as correct answer
+                            displayPinyin: questionVocab.pinyin // Original pinyin for display after answer
+                        };
+                        break;
+                    
+                    case 'translateMeaning': // Nghĩa Việt -> Hán tự (Multiple Choice - options are Vietnamese meanings)
+                        questionData = {
+                            vocab: questionVocab,
+                            text: questionVocab.hanTu, // Display HanTu as question
+                            type: 'translateMeaning',
+                        };
+                        correctOption = questionVocab.meaning; // Correct answer is Vietnamese meaning
+                        
+                        let wrongMeaningsForHanTu = [];
+                        const meaningPoolForHanTu = allVocabularies.filter(v => v.id !== questionVocab.id && v.meaning);
+                        const uniqueMeaningPoolForHanTu = [...new Set(meaningPoolForHanTu.map(v => v.meaning))].filter(m => m !== correctOption);
+
+                        while (wrongMeaningsForHanTu.length < 3 && uniqueMeaningPoolForHanTu.length > 0) {
+                            const randomIndex = Math.floor(Math.random() * uniqueMeaningPoolForHanTu.length);
+                            wrongMeaningsForHanTu.push(uniqueMeaningPoolForHanTu.splice(randomIndex, 1)[0]);
+                        }
+                        while (wrongMeaningsForHanTu.length < 3) {
+                            wrongMeaningsForHanTu.push(`Nghĩa sai ${wrongMeaningsForHanTu.length + 1}`);
+                        }
+                        allOptionsCombined = shuffleArray([correctOption, ...wrongMeaningsForHanTu]);
+                        correctIdx = allOptionsCombined.indexOf(correctOption);
+                        break;
+                    
+                    case 'translateVietToHanTuMC': // Tiếng Việt -> Chọn Hán tự (Multiple Choice) - New
+                        questionData = {
+                            vocab: questionVocab,
+                            text: questionVocab.meaning, // Display Vietnamese meaning as question
+                            type: 'translateVietToHanTuMC',
+                        };
+                        correctOption = questionVocab.hanTu; // Correct answer is Hán tự
+                        
+                        let wrongHanTusMC = [];
+                        const hanTuPoolMC = allVocabularies.filter(v => v.id !== questionVocab.id && v.hanTu);
+                        const uniqueHanTuPoolMC = [...new Set(hanTuPoolMC.map(v => v.hanTu))].filter(h => h && h !== correctOption);
+
+                        while (wrongHanTusMC.length < 3 && uniqueHanTuPoolMC.length > 0) {
+                            const randomIndex = Math.floor(Math.random() * uniqueHanTuPoolMC.length);
+                            wrongHanTusMC.push(uniqueHanTuPoolMC.splice(randomIndex, 1)[0]);
+                        }
+                        while (wrongHanTusMC.length < 3) {
+                            wrongHanTusMC.push(`Chữ sai ${wrongHanTusMC.length + 1}`);
+                        }
+                        allOptionsCombined = shuffleArray([correctOption, ...wrongHanTusMC]);
+                        correctIdx = allOptionsCombined.indexOf(correctOption);
+                        break;
+
+                    case 'translateExample': // Ví dụ Trung -> Nghĩa Ví dụ Việt (Multiple Choice)
+                        // Select a random example from the chosen vocabulary
+                        const selectedExample = shuffleArray(currentVocabSuitableExamples)[0];
+
+                        questionData = {
+                            vocab: questionVocab, // Keep reference to the main vocab
+                            example: selectedExample, // The specific example being quizzed
+                            text: selectedExample.chinese, // Display the Chinese example sentence
+                            type: 'translateExample',
+                            exampleAudioId: selectedExample.audioFile // Audio for this specific example
+                        };
+                        correctOption = selectedExample.vietnamese; // Correct answer is the Vietnamese meaning of the example
+
+                        let wrongExampleMeanings = [];
+                        // Collect other Vietnamese example meanings from all vocabularies
+                        const allExampleMeaningPool = allVocabularies.flatMap(v => 
+                            v.examples ? v.examples.map(ex => ex.vietnamese) : []
+                        ).filter(m => m && m !== correctOption);
+                        
+                        const uniqueExampleMeaningPool = [...new Set(allExampleMeaningPool)].filter(m => m !== correctOption);
+
+                        while (wrongExampleMeanings.length < 3 && uniqueExampleMeaningPool.length > 0) {
+                            const randomIndex = Math.floor(Math.random() * uniqueExampleMeaningPool.length);
+                            wrongExampleMeanings.push(uniqueExampleMeaningPool.splice(randomIndex, 1)[0]);
+                        }
+                        // Fallback if not enough unique example meanings
+                        while (wrongExampleMeanings.length < 3) {
+                            wrongExampleMeanings.push(`Dịch sai ${wrongExampleMeanings.length + 1}`);
+                        }
+                        allOptionsCombined = shuffleArray([correctOption, ...wrongExampleMeanings]);
+                        correctIdx = allOptionsCombined.indexOf(correctOption);
+                        break;
+                    
+                    case 'typeHanTu': // Tiếng Việt -> Gõ Hán tự
+                        questionData = {
+                            vocab: questionVocab,
+                            text: questionVocab.meaning, // Display Vietnamese meaning
+                            type: 'typeHanTu',
+                            correctAnswer: normalizeHanTu(questionVocab.hanTu), // Store normalized HanTu as correct answer
+                            displayHanTu: questionVocab.hanTu // Original HanTu for display after answer
+                        };
+                        break;
+
+                    case 'rearrangeExample': // Sắp xếp từ thành câu
+                        const exampleToRearrange = shuffleArray(currentVocabSuitableExamples)[0];
+                        const originalWords = splitChineseSentence(exampleToRearrange.chinese);
+                        
+                        // Ensure there are enough words to scramble meaningfully (at least 2)
+                        if (originalWords.length < 2) {
+                            console.warn("Example has less than 2 words, cannot rearrange. Falling back to another type.");
+                            // This case implies that although the vocab has examples, none of them are multi-word enough
+                            // We should not select 'rearrangeExample' if this is likely.
+                            // For safety, re-evaluate next question without this type or pick another type randomly.
+                            displayQuestion(questionIndex, vocabList); // Re-run to pick different type
+                            return;
+                        }
+
+                        questionData = {
+                            vocab: questionVocab,
+                            example: exampleToRearrange,
+                            text: exampleToRearrange.vietnamese, // Display Vietnamese meaning as prompt
+                            type: 'rearrangeExample',
+                            correctSequence: originalWords, // Store the correct order of words
+                            exampleAudioId: exampleToRearrange.audioFile
+                        };
+                        setScrambledWords(shuffleArray([...originalWords]).map((word, idx) => ({ id: idx, word: word, isUsed: false }))); // Scramble words for buttons
+                        setSelectedWords([]); // Start with empty selection
+                        setRearrangeIsAnswered(false);
+                        break;
+
+                    default: // Fallback to translateWord if type is not recognized (shouldn't happen with proper type selection)
+                        console.error("Undefined question type encountered:", randomQuestionType);
+                        // Force back to a known working type if this happens
+                        setQuestionType('translateWord'); 
+                        // Recurse to generate a valid question from remaining available types for this vocab
+                        displayQuestion(questionIndex, vocabList); 
+                        return;
+                }
+
+                setQuestion(questionData);
+                setOptions(allOptionsCombined);
+                setCorrectAnswerIndex(correctIdx);
+                setShaking(false);
+
+                // Play audio at the beginning of each question for relevant types
+                // "Dịch câu ví dụ" (translateExample) and "Sắp xếp từ thành câu" (rearrangeExample) should play example audio
+                // "Gõ Bính âm cho Hán tự" (typePinyin), "Dịch từ Hán tự" (translateWord), "Dịch từ Tiếng Việt" (translateMeaning), "Tiếng Việt -> Chọn Hán tự" (translateVietToHanTuMC), "Gõ Hán tự cho Tiếng Việt" (typeHanTu) should play main vocab audio
+                
+                if (randomQuestionType === 'translateExample' || randomQuestionType === 'rearrangeExample') {
+                    if (questionData.exampleAudioId) {
+                        playQuestionAudio(questionData);
+                    } else {
+                        console.warn(`No example audio for ${randomQuestionType} question.`);
+                    }
+                } else if (questionData.vocab && questionData.vocab.audioFile) {
+                    playQuestionAudio(questionData);
+                } else {
+                    console.warn(`No main vocabulary audio for ${randomQuestionType} question.`);
+                }
+                console.log("Displayed question for review:", questionData);
+            };
+
+            const promptForReviewLimit = (mode, lesson = null, isDifficult = false) => {
+                setReviewMode(mode);
+                setSelectedLesson(lesson); // Store for later use in startReview
+                setTempReviewLimit(''); // Clear previous input
+                // Store whether it's a difficult words review
+                setShowReviewLimitModal({ isVisible: true, isDifficult: isDifficult });
+            };
+
+            const handleStartReviewFromModal = () => {
+                const limit = parseInt(tempReviewLimit, 10);
+                let actualLimit = limit;
+                const { isVisible, isDifficult } = showReviewLimitModal; // Get isDifficult flag
+
+                let vocabForReview = [];
+                if (isDifficult) {
+                    vocabForReview = allVocabularies.filter(vocab => vocab.wrongAttempts && vocab.wrongAttempts >= 2);
+                    if (vocabForReview.length === 0) {
+                        setMessage({ text: "Chưa có từ vựng khó nào để ôn tập. Hãy thử làm sai một vài lần!", type: "info" });
+                        setShowReviewLimitModal({ isVisible: false, isDifficult: false }); // Hide modal
+                        return;
+                    }
+                } else if (reviewMode === 'allLessons') {
+                    vocabForReview = allVocabularies;
+                } else if (reviewMode === 'singleLesson' && selectedLesson) {
+                    vocabForReview = allVocabularies.filter(v => v.lessonId === selectedLesson.id);
+                }
+
+                // Filter for vocabs that can actually generate questions
+                const validVocabForReview = vocabForReview.filter(vocab => 
+                    vocab.meaning || 
+                    vocab.pinyin || 
+                    (vocab.examples && vocab.examples.some(ex => ex.chinese && ex.vietnamese && splitChineseSentence(ex.chinese).length > 1))
+                );
+
+                if (validVocabForReview.length === 0) {
+                    setMessage({ text: "Chưa có từ vựng nào có đủ thông tin (nghĩa, bính âm, ví dụ) để ôn tập trong lựa chọn này. Vui lòng tạo từ vựng đầy đủ hơn.", type: "error" });
+                    setShowReviewLimitModal({ isVisible: false, isDifficult: false }); // Hide modal
+                    return;
+                }
+
+                setReviewSourceVocabs(shuffleArray(validVocabForReview)); // Store the original shuffled list for repeating
+
+                if (isNaN(actualLimit) || actualLimit <= 0) {
+                    actualLimit = validVocabForReview.length; // If no limit or invalid, use all valid vocabs
+                }
+                
+                // Construct the list of questions to ask
+                let questionsToAsk = [];
+                let currentPool = [];
+                for (let i = 0; i < actualLimit; i++) {
+                    if (currentPool.length === 0) {
+                        currentPool = shuffleArray([...validVocabForReview]); // Reshuffle if we run out
+                    }
+                    if (currentPool.length > 0) { // Ensure there's something to pop
+                        questionsToAsk.push(currentPool.pop());
+                    } else {
+                        // This case should ideally not be hit if validVocabForReview is not empty
+                        // but provides a safeguard.
+                        break; 
+                    }
+                }
+                
+                setReviewVocabList(questionsToAsk);
+                setTotalQuestions(questionsToAsk.length);
+                setScore(0);
+                setCurrentQuestionNumber(0);
+                displayQuestion(0, questionsToAsk);
+                setView('review');
+                setShowReviewLimitModal({ isVisible: false, isDifficult: false }); // Hide modal
+                console.log(`Review session started with total questions:`, questionsToAsk.length);
+            };
+
+
+            const handleOptionClick = async (index) => {
+                if (selectedOption !== null) return;
+
+                setSelectedOption(index);
+                if (index === correctAnswerIndex) {
+                    setIsCorrect(true);
+                    setScore(prev => prev + 1);
+                    // Update correct streak and reset wrong attempts if streak is achieved
+                    const vocabId = question.vocab.id;
+                    setLessons(prevLessons => 
+                        prevLessons.map(lesson => ({
+                            ...lesson,
+                            vocabularies: lesson.vocabularies.map(vocab => {
+                                if (vocab.id === vocabId) {
+                                    const newCorrectStreak = (vocab.correctStreak || 0) + 1;
+                                    return { 
+                                        ...vocab, 
+                                        correctStreak: newCorrectStreak,
+                                        wrongAttempts: newCorrectStreak >= CORRECT_STREAK_TO_GRADUATE ? 0 : vocab.wrongAttempts // Graduate if streak is met
+                                    };
+                                }
+                                return vocab;
+                            })
+                        }))
+                    );
+                    // Play audio when correct
+                    // For translateWord or translateMeaning, play vocab audio
+                    if (question.vocab.audioFile && (question.type === 'translateWord' || question.type === 'translateMeaning' || question.type === 'translateVietToHanTuMC')) {
+                        await handlePlayDetailAudio(question.vocab.audioFile);
+                    } else if (question.type === 'translateExample' && question.exampleAudioId) {
+                        await handlePlayDetailAudio(question.exampleAudioId);
+                    }
+                    console.log("Answer correct. Score:", score + 1);
+                } else {
+                    setIsCorrect(false);
+                    setShaking(true);
+                    console.log("Answer incorrect.");
+                    // Update wrong attempts and reset correct streak
+                    const vocabId = question.vocab.id;
+                    setLessons(prevLessons => 
+                        prevLessons.map(lesson => ({
+                            ...lesson,
+                            vocabularies: lesson.vocabularies.map(vocab => 
+                                vocab.id === vocabId ? { 
+                                    ...vocab, 
+                                    wrongAttempts: (vocab.wrongAttempts || 0) + 1,
+                                    correctStreak: 0 // Reset correct streak on wrong answer
+                                } : vocab
+                            )
+                        }))
+                    );
+                }
+            };
+            
+            const handlePinyinSubmit = async (e) => {
+                e.preventDefault();
+                if (isCorrect !== null) return; // Already answered
+
+                const submittedPinyin = normalizePinyin(pinyinInput);
+                const correctPinyin = question.correctAnswer;
+
+                if (submittedPinyin === correctPinyin) {
+                    setIsCorrect(true);
+                    setScore(prev => prev + 1);
+                    // Update correct streak and reset wrong attempts if streak is achieved
+                    const vocabId = question.vocab.id;
+                    setLessons(prevLessons => 
+                        prevLessons.map(lesson => ({
+                            ...lesson,
+                            vocabularies: lesson.vocabularies.map(vocab => {
+                                if (vocab.id === vocabId) {
+                                    const newCorrectStreak = (vocab.correctStreak || 0) + 1;
+                                    return { 
+                                        ...vocab, 
+                                        correctStreak: newCorrectStreak,
+                                        wrongAttempts: newCorrectStreak >= CORRECT_STREAK_TO_GRADUATE ? 0 : vocab.wrongAttempts // Graduate if streak is met
+                                    };
+                                }
+                                return vocab;
+                            })
+                        }))
+                    );
+                    // Play audio when correct
+                    if (question.vocab.audioFile) {
+                        await handlePlayDetailAudio(question.vocab.audioFile);
+                    }
+                    console.log("Pinyin answer correct. Score:", score + 1);
+                } else {
+                    setIsCorrect(false);
+                    setShaking(true);
+                    console.log("Pinyin answer incorrect.");
+                    // Update wrong attempts and reset correct streak
+                    const vocabId = question.vocab.id;
+                    setLessons(prevLessons => 
+                        prevLessons.map(lesson => ({
+                            ...lesson,
+                            vocabularies: lesson.vocabularies.map(vocab => 
+                                vocab.id === vocabId ? { 
+                                    ...vocab, 
+                                    wrongAttempts: (vocab.wrongAttempts || 0) + 1,
+                                    correctStreak: 0 // Reset correct streak on wrong answer
+                                } : vocab
+                            )
+                        }))
+                    );
+                }
+            };
+
+            const handleHanTuSubmit = async (e) => {
+                e.preventDefault();
+                if (isCorrect !== null) return; // Already answered
+
+                const submittedHanTu = normalizeHanTu(hanTuInput);
+                const correctHanTu = question.correctAnswer;
+
+                if (submittedHanTu === correctHanTu) {
+                    setIsCorrect(true);
+                    setScore(prev => prev + 1);
+                    // Update correct streak and reset wrong attempts if streak is achieved
+                    const vocabId = question.vocab.id;
+                    setLessons(prevLessons => 
+                        prevLessons.map(lesson => ({
+                            ...lesson,
+                            vocabularies: lesson.vocabularies.map(vocab => {
+                                if (vocab.id === vocabId) {
+                                    const newCorrectStreak = (vocab.correctStreak || 0) + 1;
+                                    return { 
+                                        ...vocab, 
+                                        correctStreak: newCorrectStreak,
+                                        wrongAttempts: newCorrectStreak >= CORRECT_STREAK_TO_GRADUATE ? 0 : vocab.wrongAttempts // Graduate if streak is met
+                                    };
+                                }
+                                return vocab;
+                            })
+                        }))
+                    );
+                    // Play audio when correct
+                    if (question.vocab.audioFile) {
+                        await handlePlayDetailAudio(question.vocab.audioFile);
+                    }
+                    console.log("HanTu answer correct. Score:", score + 1);
+                } else {
+                    setIsCorrect(false);
+                    setShaking(true);
+                    console.log("HanTu answer incorrect.");
+                    // Update wrong attempts and reset correct streak
+                    const vocabId = question.vocab.id;
+                    setLessons(prevLessons => 
+                        prevLessons.map(lesson => ({
+                            ...lesson,
+                            vocabularies: lesson.vocabularies.map(vocab => 
+                                vocab.id === vocabId ? { 
+                                    ...vocab, 
+                                    wrongAttempts: (vocab.wrongAttempts || 0) + 1,
+                                    correctStreak: 0 // Reset correct streak on wrong answer
+                                } : vocab
+                            )
+                        }))
+                    );
+                }
+            };
+
+            // For rearrangeExample
+            const handleWordClick = (item, indexInScrambled) => {
+                if (rearrangeIsAnswered) return;
+                
+                // Add the clicked word to selected words and mark it as used in scrambledWords
+                setSelectedWords(prev => [...prev, item.word]);
+                setScrambledWords(prev => prev.map((wordObj, i) => 
+                    i === indexInScrambled ? { ...wordObj, isUsed: true } : wordObj
+                ));
+            };
+
+            const handleRearrangeCheck = async () => {
+                if (rearrangeIsAnswered) return;
+
+                const userAnswer = selectedWords.join('');
+                const correctAnswer = question.correctSequence.join('');
+
+                if (userAnswer === correctAnswer) {
+                    setIsCorrect(true);
+                    setScore(prev => prev + 1);
+                    setRearrangeIsAnswered(true);
+                    await playQuestionAudio(question); // Play original example audio when correct
+                    // Update correct streak and reset wrong attempts if streak is achieved
+                    const vocabId = question.vocab.id;
+                    setLessons(prevLessons => 
+                        prevLessons.map(lesson => ({
+                            ...lesson,
+                            vocabularies: lesson.vocabularies.map(vocab => {
+                                if (vocab.id === vocabId) {
+                                    const newCorrectStreak = (vocab.correctStreak || 0) + 1;
+                                    return { 
+                                        ...vocab, 
+                                        correctStreak: newCorrectStreak,
+                                        wrongAttempts: newCorrectStreak >= CORRECT_STREAK_TO_GRADUATE ? 0 : vocab.wrongAttempts // Graduate if streak is met
+                                    };
+                                }
+                                return vocab;
+                            })
+                        }))
+                    );
+                } else {
+                    setIsCorrect(false);
+                    setShaking(true);
+                    const vocabId = question.vocab.id;
+                    setLessons(prevLessons => 
+                        prevLessons.map(lesson => ({
+                            ...lesson,
+                            vocabularies: lesson.vocabularies.map(vocab => 
+                                vocab.id === vocabId ? { 
+                                    ...vocab, 
+                                    wrongAttempts: (vocab.wrongAttempts || 0) + 1,
+                                    correctStreak: 0 // Reset correct streak on wrong answer
+                                } : vocab
+                            )
+                        }))
+                    );
+                }
+            };
+
+            const handleRearrangeReset = () => {
+                setSelectedWords([]);
+                setScrambledWords(prev => prev.map(wordObj => ({ ...wordObj, isUsed: false }))); // Reset all to unused
+                setIsCorrect(null);
+                setShaking(false);
+            };
+
+            const handleRearrangeGiveUp = async () => {
+                setRearrangeIsAnswered(true);
+                setIsCorrect(false); // Mark as incorrect if giving up
+                setSelectedWords(question.correctSequence); // Show correct answer
+                // Ensure all scrambled words are marked as used if we give up, to prevent further interaction
+                setScrambledWords(prev => prev.map(wordObj => ({ ...wordObj, isUsed: true }))); 
+                await playQuestionAudio(question); // Play original example audio
+                const vocabId = question.vocab.id;
+                setLessons(prevLessons => 
+                    prevLessons.map(lesson => ({
+                        ...lesson,
+                        vocabularies: lesson.vocabularies.map(vocab => 
+                            vocab.id === vocabId ? { 
+                                ...vocab, 
+                                wrongAttempts: (vocab.wrongAttempts || 0) + 1,
+                                correctStreak: 0 // Reset correct streak on wrong answer
+                            } : vocab
+                        )
+                    }))
+                );
+            };
+
+
+            const handleNextQuestion = () => {
+                const nextQuestionIndex = currentQuestionNumber + 1;
+                if (nextQuestionIndex < totalQuestions) {
+                    setCurrentQuestionNumber(nextQuestionIndex);
+                    displayQuestion(nextQuestionIndex, reviewVocabList); // Pass reviewVocabList directly
+                    console.log("Moving to next question:", nextQuestionIndex);
+                } else {
+                    setMessage({ text: `Hoàn thành ôn tập! Bạn đã trả lời đúng ${score} / ${totalQuestions} câu.`, type: "success" });
+                    setView('lessonList');
+                    setSelectedOption(null);
+                    setIsCorrect(null);
+                    setQuestion(null);
+                    setReviewVocabList([]);
+                    setPinyinInput(''); // Clear pinyin input on finish
+                    setHanTuInput(''); // Clear hanTu input on finish
+                    setReviewSourceVocabs([]); // Clear source vocabs
+                    setScrambledWords([]); // Clear rearrange words
+                    setSelectedWords([]); // Clear rearrange words
+                    setRearrangeIsAnswered(false);
+                    console.log("Review session completed.");
+                }
+            };
+            
+            // --- Export Data Feature ---
+            const handleExportData = async () => {
+                setIsProcessing(true);
+                console.log("Starting data export...");
+                try {
+                    // Fetch all audio files as Blobs from IndexedDB
+                    const allAudioBlobs = await getAllAudioFiles(); // [{id: "audio-id", data: Blob}, ...]
+                    console.log("Fetched all audio blobs for export:", allAudioBlobs.length);
+
+                    // Create a serializable version of lessons including base64 audio
+                    const exportableLessonsPromises = lessons.map(async lesson => ({
+                        ...lesson,
+                        vocabularies: await Promise.all((lesson.vocabularies || []).map(async vocab => {
+                            const vocabAudioBlobData = allAudioBlobs.find(a => a.id === vocab.audioFile)?.data;
+                            const serializableExamplesPromises = (vocab.examples || []).map(async ex => {
+                                const exampleAudioBlobData = allAudioBlobs.find(a => a.id === ex.audioFile)?.data;
+                                return {
+                                    ...ex,
+                                    // Convert Blob to Base64 only for export
+                                    audioFileBase64: exampleAudioBlobData ? await new Promise(resolve => {
+                                        const reader = new FileReader();
+                                        reader.onloadend = () => resolve(reader.result);
+                                        reader.readAsDataURL(exampleAudioBlobData);
+                                    }) : null
+                                };
+                            });
+                            return {
+                                ...vocab,
+                                // Convert Blob to Base64 only for export
+                                audioFileBase64: vocabAudioBlobData ? await new Promise(resolve => {
+                                    const reader = new FileReader();
+                                    reader.onloadend = () => resolve(reader.result);
+                                    reader.readAsDataURL(vocabAudioBlobData);
+                                }) : null,
+                                examples: await Promise.all(serializableExamplesPromises), // Await examples conversion
+                                wrongAttempts: vocab.wrongAttempts || 0, // Ensure wrongAttempts is included
+                                correctStreak: vocab.correctStreak || 0 // Ensure correctStreak is included
+                            };
+                        }))
+                    }));
+                    
+                    const lessonsWithResolvedAudio = await Promise.all(exportableLessonsPromises);
+                    console.log("Lessons with resolved audio for export:", lessonsWithResolvedAudio);
+
+                    // Include new feature data in export
+                    const dataToExport = {
+                        appId: "ChineseVocabApp_Local", // Identifier for your app
+                        version: "1.0",
+                        timestamp: new Date().toISOString(),
+                        lessons: lessonsWithResolvedAudio,
+                        studyGoal: {
+                            targetDate: targetDate,
+                            checkInStreak: checkInStreak,
+                            lastCheckInDate: lastCheckInDate ? lastCheckInDate.toISOString() : null,
+                            // reviewLimit is now temporary, so no need to export
+                        }
+                    };
+
+                    const jsonString = JSON.stringify(dataToExport, null, 2);
+                    const blob = new Blob([jsonString], { type: "application/json" });
+                    const url = URL.createObjectURL(blob);
+                    
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = `chinese_vocab_backup_${new Date().toISOString().split('T')[0]}.json`;
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    URL.revokeObjectURL(url);
+
+                    setMessage({ text: "Dữ liệu đã được xuất thành công!", type: "success" });
+                    console.log("Data export successful!");
+                } catch (e) {
+                    console.error("Error exporting data:", e);
+                    setMessage({ text: `Lỗi khi xuất dữ liệu: ${e.message}. Vui lòng kiểm tra console.`, type: "error" });
+                } finally {
+                    setIsProcessing(false);
+                }
+            };
+
+            // --- Import Data Feature ---
+            const handleImportData = async (e) => {
+                const file = e.target.files[0];
+                if (!file) {
+                    // Reset the file input to ensure change event fires even if same file selected
+                    if (e.target) e.target.value = '';
+                    return;
+                }
+
+                if (window.confirm("Thao tác này sẽ XÓA TOÀN BỘ dữ liệu hiện có và thay thế bằng dữ liệu từ file. Bạn có chắc chắn muốn tiếp tục không?")) {
+                    setIsProcessing(true);
+                    console.log("Starting data import process...");
+                    try {
+                        const reader = new FileReader();
+                        reader.onload = async (event) => {
+                            try {
+                                const importedData = JSON.parse(event.target.result);
+                                console.log("Parsed imported data:", importedData);
+
+                                if (importedData.appId !== "ChineseVocabApp_Local" || !importedData.lessons) {
+                                    throw new Error("File JSON không hợp lệ hoặc không phải là file backup của ứng dụng này.");
+                                }
+
+                                // Clear existing data first
+                                console.log("Clearing existing localStorage and IndexedDB data...");
+                                localStorage.removeItem(LOCAL_STORAGE_KEY);
+                                localStorage.removeItem('chineseTargetDate');
+                                localStorage.removeItem('chineseCheckInStreak');
+                                localStorage.removeItem('chineseLastCheckInDate');
+                                await clearAllAudioFiles();
+
+                                const newLessons = [];
+                                for (const lessonData of importedData.lessons) {
+                                    const newVocabularies = [];
+                                    for (const vocabData of lessonData.vocabularies) {
+                                        let vocabAudioId = vocabData.audioFile; // Keep original ID if it was an ID
+                                        if (vocabData.audioFileBase64) {
+                                            console.log("Processing main vocab audio Base64 for import...");
+                                            // Convert Base64 back to Blob
+                                            const base64String = vocabData.audioFileBase64.split(',')[1];
+                                            const mimeType = vocabData.audioFileBase64.split(',')[0].split(':')[1].split(';')[0];
+                                            const byteCharacters = atob(base64String);
+                                            const byteNumbers = new Array(byteCharacters.length);
+                                            for (let i = 0; i < byteCharacters.length; i++) {
+                                                byteNumbers[i] = byteCharacters.charCodeAt(i);
+                                            }
+                                            const byteArray = new Uint8Array(byteNumbers);
+                                            const audioBlob = new Blob([byteArray], { type: mimeType }); // Use detected mime type
+
+                                            // Ensure new unique ID for imported audio to avoid conflicts
+                                            vocabAudioId = `audio-${Date.now()}-${Math.random().toString(36).substring(7)}`; 
+                                            await storeAudioFile(vocabAudioId, audioBlob);
+                                            console.log("Stored imported main vocab audio to IndexedDB:", vocabAudioId);
+                                        }
+
+                                        const newExamples = [];
+                                        for (const exData of (vocabData.examples || [])) {
+                                            let exampleAudioId = exData.audioFile; // Keep original ID if it was an ID
+                                            if (exData.audioFileBase64) {
+                                                console.log("Processing example audio Base64 for import...");
+                                                // Convert Base64 back to Blob
+                                                const base64String = exData.audioFileBase64.split(',')[1];
+                                                const mimeType = exData.audioFileBase64.split(',')[0].split(':')[1].split(';')[0];
+                                                const byteCharacters = atob(base64String);
+                                                const byteNumbers = new Array(byteCharacters.length);
+                                                for (let i = 0; i < byteCharacters.length; i++) {
+                                                    byteNumbers[i] = byteCharacters.charCodeAt(i);
+                                                }
+                                                const byteArray = new Uint8Array(byteNumbers);
+                                                const audioBlob = new Blob([byteArray], { type: mimeType }); // Use detected mime type
+
+                                                // Ensure new unique ID for imported audio to avoid conflicts
+                                                exampleAudioId = `example-audio-${Date.now()}-${Math.random().toString(36).substring(7)}`; 
+                                                await storeAudioFile(exampleAudioId, audioBlob);
+                                                console.log("Stored imported example audio to IndexedDB:", exampleAudioId);
+                                            }
+                                            newExamples.push({ ...exData, audioFile: exampleAudioId });
+                                        }
+                                        // Robust Date conversion for imported data
+                                        const vocabCreatedAt = safeParseDate(vocabData.createdAt) || new Date();
+                                        const vocabUpdatedAt = safeParseDate(vocabData.updatedAt);
+                                        newVocabularies.push({ 
+                                            ...vocabData, 
+                                            audioFile: vocabAudioId, 
+                                            examples: newExamples,
+                                            createdAt: vocabCreatedAt,
+                                            ...(vocabUpdatedAt && { updatedAt: vocabUpdatedAt }),
+                                            wrongAttempts: vocabData.wrongAttempts || 0, // Import wrongAttempts
+                                            correctStreak: vocabData.correctStreak || 0 // Import correctStreak
+                                        });
+                                    }
+                                    // Robust Date conversion for imported data
+                                    const lessonCreatedAt = safeParseDate(lessonData.createdAt) || new Date();
+                                    const lessonUpdatedAt = safeParseDate(lessonData.updatedAt);
+                                    newLessons.push({ 
+                                        ...lessonData, 
+                                        vocabularies: newVocabularies,
+                                        createdAt: lessonCreatedAt,
+                                        ...(lessonUpdatedAt && { updatedAt: lessonUpdatedAt })
+                                    });
+                                }
+
+                                setLessons(newLessons); // This will trigger localStorage save
+
+                                // Import new feature data
+                                if (importedData.studyGoal) {
+                                    setTargetDate(importedData.studyGoal.targetDate || '');
+                                    localStorage.setItem('chineseTargetDate', importedData.studyGoal.targetDate || '');
+                                    calculateDaysRemaining(importedData.studyGoal.targetDate || '');
+
+                                    setCheckInStreak(importedData.studyGoal.checkInStreak || 0);
+                                    localStorage.setItem('chineseCheckInStreak', importedData.studyGoal.checkInStreak || 0);
+
+                                    const importedLastCheckInDate = importedData.studyGoal.lastCheckInDate ? new Date(importedData.studyGoal.lastCheckInDate) : null;
+                                    setLastCheckInDate(importedLastCheckInDate);
+                                    localStorage.setItem('chineseLastCheckInDate', importedLastCheckInDate ? importedLastCheckInDate.toISOString() : '');
+                                }
+
+                                setMessage({ text: "Dữ liệu đã được nhập thành công!", type: "success" });
+                                console.log("Data import successful! New lessons set:", newLessons);
+                            } catch (parseError) {
+                                console.error("Error parsing/processing imported JSON:", parseError);
+                                setMessage({ text: `Lỗi khi xử lý file nhập: ${parseError.message}. Vui lòng kiểm tra file.`, type: "error" });
+                            } finally {
+                                setIsProcessing(false);
+                                // Reset the file input to ensure change event fires next time
+                                if (e.target) e.target.value = '';
+                            }
+                        };
+                        reader.readAsText(file);
+                    } catch (e) {
+                        console.error("Error reading import file:", e);
+                        setMessage({ text: `Lỗi khi đọc file nhập: ${e.message}.`, type: "error" });
+                        setIsProcessing(false);
+                        // Reset the file input
+                        if (e.target) e.target.value = '';
+                    }
+                } else {
+                    // User cancelled, reset the file input
+                    if (e.target) e.target.value = '';
+                }
+            };
+
+            // --- New Feature Logic ---
+            const calculateDaysRemaining = (dateString) => {
+                if (!dateString) {
+                    setDaysRemaining(null);
+                    return;
+                }
+                const target = new Date(dateString);
+                const today = new Date();
+                today.setHours(0, 0, 0, 0); // Reset time to compare dates only
+                target.setHours(0, 0, 0, 0);
+
+                const diffTime = target.getTime() - today.getTime();
+                const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+                setDaysRemaining(diffDays);
+                localStorage.setItem('chineseTargetDate', dateString);
+            };
+
+            const handleTargetDateChange = (e) => {
+                const dateValue = e.target.value;
+                setTargetDate(dateValue);
+                calculateDaysRemaining(dateValue);
+            };
+
+            const handleCheckIn = () => {
+                const today = new Date();
+                today.setHours(0, 0, 0, 0);
+
+                let newStreak = checkInStreak;
+                let newLastCheckInDate = today; // Always set to today if checked in
+
+                if (lastCheckInDate) {
+                    const lastCheckIn = new Date(lastCheckInDate);
+                    lastCheckIn.setHours(0, 0, 0, 0);
+
+                    const oneDay = 24 * 60 * 60 * 1000;
+                    const diffTime = today.getTime() - lastCheckIn.getTime();
+                    const diffDays = Math.round(diffTime / oneDay); // Use round to handle potential daylight saving issues
+
+                    if (diffDays === 0) {
+                        setMessage({ text: "Bạn đã điểm danh hôm nay rồi!", type: "info" });
+                        return;
+                    } else if (diffDays === 1) { // Checked in yesterday, continue streak
+                        newStreak++;
+                    } else { // Gap of more than one day, reset streak
+                        newStreak = 1; 
+                    }
+                } else {
+                    newStreak = 1; // First check-in ever
+                }
+
+                setCheckInStreak(newStreak);
+                setLastCheckInDate(newLastCheckInDate);
+                localStorage.setItem('chineseCheckInStreak', newStreak.toString());
+                localStorage.setItem('chineseLastCheckInDate', newLastCheckInDate.toISOString());
+                setMessage({ text: `Điểm danh thành công! Streak hiện tại: ${newStreak} ngày.`, type: "success" });
+            };
+            
+            // --- UI Rendering ---
+            const renderMessageBox = () => {
+                if (!message) return null;
+                return (
+                    <MessageBox
+                        message={message.text}
+                        type={message.type}
+                        onClose={() => setMessage(null)}
+                    />
+                );
+            };
+
+            const renderReviewLimitModal = () => {
+                if (!showReviewLimitModal.isVisible) return null;
+
+                const { isDifficult } = showReviewLimitModal;
+
+                return (
+                    <div className="modal-overlay">
+                        <div className="modal-content">
+                            <h3 className="text-xl font-bold text-gray-800 mb-4 text-center">Số câu hỏi muốn ôn tập?</h3>
+                            <p className="text-gray-700 text-sm mb-4 text-center">Để trống hoặc nhập 0 để ôn tất cả từ vựng hiện có.</p>
+                            <input
+                                type="number"
+                                value={tempReviewLimit}
+                                onChange={(e) => setTempReviewLimit(e.target.value)}
+                                placeholder="Tất cả"
+                                min="0"
+                                className="w-full border border-gray-300 rounded-md shadow-sm p-2 text-sm focus:ring-indigo-500 focus:border-indigo-500 text-center mb-4"
+                            />
+                            <div className="flex justify-end space-x-3">
+                                <button
+                                    onClick={() => setShowReviewLimitModal({ isVisible: false, isDifficult: false })}
+                                    className="bg-gray-300 text-gray-800 py-2 px-4 rounded-lg hover:bg-gray-400 transition-colors duration-200"
+                                >
+                                    Hủy
+                                </button>
+                                <button
+                                    onClick={() => handleStartReviewFromModal()}
+                                    className="bg-indigo-600 text-white py-2 px-4 rounded-lg hover:bg-indigo-700 transition-colors duration-200"
+                                >
+                                    Bắt đầu Ôn Tập
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                );
+            };
+
+
+            const renderLessonList = () => (
+                <>
+                    {loading && <FullPageLoadingOverlay message="Đang tải dữ liệu từ bộ nhớ cục bộ..." />}
+                    {/* New Features: Study Goal Countdown and Daily Check-in */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                        {/* Study Goal Countdown */}
+                        <div className="bg-blue-50 p-4 rounded-xl shadow-sm border border-blue-200 text-center">
+                            <h3 className="text-lg font-bold text-blue-800 mb-2">Mục Tiêu Học Tập</h3>
+                            <label htmlFor="targetDate" className="block text-sm font-medium text-gray-700 mb-1">Ngày mục tiêu:</label>
+                            <input type="date" id="targetDate" value={targetDate} onChange={handleTargetDateChange}
+                                className="w-full border border-gray-300 rounded-md shadow-sm p-2 text-sm focus:ring-blue-500 focus:border-blue-500 text-center" 
+                                disabled={isProcessing} />
+                            {daysRemaining !== null && (
+                                <p className="mt-2 text-lg font-semibold text-blue-700">
+                                    {daysRemaining >= 0 ? `Còn ${daysRemaining} ngày nữa đến kì thi HSK` : `Đã trôi qua ${Math.abs(daysRemaining)} ngày`}
+                                </p>
+                            )}
+                        </div>
+
+                        {/* Daily Check-in Streak */}
+                        <div className="bg-purple-50 p-4 rounded-xl shadow-sm border border-purple-200 text-center">
+                            <h3 className="text-lg font-bold text-purple-800 mb-2">Điểm Danh Hàng Ngày</h3>
+                            <p className="text-xl font-bold text-purple-700 mb-3">Streak: {checkInStreak} ngày 🔥</p>
+                            <p className="text-sm text-gray-600 mb-3">Lần điểm danh gần nhất: {lastCheckInDate ? lastCheckInDate.toLocaleDateString('vi-VN') : 'Chưa điểm danh'}</p>
+                            <button onClick={handleCheckIn}
+                                className={`w-full bg-purple-600 text-white py-2 px-4 rounded-lg hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 transition-all duration-200 shadow-md ${isProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
+                                disabled={isProcessing}>
+                                {isProcessing ? <LoadingSpinner /> : <i className="fas fa-check-circle mr-2"></i>} Điểm Danh Hôm Nay
+                            </button>
+                        </div>
+                    </div>
+
+                    <div className="flex space-x-4 mb-6">
+                        <button onClick={handleExportData}
+                                className={`flex-1 bg-gray-600 text-white py-3 px-4 rounded-xl hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-all duration-200 shadow-md ${isProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
+                                disabled={isProcessing}>
+                            {isProcessing ? <LoadingSpinner /> : <i className="fas fa-file-export mr-2"></i>} Xuất Dữ Liệu (Backup)
+                        </button>
+                        <label htmlFor="import-file-input"
+                               className={`flex-1 flex items-center justify-center bg-gray-400 text-white py-3 px-4 rounded-xl hover:bg-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-all duration-200 shadow-md cursor-pointer ${isProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
+                               disabled={isProcessing}>
+                            {isProcessing ? <LoadingSpinner /> : <i className="fas fa-file-import mr-2"></i>} Nhập Dữ Liệu (Restore)
+                            <input type="file" id="import-file-input" accept="application/json" onChange={handleImportData} className="hidden" disabled={isProcessing} />
+                        </label>
+                    </div>
+
+                    {/* Original position of "Danh Sách Bài Học" is kept as per new instruction */}
+                    <h2 className="text-3xl font-bold text-gray-800 mb-6 flex justify-between items-center">
+                        Danh Sách Bài Học
+                        <button onClick={() => setView('createLesson')}
+                                className={`bg-indigo-500 text-white text-sm py-2 px-4 rounded-full hover:bg-indigo-600 transition-colors duration-200 shadow-md ${isProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
+                                disabled={isProcessing}>
+                            <i className="fas fa-plus mr-1"></i> Tạo Bài Học Mới
+                        </button>
+                    </h2>
+                    
+                    <button onClick={() => promptForReviewLimit('allLessons')}
+                            className={`w-full bg-green-600 text-white py-3 px-4 rounded-xl hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition-all duration-200 shadow-md mb-6 ${allVocabularies.filter(v => v.meaning || v.pinyin || (v.examples && v.examples.some(ex => ex.chinese && ex.vietnamese && splitChineseSentence(ex.chinese).length > 1))).length === 0 || isProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
+                            disabled={allVocabularies.filter(v => v.meaning || v.pinyin || (v.examples && v.examples.some(ex => ex.chinese && ex.vietnamese && splitChineseSentence(ex.chinese).length > 1))).length === 0 || isProcessing}>
+                        {isProcessing ? <LoadingSpinner /> : <i className="fas fa-play mr-2"></i>}
+                        Ôn Tập Tất Cả Từ Vựng
+                    </button>
+                    
+                    {/* New button for Difficult Words Review */}
+                    <button onClick={() => promptForReviewLimit('difficultWords', null, true)} // Added isDifficult: true
+                            className={`w-full bg-red-600 text-white py-3 px-4 rounded-xl hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition-all duration-200 shadow-md mb-6 ${allVocabularies.filter(v => v.wrongAttempts >= 2).length === 0 || isProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
+                            disabled={allVocabularies.filter(v => v.wrongAttempts >= 2).length === 0 || isProcessing}>
+                        {isProcessing ? <LoadingSpinner /> : <i className="fas fa-exclamation-triangle mr-2"></i>}
+                        Ôn Tập Từ Khó ({allVocabularies.filter(v => v.wrongAttempts >= 2).length})
+                    </button>
+
+                    {error ? (
+                        <MessageBox message={error} type="error" />
+                    ) : lessons.length === 0 ? (
+                        <p className="text-gray-600 text-center py-8">Chưa có bài học nào. Hãy tạo một bài mới!</p>
+                    ) : (
+                        <div className="space-y-4">
+                            {lessons.map((lesson, index) => (
+                                <div key={lesson.id} className={`bg-gray-50 p-4 rounded-xl shadow-sm border border-gray-200 ${lesson.isTemp ? 'opacity-70 animate-pulse' : ''}`}>
+                                    <div className="flex justify-between items-start mb-2">
+                                        <div>
+                                            <h3 className="text-xl font-bold text-gray-900">{lesson.name}</h3>
+                                            <p className="text-gray-500 text-sm">Tạo lúc: {lesson.createdAt.toLocaleDateString('vi-VN')} | SL Từ vựng: {(lesson.vocabularies || []).length}</p>
+                                        </div>
+                                        <div className="flex space-x-2">
+                                            {/* Move Up/Down buttons */}
+                                            <button onClick={() => handleMoveLesson(lesson.id, 'up')}
+                                                    className={`bg-gray-400 text-white text-xs p-2 rounded-full hover:bg-gray-500 transition-colors duration-200 ${index === 0 || isProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
+                                                    title="Di chuyển lên"
+                                                    disabled={index === 0 || isProcessing}>
+                                                <i className="fas fa-arrow-up"></i>
+                                            </button>
+                                            <button onClick={() => handleMoveLesson(lesson.id, 'down')}
+                                                    className={`bg-gray-400 text-white text-xs p-2 rounded-full hover:bg-gray-500 transition-colors duration-200 ${index === lessons.length - 1 || isProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
+                                                    title="Di chuyển xuống"
+                                                    disabled={index === lessons.length - 1 || isProcessing}>
+                                                <i className="fas fa-arrow-down"></i>
+                                            </button>
+
+                                            <button onClick={() => handleEditLesson(lesson)}
+                                                    className={`bg-blue-500 text-white text-xs p-2 rounded-full hover:bg-blue-600 transition-colors duration-200 ${isProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
+                                                    title="Chỉnh Sửa Bài Học"
+                                                    disabled={isProcessing}>
+                                                <i className="fas fa-edit"></i>
+                                            </button>
+                                            <button onClick={() => { setView('vocabularyList'); setSelectedLesson(lesson); }}
+                                                    className={`bg-blue-500 text-white text-xs p-2 rounded-full hover:bg-blue-600 transition-colors duration-200 ${isProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
+                                                    title="Xem Từ Vựng"
+                                                    disabled={isProcessing}>
+                                                <i className="fas fa-list-alt"></i>
+                                            </button>
+                                            <button onClick={() => promptForReviewLimit('singleLesson', lesson)}
+                                                    className={`bg-green-500 text-white text-xs p-2 rounded-full hover:bg-green-600 transition-colors duration-200 ${
+                                                        (lessons.find(l => l.id === lesson.id)?.vocabularies?.filter(v => v.meaning || v.pinyin || (v.examples && v.examples.some(ex => ex.chinese && ex.vietnamese && splitChineseSentence(ex.chinese).length > 1)))?.length || 0) === 0 || isProcessing ? 'opacity-50 cursor-not-allowed' : ''
+                                                    }`}
+                                                    title="Ôn Tập Bài Học Này"
+                                                    disabled={(lessons.find(l => l.id === lesson.id)?.vocabularies?.filter(v => v.meaning || v.pinyin || (v.examples && v.examples.some(ex => ex.chinese && ex.vietnamese && splitChineseSentence(ex.chinese).length > 1)))?.length || 0) === 0 || isProcessing}>
+                                                {isProcessing ? <LoadingSpinner /> : <i className="fas fa-book-open"></i>}
+                                            </button>
+                                            <button onClick={() => handleDeleteLesson(lesson.id)}
+                                                    className={`bg-red-500 text-white text-xs p-2 rounded-full hover:bg-red-600 transition-colors duration-200 ${isProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
+                                                    title="Xóa Bài Học"
+                                                    disabled={isProcessing}>
+                                                <i className="fas fa-trash"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    )}
+                    {renderReviewLimitModal()}
+                </>
+            );
+
+            const renderCreateLessonForm = () => (
+                <form onSubmit={handleCreateLessonSubmit} className="space-y-4 relative">
+                    {isProcessing && <div className="form-overlay"><LoadingSpinner /><p className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center text-lg font-semibold text-gray-700 mt-16">Đang tạo...</p></div>}
+                    <h2 className="text-3xl font-bold text-gray-800 mb-6">Tạo Bài Học Mới</h2>
+                    <div>
+                        <label htmlFor="lessonName" className="block text-sm font-medium text-gray-700">Tên Bài Học:</label>
+                        <input type="text" id="lessonName" value={lessonName} onChange={(e) => setLessonName(e.target.value)} required
+                               className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-indigo-500 focus:border-indigo-500"
+                               disabled={isProcessing} />
+                    </div>
+                    <button type="submit"
+                            className={`w-full bg-indigo-600 text-white py-3 px-4 rounded-xl hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-all duration-200 shadow-md ${isProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
+                            disabled={isProcessing}>
+                        {isProcessing ? <LoadingSpinner /> : <i className="fas fa-plus mr-2"></i>} Tạo Bài Học
+                    </button>
+                    <button type="button" onClick={() => setView('lessonList')}
+                            className="w-full mt-2 bg-gray-300 text-gray-800 py-3 px-4 rounded-xl hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-all duration-200 shadow-md"
+                            disabled={isProcessing}>
+                        <i className="fas fa-arrow-left mr-2"></i> Quay Lại Danh Sách Bài Học
+                    </button>
+                </form>
+            );
+
+            const renderEditLessonForm = () => (
+                <form onSubmit={handleUpdateLessonSubmit} className="space-y-4 relative">
+                    {isProcessing && <div className="form-overlay"><LoadingSpinner /><p className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center text-lg font-semibold text-gray-700 mt-16">Đang lưu...</p></div>}
+                    <h2 className="text-3xl font-bold text-gray-800 mb-6">Chỉnh Sửa Tên Bài Học: <span className="text-indigo-600">{editingLesson?.name}</span></h2>
+                    <div>
+                        <label htmlFor="lessonName" className="block text-sm font-medium text-gray-700">Tên Bài Học Mới:</label>
+                        <input type="text" id="lessonName" value={lessonName} onChange={(e) => setLessonName(e.target.value)} required
+                               className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-indigo-500 focus:border-indigo-500"
+                               disabled={isProcessing} />
+                    </div>
+                    <button type="submit"
+                            className={`w-full bg-indigo-600 text-white py-3 px-4 rounded-xl hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-all duration-200 shadow-md ${isProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
+                            disabled={isProcessing}>
+                        {isProcessing ? <LoadingSpinner /> : <i className="fas fa-save mr-2"></i>} Lưu Chỉnh Sửa
+                    </button>
+                    <button type="button" onClick={() => { setView('lessonList'); setLessonName(''); setEditingLesson(null); }}
+                            className="w-full mt-2 bg-gray-300 text-gray-800 py-3 px-4 rounded-xl hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-all duration-200 shadow-md"
+                            disabled={isProcessing}>
+                        <i className="fas fa-times mr-2"></i> Hủy
+                    </button>
+                </form>
+            );
+
+            const renderVocabularyList = () => (
+                <>
+                    <h2 className="text-3xl font-bold text-gray-800 mb-6 flex justify-between items-center">
+                        Từ Vựng của Bài Học: <span className="text-indigo-600">{selectedLesson?.name}</span>
+                        <button onClick={() => setView('createVocabulary')}
+                                className={`bg-indigo-500 text-white text-sm py-2 px-4 rounded-full hover:bg-indigo-600 transition-colors duration-200 shadow-md ${isProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
+                                disabled={isProcessing}>
+                            <i className="fas fa-plus mr-1"></i> Thêm Từ Vựng
+                        </button>
+                    </h2>
+                    <button onClick={() => promptForReviewLimit('singleLesson', selectedLesson)}
+                            className={`w-full bg-green-600 text-white py-3 px-4 rounded-xl hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition-all duration-200 shadow-md mb-6 ${vocabularies.filter(v => v.meaning || v.pinyin || (v.examples && v.examples.some(ex => ex.chinese && ex.vietnamese && splitChineseSentence(ex.chinese).length > 1))).length === 0 || isProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
+                            disabled={vocabularies.filter(v => v.meaning || v.pinyin || (v.examples && v.examples.some(ex => ex.chinese && ex.vietnamese && splitChineseSentence(ex.chinese).length > 1))).length === 0 || isProcessing}>
+                        {isProcessing ? <LoadingSpinner /> : <i className="fas fa-play mr-2"></i>}
+                        Ôn Tập Từ Vựng Bài Này
+                    </button>
+
+                    {error ? (
+                        <MessageBox message={error} type="error" />
+                    ) : vocabularies.length === 0 ? (
+                        <p className="text-gray-600 text-center py-8">Chưa có từ vựng nào trong bài học này. Hãy thêm một từ mới!</p>
+                    ) : (
+                        <div className="space-y-4">
+                            {vocabularies.map((vocab) => (
+                                <div key={vocab.id} className={`bg-gray-50 p-4 rounded-xl shadow-sm border border-gray-200 ${vocab.isTemp ? 'opacity-70 animate-pulse' : ''}`}>
+                                    <div className="flex justify-between items-start mb-2">
+                                        <div>
+                                            <div className="flex items-center space-x-2">
+                                                <h3 className="text-xl font-bold text-gray-900">{vocab.hanTu}</h3>
+                                                {vocab.audioFile && (
+                                                    <button onClick={() => handlePlayDetailAudio(vocab.audioFile)}
+                                                            className="text-indigo-600 hover:text-indigo-800 text-lg focus:outline-none"
+                                                            disabled={isProcessing}>
+                                                        <i className="fas fa-volume-up"></i>
+                                                    </button>
+                                                )}
+                                            </div>
+                                            <p className="text-indigo-600 text-base">{vocab.pinyin}</p>
+                                        </div>
+                                        <div className="flex space-x-2">
+                                            <button onClick={() => handleEditVocabulary(vocab)}
+                                                    className={`bg-blue-500 text-white text-xs p-2 rounded-full hover:bg-blue-600 transition-colors duration-200 ${isProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
+                                                    title="Chỉnh Sửa Từ Vựng"
+                                                    disabled={isProcessing}>
+                                                <i className="fas fa-edit"></i>
+                                            </button>
+                                            <button onClick={() => handleDeleteVocabulary(vocab.id)}
+                                                    className={`bg-red-500 text-white text-xs p-2 rounded-full hover:bg-red-600 transition-colors duration-200 ${isProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
+                                                    title="Xóa Từ Vựng"
+                                                    disabled={isProcessing}>
+                                                <i className="fas fa-trash"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <p className="text-gray-700 mt-2">Nghĩa: <span className="font-medium">{vocab.meaning}</span></p>
+                                    {vocab.notes && <p className="text-gray-600 text-sm mt-1">Ghi chú: {vocab.notes}</p>}
+                                    {vocab.examples && vocab.examples.length > 0 && (
+                                        <div className="mt-3 text-sm text-gray-700">
+                                            <p className="font-semibold mb-1">Ví dụ:</p>
+                                            <ul className="list-none space-y-1">
+                                                {vocab.examples.map((ex, idx) => ex.chinese && ex.vietnamese && (
+                                                    <li key={idx} className="flex items-start">
+                                                        {ex.audioFile && (
+                                                            <button onClick={() => handlePlayDetailAudio(ex.audioFile)}
+                                                                    className="text-indigo-600 text-sm mr-2 focus:outline-none"
+                                                                    disabled={isProcessing}>
+                                                                <i className="fas fa-volume-up"></i>
+                                                            </button>
+                                                        )}
+                                                        <span>{ex.chinese} <span className="text-gray-500">- {ex.vietnamese}</span></span>
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        </div>
+                                    )}
+                                </div>
+                            ))}
+                        </div>
+                    )}
+                    <button type="button" onClick={() => { setView('lessonList'); setSelectedLesson(null); }}
+                            className={`w-full mt-8 bg-gray-300 text-gray-800 py-3 px-4 rounded-xl hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-all duration-200 shadow-md ${isProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
+                            disabled={isProcessing}>
+                        <i className="fas fa-arrow-left mr-2"></i> Quay Lại Danh Sách Bài Học
+                    </button>
+                    {renderReviewLimitModal()}
+                </>
+            );
+
+            const renderCreateVocabularyForm = () => (
+                <form onSubmit={handleCreateVocabularySubmit} className="space-y-4 relative">
+                    {isProcessing && <div className="form-overlay"><LoadingSpinner /><p className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center text-lg font-semibold text-gray-700 mt-16">Đang thêm từ vựng...</p></div>}
+                    <h2 className="text-3xl font-bold text-gray-800 mb-6">Thêm Từ Vựng vào Bài: <span className="text-indigo-600">{selectedLesson?.name}</span></h2>
+                    <div>
+                        <label htmlFor="hanTu" className="block text-sm font-medium text-gray-700">Hán tự:</label>
+                        <input type="text" id="hanTu" value={hanTu} onChange={(e) => setHanTu(e.target.value)} required
+                               className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-indigo-500 focus:border-indigo-500"
+                               disabled={isProcessing} />
+                    </div>
+                    <div>
+                        <label htmlFor="pinyin" className="block text-sm font-medium text-gray-700">Bính âm:</label>
+                        <input type="text" id="pinyin" value={pinyin} onChange={(e) => setPinyin(e.target.value)} required
+                               className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-indigo-500 focus:border-indigo-500"
+                               disabled={isProcessing} />
+                    </div>
+                    <div>
+                        <label htmlFor="meaning" className="block text-sm font-medium text-gray-700">Nghĩa tiếng Việt:</label>
+                        <input type="text" id="meaning" value={meaning} onChange={(e) => setMeaning(e.target.value)} required
+                               className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-indigo-500 focus:border-indigo-500"
+                               disabled={isProcessing} />
+                    </div>
+                    <div>
+                        <label htmlFor="vocabAudio" className="block text-sm font-medium text-gray-700">File âm thanh từ vựng (MP3):</label>
+                        <input type="file" id="vocabAudio" accept="audio/mpeg" onChange={(e) => handleAudioFileChange(e, false)}
+                               className="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100"
+                               disabled={isProcessing} />
+                        {(audioFileBlob || currentAudioFileId) && ( // Display file name if a new file is selected
+                            <div className="flex items-center space-x-2 mt-2 text-sm text-gray-600">
+                                <span>{audioFileBlob ? audioFileBlob.name : 'File đã chọn'}</span>
+                                <button type="button" onClick={() => handleRemoveAudio(false)} className="text-red-500 hover:text-red-700"
+                                        disabled={isProcessing}>
+                                    <i className="fas fa-times-circle"></i>
+                                </button>
+                            </div>
+                        )}
+                    </div>
+                    <div>
+                        <label htmlFor="notes" className="block text-sm font-medium text-gray-700">Ghi chú:</label>
+                        <textarea id="notes" value={notes} onChange={(e) => setNotes(e.target.value)}
+                                  rows="3" className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-indigo-500 focus:border-indigo-500"
+                                  disabled={isProcessing}></textarea>
+                    </div>
+
+                    <h3 className="text-xl font-semibold text-gray-700 mt-6 mb-4">6 Câu Ví Dụ:</h3>
+                    {examples.map((example, index) => (
+                        <div key={index} className="grid grid-cols-2 gap-4">
+                            <div>
+                                <label className="block text-sm font-medium text-gray-700">Ví dụ {index + 1} (Tiếng Trung):</label>
+                                <input type="text" value={example.chinese} onChange={(e) => handleExampleChange(index, 'chinese', e.target.value)}
+                                       className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
+                                       disabled={isProcessing} />
+                            </div>
+                            <div>
+                                <label className="block text-sm font-medium text-gray-700">Nghĩa ví dụ {index + 1} (Tiếng Việt):</label>
+                                <input type="text" value={example.vietnamese} onChange={(e) => handleExampleChange(index, 'vietnamese', e.target.value)}
+                                       className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
+                                       disabled={isProcessing} />
+                            </div>
+                            <div className="col-span-2">
+                                <label className="block text-sm font-medium text-gray-700">File âm thanh ví dụ {index + 1} (MP3):</label>
+                                <input type="file" accept="audio/mpeg" onChange={(e) => handleAudioFileChange(e, true, index)}
+                                       className="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100"
+                                       disabled={isProcessing} />
+                                {(example.audioFileBlob || example.audioFileId) && ( // Show current file or selected new file
+                                    <div className="flex items-center space-x-2 mt-2 text-sm text-gray-600">
+                                        <span>{example.audioFileBlob ? example.audioFileBlob.name : 'File đã chọn'}</span>
+                                        <button type="button" onClick={() => handleRemoveAudio(true, index)} className="text-red-500 hover:text-red-700"
+                                                disabled={isProcessing}>
+                                            <i className="fas fa-times-circle"></i>
+                                        </button>
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+                    ))}
+
+                    <button type="submit"
+                            className={`w-full bg-indigo-600 text-white py-3 px-4 rounded-xl hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-all duration-200 shadow-md ${isProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
+                            disabled={isProcessing}>
+                        {isProcessing ? <LoadingSpinner /> : <i className="fas fa-plus mr-2"></i>} Thêm Từ Vựng
+                    </button>
+                    <button type="button" onClick={() => setView('vocabularyList')}
+                            className="w-full mt-2 bg-gray-300 text-gray-800 py-3 px-4 rounded-xl hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-all duration-200 shadow-md"
+                            disabled={isProcessing}>
+                        <i className="fas fa-arrow-left mr-2"></i> Quay Lại Danh Sách Từ Vựng
+                    </button>
+                </form>
+            );
+
+            const renderEditVocabularyForm = () => (
+                <form onSubmit={handleUpdateVocabularySubmit} className="space-y-4 relative">
+                    {isProcessing && <div className="form-overlay"><LoadingSpinner /><p className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center text-lg font-semibold text-gray-700 mt-16">Đang lưu chỉnh sửa...</p></div>}
+                    <h2 className="text-3xl font-bold text-gray-800 mb-6">Chỉnh Sửa Từ Vựng: <span className="text-indigo-600">{editingVocab?.hanTu}</span></h2>
+                    <div>
+                        <label htmlFor="hanTu" className="block text-sm font-medium text-gray-700">Hán tự:</label>
+                        <input type="text" id="hanTu" value={hanTu} onChange={(e) => setHanTu(e.target.value)} required
+                               className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-indigo-500 focus:border-indigo-500"
+                               disabled={isProcessing} />
+                    </div>
+                    <div>
+                        <label htmlFor="pinyin" className="block text-sm font-medium text-gray-700">Bính âm:</label>
+                        <input type="text" id="pinyin" value={pinyin} onChange={(e) => setPinyin(e.target.value)} required
+                               className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-indigo-500 focus:border-indigo-500"
+                               disabled={isProcessing} />
+                    </div>
+                    <div>
+                        <label htmlFor="meaning" className="block text-sm font-medium text-gray-700">Nghĩa tiếng Việt:</label>
+                        <input type="text" id="meaning" value={meaning} onChange={(e) => setMeaning(e.target.value)} required
+                               className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-indigo-500 focus:border-indigo-500"
+                               disabled={isProcessing} />
+                    </div>
+                    <div>
+                        <label htmlFor="vocabAudio" className="block text-sm font-medium text-gray-700">File âm thanh từ vựng (MP3):</label>
+                        <input type="file" id="vocabAudio" accept="audio/mpeg" onChange={(e) => handleAudioFileChange(e, false)}
+                               className="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100"
+                               disabled={isProcessing} />
+                        {(audioFileBlob || currentAudioFileId) && ( // Show current file or selected new file
+                            <div className="flex items-center space-x-2 mt-2 text-sm text-gray-600">
+                                <span>{audioFileBlob ? audioFileBlob.name : 'File đã chọn'}</span>
+                                <button type="button" onClick={() => handleRemoveAudio(false)} className="text-red-500 hover:text-red-700"
+                                        disabled={isProcessing}>
+                                    <i className="fas fa-times-circle"></i>
+                                </button>
+                            </div>
+                        )}
+                    </div>
+                    <div>
+                        <label htmlFor="notes" className="block text-sm font-medium text-gray-700">Ghi chú:</label>
+                        <textarea id="notes" value={notes} onChange={(e) => setNotes(e.target.value)}
+                                  rows="3" className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-indigo-500 focus:border-indigo-500"
+                                  disabled={isProcessing}></textarea>
+                    </div>
+
+                    <h3 className="text-xl font-semibold text-gray-700 mt-6 mb-4">6 Câu Ví Dụ:</h3>
+                    {examples.map((example, index) => (
+                        <div key={index} className="grid grid-cols-2 gap-4">
+                            <div>
+                                <label className="block text-sm font-medium text-gray-700">Ví dụ {index + 1} (Tiếng Trung):</label>
+                                <input type="text" value={example.chinese} onChange={(e) => handleExampleChange(index, 'chinese', e.target.value)}
+                                       className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
+                                       disabled={isProcessing} />
+                            </div>
+                            <div>
+                                <label className="block text-sm font-medium text-gray-700">Nghĩa ví dụ {index + 1} (Tiếng Việt):</label>
+                                <input type="text" value={example.vietnamese} onChange={(e) => handleExampleChange(index, 'vietnamese', e.target.value)}
+                                       className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
+                                       disabled={isProcessing} />
+                            </div>
+                            <div className="col-span-2">
+                                <label className="block text-sm font-medium text-gray-700">File âm thanh ví dụ {index + 1} (MP3):</label>
+                                <input type="file" accept="audio/mpeg" onChange={(e) => handleAudioFileChange(e, true, index)}
+                                       className="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100"
+                                       disabled={isProcessing} />
+                                {(example.audioFileBlob || example.audioFileId) && ( // Show current file or selected new file
+                                    <div className="flex items-center space-x-2 mt-2 text-sm text-gray-600">
+                                        <span>{example.audioFileBlob ? example.audioFileBlob.name : 'File đã chọn'}</span>
+                                        <button type="button" onClick={() => handleRemoveAudio(true, index)} className="text-red-500 hover:text-red-700"
+                                                disabled={isProcessing}>
+                                            <i className="fas fa-times-circle"></i>
+                                        </button>
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+                    ))}
+
+                    <button type="submit"
+                            className={`w-full bg-indigo-600 text-white py-3 px-4 rounded-xl hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-all duration-200 shadow-md ${isProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
+                            disabled={isProcessing}>
+                        {isProcessing ? <LoadingSpinner /> : <i className="fas fa-plus mr-2"></i>} Thêm Từ Vựng
+                    </button>
+                    <button type="button" onClick={() => setView('vocabularyList')}
+                            className="w-full mt-2 bg-gray-300 text-gray-800 py-3 px-4 rounded-xl hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-all duration-200 shadow-md"
+                            disabled={isProcessing}>
+                        <i className="fas fa-arrow-left mr-2"></i> Quay Lại Danh Sách Từ Vựng
+                    </button>
+                </form>
+            );
+
+            const renderReviewGame = () => (
+                <>
+                    <h2 className="text-3xl font-bold text-gray-800 mb-6 flex justify-between items-center">
+                        Ôn Tập ({currentQuestionNumber + 1} / {totalQuestions})
+                        {reviewMode === 'singleLesson' && selectedLesson && (
+                            <span className="text-indigo-600"> {selectedLesson.name}</span>
+                        )}
+                        <label className="flex items-center space-x-2 text-base font-normal">
+                            <input
+                                type="checkbox"
+                                checked={showPinyin}
+                                onChange={(e) => setShowPinyin(e.target.checked)}
+                                className="form-checkbox h-5 w-5 text-indigo-600 rounded"
+                                disabled={isProcessing}
+                            />
+                            <span>Hiện Bính Âm</span>
+                        </label>
+                    </h2>
+                    {!question ? (
+                        <p className="text-gray-600 text-center py-8">
+                            Không có từ vựng nào để ôn tập. Vui lòng tạo từ vựng trước.
+                        </p>
+                    ) : (
+                        <div className="space-y-6">
+                            <div className="bg-blue-100 p-6 rounded-xl shadow-md text-center">
+                                <p className="text-gray-700 text-lg mb-2">
+                                    {question.type === 'translateWord' && 'Câu hỏi (Dịch từ Hán tự):'}
+                                    {question.type === 'typePinyin' && 'Câu hỏi (Gõ Bính âm cho Hán tự):'}
+                                    {question.type === 'translateMeaning' && 'Câu hỏi (Dịch từ Tiếng Việt):'}
+                                    {question.type === 'translateVietToHanTuMC' && 'Câu hỏi (Dịch từ Tiếng Việt - Chọn Hán tự):'}
+                                    {question.type === 'translateExample' && 'Câu hỏi (Dịch câu ví dụ):'}
+                                    {question.type === 'typeHanTu' && 'Câu hỏi (Gõ Hán tự cho Tiếng Việt):'}
+                                    {question.type === 'rearrangeExample' && 'Sắp xếp các từ thành câu đúng với nghĩa sau:'}
+                                </p>
+                                <p className={`text-5xl font-extrabold text-blue-700 ${shaking ? 'animate-shake' : ''}`}>
+                                    {question.text}
+                                </p>
+                                {/* Pinyin display logic is slightly modified to be more consistent based on type */}
+                                {/* Only show pinyin for typing questions if the answer is revealed, or if global showPinyin is true for others */}
+                                {((question.type === 'translateWord' || question.type === 'translateMeaning' || question.type === 'translateVietToHanTuMC') && showPinyin && question.vocab.pinyin) && (
+                                    <p className="text-indigo-600 text-2xl mt-2">{question.vocab.pinyin}</p>
+                                )}
+
+                                {/* Audio button for main vocab or example, visible regardless of question type for manual replay */}
+                                {question.vocab.audioFile && 
+                                   (question.type !== 'translateExample' && question.type !== 'rearrangeExample') && ( /* Only show if not example-based question */
+                                    <button onClick={() => handlePlayDetailAudio(question.vocab.audioFile)}
+                                            className="text-indigo-600 text-xl mt-2 focus:outline-none hover:text-indigo-800"
+                                            disabled={isProcessing}>
+                                        <i className="fas fa-volume-up"></i>
+                                    </button>
+                                )}
+                                {(question.type === 'translateExample' || question.type === 'rearrangeExample') && question.exampleAudioId && (
+                                    <button onClick={() => handlePlayDetailAudio(question.exampleAudioId)}
+                                            className="text-indigo-600 text-xl mt-2 focus:outline-none hover:text-indigo-800"
+                                            disabled={isProcessing}>
+                                        <i className="fas fa-volume-up"></i>
+                                    </button>
+                                )}
+                            </div>
+
+                            {/* Conditional rendering for question types */}
+                            {questionType === 'typePinyin' ? (
+                                <form onSubmit={handlePinyinSubmit} className="space-y-4">
+                                    <input
+                                        type="text"
+                                        value={pinyinInput}
+                                        onChange={(e) => setPinyinInput(e.target.value)}
+                                        placeholder="Gõ bính âm vào đây..."
+                                        className="w-full border border-gray-300 rounded-md shadow-sm p-3 text-lg focus:ring-indigo-500 focus:border-indigo-500 text-center"
+                                        disabled={isCorrect !== null || isProcessing}
+                                    />
+                                    <button type="submit"
+                                            className={`w-full bg-indigo-600 text-white py-3 px-4 rounded-xl hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-all duration-200 shadow-md ${isCorrect !== null || isProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
+                                            disabled={isCorrect !== null || isProcessing}>
+                                        {isProcessing ? <LoadingSpinner /> : 'Kiểm Tra'}
+                                    </button>
+                                </form>
+                            ) : questionType === 'typeHanTu' ? (
+                                <form onSubmit={handleHanTuSubmit} className="space-y-4">
+                                    <input
+                                        type="text"
+                                        value={hanTuInput}
+                                        onChange={(e) => setHanTuInput(e.target.value)}
+                                        placeholder="Gõ Hán tự vào đây..."
+                                        className="w-full border border-gray-300 rounded-md shadow-sm p-3 text-lg focus:ring-indigo-500 focus:border-indigo-500 text-center"
+                                        disabled={isCorrect !== null || isProcessing}
+                                    />
+                                    <button type="submit"
+                                            className={`w-full bg-indigo-600 text-white py-3 px-4 rounded-xl hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-all duration-200 shadow-md ${isProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
+                                            disabled={isProcessing}>
+                                        {isProcessing ? <LoadingSpinner /> : 'Kiểm Tra'}
+                                    </button>
+                                </form>
+                            ) : questionType === 'rearrangeExample' ? (
+                                <div className="space-y-4">
+                                    <div className="flex flex-wrap justify-center items-center gap-2 p-4 bg-gray-100 border border-gray-300 rounded-md min-h-[60px]">
+                                        {selectedWords.length === 0 && !rearrangeIsAnswered && <span className="text-gray-500">Sắp xếp câu tại đây...</span>}
+                                        {selectedWords.map((word, idx) => (
+                                            <span key={idx} className="bg-blue-200 text-blue-800 px-3 py-1 rounded-md text-lg font-medium">
+                                                {word}
+                                            </span>
+                                        ))}
+                                    </div>
+                                    <div className="flex flex-wrap justify-center gap-2 mt-4">
+                                        {scrambledWords.map((item, idx) => (
+                                            <button
+                                                key={item.id} // Use unique ID from item for key
+                                                onClick={() => handleWordClick(item, idx)}
+                                                className={`px-4 py-2 rounded-lg font-semibold transition-colors duration-200
+                                                    ${item.isUsed || rearrangeIsAnswered ? 'bg-gray-300 text-gray-600 opacity-50 cursor-not-allowed' : 'bg-white text-gray-800 hover:bg-gray-100'}
+                                                    shadow-sm`}
+                                                disabled={item.isUsed || rearrangeIsAnswered || isProcessing}
+                                            >
+                                                {item.word}
+                                            </button>
+                                        ))}
+                                    </div>
+                                    {!rearrangeIsAnswered && (
+                                        <div className="flex justify-center space-x-4 mt-6">
+                                            <button onClick={handleRearrangeCheck}
+                                                    className="bg-green-600 text-white py-2 px-4 rounded-lg hover:bg-green-700 shadow-md"
+                                                    disabled={selectedWords.length === 0 || isProcessing}>
+                                                Kiểm tra
+                                            </button>
+                                            <button onClick={handleRearrangeReset}
+                                                    className="bg-yellow-500 text-white py-2 px-4 rounded-lg hover:bg-yellow-600 shadow-md"
+                                                    disabled={isProcessing}>
+                                                Làm lại
+                                            </button>
+                                            <button onClick={handleRearrangeGiveUp}
+                                                    className="bg-red-500 text-white py-2 px-4 rounded-lg hover:bg-red-600 shadow-md"
+                                                    disabled={isProcessing}>
+                                                Bỏ cuộc
+                                            </button>
+                                        </div>
+                                    )}
+                                </div>
+                            ) : (
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    {options.map((option, index) => (
+                                        <button
+                                            key={index}
+                                            onClick={() => handleOptionClick(index)}
+                                            className={`w-full p-4 rounded-xl text-lg font-semibold transition-all duration-300 shadow-md
+                                                ${selectedOption === null ? 'bg-gray-200 hover:bg-gray-300 text-gray-800' :
+                                                index === correctAnswerIndex && selectedOption !== null ? 'bg-green-500 text-white' :
+                                                index === selectedOption && selectedOption !== null ? 'bg-red-500 text-white' :
+                                                'bg-gray-200 text-gray-800 opacity-70 cursor-not-allowed'
+                                                }`}
+                                            disabled={selectedOption !== null || isProcessing}>
+                                            {option}
+                                        </button>
+                                    ))}
+                                </div>
+                            )}
+                            
+                            {/* Next Question / Finish Button - Moved Up */}
+                            {(isCorrect !== null || rearrangeIsAnswered) && ( /* Show next question button only after answer */
+                                <div className="flex justify-end mt-4"> {/* Added justify-end for right align */}
+                                    <button
+                                        onClick={handleNextQuestion}
+                                        className={`bg-indigo-600 text-white py-3 px-6 rounded-xl hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-all duration-200 shadow-md ${isProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
+                                        disabled={isProcessing}>
+                                        {isProcessing ? <LoadingSpinner /> : (currentQuestionNumber < totalQuestions -1 ? 'Câu Tiếp Theo' : 'Hoàn Thành')} <i className="fas fa-arrow-right ml-2"></i>
+                                    </button>
+                                </div>
+                            )}
+
+                            {(isCorrect !== null || rearrangeIsAnswered) && (
+                                <div className="animate-fade-in mt-4"> {/* Adjusted margin-top for spacing */}
+                                    <div className={`p-4 rounded-lg shadow-md text-center mb-4 ${
+                                        isCorrect ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
+                                    }`}>
+                                        <p className="text-lg font-bold">
+                                            {isCorrect ? 'Chính xác!' : 'Sai rồi!'}
+                                        </p>
+                                        {!isCorrect && question.type === 'typePinyin' && (
+                                            <p className="text-sm mt-1">Đáp án đúng là: <span className="font-semibold">{question.displayPinyin}</span></p>
+                                        )}
+                                        {!isCorrect && question.type === 'typeHanTu' && (
+                                            <p className="text-sm mt-1">Đáp án đúng là: <span className="font-semibold">{question.displayHanTu}</span></p>
+                                        )}
+                                        {!isCorrect && (question.type === 'translateWord' || question.type === 'translateMeaning' || question.type === 'translateVietToHanTuMC' || question.type === 'translateExample') && (
+                                            <p className="text-sm mt-1">Đáp án đúng là: <span className="font-semibold">{options[correctAnswerIndex]}</span></p>
+                                        )}
+                                        {!isCorrect && question.type === 'rearrangeExample' && (
+                                            <p className="text-sm mt-1">Đáp án đúng là: <span className="font-semibold">{question.correctSequence.join('')}</span></p>
+                                        )}
+                                    </div>
+
+                                    {/* Detailed Vocabulary Info Card */}
+                                    <div className="bg-white p-6 rounded-xl shadow-lg border border-gray-200 text-left">
+                                        <div className="flex items-center space-x-3 mb-2">
+                                            <h3 className="text-3xl font-bold text-gray-900">{question.vocab.hanTu}</h3>
+                                            {question.vocab.audioFile && (
+                                                <button onClick={() => handlePlayDetailAudio(question.vocab.audioFile)}
+                                                        className="text-indigo-600 text-xl focus:outline-none hover:text-indigo-800"
+                                                        disabled={isProcessing}>
+                                                    <i className="fas fa-volume-up"></i>
+                                                </button>
+                                            )}
+                                        </div>
+                                        <p className="text-indigo-600 text-xl mb-2">
+                                            {showPinyin ? question.vocab.pinyin : '---'}
+                                        </p>
+                                        <p className="text-gray-700 text-lg">Nghĩa: <span className="font-medium">{question.vocab.meaning}</span></p>
+                                        {question.vocab.notes && <p className="text-gray-600 text-base mt-2">Ghi chú: {question.vocab.notes}</p>}
+                                        
+                                        {question.vocab.examples && question.vocab.examples.length > 0 && (
+                                            <div className="mt-4 text-base text-gray-800">
+                                                <p className="font-semibold mb-2">Ví dụ:</p>
+                                                <ul className="list-none space-y-2">
+                                                    {question.vocab.examples.map((ex, idx) => ex.chinese && ex.vietnamese && (
+                                                        <li key={idx} className="flex items-start">
+                                                            {ex.audioFile && (
+                                                                <button onClick={() => handlePlayDetailAudio(ex.audioFile)}
+                                                                        className="text-indigo-600 text-sm mr-2 focus:outline-none hover:text-indigo-800"
+                                                                        disabled={isProcessing}>
+                                                                    <i className="fas fa-volume-up"></i>
+                                                                </button>
+                                                            )}
+                                                            <span>{ex.chinese} <span className="text-gray-500">- {ex.vietnamese}</span></span>
+                                                        </li>
+                                                    ))}
+                                                </ul>
+                                            </div>
+                                        )}
+                                    </div>
+                                </div>
+                            )}
+                            <button onClick={() => { setView('lessonList'); setPinyinInput(''); setHanTuInput(''); setScrambledWords([]); setSelectedWords([]); setRearrangeIsAnswered(false); /* clear inputs when leaving review */ }}
+                                    className={`w-full mt-8 bg-gray-300 text-gray-800 py-3 px-4 rounded-xl hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-all duration-200 shadow-md ${isProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
+                                    disabled={isProcessing}>
+                                <i className="fas fa-arrow-left mr-2"></i> Quay Lại Danh Sách Bài Học
+                            </button>
+                        </div>
+                    )}
+                </>
+            );
+
+
+            return (
+                <div className="min-h-screen bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 flex items-center justify-center p-4">
+                    {loading && <FullPageLoadingOverlay message="Đang tải dữ liệu từ bộ nhớ cục bộ..." />}
+                    {/* Main Content Container - Increased max-w-4xl for larger UI */}
+                    <div className="bg-white bg-opacity-90 backdrop-blur-md p-8 rounded-3xl shadow-2xl w-full max-w-4xl text-left transform transition-all duration-300">
+                        {renderMessageBox()}
+                        {view === 'lessonList' && renderLessonList()}
+                        {view === 'createLesson' && renderCreateLessonForm()}
+                        {view === 'editLesson' && renderEditLessonForm()}
+                        {view === 'vocabularyList' && renderVocabularyList()}
+                        {view === 'createVocabulary' && renderCreateVocabularyForm()}
+                        {view === 'editVocabulary' && renderEditVocabularyForm()} 
+                        {view === 'review' && renderReviewGame()}
+                    </div>
+                </div>
+            );
+        };
+
+        // Render the App component into the 'root' div
+        ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+    </script>
+</body>
+</html>

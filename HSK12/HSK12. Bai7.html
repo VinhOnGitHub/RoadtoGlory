@@ -1,0 +1,558 @@
+﻿<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第七课: 你家有几口人？</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.8;
+            color: #333;
+            max-width: 960px;
+            margin: 30px auto;
+            padding: 0 25px;
+            background-color: #f4f7f6;
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 2.5em;
+            letter-spacing: 1px;
+        }
+        h2 {
+            color: #1a5276;
+            border-bottom: 3px solid #1a5276;
+            padding-bottom: 8px;
+            margin-top: 50px;
+            font-size: 1.8em;
+        }
+        .vocab-item {
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            padding: 30px;
+            margin-bottom: 35px;
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        }
+        .vocab-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+        }
+        .vocab-item strong {
+            color: #c0392b;
+            font-size: 1.4em;
+        }
+        .pinyin {
+            font-style: italic;
+            color: #2980b9;
+            margin-left: 15px;
+            font-size: 1.1em;
+        }
+        .meaning {
+            margin-top: 10px;
+            margin-bottom: 20px;
+            color: #555;
+            font-size: 1.1em;
+        }
+        .examples ol {
+            list-style: none; /* Remove default numbering */
+            counter-reset: example-counter; /* Initialize counter */
+            padding-left: 0;
+        }
+        .examples li {
+            counter-increment: example-counter; /* Increment counter for each list item */
+            margin-bottom: 15px;
+            position: relative;
+            padding-left: 35px; /* Space for custom number */
+        }
+        .examples li::before {
+            content: counter(example-counter) ".";
+            position: absolute;
+            left: 0;
+            top: 0;
+            font-weight: bold;
+            color: #1abc9c;
+            font-size: 1.1em;
+        }
+        .examples li .chinese {
+            font-weight: bold;
+            color: #16a085;
+            display: block;
+            margin-bottom: 3px;
+        }
+        .examples li .vietnamese {
+            color: #7f8c8d;
+            font-size: 0.98em;
+            font-style: italic;
+        }
+        hr {
+            border: 0;
+            height: 1px;
+            background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0));
+            margin: 50px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>第七课: 你家有几口人？</h1>
+
+    <div class="vocab-item">
+        <h2><strong>家</strong> <span class="pinyin">(jiā)</span></h2>
+        <p class="meaning">nhà, gia đình</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">我家有四口人，爸爸妈妈，我还有一个可爱的妹妹。</span><br><span class="vietnamese">Nhà tôi có bốn người, bố mẹ và tôi, còn có một cô em gái đáng yêu.</span></li>
+                <li><span class="chinese">你家在哪里？这个周末我想去你家玩儿。</span><br><span class="vietnamese">Nhà bạn ở đâu? Cuối tuần này tôi muốn đến nhà bạn chơi.</span></li>
+                <li><span class="chinese">我今天回家很晚，因为公司有很多工作没有完成。</span><br><span class="vietnamese">Hôm nay tôi về nhà rất muộn, vì công ty có nhiều việc chưa làm xong.</span></li>
+                <li><span class="chinese">他是一个很爱家的人，下班后总是直接回家。</span><br><span class="vietnamese">Anh ấy là người rất yêu gia đình, sau khi tan làm luôn về thẳng nhà.</span></li>
+                <li><span class="chinese">我们家有两只小狗，它们每天都喜欢在院子里玩。</span><br><span class="vietnamese">Nhà chúng tôi có hai chú chó con, chúng mỗi ngày đều thích chơi trong sân.</span></li>
+                <li><span class="chinese">这个周末我们都在家休息，没有出去旅行。</span><br><span class="vietnamese">Cuối tuần này chúng tôi đều ở nhà nghỉ ngơi, không đi du lịch.</span></li>
+                <li><span class="chinese">他想回家看他的父母，因为已经很久没有见到他们了。</span><br><span class="vietnamese">Anh ấy muốn về nhà thăm bố mẹ, vì đã lâu rồi không gặp họ.</span></li>
+                <li><span class="chinese">我家离学校很远，所以每天早上都要很早起床。</span><br><span class="vietnamese">Nhà tôi cách trường rất xa, nên mỗi sáng đều phải dậy rất sớm.</span></li>
+                <li><span class="chinese">请到我家来吃饭吧，我妈妈做了很多好吃的菜。</span><br><span class="vietnamese">Mời đến nhà tôi ăn cơm nhé, mẹ tôi đã làm rất nhiều món ngon.</span></li>
+                <li><span class="chinese">他家有一个大花园，里面种满了各种各样的花。</span><br><span class="vietnamese">Nhà anh ấy có một khu vườn lớn, bên trong trồng đầy các loại hoa.</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>有</strong> <span class="pinyin">(yǒu)</span></h2>
+        <p class="meaning">có</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">我有很多中国朋友，他们都非常热情友好。</span><br><span class="vietnamese">Tôi có rất nhiều bạn Trung Quốc, họ đều rất nhiệt tình và thân thiện.</span></li>
+                <li><span class="chinese">你有没有时间？我想找你聊聊最近发生的事情。</span><br><span class="vietnamese">Bạn có thời gian không? Tôi muốn tìm bạn nói chuyện về những việc gần đây.</span></li>
+                <li><span class="chinese">他有一只漂亮的猫，那只猫的眼睛是蓝色的。</span><br><span class="vietnamese">Anh ấy có một con mèo xinh đẹp, mắt của con mèo đó màu xanh lam.</span></li>
+                <li><span class="chinese">我们学校有一个大图书馆，里面有很多中文书。</span><br><span class="vietnamese">Trường chúng tôi có một thư viện lớn, bên trong có rất nhiều sách tiếng Trung.</span></li>
+                <li><span class="chinese">她今天有一个重要的会议，所以很早就出门了。</span><br><span class="vietnamese">Hôm nay cô ấy có một cuộc họp quan trọng, nên đã ra khỏi nhà rất sớm.</span></li>
+                <li><span class="chinese">桌子上有一本书，那是我的汉语课本。</span><br><span class="vietnamese">Trên bàn có một cuốn sách, đó là sách giáo khoa tiếng Hán của tôi.</span></li>
+                <li><span class="chinese">我没有钱买这部手机，因为它太贵了。</span><br><span class="vietnamese">Tôi không có tiền mua chiếc điện thoại này, vì nó quá đắt.</span></li>
+                <li><span class="chinese">你有没有兄弟姐妹？我有一个哥哥和一个妹妹。</span><br><span class="vietnamese">Bạn có anh chị em không? Tôi có một anh trai và một em gái.</span></li>
+                <li><span class="chinese">这个地方有很多好吃的东西，我们可以去尝尝。</span><br><span class="vietnamese">Nơi này có rất nhiều đồ ăn ngon, chúng ta có thể đi thử.</span></li>
+                <li><span class="chinese">他有一个好老师，所以他的中文学得很快。</span><br><span class="vietnamese">Anh ấy có một người thầy giỏi, nên tiếng Trung của anh ấy học rất nhanh.</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>没有</strong> <span class="pinyin">(méi yǒu)</span></h2>
+        <p class="meaning">không có</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">我没有时间去吃饭，因为我还有很多工作要做。</span><br><span class="vietnamese">Tôi không có thời gian đi ăn cơm, vì tôi còn rất nhiều việc phải làm.</span></li>
+                <li><span class="chinese">他没有钱买这件衣服，所以他只能看看。</span><br><span class="vietnamese">Anh ấy không có tiền mua bộ quần áo này, nên anh ấy chỉ có thể nhìn thôi.</span></li>
+                <li><span class="chinese">桌子上没有书，可能都被同学拿走了。</span><br><span class="vietnamese">Trên bàn không có sách, có thể đều bị các bạn học lấy đi rồi.</span></li>
+                <li><span class="chinese">我没有去过北京，但我很想去那里旅行。</span><br><span class="vietnamese">Tôi chưa từng đi Bắc Kinh, nhưng tôi rất muốn đi du lịch ở đó.</span></li>
+                <li><span class="chinese">你有没有兄弟姐妹？我没有，我是一个独生子。</span><br><span class="vietnamese">Bạn có anh chị em không? Tôi không có, tôi là con một.</span></li>
+                <li><span class="chinese">这个城市没有地铁，所以交通有点儿不方便。</span><br><span class="vietnamese">Thành phố này không có tàu điện ngầm, nên giao thông hơi bất tiện.</span></li>
+                <li><span class="chinese">我没有看完这本书，因为最近太忙了。</span><br><span class="vietnamese">Tôi chưa đọc xong cuốn sách này, vì gần đây quá bận.</span></li>
+                <li><span class="chinese">他今天没有来学校上课，可能他生病了。</span><br><span class="vietnamese">Hôm nay anh ấy không đến trường học, có thể anh ấy bị ốm rồi.</span></li>
+                <li><span class="chinese">我的手机没有电了，所以我不能给你打电话。</span><br><span class="vietnamese">Điện thoại của tôi hết pin rồi, nên tôi không thể gọi điện cho bạn.</span></li>
+                <li><span class="chinese">她没有工作，每天都在家里照顾孩子。</span><br><span class="vietnamese">Cô ấy không có việc làm, mỗi ngày đều ở nhà chăm sóc con cái.</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>个</strong> <span class="pinyin">(ge / gè)</span></h2>
+        <p class="meaning">cái, chiếc, người (lượng từ chung)</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">我买了一个大苹果，打算今天晚上吃掉它。</span><br><span class="vietnamese">Tôi đã mua một quả táo lớn, dự định tối nay ăn hết nó.</span></li>
+                <li><span class="chinese">我们班有二十个学生，他们都来自不同的国家。</span><br><span class="vietnamese">Lớp chúng tôi có hai mươi học sinh, họ đều đến từ các quốc gia khác nhau.</span></li>
+                <li><span class="chinese">他是一个好人，总是乐于助人，所以大家都喜欢他。</span><br><span class="vietnamese">Anh ấy là một người tốt, luôn sẵn lòng giúp đỡ, nên mọi người đều thích anh ấy.</span></li>
+                <li><span class="chinese">我有一个中国朋友，他住在北京，我们经常聊天。</span><br><span class="vietnamese">Tôi có một người bạn Trung Quốc, anh ấy sống ở Bắc Kinh, chúng tôi thường xuyên nói chuyện.</span></li>
+                <li><span class="chinese">这个杯子是我的，请不要拿错别人的杯子。</span><br><span class="vietnamese">Cái cốc này là của tôi, vui lòng đừng cầm nhầm cốc của người khác.</span></li>
+                <li><span class="chinese">请给我一个面包，我早上没有吃早饭。</span><br><span class="vietnamese">Vui lòng cho tôi một cái bánh mì, sáng nay tôi chưa ăn sáng.</span></li>
+                <li><span class="chinese">我认识那个人，他是我们公司的总经理。</span><br><span class="vietnamese">Tôi quen người kia, anh ấy là tổng giám đốc công ty chúng tôi.</span></li>
+                <li><span class="chinese">他有一个可爱的妹妹，她今年只有三岁。</span><br><span class="vietnamese">Anh ấy có một cô em gái đáng yêu, năm nay cô bé mới ba tuổi.</span></li>
+                <li><span class="chinese">这个星期我有三个考试，所以必须认真复习。</span><br><span class="vietnamese">Tuần này tôi có ba bài kiểm tra, nên phải ôn tập thật kỹ.</span></li>
+                <li><span class="chinese">请你给我介绍一个好老师，我想学习中文。</span><br><span class="vietnamese">Vui lòng giới thiệu cho tôi một giáo viên giỏi, tôi muốn học tiếng Trung.</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>口</strong> <span class="pinyin">(kǒu)</span></h2>
+        <p class="meaning">miệng; nhân khẩu (lượng từ cho số người trong gia đình)</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">我家有五口人，我们一家人生活得很幸福。</span><br><span class="vietnamese">Gia đình tôi có năm người, cả gia đình chúng tôi sống rất hạnh phúc.</span></li>
+                <li><span class="chinese">请你张开嘴巴，我帮你检查一下儿牙齿。</span><br><span class="vietnamese">Bạn vui lòng há miệng ra, tôi giúp bạn kiểm tra răng một chút.</span></li>
+                <li><span class="chinese">他家只有三口人，但是他们的关系非常好。</span><br><span class="vietnamese">Nhà anh ấy chỉ có ba người, nhưng mối quan hệ của họ rất tốt.</span></li>
+                <li><span class="chinese">这个词的发音很难，我总是发不好它的音。</span><br><span class="vietnamese">Phát âm của từ này rất khó, tôi luôn phát âm không tốt nó.</span></li>
+                <li><span class="chinese">他吃了一口饭，然后就开始说话了。</span><br><span class="vietnamese">Anh ấy đã ăn một miếng cơm, sau đó bắt đầu nói chuyện rồi.</span></li>
+                <li><span class="chinese">她不爱说话，但是她很喜欢听别人说话。</span><br><span class="vietnamese">Cô ấy không thích nói chuyện, nhưng cô ấy rất thích nghe người khác nói chuyện.</span></li>
+                <li><span class="chinese">我们家有六口人，所以每天家里都很热闹。</span><br><span class="vietnamese">Nhà chúng tôi có sáu người, nên mỗi ngày trong nhà đều rất nhộn nhịp.</span></li>
+                <li><span class="chinese">请你把这个西瓜切成小块，方便大家吃。</span><br><span class="vietnamese">Bạn vui lòng cắt quả dưa hấu này thành miếng nhỏ, tiện cho mọi người ăn.</span></li>
+                <li><span class="chinese">他没有开口说一句话，就直接离开了。</span><br><span class="vietnamese">Anh ấy không mở miệng nói một lời nào, liền trực tiếp rời đi.</span></li>
+                <li><span class="chinese">她有一张小嘴巴，笑起来非常可爱。</span><br><span class="vietnamese">Cô ấy có một cái miệng nhỏ, cười lên rất đáng yêu.</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>和</strong> <span class="pinyin">(hé)</span></h2>
+        <p class="meaning">và, với</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">我和朋友经常一起去图书馆学习，因为那里很安静。</span><br><span class="vietnamese">Tôi và bạn bè thường cùng nhau đến thư viện học, vì ở đó rất yên tĩnh.</span></li>
+                <li><span class="chinese">他喜欢吃米饭和面条，每天午饭都会选择其中一种。</span><br><span class="vietnamese">Anh ấy thích ăn cơm và mì, mỗi bữa trưa đều sẽ chọn một trong hai loại.</span></li>
+                <li><span class="chinese">我和他都是这个学校的学生，我们认识已经三年了。</span><br><span class="vietnamese">Tôi và anh ấy đều là học sinh của trường này, chúng tôi đã quen nhau được ba năm rồi.</span></li>
+                <li><span class="chinese">爸爸和妈妈今天晚上都会回家吃饭，所以我很高兴。</span><br><span class="vietnamese">Bố và mẹ tối nay đều sẽ về nhà ăn cơm, nên tôi rất vui.</span></li>
+                <li><span class="chinese">我喜欢看书和听音乐，这些都是我平时放松的方式。</span><br><span class="vietnamese">Tôi thích đọc sách và nghe nhạc, đây đều là những cách tôi thư giãn bình thường.</span></li>
+                <li><span class="chinese">他和她结婚了，婚礼办得非常隆重。</span><br><span class="vietnamese">Anh ấy và cô ấy kết hôn rồi, đám cưới được tổ chức rất long trọng.</span></li>
+                <li><span class="chinese">这个周末我想在家休息和学习，为下周的考试做准备。</span><br><span class="vietnamese">Cuối tuần này tôi muốn ở nhà nghỉ ngơi và học bài, chuẩn bị cho kỳ thi tuần tới.</span></li>
+                <li><span class="chinese">我和我的老师是好朋友，他经常给我很多学习上的建议。</span><br><span class="vietnamese">Tôi và thầy giáo của tôi là bạn tốt, thầy ấy thường cho tôi nhiều lời khuyên về học tập.</span></li>
+                <li><span class="chinese">他喜欢踢足球和打篮球，所以身体一直很健康。</span><br><span class="vietnamese">Anh ấy thích đá bóng và chơi bóng rổ, nên cơ thể luôn rất khỏe mạnh.</span></li>
+                <li><span class="chinese">请把桌子和椅子搬到外面去，我们要在这里举行一个派对。</span><br><span class="vietnamese">Vui lòng chuyển cái bàn và cái ghế ra ngoài, chúng ta sẽ tổ chức một bữa tiệc ở đây.</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>做</strong> <span class="pinyin">(zuò)</span></h2>
+        <p class="meaning">làm, làm ra</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">你喜欢做什么工作？我希望将来能做一名老师。</span><br><span class="vietnamese">Bạn thích làm công việc gì? Tôi hy vọng sau này có thể làm một giáo viên.</span></li>
+                <li><span class="chinese">我妈妈会做很多好吃的菜，我最喜欢她做的饺子。</span><br><span class="vietnamese">Mẹ tôi biết làm rất nhiều món ăn ngon, tôi thích nhất món bánh chẻo mẹ làm.</span></li>
+                <li><span class="chinese">他每天都做作业，所以他的学习成绩一直很好。</span><br><span class="vietnamese">Anh ấy mỗi ngày đều làm bài tập, nên thành tích học tập của anh ấy luôn rất tốt.</span></li>
+                <li><span class="chinese">你今天想做什么？我们可以一起去看电影或者去逛街。</span><br><span class="vietnamese">Hôm nay bạn muốn làm gì? Chúng ta có thể cùng nhau đi xem phim hoặc đi dạo phố.</span></li>
+                <li><span class="chinese">我打算周末在家做饭，邀请几个朋友来我家吃饭。</span><br><span class="vietnamese">Tôi dự định cuối tuần ở nhà nấu cơm, mời vài người bạn đến nhà tôi ăn cơm.</span></li>
+                <li><span class="chinese">我们一起做这个项目吧，我相信我们可以做得很好。</span><br><span class="vietnamese">Chúng ta cùng làm dự án này đi, tôi tin chúng ta có thể làm rất tốt.</span></li>
+                <li><span class="chinese">他做了一个重要的决定，这个决定会影响他的人生。</span><br><span class="vietnamese">Anh ấy đã đưa ra một quyết định quan trọng, quyết định này sẽ ảnh hưởng đến cuộc đời anh ấy.</span></li>
+                <li><span class="chinese">请你帮我做这件事，我一个人可能完成不了。</span><br><span class="vietnamese">Bạn vui lòng giúp tôi làm việc này, một mình tôi có thể không hoàn thành được.</span></li>
+                <li><span class="chinese">我会努力做好这份工作，不让领导和同事失望。</span><br><span class="vietnamese">Tôi sẽ cố gắng làm tốt công việc này, không làm lãnh đạo và đồng nghiệp thất vọng.</span></li>
+                <li><span class="chinese">他在家里做家务，包括洗碗、打扫房间和洗衣服。</span><br><span class="vietnamese">Anh ấy làm việc nhà ở nhà, bao gồm rửa bát, dọn dẹp phòng và giặt quần áo.</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>工作</strong> <span class="pinyin">(gōng zuò)</span></h2>
+        <p class="meaning">công việc; làm việc</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">你喜欢做什么工作？我更喜欢有创造性的工作。</span><br><span class="vietnamese">Bạn thích làm công việc gì? Tôi thích những công việc có tính sáng tạo hơn.</span></li>
+                <li><span class="chinese">我的爸爸妈妈都在工作，他们每天都非常努力。</span><br><span class="vietnamese">Bố mẹ tôi đều đang làm việc, họ mỗi ngày đều rất cố gắng.</span></li>
+                <li><span class="chinese">他每天工作很忙，经常加班到很晚才回家。</span><br><span class="vietnamese">Anh ấy mỗi ngày làm việc rất bận, thường xuyên tăng ca đến rất muộn mới về nhà.</span></li>
+                <li><span class="chinese">你在哪里工作？我听说你们公司在市中心。</span><br><span class="vietnamese">Bạn làm việc ở đâu? Tôi nghe nói công ty các bạn ở trung tâm thành phố.</span></li>
+                <li><span class="chinese">我最近在找一份新工作，希望可以找到一个更好的机会。</span><br><span class="vietnamese">Gần đây tôi đang tìm một công việc mới, hy vọng có thể tìm được một cơ hội tốt hơn.</span></li>
+                <li><span class="chinese">这份工作很难，但是很有趣，我从中学到了很多东西。</span><br><span class="vietnamese">Công việc này khó, nhưng rất thú vị, tôi đã học được rất nhiều điều từ đó.</span></li>
+                <li><span class="chinese">她是一个工作很认真的人，总是把事情做得井井有条。</span><br><span class="vietnamese">Cô ấy là người làm việc rất nghiêm túc, luôn sắp xếp mọi việc một cách ngăn nắp.</span></li>
+                <li><span class="chinese">我的工作时间很长，所以没有太多时间陪家人。</span><br><span class="vietnamese">Thời gian làm việc của tôi rất dài, nên không có quá nhiều thời gian để ở bên gia đình.</span></li>
+                <li><span class="chinese">你喜欢你的工作吗？如果喜欢，你就会每天都很开心。</span><br><span class="vietnamese">Bạn có thích công việc của bạn không? Nếu thích, bạn sẽ mỗi ngày đều rất vui vẻ.</span></li>
+                <li><span class="chinese">他明天还要去工作，所以我们不能一起去看电影了。</span><br><span class="vietnamese">Ngày mai anh ấy vẫn phải đi làm, nên chúng ta không thể cùng nhau đi xem phim được rồi.</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>都</strong> <span class="pinyin">(dōu)</span></h2>
+        <p class="meaning">đều, tất cả</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">我们都是学生，而且都是同一个班的同学。</span><br><span class="vietnamese">Chúng tôi đều là học sinh, và đều là bạn học cùng lớp.</span></li>
+                <li><span class="chinese">他们都是中国人，而且都来自北京这座城市。</span><br><span class="vietnamese">Họ đều là người Trung Quốc, và đều đến từ thành phố Bắc Kinh này.</span></li>
+                <li><span class="chinese">这些书我都喜欢，我打算把它们全部买回家。</span><br><span class="vietnamese">Những cuốn sách này tôi đều thích, tôi dự định mua tất cả chúng về nhà.</span></li>
+                <li><span class="chinese">我的朋友们都来了，我们正在准备一个派对。</span><br><span class="vietnamese">Các bạn của tôi đều đến rồi, chúng tôi đang chuẩn bị một bữa tiệc.</span></li>
+                <li><span class="chinese">我们都住在北京，所以平时经常可以见面。</span><br><span class="vietnamese">Chúng tôi đều sống ở Bắc Kinh, nên bình thường thường xuyên có thể gặp mặt.</span></li>
+                <li><span class="chinese">这些菜我都想吃，它们看起来都非常好吃。</span><br><span class="vietnamese">Những món ăn này tôi đều muốn ăn, chúng trông đều rất ngon.</span></li>
+                <li><span class="chinese">学生们都在教室里认真学习，没有人说话。</span><br><span class="vietnamese">Các học sinh đều đang chăm chỉ học tập trong lớp, không ai nói chuyện.</span></li>
+                <li><span class="chinese">我的家人都很健康，所以我不必为他们担心。</span><br><span class="vietnamese">Gia đình tôi đều rất khỏe mạnh, nên tôi không cần lo lắng cho họ.</span></li>
+                <li><span class="chinese">我们都在努力学习汉语，希望明年能</span><br><span class="vietnamese">Chúng tôi đều đang cố gắng học tiếng Hán, hy vọng năm sau có thể vượt qua kỳ thspan></li>
+                <li><span class="chinese">这些水果都很好吃，我建议你多吃一些。</span><br><span class="vietnamese">Những loại trái cây này đều rất ngon, tôi khuyên bạn nên ăn nhiều một chút.</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>医生</strong> <span class="pinyin">(yī shēng)</span></h2>
+        <p class="meaning">bác sĩ</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">我的爸爸是一名医生，他经常在医院工作到很晚。</span><br><span class="vietnamese">Bố tôi là một bác sĩ, ông ấy thường xuyên làm việc ở bệnh viện đến rất muộn.</span></li>
+                <li><span class="chinese">他想当一名好医生，将来可以帮助更多的人。</span><br><span class="vietnamese">Anh ấy muốn trở thành một bác sĩ giỏi, sau này có thể giúp đỡ nhiều người hơn.</span></li>
+                <li><span class="chinese">医生告诉我多休息，这样我的身体才能恢复得更快。</span><br><span class="vietnamese">Bác sĩ bảo tôi nghỉ ngơi nhiều, như vậy cơ thể tôi mới có thể hồi phục nhanh hơn.</span></li>
+                <li><span class="chinese">她是一名儿科医生，很受小朋友们的喜欢。</span><br><span class="vietnamese">Cô ấy là một bác sĩ nhi khoa, rất được các bạn nhỏ yêu thích.</span></li>
+                <li><span class="chinese">病人正在和医生说话，询问自己的病情。</span><br><span class="vietnamese">Bệnh nhân đang nói chuyện với bác sĩ, hỏi về tình hình bệnh của mình.</span></li>
+                <li><span class="chinese">这个医生很有经验，很多人都找他看病。</span><br><span class="vietnamese">Vị bác sĩ này rất có kinh nghiệm, nhiều người đều tìm anh ấy khám bệnh.</span></li>
+                <li><span class="chinese">我去看医生了，医生说我的病不是很严重。</span><br><span class="vietnamese">Tôi đã đi khám bác sĩ rồi, bác sĩ nói bệnh của tôi không nghiêm trọng lắm.</span></li>
+                <li><span class="chinese">医生说我的身体很健康，不需要太担心。</span><br><span class="vietnamese">Bác sĩ nói cơ thể tôi rất khỏe mạnh, không cần quá lo lắng.</span></li>
+                <li><span class="chinese">你需要去看医生吗？你的脸色看起来不太好。</span><br><span class="vietnamese">Bạn có cần đi khám bác sĩ không? Sắc mặt của bạn trông không được tốt lắm.</span></li>
+                <li><span class="chinese">他带他的孩子去看医生，因为孩子有点儿发烧。</span><br><span class="vietnamese">Anh ấy đưa con của mình đi khám bác sĩ, vì đứa bé hơi sốt.</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>这</strong> <span class="pinyin">(zhè)</span></h2>
+        <p class="meaning">này, đây</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">这是我的书包，里面有我的所有学习用品，包括笔和书。</span><br><span class="vietnamese">Đây là cặp sách của tôi, bên trong có tất cả đồ dùng học tập của tôi, bao gồm bút và sách.</span></li>
+                <li><span class="chinese">这个人是谁？我好像在以前的聚会上见过他，但是想不起来名字。</span><br><span class="vietnamese">Người này là ai? Tôi hình như đã gặp anh ấy ở bữa tiệc trước đây, nhưng không nhớ ra tên.</span></li>
+                <li><span class="chinese">这本书很好看，我强烈推荐你也可以看看，对你会有帮助的。</span><br><span class="vietnamese">Cuốn sách này rất hay, tôi đặc biệt đề xuất bạn cũng có thể xem thử, sẽ có ích cho bạn.</span></li>
+                <li><span class="chinese">这件衣服很漂亮，非常适合你，你应该买下来送给自己。</span><br><span class="vietnamese">Chiếc áo này rất đẹp, rất hợp với bạn, bạn nên mua nó để tặng cho bản thân.</span></li>
+                <li><span class="chinese">这是我第一次来这里，所以对周围的环境不太熟悉，需要你的帮助。</span><br><span class="vietnamese">Đây là lần đầu tiên tôi đến đây, nên không quen thuộc lắm với môi trường xung quanh, cần sự giúp đỡ của bạn.</span></li>
+                <li><span class="chinese">我们都在这个房间里开会，讨论下个季度的销售计划。</span><br><span class="vietnamese">Chúng tôi đều đang họp trong căn phòng này, thảo luận kế hoạch bán hàng quý tới.</span></li>
+                <li><span class="chinese">这个苹果多少钱？我想买三个送给我的朋友，他们很喜欢吃。</span><br><span class="vietnamese">Quả táo này bao nhiêu tiền? Tôi muốn mua ba quả tặng bạn của tôi, họ rất thích ăn.</span></li>
+                <li><span class="chinese">我喜欢这个颜色，非常适合你，显得你整个人都很精神。</span><br><span class="vietnamese">Tôi thích màu này, rất hợp với bạn, khiến cả người bạn trông rất tinh thần.</span></li>
+                <li><span class="chinese">这辆车不是我的，是我朋友的，他暂时借给我开几天。</span><br><span class="vietnamese">Chiếc xe này không phải của tôi, là của bạn tôi, anh ấy tạm thời cho tôi mượn lái vài ngày.</span></li>
+                <li><span class="chinese">这个地方很安静，非常适合学习和思考问题，没有人打扰。</span><br><span class="vietnamese">Nơi này rất yên tĩnh, rất phù hợp để học tập và suy nghĩ vấn đề, không có ai làm phiền.</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>那</strong> <span class="pinyin">(nà)</span></h2>
+        <p class="meaning">kia, đó</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">那个人是我的朋友，他是一名医生，你认识他吗？</span><br><span class="vietnamese">Người kia là bạn của tôi, anh ấy là một bác sĩ, bạn có quen anh ấy không?</span></li>
+                <li><span class="chinese">那个商店很远，我们坐车去吧，走路需要很长时间。</span><br><span class="vietnamese">Cửa hàng kia rất xa, chúng ta đi xe đi, đi bộ cần rất nhiều thời gian.</span></li>
+                <li><span class="chinese">那件衣服多少钱？我想看看，如果合适我就买下来。</span><br><span class="vietnamese">Chiếc áo kia bao nhiêu tiền? Tôi muốn xem thử, nếu hợp tôi sẽ mua.</span></li>
+                <li><span class="chinese">那本书我也看过，内容很有趣，对我的学习有帮助。</span><br><span class="vietnamese">Cuốn sách kia tôi cũng đã đọc rồi, nội dung rất thú vị, có ích cho việc học của tôi.</span></li>
+                <li><span class="chinese">那不是我的手机，我的手机在这里，在你旁边的桌子上。</span><br><span class="vietnamese">Đó không phải là điện thoại của tôi, điện thoại của tôi ở đây, trên bàn cạnh bạn.</span></li>
+                <li><span class="chinese">那里有很多学生在打篮球，看起来非常热闹。</span><br><span class="vietnamese">Ở đó có rất nhiều học sinh đang chơi bóng rổ, trông rất nhộn nhịp.</span></li>
+                <li><span class="chinese">那个地方很热闹，有很多游客，每天都有不同的活动。</span><br><span class="vietnamese">Nơi đó rất nhộn nhịp, có rất nhiều du khách, mỗi ngày đều có các hoạt động khác nhau.</span></li>
+                <li><span class="chinese">那时候我还在上学，没有工作，所以有很多空闲时间。</span><br><span class="vietnamese">Lúc đó tôi vẫn còn đang đi học, chưa có việc làm, nên có rất nhiều thời gian rảnh.</span></li>
+                <li><span class="chinese">那个问题很难回答，我不知道答案，你需要自己思考。</span><br><span class="vietnamese">Câu hỏi đó rất khó trả lời, tôi không biết đáp án, bạn cần tự mình suy nghĩ.</span></li>
+                <li><span class="chinese">那家饭店的菜很好吃，我们去吃吧，听说他们的服务也很好。</span><br><span class="vietnamese">Món ăn của nhà hàng kia rất ngon, chúng ta đi ăn đi, nghe nói dịch vụ của họ cũng rất tốt.</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>还是</strong> <span class="pinyin">(hái shì)</span></h2>
+        <p class="meaning">hay là (dùng trong câu hỏi lựa chọn); vẫn là</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">你喜欢喝茶还是咖啡？我们可以点一些来尝尝。</span><br><span class="vietnamese">Bạn thích uống trà hay cà phê? Chúng ta có thể gọi một ít để thử.</span></li>
+                <li><span class="chinese">我们去饭店吃饭还是在家吃？你决定吧，我都可以。</span><br><span class="vietnamese">Chúng ta đi nhà hàng ăn hay ăn ở nhà? Bạn quyết định đi, tôi thế nào cũng được.</span></li>
+                <li><span class="chinese">你坐公共汽车去还是打车去？哪种方式更方便？</span><br><span class="vietnamese">Bạn đi xe buýt hay đi taxi? Cách nào tiện hơn?</span></li>
+                <li><span class="chinese">他还是以前那个样子，一点儿都没有变。</span><br><span class="vietnamese">Anh ấy vẫn là dáng vẻ như trước, một chút cũng không thay đổi.</span></li>
+                <li><span class="chinese">你今天去学校还是不去？如果你不去，我就不去。</span><br><span class="vietnamese">Hôm nay bạn đi học hay không đi? Nếu bạn không đi, tôi cũng không đi.</span></li>
+                <li><span class="chinese">他还是想回到自己的国家，和家人团聚。</span><br><span class="vietnamese">Anh ấy vẫn muốn quay về đất nước của mình, đoàn tụ với gia đình.</span></li>
+                <li><span class="chinese">你想吃米饭还是面条？我今天想吃面条。</span><br><span class="vietnamese">Bạn muốn ăn cơm hay mì? Hôm nay tôi muốn ăn mì.</span></li>
+                <li><span class="chinese">我们明天去还是后天去？我明天有空，后天没空。</span><br><span class="vietnamese">Chúng ta đi ngày mai hay ngày kia? Ngày mai tôi rảnh, ngày kia không rảnh.</span></li>
+                <li><span class="chinese">他想买红色的还是蓝色的？我觉得红色更适合他。</span><br><span class="vietnamese">Anh ấy muốn mua màu đỏ hay màu xanh? Tôi thấy màu đỏ hợp với anh ấy hơn.</span></li>
+                <li><span class="chinese">这个问题他还是没有解决，他需要更多的时间思考。</span><br><span class="vietnamese">Vấn đề này anh ấy vẫn chưa giải quyết được, anh ấy cần thêm thời gian suy nghĩ.</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>只</strong> <span class="pinyin">(zhī)</span></h2>
+        <p class="meaning">con (lượng từ cho một số loài động vật)</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">我家有一只小猫，它非常可爱，我很喜欢它。</span><br><span class="vietnamese">Nhà tôi có một con mèo con, nó rất đáng yêu, tôi rất thích nó.</span></li>
+                <li><span class="chinese">他养了两只可爱的狗，它们每天都喜欢出去散步。</span><br><span class="vietnamese">Anh ấy nuôi hai con chó đáng yêu, chúng mỗi ngày đều thích ra ngoài đi dạo.</span></li>
+                <li><span class="chinese">公园里有很多只鸟在树上唱歌，声音非常好听。</span><br><span class="vietnamese">Trong công viên có rất nhiều con chim đang hót trên cây, tiếng hót rất hay.</span></li>
+                <li><span class="chinese">这只笔是我的，请不要拿错了别人的笔。</span><br><span class="vietnamese">Cây bút này là của tôi, vui lòng đừng cầm nhầm bút của người khác.</span></li>
+                <li><span class="chinese">他只穿了一只袜子，另一只袜子找不到了。</span><br><span class="vietnamese">Anh ấy chỉ đi một chiếc tất, chiếc tất còn lại không tìm thấy rồi.</span></li>
+                <li><span class="chinese">动物园里有好多只老虎，看起来非常凶猛。</span><br><span class="vietnamese">Trong sở thú có rất nhiều con hổ, trông rất hung dữ.</span></li>
+                <li><span class="chinese">我喜欢那只白色的兔子，它的毛很软。</span><br><span class="vietnamese">Tôi thích con thỏ màu trắng kia, lông của nó rất mềm.</span></li>
+                <li><span class="chinese">这只鞋子有点儿大，我穿着不太舒服。</span><br><span class="vietnamese">Chiếc giày này hơi lớn một chút, tôi mang không được thoải mái lắm.</span></li>
+                <li><span class="chinese">他送给我一只手表作为生日礼物，我很喜欢。</span><br><span class="vietnamese">Anh ấy tặng tôi một chiếc đồng hồ đeo tay làm quà sinh nhật, tôi rất thích.</span></li>
+                <li><span class="chinese">我看到一只漂亮的蝴蝶在花丛中飞舞。</span><br><span class="vietnamese">Tôi nhìn thấy một con bướm xinh đẹp đang bay lượn trong bụi hoa.</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>书包</strong> <span class="pinyin">(shū bāo)</span></h2>
+        <p class="meaning">cặp sách, ba lô</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">我的书包里有很多书，每天上学都要背很重。</span><br><span class="vietnamese">Trong cặp sách của tôi có rất nhiều sách, mỗi ngày đi học đều phải đeo rất nặng.</span></li>
+                <li><span class="chinese">这个书包很漂亮，我很喜欢它，是妈妈送给我的。</span><br><span class="vietnamese">Cặp sách này rất đẹp, tôi rất thích nó, là mẹ tặng cho tôi.</span></li>
+                <li><span class="chinese">他背着书包去上学了，看起来很高兴。</span><br><span class="vietnamese">Anh ấy đeo cặp sách đi học rồi, trông rất vui vẻ.</span></li>
+                <li><span class="chinese">我的书包有点儿重，可能是里面装了太多东西。</span><br><span class="vietnamese">Cặp sách của tôi hơi nặng một chút, có thể là bên trong đựng quá nhiều đồ.</span></li>
+                <li><span class="chinese">请把书放进书包里，不要把它们弄丢了。</span><br><span class="vietnamese">Vui lòng cho sách vào trong cặp sách, đừng làm mất chúng.</span></li>
+                <li><span class="chinese">这个书包是新的，我昨天才在商店买的。</span><br><span class="vietnamese">Cặp sách này là mới, tôi mới mua ở cửa hàng hôm qua.</span></li>
+                <li><span class="chinese">他买了一个黑色的书包，看起来非常酷。</span><br><span class="vietnamese">Anh ấy đã mua một chiếc cặp sách màu đen, trông rất ngầu.</span></li>
+                <li><span class="chinese">我的书包丢了，里面还有我的手机和钥匙。</span><br><span class="vietnamese">Cặp sách của tôi bị mất rồi, bên trong còn có điện thoại và chìa khóa của tôi.</span></li>
+                <li><span class="chinese">请帮我拿一下儿书包，我手里拿着很多东西。</span><br><span class="vietnamese">Vui lòng giúp tôi cầm cặp sách một chút, tôi đang cầm rất nhiều đồ trong tay.</span></li>
+                <li><span class="chinese">他的书包里装满了文具，包括铅笔、橡皮和尺子。</span><br><span class="vietnamese">Trong cặp sách của anh ấy đầy đủ văn phòng phẩm, bao gồm bút chì, cục tẩy và thước kẻ.</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>里</strong> <span class="pinyin">(lǐ)</span></h2>
+        <p class="meaning">trong, bên trong</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">书包里有很多书，还有一些作业本。</span><br><span class="vietnamese">Trong cặp sách có rất nhiều sách, và cả một số vở bài tập.</span></li>
+                <li><span class="chinese">房间里有两个人正在聊天，他们是我的朋友。</span><br><span class="vietnamese">Trong phòng có hai người đang nói chuyện, họ là bạn của tôi.</span></li>
+                <li><span class="chinese">我们都在学校里学习，每天都很努力。</span><br><span class="vietnamese">Chúng tôi đều đang học trong trường, mỗi ngày đều rất cố gắng.</span></li>
+                <li><span class="chinese">盘子里有水果，你可以随便吃。</span><br><span class="vietnamese">Trong đĩa có trái cây, bạn có thể ăn tùy ý.</span></li>
+                <li><span class="chinese">我把手机放在包里了，所以你找不到。</span><br><span class="vietnamese">Tôi đã để điện thoại vào trong túi rồi, nên bạn không tìm thấy.</span></li>
+                <li><span class="chinese">箱子里是什么东西？我打开看看。</span><br><span class="vietnamese">Trong hộp là cái gì vậy? Để tôi mở ra xem.</span></li>
+                <li><span class="chinese">他家在小区里，离公交车站很近。</span><br><span class="vietnamese">Nhà anh ấy ở trong khu chung cư, rất gần trạm xe buýt.</span></li>
+                <li><span class="chinese">水杯里没有水了，请帮我倒一杯水。</span><br><span class="vietnamese">Trong cốc không còn nước nữa, vui lòng giúp tôi rót một cốc nước.</span></li>
+                <li><span class="chinese">商店里有很多衣服，各种颜色和款式都有。</span><br><span class="vietnamese">Trong cửa hàng có rất nhiều quần áo, có đủ các màu sắc và kiểu dáng.</span></li>
+                <li><span class="chinese">他在我的心里，永远是最好的朋友。</span><br><span class="vietnamese">Anh ấy ở trong lòng tôi, mãi mãi là người bạn tốt nhất.</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>外</strong> <span class="pinyin">(wài)</span></h2>
+        <p class="meaning">ngoài, bên ngoài</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">他在门外面等你，你快出去看看是谁。</span><br><span class="vietnamese">Anh ấy đang đợi bạn ở ngoài cửa, bạn mau ra xem là ai.</span></li>
+                <li><span class="chinese">外面下雨了，你出门的时候记得带伞。</span><br><span class="vietnamese">Ngoài trời mưa rồi, khi bạn ra ngoài nhớ mang ô.</span></li>
+                <li><span class="chinese">请不要在外面吃饭，我们回家吃吧。</span><br><span class="vietnamese">Vui lòng đừng ăn cơm ở bên ngoài, chúng ta về nhà ăn đi.</span></li>
+                <li><span class="chinese">他想出国留学，去看看外面的世界。</span><br><span class="vietnamese">Anh ấy muốn đi du học nước ngoài, để xem thế giới bên ngoài.</span></li>
+                <li><span class="chinese">我的朋友是外国人，他来自美国。</span><br><span class="vietnamese">Bạn của tôi là người nước ngoài, anh ấy đến từ Mỹ.</span></li>
+                <li><span class="chinese">外面很冷，多穿点衣服，别感冒了。</span><br><span class="vietnamese">Ngoài trời rất lạnh, mặc thêm quần áo đi, đừng để bị cảm.</span></li>
+                <li><span class="chinese">他住在城市外面，每天都要开车上班。</span><br><span class="vietnamese">Anh ấy sống ở ngoại ô thành phố, mỗi ngày đều phải lái xe đi làm.</span></li>
+                <li><span class="chinese">这个箱子外面写着名字，里面是我的书。</span><br><span class="vietnamese">Bên ngoài chiếc hộp này có viết tên, bên trong là sách của tôi.</span></li>
+                <li><span class="chinese">我们明天去外面玩吧，天气预报说会很好。</span><br><span class="vietnamese">Ngày mai chúng ta ra ngoài chơi đi, dự báo thời tiết nói sẽ rất đẹp.</span></li>
+                <li><span class="chinese">请把垃圾扔到外面去，不要放在家里。</span><br><span class="vietnamese">Vui lòng vứt rác ra ngoài, đừng để trong nhà.</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>书</strong> <span class="pinyin">(shū)</span></h2>
+        <p class="meaning">sách</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">我喜欢看书，尤其喜欢看历史方面的书。</span><br><span class="vietnamese">Tôi thích đọc sách, đặc biệt thích đọc sách về lịch sử.</span></li>
+                <li><span class="chinese">我买了一本新书，这本书是关于中国文化的。</span><br><span class="vietnamese">Tôi đã mua một cuốn sách mới, cuốn sách này là về văn hóa Trung Quốc.</span></li>
+                <li><span class="chinese">这本书很好看，我一晚上就看完了。</span><br><span class="vietnamese">Cuốn sách này rất hay, tôi đã đọc xong chỉ trong một đêm.</span></li>
+                <li><span class="chinese">请把书给我，我要把它放在书包里。</span><br><span class="vietnamese">Vui lòng đưa sách cho tôi, tôi muốn để nó vào trong cặp sách.</span></li>
+                <li><span class="chinese">我的书包里有很多书，所以有点儿重。</span><br><span class="vietnamese">Trong cặp sách của tôi có rất nhiều sách, nên hơi nặng một chút.</span></li>
+                <li><span class="chinese">图书馆里有很多书，你可以去那里借。</span><br><span class="vietnamese">Trong thư viện có rất nhiều sách, bạn có thể đến đó mượn.</span></li>
+                <li><span class="chinese">他每天都看书，从书中学习了很多知识。</span><br><span class="vietnamese">Anh ấy mỗi ngày đều đọc sách, học được rất nhiều kiến thức từ sách.</span></li>
+                <li><span class="chinese">这是一本中文书，我正在努力学习它的内容。</span><br><span class="vietnamese">Đây là một cuốn sách tiếng Trung, tôi đang cố gắng học nội dung của nó.</span></li>
+                <li><span class="chinese">我把书放在桌子上了，你看到它了吗？</span><br><span class="vietnamese">Tôi đã để sách lên bàn rồi, bạn có thấy nó không?</span></li>
+                <li><span class="chinese">你喜欢什么类型的书？我喜欢小说和散文。</span><br><span class="vietnamese">Bạn thích loại sách nào? Tôi thích tiểu thuyết và tản văn.</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>本</strong> <span class="pinyin">(běn)</span></h2>
+        <p class="meaning">cuốn, quyển (lượng từ cho sách, tạp chí...)</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">我有一本书，是我的汉语老师送给我的。</span><br><span class="vietnamese">Tôi có một cuốn sách, là do thầy giáo tiếng Hán của tôi tặng.</span></li>
+                <li><span class="chinese">他买了三本书，打算在周末的时候看完。</span><br><span class="vietnamese">Anh ấy đã mua ba cuốn sách, dự định xem xong trong dịp cuối tuần.</span></li>
+                <li><span class="chinese">请给我一本词典，我想查一下儿这个词的意思。</span><br><span class="vietnamese">Vui lòng cho tôi một cuốn từ điển, tôi muốn tra nghĩa của từ này.</span></li>
+                <li><span class="chinese">这本杂志很有趣，里面有很多关于旅行的文章。</span><br><span class="vietnamese">Cuốn tạp chí này rất thú vị, bên trong có rất nhiều bài viết về du lịch.</span></li>
+                <li><span class="chinese">我送他一本小说作为生日礼物，希望他会喜欢。</span><br><span class="vietnamese">Tôi tặng anh ấy một cuốn tiểu thuyết làm quà sinh nhật, hy vọng anh ấy sẽ thích.</span></li>
+                <li><span class="chinese">老师给我们发了两本书，一本是课本，一本是练习册。</span><br><span class="vietnamese">Thầy giáo đã phát cho chúng tôi hai cuốn sách, một cuốn là sách giáo khoa, một cuốn là sách bài tập.</span></li>
+                <li><span class="chinese">这本中文书很难，我读了好几遍才明白它的意思。</span><br><span class="vietnamese">Cuốn sách tiếng Trung này rất khó, tôi đọc mấy lần mới hiểu nghĩa của nó.</span></li>
+                <li><span class="chinese">书店里有很多本新书，你可以去看看有没有你喜欢的。</span><br><span class="vietnamese">Trong hiệu sách có rất nhiều cuốn sách mới, bạn có thể đến xem có cuốn nào bạn thích không.</span></li>
+                <li><span class="chinese">请你把这几本书拿走，它们已经放在这里很长时间了。</span><br><span class="vietnamese">Bạn vui lòng mang mấy cuốn sách này đi, chúng đã để ở đây rất lâu rồi.</span></li>
+                <li><span class="chinese">这本漫画书很好笑，我看了以后心情都变好了。</span><br><span class="vietnamese">Cuốn truyện tranh này rất buồn cười, tôi xem xong tâm trạng đều tốt hơn.</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>两</strong> <span class="pinyin">(liǎng)</span></h2>
+        <p class="meaning">hai (thường dùng trước lượng từ)</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">我有两个中国朋友，他们都住在北京。</span><br><span class="vietnamese">Tôi có hai người bạn Trung Quốc, họ đều sống ở Bắc Kinh.</span></li>
+                <li><span class="chinese">我们家有两只小狗，它们都很可爱。</span><br><span class="vietnamese">Gia đình chúng tôi có hai chú chó con, chúng đều rất đáng yêu.</span></li>
+                <li><span class="chinese">他买了两个苹果，打算回家和妹妹一起吃。</span><br><span class="vietnamese">Anh ấy đã mua hai quả táo, dự định về nhà ăn cùng em gái.</span></li>
+                <li><span class="chinese">我今天吃了两碗面，所以现在感觉很饱。</span><br><span class="vietnamese">Hôm nay tôi đã ăn hai bát mì, nên bây giờ cảm thấy rất no.</span></li>
+                <li><span class="chinese">他有两本书，一本是中文书，一本是英文书。</span><br><span class="vietnamese">Anh ấy có hai cuốn sách, một cuốn là sách tiếng Trung, một cuốn là sách tiếng Anh.</span></li>
+                <li><span class="chinese">我们有两张电影票，所以可以一起去看电影。</span><br><span class="vietnamese">Chúng tôi có hai vé xem phim, nên có thể cùng nhau đi xem phim.</span></li>
+                <li><span class="chinese">我家有两辆车，一辆是轿车，一辆是SUV。</span><br><span class="vietnamese">Nhà tôi có hai chiếc xe, một chiếc là xe con, một chiếc là SUV.</span></li>
+                <li><span class="chinese">他买了两个杯子，一个给自己用，一个送给朋友。</span><br><span class="vietnamese">Anh ấy đã mua hai cái cốc, một cái dùng cho mình, một cái tặng cho bạn.</span></li>
+                <li><span class="chinese">我们学校有两栋楼，一栋是教学楼，一栋是宿舍楼。</span><br><span class="vietnamese">Trường chúng tôi có hai tòa nhà, một tòa là tòa nhà dạy học, một tòa là ký túc xá.</span></li>
+                <li><span class="chinese">他有两支笔，一支是黑色，一支是蓝色。</span><br><span class="vietnamese">Anh ấy có hai cây bút, một cây màu đen, một cây màu xanh.</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>笔</strong> <span class="pinyin">(bǐ)</span></h2>
+        <p class="meaning">bút</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">我有一支新的笔，是昨天妈妈送给我的。</span><br><span class="vietnamese">Tôi có một cây bút mới, là do mẹ tôi tặng hôm qua.</span></li>
+                <li><span class="chinese">请你给我一支笔，我想写下这个电话号码。</span><br><span class="vietnamese">Bạn vui lòng cho tôi một cây bút, tôi muốn viết xuống số điện thoại này.</span></li>
+                <li><span class="chinese">这支笔是你的吗？我看到它在桌子上。</span><br><span class="vietnamese">Cây bút này là của bạn phải không? Tôi thấy nó ở trên bàn.</span></li>
+                <li><span class="chinese">我的笔找不到了，我到处找都没有找到。</span><br><span class="vietnamese">Cây bút của tôi không tìm thấy nữa rồi, tôi tìm khắp nơi đều không thấy.</span></li>
+                <li><span class="chinese">他用铅笔写字，因为铅笔写错了可以擦掉。</span><br><span class="vietnamese">Anh ấy dùng bút chì để viết chữ, vì bút chì viết sai có thể xóa đi.</span></li>
+                <li><span class="chinese">桌子上有一支笔，你可以拿去用。</span><br><span class="vietnamese">Trên bàn có một cây bút, bạn có thể lấy đi dùng.</span></li>
+                <li><span class="chinese">这支笔写起来很顺手，我很喜欢用它。</span><br><span class="vietnamese">Cây bút này viết rất trơn tay, tôi rất thích dùng nó.</span></li>
+                <li><span class="chinese">我有很多不同颜色的笔，可以用来画画。</span><br><span class="vietnamese">Tôi có rất nhiều bút với màu sắc khác nhau, có thể dùng để vẽ tranh.</span></li>
+                <li><span class="chinese">请你把笔还给我，我等一下儿还要用它。</span><br><span class="vietnamese">Bạn vui lòng trả bút lại cho tôi, lát nữa tôi còn phải dùng nó.</span></li>
+                <li><span class="chinese">他在用笔写作业，看起来非常认真。</span><br><span class="vietnamese">Anh ấy đang dùng bút viết bài tập, trông rất nghiêm túc.</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>支</strong> <span class="pinyin">(zhī)</span></h2>
+        <p class="meaning">cây (lượng từ cho bút, đũa, hoa...)</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">我买了一支笔，是用来写作业的。</span><br><span class="vietnamese">Tôi đã mua một cây bút, dùng để viết bài tập.</span></li>
+                <li><span class="chinese">他有两支铅笔，一支是长的，一支是短的。</span><br><span class="vietnamese">Anh ấy có hai cây bút chì, một cây dài, một cây ngắn.</span></li>
+                <li><span class="chinese">请给我一支玫瑰花，我想送给我女朋友。</span><br><span class="vietnamese">Vui lòng cho tôi một bông hồng, tôi muốn tặng cho bạn gái tôi.</span></li>
+                <li><span class="chinese">这支钢笔很好用，写出来的字很漂亮。</span><br><span class="vietnamese">Cây bút máy này rất dễ dùng, chữ viết ra rất đẹp.</span></li>
+                <li><span class="chinese">他手里拿着一支笔，好像在思考什么问题。</span><br><span class="vietnamese">Anh ấy cầm một cây bút trong tay, hình như đang suy nghĩ vấn đề gì đó.</span></li>
+                <li><span class="chinese">我送给他一支手表作为生日礼物，他非常喜欢。</span><br><span class="vietnamese">Tôi tặng anh ấy một chiếc đồng hồ đeo tay làm quà sinh nhật, anh ấy rất thích.</span></li>
+                <li><span class="chinese">请把这支口红拿给我，我要涂一下儿。</span><br><span class="vietnamese">Vui lòng đưa cho tôi cây son môi này, tôi muốn tô một chút.</span></li>
+                <li><span class="chinese">她有一支很漂亮的歌，我每天都会听。</span><br><span class="vietnamese">Cô ấy có một bài hát rất hay, tôi mỗi ngày đều nghe.</span></li>
+                <li><span class="chinese">我们只有一支筷子，所以不能一起吃饭。</span><br><span class="vietnamese">Chúng tôi chỉ có một chiếc đũa, nên không thể ăn cơm cùng nhau.</span></li>
+                <li><span class="chinese">这支队伍很强大，我相信他们能赢得比赛。</span><br><span class="vietnamese">Đội quân này rất hùng mạnh, tôi tin họ có thể thắng trận đấu.</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>瓶</strong> <span class="pinyin">(píng)</span></h2>
+        <p class="meaning">chai, lọ, bình (lượng từ)</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">请给我一瓶水，我口渴了，想喝点儿水。</span><br><span class="vietnamese">Vui lòng cho tôi một chai nước, tôi khát rồi, muốn uống chút nước.</span></li>
+                <li><span class="chinese">他买了两瓶啤酒，打算今天晚上和朋友一起喝。</span><br><span class="vietnamese">Anh ấy đã mua hai chai bia, dự định tối nay uống cùng bạn bè.</span></li>
+                <li><span class="chinese">桌子上有一瓶牛奶，那是我的早餐。</span><br><span class="vietnamese">Trên bàn có một chai sữa, đó là bữa sáng của tôi.</span></li>
+                <li><span class="chinese">这瓶可乐是我的，请不要随便拿走。</span><br><span class="vietnamese">Chai Coca này là của tôi, vui lòng đừng tùy tiện cầm đi.</span></li>
+                <li><span class="chinese">我喝完了一瓶果汁，现在感觉好多了。</span><br><span class="vietnamese">Tôi đã uống hết một chai nước ép trái cây, bây giờ cảm thấy tốt hơn nhiều.</span></li>
+                <li><span class="chinese">请把这瓶酒打开，我们要开始吃饭了。</span><br><span class="vietnamese">Vui lòng mở chai rượu này ra, chúng ta sắp bắt đầu ăn cơm rồi.</span></li>
+                <li><span class="chinese">这瓶香水很贵，是我男朋友送给我的礼物。</span><br><span class="vietnamese">Chai nước hoa này rất đắt, là quà bạn trai tôi tặng cho tôi.</span></li>
+                <li><span class="chinese">他送给我一瓶红酒，庆祝我生日快乐。</span><br><span class="vietnamese">Anh ấy tặng tôi một chai rượu vang đỏ, chúc mừng sinh nhật tôi.</span></li>
+                <li><span class="chinese">我们还需要一瓶酱油，厨房里没有了。</span><br><span class="vietnamese">Chúng tôi còn cần một chai xì dầu, trong bếp không còn nữa rồi.</span></li>
+                <li><span class="chinese">这瓶药水对感冒很有效，你可以试试。</span><br><span class="vietnamese">Chai thuốc này rất hiệu quả đối với cảm lạnh, bạn có thể thử.</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>水</strong> <span class="pinyin">(shuǐ)</span></h2>
+        <p class="meaning">nước</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">我口渴了，想喝水，请给我一杯水。</span><br><span class="vietnamese">Tôi khát rồi, muốn uống nước, vui lòng cho tôi một cốc nước.</span></li>
+                <li><span class="chinese">请给我一杯水，我刚运动完，有点儿累。</span><br><span class="vietnamese">Vui lòng cho tôi một cốc nước, tôi vừa tập thể dục xong, hơi mệt.</span></li>
+                <li><span class="chinese">这里的水很干净，可以直接饮用。</span><br><span class="vietnamese">Nước ở đây rất sạch, có thể uống trực tiếp.</span></li>
+                <li><span class="chinese">他每天都喝很多水，所以身体很健康。</span><br><span class="vietnamese">Anh ấy mỗi ngày đều uống rất nhiều nước, nên cơ thể rất khỏe mạnh.</span></li>
+                <li><span class="chinese">水是生命的重要组成部分，我们离不开它。</span><br><span class="vietnamese">Nước là thành phần quan trọng của sự sống, chúng ta không thể thiếu nó.</span></li>
+                <li><span class="chinese">我把水倒在杯子里了，你可以喝了。</span><br><span class="vietnamese">Tôi đã đổ nước vào trong cốc rồi, bạn có thể uống rồi.</span></li>
+                <li><span class="chinese">外面下雨了，地上都是水，小心别滑倒。</span><br><span class="vietnamese">Ngoài trời mưa rồi, dưới đất toàn là nước, cẩn thận đừng trượt ngã.</span></li>
+                <li><span class="chinese">请你把水烧开，我想泡一杯茶喝。</span><br><span class="vietnamese">Bạn vui lòng đun sôi nước, tôi muốn pha một cốc trà uống.</span></li>
+                <li><span class="chinese">这瓶水是矿泉水，你可以放心地喝。</span><br><span class="vietnamese">Chai nước này là nước khoáng, bạn có thể yên tâm uống.</span></li>
+                <li><span class="chinese">他在游泳池里玩水，玩得很开心。</span><br><span class="vietnamese">Anh ấy đang chơi đùa với nước trong bể bơi, chơi rất vui.</span></li>
+            </ol>
+        </div>
+    </div>
+
+</body>
+</html>

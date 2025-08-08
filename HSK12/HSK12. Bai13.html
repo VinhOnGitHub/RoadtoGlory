@@ -1,0 +1,444 @@
+﻿<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第十三课：让我给你检查一下儿</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.8;
+            color: #333;
+            max-width: 960px;
+            margin: 30px auto;
+            padding: 0 25px;
+            background-color: #f4f7f6;
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 2.5em;
+            letter-spacing: 1px;
+        }
+        h2 {
+            color: #1a5276;
+            border-bottom: 3px solid #1a5276;
+            padding-bottom: 8px;
+            margin-top: 50px;
+            font-size: 1.8em;
+        }
+        .vocab-item {
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            padding: 30px;
+            margin-bottom: 35px;
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        }
+        .vocab-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+        }
+        .vocab-item strong {
+            color: #c0392b;
+            font-size: 1.4em;
+        }
+        .pinyin {
+            font-style: italic;
+            color: #2980b9;
+            margin-left: 15px;
+            font-size: 1.1em;
+        }
+        .meaning {
+            margin-top: 10px;
+            margin-bottom: 20px;
+            color: #555;
+            font-size: 1.1em;
+        }
+        .examples ol {
+            list-style: none; /* Remove default numbering */
+            counter-reset: example-counter; /* Initialize counter */
+            padding-left: 0;
+        }
+        .examples li {
+            counter-increment: example-counter; /* Increment counter for each list item */
+            margin-bottom: 15px;
+            position: relative;
+            padding-left: 35px; /* Space for custom number */
+        }
+        .examples li::before {
+            content: counter(example-counter) ".";
+            position: absolute;
+            left: 0;
+            top: 0;
+            font-weight: bold;
+            color: #1abc9c;
+            font-size: 1.1em;
+        }
+        .examples li .chinese {
+            font-weight: bold;
+            color: #16a085;
+            display: block;
+            margin-bottom: 3px;
+        }
+        .examples li .vietnamese {
+            color: #7f8c8d;
+            font-size: 0.98em;
+            font-style: italic;
+        }
+        hr {
+            border: 0;
+            height: 1px;
+            background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0));
+            margin: 50px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>第十三课：让我给你检查一下儿</h1>
+
+    <div class="vocab-item">
+        <h2><strong>头</strong> <span class="pinyin">(tóu)</span></h2>
+        <p class="meaning">đầu</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">我今天早上觉得有点儿头疼，可能是因为没睡好。</span><br><span class="vietnamese">Sáng nay tôi cảm thấy hơi đau đầu, có lẽ vì ngủ không ngon.</span></li>
+                <li><span class="chinese">他摇了摇头，表示不同意我的看法。</span><br><span class="vietnamese">Anh ấy lắc đầu, biểu thị không đồng ý với quan điểm của tôi.</span></li>
+                <li><span class="chinese">请问，这个问题的开头怎么写？</span><br><span class="vietnamese">Xin hỏi, phần mở đầu của vấn đề này viết thế nào?</span></li>
+                <li><span class="chinese">他是一个很聪明的人，脑子非常好使。</span><br><span class="vietnamese">Anh ấy là một người rất thông minh, đầu óc rất nhanh nhạy.</span></li>
+                <li><span class="chinese">我的头发很长，该去理发店剪一下儿了。</span><br><span class="vietnamese">Tóc của tôi rất dài, nên đi tiệm cắt tóc cắt một chút rồi.</span></li>
+                <li><span class="chinese">他把头靠在我的肩膀上，看起来很累。</span><br><span class="vietnamese">Anh ấy tựa đầu vào vai tôi, trông có vẻ rất mệt.</span></li>
+                <li><span class="chinese">别低头，要抬头挺胸，自信一点儿。</span><br><span class="vietnamese">Đừng cúi đầu, hãy ngẩng cao đầu ưỡn ngực, tự tin hơn một chút.</span></li>
+                <li><span class="chinese">这个班的老师是王老师，他是班主任。</span><br><span class="vietnamese">Giáo viên chủ nhiệm của lớp này là thầy Vương, thầy ấy là giáo viên chủ nhiệm.</span></li>
+                <li><span class="chinese">头顶上有一只小鸟在唱歌。</span><br><span class="vietnamese">Trên đỉnh đầu có một chú chim nhỏ đang hót.</span></li>
+                <li><span class="chinese">我感觉头有点儿晕，可能是感冒了。</span><br><span class="vietnamese">Tôi cảm thấy đầu hơi choáng, có thể là bị cảm rồi.</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>疼</strong> <span class="pinyin">(téng)</span></h2>
+        <p class="meaning">đau</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">我今天早上觉得有点儿头疼，可能是没睡好。</span><br><span class="vietnamese">Sáng nay tôi cảm thấy hơi đau đầu, có lẽ vì ngủ không ngon.</span></li>
+                <li><span class="chinese">我的肚子很疼，可能是吃了不干净的东西。</span><br><span class="vietnamese">Bụng của tôi rất đau, có lẽ là ăn phải đồ không sạch.</span></li>
+                <li><span class="chinese">你哪里疼？要不要去医院看医生？</span><br><span class="vietnamese">Bạn đau ở đâu? Có cần đi bệnh viện khám bác sĩ không?</span></li>
+                <li><span class="chinese">他的腿很疼，所以不能跑步。</span><br><span class="vietnamese">Chân của anh ấy rất đau, nên không thể chạy bộ.</span></li>
+                <li><span class="chinese">我牙疼，医生说需要拔牙。</span><br><span class="vietnamese">Tôi bị đau răng, bác sĩ nói cần nhổ răng.</span></li>
+                <li><span class="chinese">她摔倒了，手有点儿疼。</span><br><span class="vietnamese">Cô ấy bị ngã, tay hơi đau.</span></li>
+                <li><span class="chinese">我感觉全身都疼，好像感冒了。</span><br><span class="vietnamese">Tôi cảm thấy toàn thân đều đau, hình như bị cảm rồi.</span></li>
+                <li><span class="chinese">这个地方有点儿疼，你别碰。</span><br><span class="vietnamese">Chỗ này hơi đau, bạn đừng chạm vào.</span></li>
+                <li><span class="chinese">他的眼睛很疼，可能是用眼过度了。</span><br><span class="vietnamese">Mắt của anh ấy rất đau, có lẽ là dùng mắt quá độ rồi.</span></li>
+                <li><span class="chinese">我背疼，需要休息一下儿。</span><br><span class="vietnamese">Tôi bị đau lưng, cần nghỉ ngơi một chút.</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>舒服</strong> <span class="pinyin">(shū fu)</span></h2>
+        <p class="meaning">thoải mái, dễ chịu</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">我今天感觉不太舒服，可能是感冒了。</span><br><span class="vietnamese">Hôm nay tôi cảm thấy không được thoải mái lắm, có lẽ là bị cảm rồi.</span></li>
+                <li><span class="chinese">这件衣服穿起来很舒服，我很喜欢。</span><br><span class="vietnamese">Bộ quần áo này mặc vào rất thoải mái, tôi rất thích.</span></li>
+                <li><span class="chinese">躺在床上休息，感觉舒服多了。</span><br><span class="vietnamese">Nằm trên giường nghỉ ngơi, cảm thấy thoải mái hơn nhiều.</span></li>
+                <li><span class="chinese">他病了，身体很不舒服。</span><br><span class="vietnamese">Anh ấy bị ốm rồi, cơ thể rất không thoải mái.</span></li>
+                <li><span class="chinese">这个地方很安静，让人感觉很舒服。</span><br><span class="vietnamese">Nơi này rất yên tĩnh, khiến người ta cảm thấy rất thoải mái.</span></li>
+                <li><span class="chinese">喝点儿热水会让你感觉舒服一些。</span><br><span class="vietnamese">Uống chút nước nóng sẽ khiến bạn cảm thấy dễ chịu hơn một chút.</span></li>
+                <li><span class="chinese">他洗了个热水澡，感觉舒服多了。</span><br><span class="vietnamese">Anh ấy tắm nước nóng, cảm thấy thoải mái hơn nhiều.</span></li>
+                <li><span class="chinese">我觉得这里的天气很舒服。</span><br><span class="vietnamese">Tôi cảm thấy thời tiết ở đây rất thoải mái.</span></li>
+                <li><span class="chinese">他病得不舒服，需要卧床休息。</span><br><span class="vietnamese">Anh ấy ốm không thoải mái, cần nằm nghỉ trên giường.</span></li>
+                <li><span class="chinese">你看起来不太舒服，要不要去看医生？</span><br><span class="vietnamese">Bạn trông có vẻ không được thoải mái, có cần đi khám bác sĩ không?</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>流</strong> <span class="pinyin">(liú)</span></h2>
+        <p class="meaning">chảy</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">我感冒了，一直流鼻涕，很不舒服。</span><br><span class="vietnamese">Tôi bị cảm rồi, chảy nước mũi liên tục, rất không thoải mái.</span></li>
+                <li><span class="chinese">外面下雨了，水从屋顶上流下来。</span><br><span class="vietnamese">Ngoài trời mưa rồi, nước chảy từ trên mái nhà xuống.</span></li>
+                <li><span class="chinese">他哭了，眼泪从眼睛里流出来。</span><br><span class="vietnamese">Anh ấy khóc rồi, nước mắt chảy ra từ mắt.</span></li>
+                <li><span class="chinese">这条河的水流得很急。</span><br><span class="vietnamese">Dòng nước của con sông này chảy rất xiết.</span></li>
+                <li><span class="chinese">他的鼻血一直流。</span><br><span class="vietnamese">Máu mũi của anh ấy chảy mãi.</span></li>
+                <li><span class="chinese">汗水从他的脸上流下来。</span><br><span class="vietnamese">Mồ hôi chảy xuống từ mặt anh ấy.</span></li>
+                <li><span class="chinese">这个水龙头在漏水。</span><br><span class="vietnamese">Cái vòi nước này đang bị rò rỉ nước.</span></li>
+                <li><span class="chinese">她唱歌很好听，感情很自然地流露出来。</span><br><span class="vietnamese">Cô ấy hát rất hay, tình cảm tự nhiên bộc lộ ra.</span></li>
+                <li><span class="chinese">时间过得很快，就像水一样流走了。</span><br><span class="vietnamese">Thời gian trôi qua rất nhanh, giống như nước chảy đi mất.</span></li>
+                <li><span class="chinese">这条小溪的水流很清澈。</span><br><span class="vietnamese">Dòng nước của con suối nhỏ này rất trong.</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>鼻涕</strong> <span class="pinyin">(bí tì)</span></h2>
+        <p class="meaning">nước mũi</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">我感冒了，一直流鼻涕，很不舒服。</span><br><span class="vietnamese">Tôi bị cảm rồi, chảy nước mũi liên tục, rất không thoải mái.</span></li>
+                <li><span class="chinese">小孩子感冒的时候经常流鼻涕。</span><br><span class="vietnamese">Trẻ con khi bị cảm thường xuyên chảy nước mũi.</span></li>
+                <li><span class="chinese">请你擦一下儿鼻涕，别弄脏了衣服。</span><br><span class="vietnamese">Bạn vui lòng lau nước mũi đi, đừng làm bẩn quần áo.</span></li>
+                <li><span class="chinese">他说话的时候鼻涕都流出来了。</span><br><span class="vietnamese">Anh ấy khi nói chuyện nước mũi đều chảy ra rồi.</span></li>
+                <li><span class="chinese">我头疼，流鼻涕，还发烧了。</span><br><span class="vietnamese">Tôi đau đầu, chảy nước mũi, còn bị sốt nữa.</span></li>
+                <li><span class="chinese">请问医生，流鼻涕应该吃什么药？</span><br><span class="vietnamese">Xin hỏi bác sĩ, chảy nước mũi nên uống thuốc gì?</span></li>
+                <li><span class="chinese">他用纸巾擦了擦鼻涕。</span><br><span class="vietnamese">Anh ấy dùng khăn giấy lau nước mũi.</span></li>
+                <li><span class="chinese">感冒的时候，会打喷嚏和流鼻涕。</span><br><span class="vietnamese">Khi bị cảm, sẽ hắt hơi và chảy nước mũi.</span></li>
+                <li><span class="chinese">我的鼻子不舒服，总是流鼻涕。</span><br><span class="vietnamese">Mũi của tôi không thoải mái, luôn chảy nước mũi.</span></li>
+                <li><span class="chinese">他不停地流鼻涕，看起来很难受。</span><br><span class="vietnamese">Anh ấy chảy nước mũi không ngừng, trông có vẻ rất khó chịu.</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>发烧</strong> <span class="pinyin">(fā shāo)</span></h2>
+        <p class="meaning">bị sốt</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">我头疼，流鼻涕，还发烧了，感觉很不舒服。</span><br><span class="vietnamese">Tôi đau đầu, chảy nước mũi, còn bị sốt nữa, cảm thấy rất không thoải mái.</span></li>
+                <li><span class="chinese">小孩子很容易发烧，所以要多注意保暖。</span><br><span class="vietnamese">Trẻ con rất dễ bị sốt, nên cần chú ý giữ ấm nhiều hơn.</span></li>
+                <li><span class="chinese">他发烧了，医生让他多休息，多喝水。</span><br><span class="vietnamese">Anh ấy bị sốt rồi, bác sĩ bảo anh ấy nghỉ ngơi nhiều, uống nhiều nước.</span></li>
+                <li><span class="chinese">我昨天晚上有点儿发烧，今天好多了。</span><br><span class="vietnamese">Tối qua tôi hơi sốt, hôm nay đỡ hơn nhiều rồi.</span></li>
+                <li><span class="chinese">如果发烧了，应该及时去看医生。</span><br><span class="vietnamese">Nếu bị sốt, nên kịp thời đi khám bác sĩ.</span></li>
+                <li><span class="chinese">你有没有发烧？我摸摸你的额头。</span><br><span class="vietnamese">Bạn có bị sốt không? Để tôi sờ trán bạn xem.</span></li>
+                <li><span class="chinese">感冒通常会引起发烧。</span><br><span class="vietnamese">Cảm lạnh thường sẽ gây ra sốt.</span></li>
+                <li><span class="chinese">他发烧了，所以不能去上学。</span><br><span class="vietnamese">Anh ấy bị sốt rồi, nên không thể đi học.</span></li>
+                <li><span class="chinese">医生给他开了退烧药。</span><br><span class="vietnamese">Bác sĩ đã kê thuốc hạ sốt cho anh ấy.</span></li>
+                <li><span class="chinese">她一发烧就头疼。</span><br><span class="vietnamese">Cô ấy cứ sốt là đau đầu.</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>让</strong> <span class="pinyin">(ràng)</span></h2>
+        <p class="meaning">để, cho phép, nhường</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">让我给你检查一下儿身体，看看你哪里不舒服。</span><br><span class="vietnamese">Để tôi kiểm tra sức khỏe cho bạn một chút, xem bạn không thoải mái ở đâu.</span></li>
+                <li><span class="chinese">请让一下儿，我要过去。</span><br><span class="vietnamese">Vui lòng nhường đường một chút, tôi muốn đi qua.</span></li>
+                <li><span class="chinese">老师让我每天练习说中文。</span><br><span class="vietnamese">Thầy giáo yêu cầu tôi mỗi ngày luyện nói tiếng Trung.</span></li>
+                <li><span class="chinese">他妈妈不让他玩手机，让他多看书。</span><br><span class="vietnamese">Mẹ anh ấy không cho anh ấy chơi điện thoại, bảo anh ấy đọc sách nhiều hơn.</span></li>
+                <li><span class="chinese">这件事让我很难过。</span><br><span class="vietnamese">Chuyện này khiến tôi rất buồn.</span></li>
+                <li><span class="chinese">他让我想起了我的老朋友。</span><br><span class="vietnamese">Anh ấy khiến tôi nhớ đến người bạn cũ của tôi.</span></li>
+                <li><span class="chinese">请让开，别挡着路。</span><br><span class="vietnamese">Vui lòng tránh ra, đừng chắn đường.</span></li>
+                <li><span class="chinese">医生让他多休息，别去工作。</span><br><span class="vietnamese">Bác sĩ bảo anh ấy nghỉ ngơi nhiều, đừng đi làm.</span></li>
+                <li><span class="chinese">这件事让我觉得很奇怪。</span><br><span class="vietnamese">Chuyện này khiến tôi cảm thấy rất kỳ lạ.</span></li>
+                <li><span class="chinese">你让我想想。</span><br><span class="vietnamese">Bạn để tôi nghĩ một chút.</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>检查</strong> <span class="pinyin">(jiǎn chá)</span></h2>
+        <p class="meaning">kiểm tra</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">让我给你检查一下儿身体，看看你哪里不舒服。</span><br><span class="vietnamese">Để tôi kiểm tra sức khỏe cho bạn một chút, xem bạn không thoải mái ở đâu.</span></li>
+                <li><span class="chinese">医生给我检查了一下儿，说我没有什么大问题。</span><br><span class="vietnamese">Bác sĩ đã kiểm tra cho tôi một chút, nói tôi không có vấn đề lớn gì.</span></li>
+                <li><span class="chinese">老师每天都会检查我们的作业。</span><br><span class="vietnamese">Thầy giáo mỗi ngày đều sẽ kiểm tra bài tập của chúng tôi.</span></li>
+                <li><span class="chinese">请你检查一下儿门有没有关好。</span><br><span class="vietnamese">Bạn vui lòng kiểm tra xem cửa đã đóng chặt chưa.</span></li>
+                <li><span class="chinese">他每年都会去医院做一次全面检查。</span><br><span class="vietnamese">Anh ấy mỗi năm đều sẽ đi bệnh viện làm một lần kiểm tra toàn diện.</span></li>
+                <li><span class="chinese">这个机器需要定期检查。</span><br><span class="vietnamese">Cái máy này cần kiểm tra định kỳ.</span></li>
+                <li><span class="chinese">警察正在检查他的护照。</span><br><span class="vietnamese">Cảnh sát đang kiểm tra hộ chiếu của anh ấy.</span></li>
+                <li><span class="chinese">请你检查一下儿这个答案对不对。</span><br><span class="vietnamese">Bạn vui lòng kiểm tra xem đáp án này đúng không.</span></li>
+                <li><span class="chinese">医生让我做一些检查。</span><br><span class="vietnamese">Bác sĩ bảo tôi làm một số xét nghiệm.</span></li>
+                <li><span class="chinese">他去医院检查身体了。</span><br><span class="vietnamese">Anh ấy đã đi bệnh viện kiểm tra sức khỏe rồi.</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>看病</strong> <span class="pinyin">(kàn bìng)</span></h2>
+        <p class="meaning">khám bệnh</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">我今天感觉很不舒服，想去医院看病。</span><br><span class="vietnamese">Hôm nay tôi cảm thấy rất không thoải mái, muốn đi bệnh viện khám bệnh.</span></li>
+                <li><span class="chinese">他发烧了，所以要去医院看病。</span><br><span class="vietnamese">Anh ấy bị sốt rồi, nên phải đi bệnh viện khám bệnh.</span></li>
+                <li><span class="chinese">请问，看病需要预约吗？</span><br><span class="vietnamese">Xin hỏi, khám bệnh có cần hẹn trước không?</span></li>
+                <li><span class="chinese">他陪他的妈妈去医院看病。</span><br><span class="vietnamese">Anh ấy đi cùng mẹ anh ấy đến bệnh viện khám bệnh.</span></li>
+                <li><span class="chinese">在中国看病方便吗？</span><br><span class="vietnamese">Khám bệnh ở Trung Quốc có tiện không?</span></li>
+                <li><span class="chinese">医生告诉我，我的病不严重。</span><br><span class="vietnamese">Bác sĩ nói với tôi, bệnh của tôi không nghiêm trọng.</span></li>
+                <li><span class="chinese">他感冒了，需要去看病。</span><br><span class="vietnamese">Anh ấy bị cảm rồi, cần đi khám bệnh.</span></li>
+                <li><span class="chinese">看病要排很长时间的队。</span><br><span class="vietnamese">Khám bệnh phải xếp hàng rất lâu.</span></li>
+                <li><span class="chinese">我带我的孩子去看病。</span><br><span class="vietnamese">Tôi đưa con của tôi đi khám bệnh.</span></li>
+                <li><span class="chinese">他每个月都要去医院看病。</span><br><span class="vietnamese">Anh ấy mỗi tháng đều phải đi bệnh viện khám bệnh.</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>严重</strong> <span class="pinyin">(yán zhòng)</span></h2>
+        <p class="meaning">nghiêm trọng</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">医生说我的病不严重，多休息几天就好了。</span><br><span class="vietnamese">Bác sĩ nói bệnh của tôi không nghiêm trọng, nghỉ ngơi vài ngày là sẽ khỏi.</span></li>
+                <li><span class="chinese">他生病很严重，需要住院治疗。</span><br><span class="vietnamese">Anh ấy bị ốm rất nặng, cần nằm viện điều trị.</span></li>
+                <li><span class="chinese">这个问题很严重，我们必须尽快解决。</span><br><span class="vietnamese">Vấn đề này rất nghiêm trọng, chúng ta phải giải quyết càng sớm càng tốt.</span></li>
+                <li><span class="chinese">他感冒得很严重，一直流鼻涕和发烧。</span><br><span class="vietnamese">Anh ấy bị cảm rất nặng, chảy nước mũi liên tục và sốt.</span></li>
+                <li><span class="chinese">这次事故很严重，造成了很大的损失。</span><br><span class="vietnamese">Tai nạn lần này rất nghiêm trọng, gây ra tổn thất lớn.</span></li>
+                <li><span class="chinese">你不要把这件事情说得太严重了。</span><br><span class="vietnamese">Bạn đừng nói chuyện này quá nghiêm trọng.</span></li>
+                <li><span class="chinese">天气预报说今天有严重的雾霾。</span><br><span class="vietnamese">Dự báo thời tiết nói hôm nay có sương mù dày đặc.</span></li>
+                <li><span class="chinese">他的伤势很严重，需要立即手术。</span><br><span class="vietnamese">Vết thương của anh ấy rất nghiêm trọng, cần phẫu thuật ngay lậpashi</span></li>
+                <li><span class="chinese">这个问题没有你想象的那么严重。</span><br><span class="vietnamese">Vấn đề này không nghiêm trọng như bạn tưởng tượng.</span></li>
+                <li><span class="chinese">他生病了，但是不是很严重。</span><br><span class="vietnamese">Anh ấy bị ốm rồi, nhưng không nghiêm trọng lắm.</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>感冒</strong> <span class="pinyin">(gǎn mào)</span></h2>
+        <p class="meaning">cảm, cảm cúm</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">我感冒了，一直流鼻涕，很不舒服。</span><br><span class="vietnamese">Tôi bị cảm rồi, chảy nước mũi liên tục, rất không thoải mái.</span></li>
+                <li><span class="chinese">他感冒得很严重，需要去看医生。</span><br><span class="vietnamese">Anh ấy bị cảm rất nặng, cần đi khám bác sĩ.</span></li>
+                <li><span class="chinese">多穿点儿衣服，别感冒了。</span><br><span class="vietnamese">Mặc thêm quần áo đi, đừng để bị cảm.</span></li>
+                <li><span class="chinese">我有点儿感冒了，头疼，还发烧。</span><br><span class="vietnamese">Tôi hơi bị cảm rồi, đau đầu, còn sốt nữa.</span></li>
+                <li><span class="chinese">感冒的时候应该多休息，多喝水。</span><br><span class="vietnamese">Khi bị cảm nên nghỉ ngơi nhiều, uống nhiều nước.</span></li>
+                <li><span class="chinese">他昨天晚上感冒了，所以今天没来上学。</span><br><span class="vietnamese">Anh ấy tối qua bị cảm rồi, nên hôm nay không đến trường.</span></li>
+                <li><span class="chinese">医生给我开了一些感冒药。</span><br><span class="vietnamese">Bác sĩ đã kê cho tôi một ít thuốc cảm.</span></li>
+                <li><span class="chinese">你是不是感冒了？</span><br><span class="vietnamese">Bạn có phải bị cảm rồi không?</span></li>
+                <li><span class="chinese">他感冒了，需要打针。</span><br><span class="vietnamese">Anh ấy bị cảm rồi, cần tiêm.</span></li>
+                <li><span class="chinese">这种药对感冒很有效。</span><br><span class="vietnamese">Loại thuốc này rất hiệu quả đối với cảm.</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>护士</strong> <span class="pinyin">(hù shi)</span></h2>
+        <p class="meaning">y tá</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">护士正在给病人打针。</span><br><span class="vietnamese">Y tá đang tiêm cho bệnh nhân.</span></li>
+                <li><span class="chinese">她是一名很专业的护士，对病人很好。</span><br><span class="vietnamese">Cô ấy là một y tá rất chuyên nghiệp, đối với bệnh nhân rất tốt.</span></li>
+                <li><span class="chinese">护士告诉我要多休息，多喝水。</span><br><span class="vietnamese">Y tá nói với tôi rằng phải nghỉ ngơi nhiều, uống nhiều nước.</span></li>
+                <li><span class="chinese">请问护士，医生什么时候来？</span><br><span class="vietnamese">Xin hỏi y tá, bác sĩ khi nào đến?</span></li>
+                <li><span class="chinese">她想当一名护士，帮助生病的人。</span><br><span class="vietnamese">Cô ấy muốn làm một y tá, giúp đỡ những người bị ốm.</span></li>
+                <li><span class="chinese">护士帮我量了体温。</span><br><span class="vietnamese">Y tá đã giúp tôi đo nhiệt độ cơ thể.</span></li>
+                <li><span class="chinese">医院里有很多护士。</span><br><span class="vietnamese">Trong bệnh viện có rất nhiều y tá.</span></li>
+                <li><span class="chinese">护士给我送药来了。</span><br><span class="vietnamese">Y tá đã mang thuốc đến cho tôi rồi.</span></li>
+                <li><span class="chinese">她是一名男护士。</span><br><span class="vietnamese">Anh ấy là một nam y tá.</span></li>
+                <li><span class="chinese">护士很细心。</span><br><span class="vietnamese">Y tá rất cẩn thận.</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>打针</strong> <span class="pinyin">(dǎ zhēn)</span></h2>
+        <p class="meaning">tiêm</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">护士正在给病人打针。</span><br><span class="vietnamese">Y tá đang tiêm cho bệnh nhân.</span></li>
+                <li><span class="chinese">我最害怕打针，每次打针都想哭。</span><br><span class="vietnamese">Tôi sợ tiêm nhất, mỗi lần tiêm đều muốn khóc.</span></li>
+                <li><span class="chinese">医生说我需要打针才能好起来。</span><br><span class="vietnamese">Bác sĩ nói tôi cần tiêm mới có thể khỏi bệnh.</span></li>
+                <li><span class="chinese">小孩子不喜欢打针。</span><br><span class="vietnamese">Trẻ con không thích tiêm.</span></li>
+                <li><span class="chinese">他去医院打了一针。</span><br><span class="vietnamese">Anh ấy đã đi bệnh viện tiêm một mũi.</span></li>
+                <li><span class="chinese">打针有点儿疼，但是很快就好了。</span><br><span class="vietnamese">Tiêm hơi đau, nhưng rất nhanh sẽ khỏi.</span></li>
+                <li><span class="chinese">医生让我每天打一次针。</span><br><span class="vietnamese">Bác sĩ bảo tôi mỗi ngày tiêm một lần.</span></li>
+                <li><span class="chinese">他感冒很严重，医生让他打针。</span><br><span class="vietnamese">Anh ấy bị cảm rất nặng, bác sĩ bảo anh ấy tiêm.</span></li>
+                <li><span class="chinese">你害怕打针吗？</span><br><span class="vietnamese">Bạn có sợ tiêm không?</span></li>
+                <li><span class="chinese">护士打针的技术很好。</span><br><span class="vietnamese">Kỹ thuật tiêm của y tá rất tốt.</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>开</strong> <span class="pinyin">(kāi)</span></h2>
+        <p class="meaning">mở; lái (xe); kê (đơn thuốc)</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">请你把门打开，我来了。</span><br><span class="vietnamese">Bạn vui lòng mở cửa ra, tôi đến rồi.</span></li>
+                <li><span class="chinese">医生给我开了一些药。</span><br><span class="vietnamese">Bác sĩ đã kê cho tôi một ít thuốc.</span></li>
+                <li><span class="chinese">你会开车吗？我想学开车。</span><br><span class="vietnamese">Bạn có biết lái xe không? Tôi muốn học lái xe.</span></li>
+                <li><span class="chinese">商店早上九点开门。</span><br><span class="vietnamese">Cửa hàng chín giờ sáng mở cửa.</span></li>
+                <li><span class="chinese">请你把书打开到第十页。</span><br><span class="vietnamese">Bạn vui lòng mở sách ra trang thứ mười.</span></li>
+                <li><span class="chinese">我给他开了一个玩笑。</span><br><span class="vietnamese">Tôi đã đùa anh ấy một câu.</span></li>
+                <li><span class="chinese">我们公司新开了一个分店。</span><br><span class="vietnamese">Công ty chúng tôi mới mở một chi nhánh mới.</span></li>
+                <li><span class="chinese">他每天都开车去上班。</span><br><span class="vietnamese">Anh ấy mỗi ngày đều lái xe đi làm.</span></li>
+                <li><span class="chinese">这个会议开了三个小时。</span><br><span class="vietnamese">Cuộc họp này đã diễn ra ba tiếng đồng hồ.</span></li>
+                <li><span class="chinese">花开了。</span><br><span class="vietnamese">Hoa nở rồi.</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>药</strong> <span class="pinyin">(yào)</span></h2>
+        <p class="meaning">thuốc</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">医生给我开了一些药，让我按时吃。</span><br><span class="vietnamese">Bác sĩ đã kê cho tôi một ít thuốc, bảo tôi uống đúng giờ.</span></li>
+                <li><span class="chinese">这种药对感冒很有效，你可以试试。</span><br><span class="vietnamese">Loại thuốc này rất hiệu quả đối với cảm, bạn có thể thử.</span></li>
+                <li><span class="chinese">你吃药了吗？</span><br><span class="vietnamese">Bạn đã uống thuốc chưa?</span></li>
+                <li><span class="chinese">请问，这种药怎么吃？</span><br><span class="vietnamese">Xin hỏi, loại thuốc này uống thế nào?</span></li>
+                <li><span class="chinese">药有点儿苦，但是对身体好。</span><br><span class="vietnamese">Thuốc hơi đắng, nhưng tốt cho sức khỏe.</span></li>
+                <li><span class="chinese">他把药放在桌子上了。</span><br><span class="vietnamese">Anh ấy đã để thuốc lên bàn rồi.</span></li>
+                <li><span class="chinese">我需要买一些感冒药。</span><br><span class="vietnamese">Tôi cần mua một ít thuốc cảm.</span></li>
+                <li><span class="chinese">这种药一天吃三次，每次两片。</span><br><span class="vietnamese">Loại thuốc này mỗi ngày uống ba lần, mỗi lần hai viên.</span></li>
+                <li><span class="chinese">他不喜欢吃药。</span><br><span class="vietnamese">Anh ấy không thích uống thuốc.</span></li>
+                <li><span class="chinese">护士给我送药来了。</span><br><span class="vietnamese">Y tá đã mang thuốc đến cho tôi rồi.</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>次</strong> <span class="pinyin">(cì)</span></h2>
+        <p class="meaning">lần (lượng từ)</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">这种药一天吃三次，每次两片。</span><br><span class="vietnamese">Loại thuốc này mỗi ngày uống ba lần, mỗi lần hai viên.</span></li>
+                <li><span class="chinese">我来过这里一次，但是已经很久没来了。</span><br><span class="vietnamese">Tôi đã đến đây một lần rồi, nhưng đã lâu không đến.</span></li>
+                <li><span class="chinese">他去了中国两次，所以中文说得很好。</span><br><span class="vietnamese">Anh ấy đã đi Trung Quốc hai lần, nên tiếng Trung nói rất tốt.</span></li>
+                <li><span class="chinese">这是我第一次来北京。</span><br><span class="vietnamese">Đây là lần đầu tiên tôi đến Bắc Kinh.</span></li>
+                <li><span class="chinese">你每天吃几次饭？</span><br><span class="vietnamese">Bạn mỗi ngày ăn mấy bữa?</span></li>
+                <li><span class="chinese">请你再说一次。</span><br><span class="vietnamese">Bạn vui lòng nói lại một lần nữa.</span></li>
+                <li><span class="chinese">我看了这部电影两次。</span><br><span class="vietnamese">Tôi đã xem bộ phim này hai lần.</span></li>
+                <li><span class="chinese">这次考试很难。</span><br><span class="vietnamese">Kỳ thi lần này rất khó.</span></li>
+                <li><span class="chinese">他每个月回家一次。</span><br><span class="vietnamese">Anh ấy mỗi tháng về nhà một lần.</span></li>
+                <li><span class="chinese">我希望下次可以和你一起去。</span><br><span class="vietnamese">Tôi hy vọng lần sau có thể đi cùng bạn.</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>片</strong> <span class="pinyin">(piàn)</span></h2>
+        <p class="meaning">viên (lượng từ cho thuốc viên); miếng</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">这种药一天吃三次，每次两片。</span><br><span class="vietnamese">Loại thuốc này mỗi ngày uống ba lần, mỗi lần hai viên.</span></li>
+                <li><span class="chinese">请给我一片面包。</span><br><span class="vietnamese">Vui lòng cho tôi một lát bánh mì.</span></li>
+                <li><span class="chinese">医生让我每天吃三片这种药。</span><br><span class="vietnamese">Bác sĩ bảo tôi mỗi ngày uống ba viên thuốc này.</span></li>
+                <li><span class="chinese">这片药很苦，但是对病很有效。</span><br><span class="vietnamese">Viên thuốc này rất đắng, nhưng rất hiệu quả đối với bệnh.</span></li>
+                <li><span class="chinese">他把药片放在水里，然后喝下去。</span><br><span class="vietnamese">Anh ấy cho viên thuốc vào nước, sau đó uống xuống.</span></li>
+                <li><span class="chinese">请给我一片西瓜。</span><br><span class="vietnamese">Vui lòng cho tôi một miếng dưa hấu.</span></li>
+                <li><span class="chinese">这片叶子很漂亮。</span><br><span class="vietnamese">Chiếc lá này rất đẹp.</span></li>
+                <li><span class="chinese">他吃了两片药。</span><br><span class="vietnamese">Anh ấy đã uống hai viên thuốc.</span></li>
+                <li><span class="chinese">这片土地很肥沃。</span><br><span class="vietnamese">Mảnh đất này rất màu mỡ.</span></li>
+                <li><span class="chinese">请你把这些药片收好。</span><br><span class="vietnamese">Bạn vui lòng cất kỹ những viên thuốc này.</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>休息</strong> <span class="pinyin">(xiū xi)</span></h2>
+        <p class="meaning">nghỉ ngơi</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">我今天感觉很不舒服，想在家休息一天。</span><br><span class="vietnamese">Hôm nay tôi cảm thấy không được thoải mái lắm, muốn nghỉ ngơi ở nhà một ngày.</span></li>
+                <li><span class="chinese">你休息一下儿吧，不要太累了。</span><br><span class="vietnamese">Bạn nghỉ ngơi một lát đi, đừng quá mệt.</span></li>
+                <li><span class="chinese">医生说我需要多休息才能好起来。</span><br><span class="vietnamese">Bác sĩ nói tôi cần nghỉ ngơi nhiều mới có thể khỏi bệnh.</span></li>
+                <li><span class="chinese">这个周末我们都不要出去，在家好好休息吧。</span><br><span class="vietnamese">Cuối tuần này chúng ta đều đừng ra ngoài, ở nhà nghỉ ngơi cho tốt nhé.</span></li>
+                <li><span class="chinese">他工作了一天，现在需要好好休息。</span><br><span class="vietnamese">Anh ấy đã làm việc cả ngày, bây giờ cần nghỉ ngơi thật tốt.</span></li>
+                <li><span class="chinese">我们去公园休息一会儿吧。</span><br><span class="vietnamese">Chúng ta đi công viên nghỉ ngơi một lát đi.</span></li>
+                <li><span class="chinese">他每天中午都会休息一会儿。</span><br><span class="vietnamese">Anh ấy mỗi trưa đều sẽ nghỉ ngơi một lát.</span></li>
+                <li><span class="chinese">你看起来很累，需要休息。</span><br><span class="vietnamese">Bạn trông có vẻ rất mệt, cần nghỉ ngơi.</span></li>
+                <li><span class="chinese">请你让病人多休息。</span><br><span class="vietnamese">Bạn vui lòng cho bệnh nhân nghỉ ngơi nhiều.</span></li>
+                <li><span class="chinese">休息是为了更好地工作。</span><br><span class="vietnamese">Nghỉ ngơi là để làm việc tốt hơn.</span></li>
+            </ol>
+        </div>
+    </div>
+
+</body>
+</html>

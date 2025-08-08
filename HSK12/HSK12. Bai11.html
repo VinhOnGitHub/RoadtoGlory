@@ -1,0 +1,520 @@
+﻿<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第十一课：去饭馆吃饭</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.8;
+            color: #333;
+            max-width: 960px;
+            margin: 30px auto;
+            padding: 0 25px;
+            background-color: #f4f7f6;
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 2.5em;
+            letter-spacing: 1px;
+        }
+        h2 {
+            color: #1a5276;
+            border-bottom: 3px solid #1a5276;
+            padding-bottom: 8px;
+            margin-top: 50px;
+            font-size: 1.8em;
+        }
+        .vocab-item {
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            padding: 30px;
+            margin-bottom: 35px;
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        }
+        .vocab-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+        }
+        .vocab-item strong {
+            color: #c0392b;
+            font-size: 1.4em;
+        }
+        .pinyin {
+            font-style: italic;
+            color: #2980b9;
+            margin-left: 15px;
+            font-size: 1.1em;
+        }
+        .meaning {
+            margin-top: 10px;
+            margin-bottom: 20px;
+            color: #555;
+            font-size: 1.1em;
+        }
+        .examples ol {
+            list-style: none; /* Remove default numbering */
+            counter-reset: example-counter; /* Initialize counter */
+            padding-left: 0;
+        }
+        .examples li {
+            counter-increment: example-counter; /* Increment counter for each list item */
+            margin-bottom: 15px;
+            position: relative;
+            padding-left: 35px; /* Space for custom number */
+        }
+        .examples li::before {
+            content: counter(example-counter) ".";
+            position: absolute;
+            left: 0;
+            top: 0;
+            font-weight: bold;
+            color: #1abc9c;
+            font-size: 1.1em;
+        }
+        .examples li .chinese {
+            font-weight: bold;
+            color: #16a085;
+            display: block;
+            margin-bottom: 3px;
+        }
+        .examples li .vietnamese {
+            color: #7f8c8d;
+            font-size: 0.98em;
+            font-style: italic;
+        }
+        hr {
+            border: 0;
+            height: 1px;
+            background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0));
+            margin: 50px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>第十一课：去饭馆吃饭</h1>
+
+    <div class="vocab-item">
+        <h2><strong>服务员</strong> <span class="pinyin">(fú wù yuán)</span></h2>
+        <p class="meaning">nhân viên phục vụ</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">服务员，请给我们一份菜单，谢谢。</span><br><span class="vietnamese">Nhân viên phục vụ, vui lòng cho chúng tôi một thực đơn, cảm ơn.</span></li>
+                <li><span class="chinese">饭馆的服务员都很热情，服务态度也很好。</span><br><span class="vietnamese">Nhân viên phục vụ của nhà hàng đều rất nhiệt tình, thái độ phục vụ cũng rất tốt.</span></li>
+                <li><span class="chinese">请问服务员，洗手间在哪里？</span><br><span class="vietnamese">Xin hỏi nhân viên phục vụ, nhà vệ sinh ở đâu?</span></li>
+                <li><span class="chinese">服务员很快就把菜都上齐了。</span><br><span class="vietnamese">Nhân viên phục vụ rất nhanh đã mang đủ các món ăn lên.</span></li>
+                <li><span class="chinese">他以前在一家饭馆当服务员。</span><br><span class="vietnamese">Anh ấy trước đây từng làm nhân viên phục vụ tại một nhà hàng.</span></li>
+                <li><span class="chinese">我叫服务员过来点菜。</span><br><span class="vietnamese">Tôi gọi nhân viên phục vụ đến để gọi món.</span></li>
+                <li><span class="chinese">这位服务员工作非常认真负责。</span><br><span class="vietnamese">Vị nhân viên phục vụ này làm việc rất nghiêm túc và có trách nhiệm.</span></li>
+                <li><span class="chinese">服务员帮我把行李拿到了房间。</span><br><span class="vietnamese">Nhân viên phục vụ đã giúp tôi mang hành lý vào phòng.</span></li>
+                <li><span class="chinese">请问服务员，这道菜好吃吗？</span><br><span class="vietnamese">Xin hỏi nhân viên phục vụ, món này có ngon không?</span></li>
+                <li><span class="chinese">饭店的服务员穿着统一的制服。</span><br><span class="vietnamese">Nhân viên phục vụ của nhà hàng mặc đồng phục thống nhất.</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>吃</strong> <span class="pinyin">(chī)</span></h2>
+        <p class="meaning">ăn</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">你喜欢吃米饭还是面条？我喜欢吃米饭。</span><br><span class="vietnamese">Bạn thích ăn cơm hay mì? Tôi thích ăn cơm.</span></li>
+                <li><span class="chinese">我今天晚上想吃饺子，你喜欢吃饺子吗？</span><br><span class="vietnamese">Tối nay tôi muốn ăn bánh chẻo, bạn thích ăn bánh chẻo không?</span></li>
+                <li><span class="chinese">多吃蔬菜和水果对身体很好，可以补充维生素。</span><br><span class="vietnamese">Ăn nhiều rau và trái cây rất tốt cho sức khỏe, có thể bổ sung vitamin.</span></li>
+                <li><span class="chinese">他不喜欢吃辣的菜，所以我们点了一些清淡的。</span><br><span class="vietnamese">Anh ấy không thích ăn món cay, nên chúng tôi đã gọi vài món thanh đạm.</span></li>
+                <li><span class="chinese">我们去饭馆吃饭吧，我有点儿饿了。</span><br><span class="vietnamese">Chúng ta đi nhà hàng ăn cơm đi, tôi hơi đói rồi.</span></li>
+                <li><span class="chinese">你想吃什么水果？我帮你买。</span><br><span class="vietnamese">Bạn muốn ăn loại trái cây nào? Tôi giúp bạn mua.</span></li>
+                <li><span class="chinese">他每天早上都会吃一个鸡蛋和一些面包。</span><br><span class="vietnamese">Anh ấy mỗi sáng đều ăn một quả trứng và một ít bánh mì.</span></li>
+                <li><span class="chinese">这个菜太好吃了，我想再吃一份。</span><br><span class="vietnamese">Món này ngon quá, tôi muốn ăn thêm một phần nữa.</span></li>
+                <li><span class="chinese">你吃过中国菜吗？味道怎么样？</span><br><span class="vietnamese">Bạn đã ăn món Trung Quốc bao giờ chưa? Hương vị thế nào?</span></li>
+                <li><span class="chinese">小孩子应该多吃蔬菜，才能长得高。</span><br><span class="vietnamese">Trẻ con nên ăn nhiều rau, mới có thể cao lớn.</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>饭</strong> <span class="pinyin">(fàn)</span></h2>
+        <p class="meaning">cơm; bữa ăn</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">我们去饭馆吃饭吧，我有点儿饿了。</span><br><span class="vietnamese">Chúng ta đi nhà hàng ăn cơm đi, tôi hơi đói rồi.</span></li>
+                <li><span class="chinese">我妈妈做的饭很好吃，我每天都想吃。</span><br><span class="vietnamese">Cơm mẹ tôi nấu rất ngon, tôi ngày nào cũng muốn ăn.</span></li>
+                <li><span class="chinese">你喜欢吃米饭还是面条？我们今天吃米饭吧。</span><br><span class="vietnamese">Bạn thích ăn cơm hay mì? Hôm nay chúng ta ăn cơm đi.</span></li>
+                <li><span class="chinese">我们吃完饭再去商店买东西吧。</span><br><span class="vietnamese">Chúng ta ăn cơm xong rồi đi cửa hàng mua đồ nhé.</span></li>
+                <li><span class="chinese">他每天早上都会在家吃早饭。</span><br><span class="vietnamese">Anh ấy mỗi sáng đều ăn sáng ở nhà.</span></li>
+                <li><span class="chinese">今天中午饭你打算吃什么？</span><br><span class="vietnamese">Trưa nay bạn định ăn gì?</span></li>
+                <li><span class="chinese">这个饭馆的饭菜种类很多，选择也多。</span><br><span class="vietnamese">Đồ ăn của nhà hàng này có nhiều loại, lựa chọn cũng nhiều.</span></li>
+                <li><span class="chinese">他还没有吃晚饭。</span><br><span class="vietnamese">Anh ấy vẫn chưa ăn tối.</span></li>
+                <li><span class="chinese">请你把饭做好，我很快就回来了。</span><br><span class="vietnamese">Bạn vui lòng làm cơm xong đi, tôi sẽ về rất nhanh.</span></li>
+                <li><span class="chinese">他在饭桌前坐下，准备吃饭。</span><br><span class="vietnamese">Anh ấy ngồi xuống trước bàn ăn, chuẩn bị ăn cơm.</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>菜</strong> <span class="pinyin">(cài)</span></h2>
+        <p class="meaning">món ăn; rau</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">这个饭馆的菜很好吃，你尝尝看。</span><br><span class="vietnamese">Món ăn của nhà hàng này rất ngon, bạn nếm thử xem.</span></li>
+                <li><span class="chinese">我妈妈会做很多好吃的菜，我最喜欢她做的鱼。</span><br><span class="vietnamese">Mẹ tôi biết làm rất nhiều món ăn ngon, tôi thích nhất món cá mẹ làm.</span></li>
+                <li><span class="chinese">你喜欢吃什么菜？我给你点。</span><br><span class="vietnamese">Bạn thích ăn món nào? Để tôi gọi cho bạn.</span></li>
+                <li><span class="chinese">多吃蔬菜对身体很好，可以补充维生素。</span><br><span class="vietnamese">Ăn nhiều rau rất tốt cho sức khỏe, có thể bổ sung vitamin.</span></li>
+                <li><span class="chinese">这道菜有点儿辣，你吃得惯吗？</span><br><span class="vietnamese">Món này hơi cay, bạn ăn quen không?</span></li>
+                <li><span class="chinese">菜单上有很多菜，不知道选哪个好。</span><br><span class="vietnamese">Trên thực đơn có rất nhiều món, không biết chọn món nào tốt.</span></li>
+                <li><span class="chinese">今天我们点了三个菜，一个汤。</span><br><span class="vietnamese">Hôm nay chúng tôi đã gọi ba món, một món canh.</span></li>
+                <li><span class="chinese">这种菜很新鲜，是今天早上刚买的。</span><br><span class="vietnamese">Loại rau này rất tươi, là mới mua sáng nay.</span></li>
+                <li><span class="chinese">他不喜欢吃青菜，只喜欢吃肉。</span><br><span class="vietnamese">Anh ấy không thích ăn rau xanh, chỉ thích ăn thịt.</span></li>
+                <li><span class="chinese">厨师正在厨房里做菜。</span><br><span class="vietnamese">Đầu bếp đang làm món ăn trong bếp.</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>饭馆</strong> <span class="pinyin">(fàn guǎn)</span></h2>
+        <p class="meaning">nhà hàng, quán ăn</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">我们去饭馆吃饭吧，我有点儿饿了。</span><br><span class="vietnamese">Chúng ta đi nhà hàng ăn cơm đi, tôi hơi đói rồi.</span></li>
+                <li><span class="chinese">这家饭馆的菜很好吃，很多人都来这里吃。</span><br><span class="vietnamese">Món ăn của nhà hàng này rất ngon, rất nhiều người đều đến đây ăn.</span></li>
+                <li><span class="chinese">你知道附近有没有好吃的饭馆吗？</span><br><span class="vietnamese">Bạn có biết gần đây có nhà hàng nào ngon không?</span></li>
+                <li><span class="chinese">这个饭馆的生意非常好，每天都坐满了人。</span><br><span class="vietnamese">Việc kinh doanh của nhà hàng này rất tốt, mỗi ngày đều đầy ắp khách.</span></li>
+                <li><span class="chinese">我以前在这家饭馆当服务员。</span><br><span class="vietnamese">Tôi trước đây từng làm nhân viên phục vụ ở nhà hàng này.</span></li>
+                <li><span class="chinese">我们去饭馆点一些饺子和包子吃吧。</span><br><span class="vietnamese">Chúng ta đến nhà hàng gọi một ít bánh chẻo và bánh bao ăn đi.</span></li>
+                <li><span class="chinese">这家饭馆的装修很有特色。</span><br><span class="vietnamese">Trang trí của nhà hàng này rất đặc sắc.</span></li>
+                <li><span class="chinese">他邀请我去他工作的饭馆吃饭。</span><br><span class="vietnamese">Anh ấy mời tôi đến nhà hàng anh ấy làm việc ăn cơm.</span></li>
+                <li><span class="chinese">这家饭馆的菜单上有很多中国菜。</span><br><span class="vietnamese">Trên thực đơn của nhà hàng này có rất nhiều món Trung Quốc.</span></li>
+                <li><span class="chinese">晚上我们一起去饭馆吃炒牛肉吧。</span><br><span class="vietnamese">Tối nay chúng ta cùng nhau đến nhà hàng ăn thịt bò xào nhé.</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>菜单</strong> <span class="pinyin">(cài dān)</span></h2>
+        <p class="meaning">thực đơn, menu</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">服务员，请给我们一份菜单，谢谢。</span><br><span class="vietnamese">Nhân viên phục vụ, vui lòng cho chúng tôi một thực đơn, cảm ơn.</span></li>
+                <li><span class="chinese">菜单上的菜很多，我不知道选哪个好。</span><br><span class="vietnamese">Trên thực đơn có rất nhiều món, tôi không biết chọn món nào tốt.</span></li>
+                <li><span class="chinese">请问，有没有英文菜单？我看不懂中文。</span><br><span class="vietnamese">Xin hỏi, có thực đơn tiếng Anh không? Tôi không biết đọc tiếng Trung.</span></li>
+                <li><span class="chinese">他拿起菜单，开始仔细地看。</span><br><span class="vietnamese">Anh ấy cầm thực đơn lên, bắt đầu xem một cách cẩn thận.</span></li>
+                <li><span class="chinese">这家饭馆的菜单设计得很有特色。</span><br><span class="vietnamese">Thực đơn của nhà hàng này được thiết kế rất đặc sắc.</span></li>
+                <li><span class="chinese">请把菜单递给我一下儿。</span><br><span class="vietnamese">Vui lòng đưa thực đơn cho tôi một chút.</span></li>
+                <li><span class="chinese">菜单上有没有素菜？</span><br><span class="vietnamese">Trên thực đơn có món chay không?</span></li>
+                <li><span class="chinese">我们已经看好菜单了，可以点菜了。</span><br><span class="vietnamese">Chúng tôi đã xem xong thực đơn rồi, có thể gọi món rồi.</span></li>
+                <li><span class="chinese">菜单上写着今天的特色菜。</span><br><span class="vietnamese">Trên thực đơn có ghi món đặc biệt hôm nay.</span></li>
+                <li><span class="chinese">售货员把菜单拿给我看了。</span><br><span class="vietnamese">Nhân viên bán hàng đã đưa thực đơn cho tôi xem.</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>看</strong> <span class="pinyin">(kàn)</span></h2>
+        <p class="meaning">xem, nhìn, đọc, thăm</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">你喜欢看书还是看电影？</span><br><span class="vietnamese">Bạn thích đọc sách hay xem phim?</span></li>
+                <li><span class="chinese">我今天晚上想看电视，你陪我一起看吗？</span><br><span class="vietnamese">Tối nay tôi muốn xem TV, bạn xem cùng tôi không?</span></li>
+                <li><span class="chinese">他拿起菜单，开始仔细地看。</span><br><span class="vietnamese">Anh ấy cầm thực đơn lên, bắt đầu xem một cách cẩn thận.</span></li>
+                <li><span class="chinese">我想去中国看看，了解那里的文化。</span><br><span class="vietnamese">Tôi muốn đi Trung Quốc xem thử, tìm hiểu văn hóa ở đó.</span></li>
+                <li><span class="chinese">你有没有看到我的手机？我找不到了。</span><br><span class="vietnamese">Bạn có nhìn thấy điện thoại của tôi không? Tôi tìm không thấy rồi.</span></li>
+                <li><span class="chinese">我去看医生了，医生说我的身体很好。</span><br><span class="vietnamese">Tôi đã đi khám bác sĩ rồi, bác sĩ nói cơ thể tôi rất khỏe.</span></li>
+                <li><span class="chinese">我们一起去看电影吧，听说那部电影很好看。</span><br><span class="vietnamese">Chúng ta cùng nhau đi xem phim đi, nghe nói bộ phim đó rất hay.</span></li>
+                <li><span class="chinese">他喜欢看报纸，每天早上都要看。</span><br><span class="vietnamese">Anh ấy thích đọc báo, mỗi sáng đều phải đọc.</span></li>
+                <li><span class="chinese">请你看看这个字怎么写。</span><br><span class="vietnamese">Bạn vui lòng xem chữ này viết thế nào.</span></li>
+                <li><span class="chinese">你的书我看完了。</span><br><span class="vietnamese">Sách của bạn tôi đã đọc xong rồi.</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>份</strong> <span class="pinyin">(fèn)</span></h2>
+        <p class="meaning">phần, suất (lượng từ cho thức ăn, tài liệu, công việc)</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">服务员，请给我一份饺子。</span><br><span class="vietnamese">Nhân viên phục vụ, vui lòng cho tôi một phần bánh chẻo.</span></li>
+                <li><span class="chinese">我想点一份炒牛肉和一份米饭。</span><br><span class="vietnamese">Tôi muốn gọi một phần thịt bò xào và một phần cơm.</span></li>
+                <li><span class="chinese">请给我两份菜单，我们有四个人。</span><br><span class="vietnamese">Vui lòng cho tôi hai bản thực đơn, chúng tôi có bốn người.</span></li>
+                <li><span class="chinese">这份工作很难，但是很有挑战性。</span><br><span class="vietnamese">Công việc này khó, nhưng rất có tính thử thách.</span></li>
+                <li><span class="chinese">我们点了三份菜，还有一份汤。</span><br><span class="vietnamese">Chúng tôi đã gọi ba món, còn có một phần canh.</span></li>
+                <li><span class="chinese">我只有一份报告要写。</span><br><span class="vietnamese">Tôi chỉ có một bản báo cáo phải viết.</span></li>
+                <li><span class="chinese">他给我发了一份邮件。</span><br><span class="vietnamese">Anh ấy đã gửi cho tôi một email.</span></li>
+                <li><span class="chinese">这件事情和我没有关系。</span><br><span class="vietnamese">Việc này không liên quan gì đến tôi.</span></li>
+                <li><span class="chinese">请给我一份报纸。</span><br><span class="vietnamese">Vui lòng cho tôi một tờ báo.</span></li>
+                <li><span class="chinese">这份礼物是送给你的。</span><br><span class="vietnamese">Món quà này là tặng cho bạn.</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>饺子</strong> <span class="pinyin">(jiǎo zi)</span></h2>
+        <p class="meaning">bánh chẻo</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">我今天晚上想吃饺子，你喜欢吃饺子吗？</span><br><span class="vietnamese">Tối nay tôi muốn ăn bánh chẻo, bạn thích ăn bánh chẻo không?</span></li>
+                <li><span class="chinese">妈妈做的饺子非常好吃，我每次都能吃很多。</span><br><span class="vietnamese">Bánh chẻo mẹ làm rất ngon, tôi mỗi lần đều có thể ăn rất nhiều.</span></li>
+                <li><span class="chinese">服务员，请给我们一份猪肉馅儿的饺子。</span><br><span class="vietnamese">Nhân viên phục vụ, vui lòng cho chúng tôi một phần bánh chẻo nhân thịt heo.</span></li>
+                <li><span class="chinese">在中国，过年的时候家家户户都会吃饺子。</span><br><span class="vietnamese">Ở Trung Quốc, khi đón Tết, nhà nhà đều ăn bánh chẻo.</span></li>
+                <li><span class="chinese">你会不会包饺子？我想学学怎么做。</span><br><span class="vietnamese">Bạn có biết gói bánh chẻo không? Tôi muốn học cách làm.</span></li>
+                <li><span class="chinese">我喜欢吃水饺，不喜欢吃煎饺。</span><br><span class="vietnamese">Tôi thích ăn sủi cảo luộc, không thích ăn bánh chẻo chiên.</span></li>
+                <li><span class="chinese">饭馆里有很多种饺子，你可以选择自己喜欢的。</span><br><span class="vietnamese">Trong nhà hàng có rất nhiều loại bánh chẻo, bạn có thể chọn loại mình thích.</span></li>
+                <li><span class="chinese">他今天晚上想吃饺子和包子。</span><br><span class="vietnamese">Tối nay anh ấy muốn ăn bánh chẻo và bánh bao.</span></li>
+                <li><span class="chinese">这份饺子很好吃，我们再要一份吧。</span><br><span class="vietnamese">Phần bánh chẻo này rất ngon, chúng ta gọi thêm một phần nữa đi.</span></li>
+                <li><span class="chinese">我点了一份饺子和一份炒牛肉。</span><br><span class="vietnamese">Tôi đã gọi một phần bánh chẻo và một phần thịt bò xào.</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>包子</strong> <span class="pinyin">(bāo zi)</span></h2>
+        <p class="meaning">bánh bao</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">我喜欢吃包子，尤其是肉馅儿的。</span><br><span class="vietnamese">Tôi thích ăn bánh bao, đặc biệt là loại nhân thịt.</span></li>
+                <li><span class="chinese">这家店的包子很好吃，每天早上都排队买。</span><br><span class="vietnamese">Bánh bao của cửa hàng này rất ngon, mỗi sáng đều phải xếp hàng mua.</span></li>
+                <li><span class="chinese">请给我两个包子，一个肉的，一个菜的。</span><br><span class="vietnamese">Vui lòng cho tôi hai cái bánh bao, một cái nhân thịt, một cái nhân rau.</span></li>
+                <li><span class="chinese">他每天早上都会在路边买包子吃。</span><br><span class="vietnamese">Anh ấy mỗi sáng đều mua bánh bao ở ven đường để ăn.</span></li>
+                <li><span class="chinese">你会不会做包子？我想学学。</span><br><span class="vietnamese">Bạn có biết làm bánh bao không? Tôi muốn học thử.</span></li>
+                <li><span class="chinese">我吃了一个包子和一碗汤。</span><br><span class="vietnamese">Tôi đã ăn một cái bánh bao và một bát canh.</span></li>
+                <li><span class="chinese">这种包子很大，一个就够我吃了。</span><br><span class="vietnamese">Loại bánh bao này rất lớn, một cái là đủ cho tôi ăn rồi.</span></li>
+                <li><span class="chinese">他喜欢吃辣的包子。</span><br><span class="vietnamese">Anh ấy thích ăn bánh bao cay.</span></li>
+                <li><span class="chinese">我买了一些包子回家当早餐。</span><br><span class="vietnamese">Tôi đã mua một ít bánh bao về nhà làm bữa sáng.</span></li>
+                <li><span class="chinese">这个饭馆也卖包子。</span><br><span class="vietnamese">Nhà hàng này cũng bán bánh bao.</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>碗</strong> <span class="pinyin">(wǎn)</span></h2>
+        <p class="meaning">bát</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">请给我一碗米饭，谢谢。</span><br><span class="vietnamese">Vui lòng cho tôi một bát cơm, cảm ơn.</span></li>
+                <li><span class="chinese">我今天早上吃了一碗面条。</span><br><span class="vietnamese">Sáng nay tôi đã ăn một bát mì.</span></li>
+                <li><span class="chinese">请把这碗汤端给客人。</span><br><span class="vietnamese">Vui lòng bưng bát canh này cho khách.</span></li>
+                <li><span class="chinese">我们家有四只碗。</span><br><span class="vietnamese">Nhà chúng tôi có bốn cái bát.</span></li>
+                <li><span class="chinese">这碗面很好吃，我想再来一碗。</span><br><span class="vietnamese">Bát mì này rất ngon, tôi muốn ăn thêm một bát nữa.</span></li>
+                <li><span class="chinese">他把米饭都吃完了，只剩下空碗。</span><br><span class="vietnamese">Anh ấy đã ăn hết cơm rồi, chỉ còn lại bát không.</span></li>
+                <li><span class="chinese">请你帮我洗一下儿这些碗。</span><br><span class="vietnamese">Bạn vui lòng giúp tôi rửa mấy cái bát này.</span></li>
+                <li><span class="chinese">这碗汤有点儿烫，你小心点儿喝。</span><br><span class="vietnamese">Bát canh này hơi nóng, bạn uống cẩn thận một chút.</span></li>
+                <li><span class="chinese">他喝了两碗汤。</span><br><span class="vietnamese">Anh ấy đã uống hai bát canh.</span></li>
+                <li><span class="chinese">碗里还有一些菜。</span><br><span class="vietnamese">Trong bát vẫn còn một ít rau.</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>汤</strong> <span class="pinyin">(tāng)</span></h2>
+        <p class="meaning">canh</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">我喜欢喝汤，尤其是鸡蛋汤。</span><br><span class="vietnamese">Tôi thích uống canh, đặc biệt là canh trứng.</span></li>
+                <li><span class="chinese">请给我一碗汤，谢谢。</span><br><span class="vietnamese">Vui lòng cho tôi một bát canh, cảm ơn.</span></li>
+                <li><span class="chinese">这个饭馆的汤很好喝。</span><br><span class="vietnamese">Canh của nhà hàng này rất ngon.</span></li>
+                <li><span class="chinese">妈妈做的汤很美味。</span><br><span class="vietnamese">Canh mẹ làm rất ngon.</span></li>
+                <li><span class="chinese">你喜欢喝什么汤？</span><br><span class="vietnamese">Bạn thích uống canh gì?</span></li>
+                <li><span class="chinese">这碗汤有点儿烫，你小心点儿喝。</span><br><span class="vietnamese">Bát canh này hơi nóng, bạn uống cẩn thận một chút.</span></li>
+                <li><span class="chinese">他喝了两碗汤。</span><br><span class="vietnamese">Anh ấy đã uống hai bát canh.</span></li>
+                <li><span class="chinese">我们还点了一个汤。</span><br><span class="vietnamese">Chúng tôi còn gọi một món canh.</span></li>
+                <li><span class="chinese">他把汤都喝完了。</span><br><span class="vietnamese">Anh ấy đã uống hết canh rồi.</span></li>
+                <li><span class="chinese">饭前喝汤对身体有好处。</span><br><span class="vietnamese">Uống canh trước bữa ăn tốt cho sức khỏe.</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>鸡蛋</strong> <span class="pinyin">(jī dàn)</span></h2>
+        <p class="meaning">trứng gà</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">我每天早上都会吃一个鸡蛋和一些面包。</span><br><span class="vietnamese">Anh ấy mỗi sáng đều ăn một quả trứng gà và một ít bánh mì.</span></li>
+                <li><span class="chinese">我喜欢吃炒鸡蛋，你喜欢吗？</span><br><span class="vietnamese">Tôi thích ăn trứng gà xào, bạn thích không?</span></li>
+                <li><span class="chinese">这个鸡蛋是新鲜的。</span><br><span class="vietnamese">Quả trứng gà này tươi.</span></li>
+                <li><span class="chinese">请给我两个鸡蛋，我要做早餐。</span><br><span class="vietnamese">Vui lòng cho tôi hai quả trứng gà, tôi muốn làm bữa sáng.</span></li>
+                <li><span class="chinese">鸡蛋很有营养，多吃对身体好。</span><br><span class="vietnamese">Trứng gà rất bổ dưỡng, ăn nhiều tốt cho sức khỏe.</span></li>
+                <li><span class="chinese">他把鸡蛋打碎了。</span><br><span class="vietnamese">Anh ấy làm vỡ trứng gà rồi.</span></li>
+                <li><span class="chinese">这个汤里有鸡蛋。</span><br><span class="vietnamese">Trong bát canh này có trứng gà.</span></li>
+                <li><span class="chinese">你想吃煮鸡蛋还是煎鸡蛋？</span><br><span class="vietnamese">Bạn muốn ăn trứng luộc hay trứng chiên?</span></li>
+                <li><span class="chinese">我买了一盒鸡蛋。</span><br><span class="vietnamese">Tôi đã mua một hộp trứng gà.</span></li>
+                <li><span class="chinese">鸡蛋炒饭很好吃。</span><br><span class="vietnamese">Cơm chiên trứng gà rất ngon.</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>炒</strong> <span class="pinyin">(chǎo)</span></h2>
+        <p class="meaning">xào</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">我喜欢吃炒牛肉，味道很好。</span><br><span class="vietnamese">Tôi thích ăn thịt bò xào, hương vị rất ngon.</span></li>
+                <li><span class="chinese">我妈妈会做很多好吃的炒菜。</span><br><span class="vietnamese">Mẹ tôi biết làm rất nhiều món xào ngon.</span></li>
+                <li><span class="chinese">我们点了一份炒饭和一份炒面。</span><br><span class="vietnamese">Chúng tôi đã gọi một phần cơm chiên và một phần mì xào.</span></li>
+                <li><span class="chinese">你会不会炒鸡蛋？我想学学。</span><br><span class="vietnamese">Bạn có biết xào trứng gà không? Tôi muốn học thử.</span></li>
+                <li><span class="chinese">这道菜是用大蒜和蔬菜炒的。</span><br><span class="vietnamese">Món này được xào bằng tỏi và rau.</span></li>
+                <li><span class="chinese">请给我一份炒青菜。</span><br><span class="vietnamese">Vui lòng cho tôi một phần rau xào.</span></li>
+                <li><span class="chinese">他正在厨房里炒菜。</span><br><span class="vietnamese">Anh ấy đang xào rau trong bếp.</span></li>
+                <li><span class="chinese">我喜欢吃炒饭。</span><br><span class="vietnamese">Tôi thích ăn cơm chiên.</span></li>
+                <li><span class="chinese">这个菜是用洋葱炒的。</span><br><span class="vietnamese">Món này được xào bằng hành tây.</span></li>
+                <li><span class="chinese">厨师正在炒菜。</span><br><span class="vietnamese">Đầu bếp đang xào món ăn.</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>牛肉</strong> <span class="pinyin">(niú ròu)</span></h2>
+        <p class="meaning">thịt bò</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">我喜欢吃牛肉，尤其是牛肉面。</span><br><span class="vietnamese">Tôi thích ăn thịt bò, đặc biệt là mì bò.</span></li>
+                <li><span class="chinese">我们点了一份炒牛肉，味道非常好。</span><br><span class="vietnamese">Chúng tôi đã gọi một phần thịt bò xào, hương vị rất ngon.</span></li>
+                <li><span class="chinese">这家饭馆的牛肉很新鲜。</span><br><span class="vietnamese">Thịt bò của nhà hàng này rất tươi.</span></li>
+                <li><span class="chinese">他不喜欢吃牛肉，只喜欢吃猪肉。</span><br><span class="vietnamese">Anh ấy không thích ăn thịt bò, chỉ thích ăn thịt heo.</span></li>
+                <li><span class="chinese">我买了一公斤牛肉回家做饭。</span><br><span class="vietnamese">Tôi đã mua một cân thịt bò về nhà nấu ăn.</span></li>
+                <li><span class="chinese">这种牛肉很贵，但是很好吃。</span><br><span class="vietnamese">Loại thịt bò này rất đắt, nhưng rất ngon.</span></li>
+                <li><span class="chinese">牛肉汤很好喝。</span><br><span class="vietnamese">Canh thịt bò rất ngon.</span></li>
+                <li><span class="chinese">你想吃烤牛肉还是炒牛肉？</span><br><span class="vietnamese">Bạn muốn ăn thịt bò nướng hay thịt bò xào?</span></li>
+                <li><span class="chinese">我把牛肉切成小块。</span><br><span class="vietnamese">Tôi cắt thịt bò thành miếng nhỏ.</span></li>
+                <li><span class="chinese">他在饭馆里吃牛肉面。</span><br><span class="vietnamese">Anh ấy ăn mì bò ở nhà hàng.</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>米饭</strong> <span class="pinyin">(mǐ fàn)</span></h2>
+        <p class="meaning">cơm (gạo đã nấu)</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">你喜欢吃米饭还是面条？</span><br><span class="vietnamese">Bạn thích ăn cơm hay mì?</span></li>
+                <li><span class="chinese">请给我一碗米饭，谢谢。</span><br><span class="vietnamese">Vui lòng cho tôi một bát cơm, cảm ơn.</span></li>
+                <li><span class="chinese">他每天中午都吃米饭。</span><br><span class="vietnamese">Anh ấy mỗi trưa đều ăn cơm.</span></li>
+                <li><span class="chinese">我喜欢吃炒米饭。</span><br><span class="vietnamese">Tôi thích ăn cơm chiên.</span></li>
+                <li><span class="chinese">这个饭馆的米饭很好吃。</span><br><span class="vietnamese">Cơm của nhà hàng này rất ngon.</span></li>
+                <li><span class="chinese">我把米饭都吃完了。</span><br><span class="vietnamese">Tôi đã ăn hết cơm rồi.</span></li>
+                <li><span class="chinese">我们家每天都吃米饭。</span><br><span class="vietnamese">Nhà chúng tôi mỗi ngày đều ăn cơm.</span></li>
+                <li><span class="chinese">他不喜欢吃米饭，喜欢吃面条。</span><br><span class="vietnamese">Anh ấy không thích ăn cơm, thích ăn mì.</span></li>
+                <li><span class="chinese">请你帮我盛一碗米饭。</span><br><span class="vietnamese">Bạn vui lòng giúp tôi xới một bát cơm.</span></li>
+                <li><span class="chinese">今天的米饭有点儿硬。</span><br><span class="vietnamese">Cơm hôm nay hơi cứng.</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>饮料</strong> <span class="pinyin">(yǐn liào)</span></h2>
+        <p class="meaning">đồ uống</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">你想喝什么饮料？这里有很多种。</span><br><span class="vietnamese">Bạn muốn uống đồ uống gì? Ở đây có rất nhiều loại.</span></li>
+                <li><span class="chinese">我喜欢喝茶和咖啡，这些都是我喜欢的饮料。</span><br><span class="vietnamese">Tôi thích uống trà và cà phê, đây đều là những đồ uống tôi thích.</span></li>
+                <li><span class="chinese">请给我一杯冰的饮料。</span><br><span class="vietnamese">Vui lòng cho tôi một cốc đồ uống lạnh.</span></li>
+                <li><span class="chinese">这家饭馆的饮料种类很少。</span><br><span class="vietnamese">Loại đồ uống của nhà hàng này rất ít.</span></li>
+                <li><span class="chinese">他只喜欢喝甜的饮料。</span><br><span class="vietnamese">Anh ấy chỉ thích uống đồ uống ngọt.</span></li>
+                <li><span class="chinese">我买了一些饮料回家。</span><br><span class="vietnamese">Tôi đã mua một ít đồ uống về nhà.</span></li>
+                <li><span class="chinese">你喜欢喝什么牌子的饮料？</span><br><span class="vietnamese">Bạn thích uống đồ uống hãng nào?</span></li>
+                <li><span class="chinese">喝太多饮料对身体不好。</span><br><span class="vietnamese">Uống quá nhiều đồ uống không tốt cho sức khỏe.</span></li>
+                <li><span class="chinese">请问，有没有不含糖的饮料？</span><br><span class="vietnamese">Xin hỏi, có đồ uống không đường không?</span></li>
+                <li><span class="chinese">他的冰箱里有很多饮料。</span><br><span class="vietnamese">Trong tủ lạnh của anh ấy có rất nhiều đồ uống.</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>用</strong> <span class="pinyin">(yòng)</span></h2>
+        <p class="meaning">dùng, sử dụng</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">你会用筷子吃饭吗？</span><br><span class="vietnamese">Bạn có biết dùng đũa ăn cơm không?</span></li>
+                <li><span class="chinese">我用中文和我的老师交流。</span><br><span class="vietnamese">Tôi dùng tiếng Trung giao tiếp với thầy giáo của tôi.</span></li>
+                <li><span class="chinese">请你用这支笔写字。</span><br><span class="vietnamese">Bạn vui lòng dùng cây bút này viết chữ.</span></li>
+                <li><span class="chinese">他每天都用手机看新闻。</span><br><span class="vietnamese">Anh ấy mỗi ngày đều dùng điện thoại xem tin tức.</span></li>
+                <li><span class="chinese">这个方法很有用。</span><br><span class="vietnamese">Phương pháp này rất hữu ích.</span></li>
+                <li><span class="chinese">我没有时间用电脑。</span><br><span class="vietnamese">Tôi không có thời gian dùng máy tính.</span></li>
+                <li><span class="chinese">这个软件很好用。</span><br><span class="vietnamese">Phần mềm này rất dễ dùng.</span></li>
+                <li><span class="chinese">你可以用我的手机。</span><br><span class="vietnamese">Bạn có thể dùng điện thoại của tôi.</span></li>
+                <li><span class="chinese">我们用中文学习文化。</span><br><span class="vietnamese">Chúng tôi dùng tiếng Trung học văn hóa.</span></li>
+                <li><span class="chinese">他用叉子吃面条。</span><br><span class="vietnamese">Anh ấy dùng dĩa ăn mì.</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>叉子</strong> <span class="pinyin">(chā zi)</span></h2>
+        <p class="meaning">cái dĩa</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">你喜欢用叉子还是用筷子吃饭？</span><br><span class="vietnamese">Bạn thích dùng dĩa hay dùng đũa ăn cơm?</span></li>
+                <li><span class="chinese">请给我一把叉子，我想吃面条。</span><br><span class="vietnamese">Vui lòng cho tôi một cái dĩa, tôi muốn ăn mì.</span></li>
+                <li><span class="chinese">他用叉子吃面条，我觉得用筷子更方便。</span><br><span class="vietnamese">Anh ấy dùng dĩa ăn mì, tôi thấy dùng đũa tiện hơn.</span></li>
+                <li><span class="chinese">桌子上有很多叉子和勺子。</span><br><span class="vietnamese">Trên bàn có rất nhiều dĩa và thìa.</span></li>
+                <li><span class="chinese">这个饭馆里有提供叉子。</span><br><span class="vietnamese">Trong nhà hàng này có cung cấp dĩa.</span></li>
+                <li><span class="chinese">请你把叉子洗干净。</span><br><span class="vietnamese">Bạn vui lòng rửa sạch cái dĩa.</span></li>
+                <li><span class="chinese">他用叉子吃水果。</span><br><span class="vietnamese">Anh ấy dùng dĩa ăn trái cây.</span></li>
+                <li><span class="chinese">我不太会用叉子。</span><br><span class="vietnamese">Tôi không biết dùng dĩa lắm.</span></li>
+                <li><span class="chinese">这把叉子是新的。</span><br><span class="vietnamese">Cái dĩa này là mới.</span></li>
+                <li><span class="chinese">他用叉子切牛肉。</span><br><span class="vietnamese">Anh ấy dùng dĩa cắt thịt bò.</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>筷子</strong> <span class="pinyin">(kuài zi)</span></h2>
+        <p class="meaning">đũa</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">你会用筷子吃饭吗？</span><br><span class="vietnamese">Bạn có biết dùng đũa ăn cơm không?</span></li>
+                <li><span class="chinese">请给我一双筷子，谢谢。</span><br><span class="vietnamese">Vui lòng cho tôi một đôi đũa, cảm ơn.</span></li>
+                <li><span class="chinese">在中国，大家都用筷子吃饭。</span><br><span class="vietnamese">Ở Trung Quốc, mọi người đều dùng đũa ăn cơm.</span></li>
+                <li><span class="chinese">他不太会用筷子，总是用叉子。</span><br><span class="vietnamese">Anh ấy không biết dùng đũa lắm, luôn dùng dĩa.</span></li>
+                <li><span class="chinese">这双筷子很漂亮。</span><br><span class="vietnamese">Đôi đũa này rất đẹp.</span></li>
+                <li><span class="chinese">我把筷子洗干净了。</span><br><span class="vietnamese">Tôi đã rửa sạch đũa rồi.</span></li>
+                <li><span class="chinese">请你用筷子夹菜。</span><br><span class="vietnamese">Bạn vui lòng dùng đũa gắp rau.</span></li>
+                <li><span class="chinese">我喜欢用筷子吃饭。</span><br><span class="vietnamese">Tôi thích dùng đũa ăn cơm.</span></li>
+                <li><span class="chinese">他给我了一双新筷子。</span><br><span class="vietnamese">Anh ấy đã cho tôi một đôi đũa mới.</span></li>
+                <li><span class="chinese">筷子是中国人的传统餐具。</span><br><span class="vietnamese">Đũa là dụng cụ ăn uống truyền thống của người Trung Quốc.</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>怎么样</strong> <span class="pinyin">(zěn me yàng)</span></h2>
+        <p class="meaning">thế nào, sao</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">你觉得这件衣服怎么样？好看吗？</span><br><span class="vietnamese">Bạn thấy bộ quần áo này thế nào? Có đẹp không?</span></li>
+                <li><span class="chinese">今天天气怎么样？适合出去玩儿吗？</span><br><span class="vietnamese">Thời tiết hôm nay thế nào? Có thích hợp ra ngoài chơi không?</span></li>
+                <li><span class="chinese">你学习中文怎么样？觉得难吗？</span><br><span class="vietnamese">Bạn học tiếng Trung thế nào? Cảm thấy khó không?</span></li>
+                <li><span class="chinese">这家饭馆的菜怎么样？好吃吗？</span><br><span class="vietnamese">Món ăn của nhà hàng này thế nào? Có ngon không?</span></li>
+                <li><span class="chinese">你觉得我的新发型怎么样？</span><br><span class="vietnamese">Bạn thấy kiểu tóc mới của tôi thế nào?</span></li>
+                <li><span class="chinese">我们去饭馆吃饭吧，你觉得怎么样？</span><br><span class="vietnamese">Chúng ta đi nhà hàng ăn cơm đi, bạn thấy thế nào?</span></li>
+                <li><span class="chinese">他最近身体怎么样？好点儿了吗？</span><br><span class="vietnamese">Gần đây sức khỏe của anh ấy thế nào? Đã đỡ hơn chưa?</span></li>
+                <li><span class="chinese">这个计划怎么样？能成功吗？</span><br><span class="vietnamese">Kế hoạch này thế nào? Có thành công không?</span></li>
+                <li><span class="chinese">你看过这部电影吗？你觉得怎么样？</span><br><span class="vietnamese">Bạn đã xem bộ phim này chưa? Bạn thấy thế nào?</span></li>
+                <li><span class="chinese">我做的菜怎么样？好吃吗？</span><br><span class="vietnamese">Món tôi nấu thế nào? Có ngon không?</span></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="vocab-item">
+        <h2><strong>好吃</strong> <span class="pinyin">(hǎo chī)</span></h2>
+        <p class="meaning">ngon</p>
+        <div class="examples">
+            <ol>
+                <li><span class="chinese">这个饭馆的菜很好吃，你尝尝看。</span><br><span class="vietnamese">Món ăn của nhà hàng này rất ngon, bạn nếm thử xem.</span></li>
+                <li><span class="chinese">我妈妈做的饺子非常好吃，我每次都能吃很多。</span><br><span class="vietnamese">Bánh chẻo mẹ tôi làm rất ngon, tôi mỗi lần đều có thể ăn rất nhiều.</span></li>
+                <li><span class="chinese">这种苹果很甜，非常好吃，你可以多吃一些。</span><br><span class="vietnamese">Loại táo này rất ngọt, rất ngon, bạn có thể ăn nhiều một chút.</span></li>
+                <li><span class="chinese">你觉得中国菜好吃吗？我个人很喜欢。</span><br><span class="vietnamese">Bạn thấy món ăn Trung Quốc ngon không? Cá nhân tôi rất thích.</span></li>
+                <li><span class="chinese">这家店的包子很好吃，每天早上都排队买。</span><br><span class="vietnamese">Bánh bao của cửa hàng này rất ngon, mỗi sáng đều phải xếp hàng mua.</span></li>
+                <li><span class="chinese">这个西瓜又甜又好吃，是夏天最好的水果。</span><br><span class="vietnamese">Quả dưa hấu này vừa ngọt vừa ngon, là loại trái cây ngon nhất mùa hè.</span></li>
+                <li><span class="chinese">我做的菜怎么样？好吃吗？请给我一些建议。</span><br><span class="vietnamese">Món tôi nấu thế nào? Có ngon không? Vui lòng cho tôi một vài lời khuyên.</span></li>
+                <li><span class="chinese">这里的牛肉面非常好吃，我很喜欢。</span><br><span class="vietnamese">Mì bò ở đây rất ngon, tôi rất thích.</span></li>
+                <li><span class="chinese">这种草莓很新鲜，而且非常好吃。</span><br><span class="vietnamese">Loại dâu tây này rất tươi, hơn nữa còn rất ngon.</span></li>
+                <li><span class="chinese">他做的汤很好喝，也很好吃。</span><br><span class="vietnamese">Canh anh ấy nấu rất ngon, cũng rất dễ ăn.</span></li>
+            </ol>
+        </div>
+    </div>
+
+</body>
+</html>
