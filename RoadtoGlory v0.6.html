@@ -99,10 +99,12 @@
 
     <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/framer-motion@10.16.4/dist/framer-motion.umd.min.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
     <script type="text/babel" data-presets="react" data-plugins="proposal-optional-chaining">
         const { useState, useEffect, useRef } = React;
+        const { motion, AnimatePresence } = window.FramerMotion || {};
 
         // Keys for storing data in localStorage and IndexedDB
         const LOCAL_STORAGE_KEY = 'chineseVocabLessons';
@@ -2075,39 +2077,51 @@
             };
 
             const renderReviewLimitModal = () => {
-                if (!showReviewLimitModal.isVisible) return null;
-
                 const { isVisible, isDifficult } = showReviewLimitModal;
 
                 return (
-                    <div className="modal-overlay">
-                        <div className="modal-content">
-                            <h3 className="text-xl font-bold text-gray-800 mb-4 text-center">Số câu hỏi muốn ôn tập?</h3>
-                            <p className="text-gray-700 text-sm mb-4 text-center">Để trống hoặc nhập 0 để ôn tất cả từ vựng hiện có.</p>
-                            <input
-                                type="number"
-                                value={tempReviewLimit}
-                                onChange={(e) => setTempReviewLimit(e.target.value)}
-                                placeholder="Tất cả"
-                                min="0"
-                                className="w-full border border-gray-300 rounded-md shadow-sm p-2 text-sm focus:ring-indigo-500 focus:border-indigo-500 text-center mb-4"
-                            />
-                            <div className="flex justify-end space-x-3">
-                                <button
-                                    onClick={() => setShowReviewLimitModal({ isVisible: false, isDifficult: false })}
-                                    className="bg-gray-300 text-gray-800 py-2 px-4 rounded-lg hover:bg-gray-400 transition-colors duration-200"
+                    <AnimatePresence>
+                        {isVisible && (
+                            <motion.div
+                                className="modal-overlay"
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                exit={{ opacity: 0 }}
+                            >
+                                <motion.div
+                                    className="modal-content"
+                                    initial={{ scale: 0.9, opacity: 0 }}
+                                    animate={{ scale: 1, opacity: 1 }}
+                                    exit={{ scale: 0.9, opacity: 0 }}
                                 >
-                                    Hủy
-                                </button>
-                                <button
-                                    onClick={() => handleStartReviewFromModal()}
-                                    className="bg-indigo-600 text-white py-2 px-4 rounded-lg hover:bg-indigo-700 transition-colors duration-200"
-                                >
-                                    Bắt đầu Ôn Tập
-                                </button>
-                            </div>
-                        </div>
-                    </div>
+                                    <h3 className="text-xl font-bold text-gray-800 mb-4 text-center">Số câu hỏi muốn ôn tập?</h3>
+                                    <p className="text-gray-700 text-sm mb-4 text-center">Để trống hoặc nhập 0 để ôn tất cả từ vựng hiện có.</p>
+                                    <input
+                                        type="number"
+                                        value={tempReviewLimit}
+                                        onChange={(e) => setTempReviewLimit(e.target.value)}
+                                        placeholder="Tất cả"
+                                        min="0"
+                                        className="w-full border border-gray-300 rounded-md shadow-sm p-2 text-sm focus:ring-indigo-500 focus:border-indigo-500 text-center mb-4"
+                                    />
+                                    <div className="flex justify-end space-x-3">
+                                        <button
+                                            onClick={() => setShowReviewLimitModal({ isVisible: false, isDifficult: false })}
+                                            className="bg-gray-300 text-gray-800 py-2 px-4 rounded-lg hover:bg-gray-400 transition duration-300 ease-in-out"
+                                        >
+                                            Hủy
+                                        </button>
+                                        <button
+                                            onClick={() => handleStartReviewFromModal()}
+                                            className="bg-indigo-600 text-white py-2 px-4 rounded-lg hover:bg-indigo-700 transition duration-300 ease-in-out"
+                                        >
+                                            Bắt đầu Ôn Tập
+                                        </button>
+                                    </div>
+                                </motion.div>
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
                 );
             };
 
@@ -2134,7 +2148,7 @@
                             <p className="text-xl font-bold text-purple-700 mb-3">Streak: {checkInStreak} ngày 🔥</p>
                             <p className="text-sm text-gray-600 mb-3">Lần điểm danh gần nhất: {lastCheckInDate ? lastCheckInDate.toLocaleDateString('vi-VN') : 'Chưa điểm danh'}</p>
                             <button onClick={handleCheckIn}
-                                className={`w-full bg-purple-600 text-white py-2 px-4 rounded-lg hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 transition-all duration-200 shadow-md ${isProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
+                                className={`w-full bg-purple-600 text-white py-2 px-4 rounded-lg hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 transition duration-300 ease-in-out shadow-md ${isProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
                                 disabled={isProcessing}>
                                 {isProcessing ? <LoadingSpinner /> : <i className="fas fa-check-circle mr-2"></i>} Điểm Danh Hôm Nay
                             </button>
@@ -2143,18 +2157,18 @@
 
                     <div className="flex space-x-4 mb-6">
                         <button onClick={handleExportData}
-                                className={`flex-1 bg-gray-600 text-white py-3 px-4 rounded-xl hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-all duration-200 shadow-md ${isProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
+                                className={`flex-1 bg-gray-600 text-white py-3 px-4 rounded-xl hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition duration-300 ease-in-out shadow-md ${isProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
                                 disabled={isProcessing}>
                             {isProcessing ? <LoadingSpinner /> : <i className="fas fa-file-export mr-2"></i>} Xuất Dữ Liệu (Backup)
                         </button>
                         <label htmlFor="import-file-input"
-                               className={`flex-1 flex items-center justify-center bg-gray-400 text-white py-3 px-4 rounded-xl hover:bg-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-all duration-200 shadow-md cursor-pointer ${isProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
+                               className={`flex-1 flex items-center justify-center bg-gray-400 text-white py-3 px-4 rounded-xl hover:bg-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition duration-300 ease-in-out shadow-md cursor-pointer ${isProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
                                disabled={isProcessing}>
                             {isProcessing ? <LoadingSpinner /> : <i className="fas fa-file-import mr-2"></i>} Nhập Dữ Liệu (Restore)
                             <input type="file" id="import-file-input" accept="application/json" onChange={handleImportData} className="hidden" disabled={isProcessing} />
                         </label>
                         <label htmlFor="import-html-file-input"
-                               className={`flex-1 flex items-center justify-center bg-blue-400 text-white py-3 px-4 rounded-xl hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all duration-200 shadow-md cursor-pointer ${isProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
+                               className={`flex-1 flex items-center justify-center bg-blue-400 text-white py-3 px-4 rounded-xl hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition duration-300 ease-in-out shadow-md cursor-pointer ${isProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
                                disabled={isProcessing}>
                             {isProcessing ? <LoadingSpinner /> : <i className="fas fa-file-code mr-2"></i>} Nhập từ HTML
                             <input type="file" id="import-html-file-input" accept="text/html" onChange={handleImportFromHtmlFile} className="hidden" disabled={isProcessing} />
@@ -2165,12 +2179,12 @@
                         Danh Sách Khoá Học
                         <div className="space-x-2">
                             <button onClick={() => { setCourseName(''); setView('createCourse'); }}
-                                    className={`bg-primary dark:bg-primary-800 text-white text-sm py-2 px-4 rounded-full hover:bg-primary-700 dark:hover:bg-primary-900 transition-colors duration-200 shadow-md ${isProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
+                                    className={`bg-primary dark:bg-primary-800 text-white text-sm py-2 px-4 rounded-full hover:bg-primary-700 dark:hover:bg-primary-900 transition duration-300 ease-in-out shadow-md ${isProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
                                     disabled={isProcessing}>
                                 <i className="fas fa-folder-plus mr-1"></i> Tạo Khoá Học
                             </button>
                             <button onClick={() => { setLessonCourseId(courses[0]?.id || ''); setView('createLesson'); }}
-                                    className={`bg-primary dark:bg-primary-800 text-white text-sm py-2 px-4 rounded-full hover:bg-primary-700 dark:hover:bg-primary-900 transition-colors duration-200 shadow-md ${isProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
+                                    className={`bg-primary dark:bg-primary-800 text-white text-sm py-2 px-4 rounded-full hover:bg-primary-700 dark:hover:bg-primary-900 transition duration-300 ease-in-out shadow-md ${isProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
                                     disabled={isProcessing}>
                                 <i className="fas fa-plus mr-1"></i> Tạo Bài Học
                             </button>
@@ -2178,14 +2192,14 @@
                     </h2>
 
                     <button onClick={() => promptForReviewLimit('allLessons')}
-                            className={`w-full bg-green-600 text-white py-3 px-4 rounded-xl hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition-all duration-200 shadow-md mb-6 ${allVocabularies.filter(v => v.meaning || v.pinyin || (v.examples && v.examples.some(ex => ex.chinese && ex.vietnamese && splitChineseSentence(ex.chinese).length > 1))).length === 0 || isProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
+                            className={`w-full bg-green-600 text-white py-3 px-4 rounded-xl hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition duration-300 ease-in-out shadow-md mb-6 ${allVocabularies.filter(v => v.meaning || v.pinyin || (v.examples && v.examples.some(ex => ex.chinese && ex.vietnamese && splitChineseSentence(ex.chinese).length > 1))).length === 0 || isProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
                             disabled={allVocabularies.filter(v => v.meaning || v.pinyin || (v.examples && v.examples.some(ex => ex.chinese && ex.vietnamese && splitChineseSentence(ex.chinese).length > 1))).length === 0 || isProcessing}>
                         {isProcessing ? <LoadingSpinner /> : <i className="fas fa-play mr-2"></i>}
                         Ôn Tập Tất Cả Từ Vựng
                     </button>
 
                     <button onClick={() => promptForReviewLimit('difficultWords', null, true)}
-                            className={`w-full bg-red-600 text-white py-3 px-4 rounded-xl hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition-all duration-200 shadow-md mb-6 ${allVocabularies.filter(v => v.wrongAttempts >= 2).length === 0 || isProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
+                            className={`w-full bg-red-600 text-white py-3 px-4 rounded-xl hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition duration-300 ease-in-out shadow-md mb-6 ${allVocabularies.filter(v => v.wrongAttempts >= 2).length === 0 || isProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
                             disabled={allVocabularies.filter(v => v.wrongAttempts >= 2).length === 0 || isProcessing}>
                         {isProcessing ? <LoadingSpinner /> : <i className="fas fa-exclamation-triangle mr-2"></i>}
                         Ôn Tập Từ Khó ({allVocabularies.filter(v => v.wrongAttempts >= 2).length})
@@ -2207,31 +2221,31 @@
                                             </div>
                                             <div className="flex space-x-2">
                                                 <button onClick={() => handleMoveCourse(course.id, 'up')}
-                                                        className={`bg-gray-400 text-white text-xs p-2 rounded-full hover:bg-gray-500 transition-colors duration-200 ${cIndex === 0 || isProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
+                                                        className={`bg-gray-400 text-white text-xs p-2 rounded-full hover:bg-gray-500 transition duration-300 ease-in-out ${cIndex === 0 || isProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
                                                         title="Di chuyển khoá học lên"
                                                         disabled={cIndex === 0 || isProcessing}>
                                                     <i className="fas fa-arrow-up"></i>
                                                 </button>
                                                 <button onClick={() => handleMoveCourse(course.id, 'down')}
-                                                        className={`bg-gray-400 text-white text-xs p-2 rounded-full hover:bg-gray-500 transition-colors duration-200 ${cIndex === courses.length - 1 || isProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
+                                                        className={`bg-gray-400 text-white text-xs p-2 rounded-full hover:bg-gray-500 transition duration-300 ease-in-out ${cIndex === courses.length - 1 || isProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
                                                         title="Di chuyển khoá học xuống"
                                                         disabled={cIndex === courses.length - 1 || isProcessing}>
                                                     <i className="fas fa-arrow-down"></i>
                                                 </button>
                                                 <button onClick={() => handleEditCourse(course)}
-                                                        className={`bg-blue-500 text-white text-xs p-2 rounded-full hover:bg-blue-600 transition-colors duration-200 ${isProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
+                                                        className={`bg-blue-500 text-white text-xs p-2 rounded-full hover:bg-blue-600 transition duration-300 ease-in-out ${isProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
                                                         title="Chỉnh Sửa Khoá Học"
                                                         disabled={isProcessing}>
                                                     <i className="fas fa-edit"></i>
                                                 </button>
                                                 <button onClick={() => toggleCourseExpand(course.id)}
-                                                        className={`bg-blue-500 text-white text-xs p-2 rounded-full hover:bg-blue-600 transition-colors duration-200 ${isProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
+                                                        className={`bg-blue-500 text-white text-xs p-2 rounded-full hover:bg-blue-600 transition duration-300 ease-in-out ${isProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
                                                         title="Thu gọn/Mở rộng"
                                                         disabled={isProcessing}>
                                                     <i className={`fas ${course.expanded ? 'fa-chevron-up' : 'fa-chevron-down'}`}></i>
                                                 </button>
                                                 <button onClick={() => handleDeleteCourse(course.id)}
-                                                        className={`bg-red-500 text-white text-xs p-2 rounded-full hover:bg-red-600 transition-colors duration-200 ${isProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
+                                                        className={`bg-red-500 text-white text-xs p-2 rounded-full hover:bg-red-600 transition duration-300 ease-in-out ${isProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
                                                         title="Xóa Khoá Học"
                                                         disabled={isProcessing}>
                                                     <i className="fas fa-trash"></i>
@@ -2256,37 +2270,37 @@
                                                                         {courses.map(c => <option key={c.id} value={c.id}>{c.name}</option>)}
                                                                     </select>
                                                                     <button onClick={() => handleMoveLesson(lesson.id, 'up')}
-                                                                            className={`bg-gray-400 text-white text-xs p-2 rounded-full hover:bg-gray-500 transition-colors duration-200 ${index === 0 || isProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
+                                                                            className={`bg-gray-400 text-white text-xs p-2 rounded-full hover:bg-gray-500 transition duration-300 ease-in-out ${index === 0 || isProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
                                                                             title="Di chuyển lên"
                                                                             disabled={index === 0 || isProcessing}>
                                                                         <i className="fas fa-arrow-up"></i>
                                                                     </button>
                                                                     <button onClick={() => handleMoveLesson(lesson.id, 'down')}
-                                                                            className={`bg-gray-400 text-white text-xs p-2 rounded-full hover:bg-gray-500 transition-colors duration-200 ${index === lessonsInCourse.length - 1 || isProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
+                                                                            className={`bg-gray-400 text-white text-xs p-2 rounded-full hover:bg-gray-500 transition duration-300 ease-in-out ${index === lessonsInCourse.length - 1 || isProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
                                                                             title="Di chuyển xuống"
                                                                             disabled={index === lessonsInCourse.length - 1 || isProcessing}>
                                                                         <i className="fas fa-arrow-down"></i>
                                                                     </button>
                                                                     <button onClick={() => handleEditLesson(lesson)}
-                                                                            className={`bg-blue-500 text-white text-xs p-2 rounded-full hover:bg-blue-600 transition-colors duration-200 ${isProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
+                                                                            className={`bg-blue-500 text-white text-xs p-2 rounded-full hover:bg-blue-600 transition duration-300 ease-in-out ${isProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
                                                                             title="Chỉnh Sửa Bài Học"
                                                                             disabled={isProcessing}>
                                                                         <i className="fas fa-edit"></i>
                                                                     </button>
                                                                     <button onClick={() => { setView('vocabularyList'); setSelectedLesson(lesson); }}
-                                                                            className={`bg-blue-500 text-white text-xs p-2 rounded-full hover:bg-blue-600 transition-colors duration-200 ${isProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
+                                                                            className={`bg-blue-500 text-white text-xs p-2 rounded-full hover:bg-blue-600 transition duration-300 ease-in-out ${isProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
                                                                             title="Xem Từ Vựng"
                                                                             disabled={isProcessing}>
                                                                         <i className="fas fa-list-alt"></i>
                                                                     </button>
                                                                     <button onClick={() => { setView('passageList'); setSelectedLesson(lesson); }}
-                                                                            className={`bg-purple-500 text-white text-xs p-2 rounded-full hover:bg-purple-600 transition-colors duration-200 ${isProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
+                                                                            className={`bg-purple-500 text-white text-xs p-2 rounded-full hover:bg-purple-600 transition duration-300 ease-in-out ${isProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
                                                                             title="Quản Lý Bài Khóa"
                                                                             disabled={isProcessing}>
                                                                         <i className="fas fa-file-alt"></i>
                                                                     </button>
                                                                     <button onClick={() => promptForReviewLimit('singleLesson', lesson)}
-                                                                            className={`bg-green-500 text-white text-xs p-2 rounded-full hover:bg-green-600 transition-colors duration-200 ${
+                                                                            className={`bg-green-500 text-white text-xs p-2 rounded-full hover:bg-green-600 transition duration-300 ease-in-out ${
                                                                                 (lessons.find(l => l.id === lesson.id)?.vocabularies?.filter(v => v.meaning || v.pinyin || (v.examples && v.examples.some(ex => ex.chinese && ex.vietnamese && splitChineseSentence(ex.chinese).length > 1)))?.length || 0) === 0 || isProcessing ? 'opacity-50 cursor-not-allowed' : ''
                                                                             }`}
                                                                             title="Ôn Tập Bài Học Này"
@@ -2294,7 +2308,7 @@
                                                                         {isProcessing ? <LoadingSpinner /> : <i className="fas fa-book-open"></i>}
                                                                     </button>
                                                                     <button onClick={() => handleDeleteLesson(lesson.id)}
-                                                                            className={`bg-red-500 text-white text-xs p-2 rounded-full hover:bg-red-600 transition-colors duration-200 ${isProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
+                                                                            className={`bg-red-500 text-white text-xs p-2 rounded-full hover:bg-red-600 transition duration-300 ease-in-out ${isProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
                                                                             title="Xóa Bài Học"
                                                                             disabled={isProcessing}>
                                                                         <i className="fas fa-trash"></i>
@@ -2335,12 +2349,12 @@
                         </select>
                     </div>
                     <button type="submit"
-                            className={`w-full bg-indigo-600 text-white py-3 px-4 rounded-xl hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-all duration-200 shadow-md ${isProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
+                            className={`w-full bg-indigo-600 text-white py-3 px-4 rounded-xl hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition duration-300 ease-in-out shadow-md ${isProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
                             disabled={isProcessing}>
                         {isProcessing ? <LoadingSpinner /> : <i className="fas fa-plus mr-2"></i>} Tạo Bài Học
                     </button>
                     <button type="button" onClick={() => setView('lessonList')}
-                            className="w-full mt-2 bg-gray-300 text-gray-800 py-3 px-4 rounded-xl hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-all duration-200 shadow-md"
+                            className="w-full mt-2 bg-gray-300 text-gray-800 py-3 px-4 rounded-xl hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition duration-300 ease-in-out shadow-md"
                             disabled={isProcessing}>
                         <i className="fas fa-arrow-left mr-2"></i> Quay Lại Danh Sách Bài Học
                     </button>
@@ -2367,12 +2381,12 @@
                         </select>
                     </div>
                     <button type="submit"
-                            className={`w-full bg-indigo-600 text-white py-3 px-4 rounded-xl hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-all duration-200 shadow-md ${isProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
+                            className={`w-full bg-indigo-600 text-white py-3 px-4 rounded-xl hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition duration-300 ease-in-out shadow-md ${isProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
                             disabled={isProcessing}>
                         {isProcessing ? <LoadingSpinner /> : <i className="fas fa-save mr-2"></i>} Lưu Chỉnh Sửa
                     </button>
                     <button type="button" onClick={() => { setView('lessonList'); setLessonName(''); setEditingLesson(null); }}
-                            className="w-full mt-2 bg-gray-300 text-gray-800 py-3 px-4 rounded-xl hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-all duration-200 shadow-md"
+                            className="w-full mt-2 bg-gray-300 text-gray-800 py-3 px-4 rounded-xl hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition duration-300 ease-in-out shadow-md"
                             disabled={isProcessing}>
                         <i className="fas fa-times mr-2"></i> Hủy
                     </button>
@@ -2390,12 +2404,12 @@
                                disabled={isProcessing} />
                     </div>
                     <button type="submit"
-                            className={`w-full bg-indigo-600 text-white py-3 px-4 rounded-xl hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-all duration-200 shadow-md ${isProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
+                            className={`w-full bg-indigo-600 text-white py-3 px-4 rounded-xl hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition duration-300 ease-in-out shadow-md ${isProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
                             disabled={isProcessing}>
                         {isProcessing ? <LoadingSpinner /> : <i className="fas fa-plus mr-2"></i>} Tạo Khoá Học
                     </button>
                     <button type="button" onClick={() => setView('lessonList')}
-                            className="w-full mt-2 bg-gray-300 text-gray-800 py-3 px-4 rounded-xl hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-all duration-200 shadow-md"
+                            className="w-full mt-2 bg-gray-300 text-gray-800 py-3 px-4 rounded-xl hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition duration-300 ease-in-out shadow-md"
                             disabled={isProcessing}>
                         <i className="fas fa-arrow-left mr-2"></i> Quay Lại
                     </button>
@@ -2413,12 +2427,12 @@
                                disabled={isProcessing} />
                     </div>
                     <button type="submit"
-                            className={`w-full bg-indigo-600 text-white py-3 px-4 rounded-xl hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-all duration-200 shadow-md ${isProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
+                            className={`w-full bg-indigo-600 text-white py-3 px-4 rounded-xl hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition duration-300 ease-in-out shadow-md ${isProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
                             disabled={isProcessing}>
                         {isProcessing ? <LoadingSpinner /> : <i className="fas fa-save mr-2"></i>} Lưu Khoá Học
                     </button>
                     <button type="button" onClick={() => { setView('lessonList'); setCourseName(''); setEditingCourse(null); }}
-                            className="w-full mt-2 bg-gray-300 text-gray-800 py-3 px-4 rounded-xl hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-all duration-200 shadow-md"
+                            className="w-full mt-2 bg-gray-300 text-gray-800 py-3 px-4 rounded-xl hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition duration-300 ease-in-out shadow-md"
                             disabled={isProcessing}>
                         <i className="fas fa-times mr-2"></i> Hủy
                     </button>
@@ -2430,13 +2444,13 @@
                     <h2 className="text-3xl font-bold text-gray-800 mb-6 flex justify-between items-center">
                         Từ Vựng của Bài Học: <span className="text-indigo-600">{selectedLesson?.name}</span>
                         <button onClick={() => setView('createVocabulary')}
-                                className={`bg-indigo-500 text-white text-sm py-2 px-4 rounded-full hover:bg-indigo-600 transition-colors duration-200 shadow-md ${isProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
+                                className={`bg-indigo-500 text-white text-sm py-2 px-4 rounded-full hover:bg-indigo-600 transition duration-300 ease-in-out shadow-md ${isProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
                                 disabled={isProcessing}>
                             <i className="fas fa-plus mr-1"></i> Thêm Từ Vựng
                         </button>
                     </h2>
                     <button onClick={() => promptForReviewLimit('singleLesson', selectedLesson)}
-                            className={`w-full bg-green-600 text-white py-3 px-4 rounded-xl hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition-all duration-200 shadow-md mb-6 ${vocabularies.filter(v => v.meaning || v.pinyin || (v.examples && v.examples.some(ex => ex.chinese && ex.vietnamese && splitChineseSentence(ex.chinese).length > 1))).length === 0 || isProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
+                            className={`w-full bg-green-600 text-white py-3 px-4 rounded-xl hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition duration-300 ease-in-out shadow-md mb-6 ${vocabularies.filter(v => v.meaning || v.pinyin || (v.examples && v.examples.some(ex => ex.chinese && ex.vietnamese && splitChineseSentence(ex.chinese).length > 1))).length === 0 || isProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
                             disabled={vocabularies.filter(v => v.meaning || v.pinyin || (v.examples && v.examples.some(ex => ex.chinese && ex.vietnamese && splitChineseSentence(ex.chinese).length > 1))).length === 0 || isProcessing}>
                         {isProcessing ? <LoadingSpinner /> : <i className="fas fa-play mr-2"></i>}
                         Ôn Tập Từ Vựng Bài Này
@@ -2466,13 +2480,13 @@
                                         </div>
                                         <div className="flex space-x-2">
                                             <button onClick={() => handleEditVocabulary(vocab)}
-                                                    className={`bg-blue-500 text-white text-xs p-2 rounded-full hover:bg-blue-600 transition-colors duration-200 ${isProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
+                                                    className={`bg-blue-500 text-white text-xs p-2 rounded-full hover:bg-blue-600 transition duration-300 ease-in-out ${isProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
                                                     title="Chỉnh Sửa Từ Vựng"
                                                     disabled={isProcessing}>
                                                 <i className="fas fa-edit"></i>
                                             </button>
                                             <button onClick={() => handleDeleteVocabulary(vocab.id)}
-                                                    className={`bg-red-500 text-white text-xs p-2 rounded-full hover:bg-red-600 transition-colors duration-200 ${isProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
+                                                    className={`bg-red-500 text-white text-xs p-2 rounded-full hover:bg-red-600 transition duration-300 ease-in-out ${isProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
                                                     title="Xóa Từ Vựng"
                                                     disabled={isProcessing}>
                                                 <i className="fas fa-trash"></i>
@@ -2508,7 +2522,7 @@
                         </div>
                     )}
                     <button type="button" onClick={() => { setView('lessonList'); setSelectedLesson(null); }}
-                            className={`w-full mt-8 bg-gray-300 text-gray-800 py-3 px-4 rounded-xl hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-all duration-200 shadow-md ${isProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
+                            className={`w-full mt-8 bg-gray-300 text-gray-800 py-3 px-4 rounded-xl hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition duration-300 ease-in-out shadow-md ${isProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
                             disabled={isProcessing}>
                         <i className="fas fa-arrow-left mr-2"></i> Quay Lại Danh Sách Bài Học
                     </button>
@@ -2601,12 +2615,12 @@
                     ))}
 
                     <button type="submit"
-                            className={`w-full bg-indigo-600 text-white py-3 px-4 rounded-xl hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-all duration-200 shadow-md ${isProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
+                            className={`w-full bg-indigo-600 text-white py-3 px-4 rounded-xl hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition duration-300 ease-in-out shadow-md ${isProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
                             disabled={isProcessing}>
                         {isProcessing ? <LoadingSpinner /> : <i className="fas fa-plus mr-2"></i>} Thêm Từ Vựng
                     </button>
                     <button type="button" onClick={() => setView('vocabularyList')}
-                            className="w-full mt-2 bg-gray-300 text-gray-800 py-3 px-4 rounded-xl hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-all duration-200 shadow-md"
+                            className="w-full mt-2 bg-gray-300 text-gray-800 py-3 px-4 rounded-xl hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition duration-300 ease-in-out shadow-md"
                             disabled={isProcessing}>
                         <i className="fas fa-arrow-left mr-2"></i> Quay Lại Danh Sách Từ Vựng
                     </button>
@@ -2699,12 +2713,12 @@
                     ))}
 
                     <button type="submit"
-                            className={`w-full bg-indigo-600 text-white py-3 px-4 rounded-xl hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-all duration-200 shadow-md ${isProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
+                            className={`w-full bg-indigo-600 text-white py-3 px-4 rounded-xl hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition duration-300 ease-in-out shadow-md ${isProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
                             disabled={isProcessing}>
                         {isProcessing ? <LoadingSpinner /> : <i className="fas fa-plus mr-2"></i>} Thêm Từ Vựng
                     </button>
                     <button type="button" onClick={() => setView('vocabularyList')}
-                            className="w-full mt-2 bg-gray-300 text-gray-800 py-3 px-4 rounded-xl hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-all duration-200 shadow-md"
+                            className="w-full mt-2 bg-gray-300 text-gray-800 py-3 px-4 rounded-xl hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition duration-300 ease-in-out shadow-md"
                             disabled={isProcessing}>
                         <i className="fas fa-arrow-left mr-2"></i> Quay Lại Danh Sách Từ Vựng
                     </button>
@@ -3440,29 +3454,29 @@
                     </div>
                     <div className="flex justify-between space-x-2">
                         <button type="button" onClick={() => handleAddPassageSentence()}
-                                className={`flex-1 bg-gray-200 text-gray-800 py-2 px-4 rounded-xl hover:bg-gray-300 transition-colors duration-200 shadow-md ${isProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
+                                className={`flex-1 bg-gray-200 text-gray-800 py-2 px-4 rounded-xl hover:bg-gray-300 transition duration-300 ease-in-out shadow-md ${isProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
                                 disabled={isProcessing}>
                             <i className="fas fa-plus mr-2"></i> Thêm Câu Mới
                         </button>
                         <button type="button" onClick={() => handleAddPassageSentence('A')}
-                                className={`flex-1 bg-blue-100 text-blue-800 py-2 px-4 rounded-xl hover:bg-blue-200 transition-colors duration-200 shadow-md ${isProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
+                                className={`flex-1 bg-blue-100 text-blue-800 py-2 px-4 rounded-xl hover:bg-blue-200 transition duration-300 ease-in-out shadow-md ${isProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
                                 disabled={isProcessing}>
                             <i className="fas fa-plus mr-2"></i> Thêm lượt thoại A
                         </button>
                         <button type="button" onClick={() => handleAddPassageSentence('B')}
-                                className={`flex-1 bg-green-100 text-green-800 py-2 px-4 rounded-xl hover:bg-green-200 transition-colors duration-200 shadow-md ${isProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
+                                className={`flex-1 bg-green-100 text-green-800 py-2 px-4 rounded-xl hover:bg-green-200 transition duration-300 ease-in-out shadow-md ${isProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
                                 disabled={isProcessing}>
                             <i className="fas fa-plus mr-2"></i> Thêm lượt thoại B
                         </button>
                     </div>
 
                     <button type="submit"
-                            className={`w-full bg-indigo-600 text-white py-3 px-4 rounded-xl hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-all duration-200 shadow-md ${isProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
+                            className={`w-full bg-indigo-600 text-white py-3 px-4 rounded-xl hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition duration-300 ease-in-out shadow-md ${isProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
                             disabled={isProcessing}>
                         {isProcessing ? <LoadingSpinner /> : (isEditMode ? 'Lưu Chỉnh Sửa Bài Khóa' : 'Thêm Bài Khóa')}
                     </button>
                     <button type="button" onClick={() => setView('passageList')}
-                            className="w-full mt-2 bg-gray-300 text-gray-800 py-3 px-4 rounded-xl hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-all duration-200 shadow-md"
+                            className="w-full mt-2 bg-gray-300 text-gray-800 py-3 px-4 rounded-xl hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition duration-300 ease-in-out shadow-md"
                             disabled={isProcessing}>
                         <i className="fas fa-arrow-left mr-2"></i> Quay Lại Danh Sách Bài Khóa
                     </button>
@@ -3478,7 +3492,7 @@
                         <h2 className="text-3xl font-bold text-gray-800 mb-6 flex justify-between items-center">
                             Bài Khóa của Bài Học: <span className="text-indigo-600">{selectedLesson?.name}</span>
                             <button onClick={() => { setView('createPassage'); setPassageTitle(''); setPassageSentences([{ chinese: '', pinyin: '', vietnamese: '', audioFileBlob: null, audioFileId: null, speaker: '' }]); }}
-                                    className={`bg-indigo-500 text-white text-sm py-2 px-4 rounded-full hover:bg-indigo-600 transition-colors duration-200 shadow-md ${isProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
+                                    className={`bg-indigo-500 text-white text-sm py-2 px-4 rounded-full hover:bg-indigo-600 transition duration-300 ease-in-out shadow-md ${isProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
                                     disabled={isProcessing}>
                                 <i className="fas fa-plus mr-1"></i> Thêm Bài Khóa
                             </button>
@@ -3497,19 +3511,19 @@
                                             </div>
                                             <div className="flex space-x-2">
                                                 <button onClick={() => handleEditPassage(passage)}
-                                                        className={`bg-blue-500 text-white text-xs p-2 rounded-full hover:bg-blue-600 transition-colors duration-200 ${isProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
+                                                        className={`bg-blue-500 text-white text-xs p-2 rounded-full hover:bg-blue-600 transition duration-300 ease-in-out ${isProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
                                                         title="Chỉnh Sửa Bài Khóa"
                                                         disabled={isProcessing}>
                                                     <i className="fas fa-edit"></i>
                                                 </button>
                                                 <button onClick={() => startPassageStudy(passage)}
-                                                        className={`bg-green-500 text-white text-xs p-2 rounded-full hover:bg-green-600 transition-colors duration-200 ${isProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
+                                                        className={`bg-green-500 text-white text-xs p-2 rounded-full hover:bg-green-600 transition duration-300 ease-in-out ${isProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
                                                         title="Học Bài Khóa Này"
                                                         disabled={isProcessing}>
                                                     <i className="fas fa-book-reader"></i>
                                                 </button>
                                                 <button onClick={() => handleDeletePassage(passage.id)}
-                                                        className={`bg-red-500 text-white text-xs p-2 rounded-full hover:bg-red-600 transition-colors duration-200 ${isProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
+                                                        className={`bg-red-500 text-white text-xs p-2 rounded-full hover:bg-red-600 transition duration-300 ease-in-out ${isProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
                                                         disabled={isProcessing}>
                                                     <i className="fas fa-trash"></i>
                                                 </button>
@@ -3520,7 +3534,7 @@
                             </div>
                         )}
                         <button type="button" onClick={() => { setView('lessonList'); setSelectedLesson(null); }}
-                                className={`w-full mt-8 bg-gray-300 text-gray-800 py-3 px-4 rounded-xl hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-all duration-200 shadow-md ${isProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
+                                className={`w-full mt-8 bg-gray-300 text-gray-800 py-3 px-4 rounded-xl hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition duration-300 ease-in-out shadow-md ${isProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
                                 disabled={isProcessing}>
                             <i className="fas fa-arrow-left mr-2"></i> Quay Lại Danh Sách Bài Học
                         </button>
@@ -3657,7 +3671,7 @@
                                                     {sentence.chinese.split('').map((char, index) => (
                                                         <span key={`${sIdx}-${index}`}
                                                               onClick={(e) => handleWordClickInPassage(e, sentence.chinese)}
-                                                              className="hanzi-char-span inline-block cursor-pointer hover:bg-blue-100 rounded-sm px-1 py-0.5 transition-colors duration-100">
+                                                              className="hanzi-char-span inline-block cursor-pointer hover:bg-blue-100 rounded-sm px-1 py-0.5 transition duration-300 ease-in-out">
                                                             {char}
                                                         </span>
                                                     ))}
@@ -3788,7 +3802,7 @@
 
 
                         <button type="button" onClick={() => { stopSpeaking(); stopPlayingAllPassage(); setView('passageList'); setSelectedPassage(null); }}
-                                className={`w-full mt-8 bg-gray-300 text-gray-800 py-3 px-4 rounded-xl hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-all duration-200 shadow-md ${isProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
+                                className={`w-full mt-8 bg-gray-300 text-gray-800 py-3 px-4 rounded-xl hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition duration-300 ease-in-out shadow-md ${isProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
                                 disabled={isProcessing}>
                             <i className="fas fa-arrow-left mr-2"></i> Quay Lại Danh Sách Bài Khóa
                         </button>
@@ -3871,7 +3885,7 @@
                                         disabled={isCorrect !== null || isProcessing}
                                     />
                                     <button type="submit"
-                                            className={`w-full bg-indigo-600 text-white py-3 px-4 rounded-xl hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-all duration-200 shadow-md ${isCorrect !== null || isProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
+                                            className={`w-full bg-indigo-600 text-white py-3 px-4 rounded-xl hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition duration-300 ease-in-out shadow-md ${isCorrect !== null || isProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
                                             disabled={isProcessing}>
                                         {isProcessing ? <LoadingSpinner /> : 'Kiểm Tra'}
                                     </button>
@@ -3888,7 +3902,7 @@
                                         disabled={isCorrect !== null || isProcessing}
                                     />
                                     <button type="submit"
-                                            className={`w-full bg-indigo-600 text-white py-3 px-4 rounded-xl hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-all duration-200 shadow-md ${isProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
+                                            className={`w-full bg-indigo-600 text-white py-3 px-4 rounded-xl hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition duration-300 ease-in-out shadow-md ${isProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
                                             disabled={isProcessing}>
                                         {isProcessing ? <LoadingSpinner /> : 'Kiểm Tra'}
                                     </button>
@@ -3908,7 +3922,7 @@
                                             <button
                                                 key={item.id} // Use unique ID from item for key
                                                 onClick={() => handleWordClick(item, idx)}
-                                                className={`px-4 py-2 rounded-lg font-semibold transition-colors duration-200
+                                                className={`px-4 py-2 rounded-lg font-semibold transition duration-300 ease-in-out
                                                     ${item.isUsed || rearrangeIsAnswered ? 'bg-gray-300 text-gray-600 opacity-50 cursor-not-allowed' : 'bg-white text-gray-800 hover:bg-gray-100'}
                                                     shadow-sm`}
                                                 disabled={item.isUsed || rearrangeIsAnswered || isProcessing}
@@ -3943,7 +3957,7 @@
                                         <button
                                             key={index}
                                             onClick={() => handleOptionClick(index)}
-                                            className={`w-full p-4 rounded-xl text-lg font-semibold transition-all duration-300 shadow-md
+                                            className={`w-full p-4 rounded-xl text-lg font-semibold transition duration-300 ease-in-out shadow-md
                                                 ${selectedOption === null ? 'bg-gray-200 hover:bg-gray-300 text-gray-800' :
                                                 index === correctAnswerIndex && selectedOption !== null ? 'bg-green-500 text-white' :
                                                 index === selectedOption && selectedOption !== null ? 'bg-red-500 text-white' :
@@ -3961,7 +3975,7 @@
                                 <div className="flex justify-end mt-4"> {/* Added justify-end for right align */}
                                     <button
                                         onClick={handleNextQuestion}
-                                        className={`bg-indigo-600 text-white py-3 px-6 rounded-xl hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-all duration-200 shadow-md ${isProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
+                                        className={`bg-indigo-600 text-white py-3 px-6 rounded-xl hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition duration-300 ease-in-out shadow-md ${isProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
                                         disabled={isProcessing}>
                                         {isProcessing ? <LoadingSpinner /> : (currentQuestionNumber < totalQuestions -1 ? 'Câu Tiếp Theo' : 'Hoàn Thành')} <i className="fas fa-arrow-right ml-2"></i>
                                     </button>
@@ -4034,7 +4048,7 @@
                                 </div>
                             )}
                             <button onClick={() => { setView('lessonList'); setPinyinInput(''); setHanTuInput(''); setScrambledWords([]); setSelectedWords([]); setRearrangeIsAnswered(false); /* clear inputs when leaving review */ }}
-                                    className={`w-full mt-8 bg-gray-300 text-gray-800 py-3 px-4 rounded-xl hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-all duration-200 shadow-md ${isProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
+                                    className={`w-full mt-8 bg-gray-300 text-gray-800 py-3 px-4 rounded-xl hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition duration-300 ease-in-out shadow-md ${isProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
                                     disabled={isProcessing}>
                                 <i className="fas fa-arrow-left mr-2"></i> Quay Lại Danh Sách Bài Học
                             </button>
@@ -4062,22 +4076,31 @@
                     {loading && <FullPageLoadingOverlay message="Đang tải dữ liệu từ bộ nhớ cục bộ..." />}
                     {/* Main Content Container - Increased max-w-4xl for larger UI (was max-w-2xl) */}
                     {/* Dòng gây lỗi đã bị loại bỏ khỏi đây */}
-                    <div className="bg-white dark:bg-gray-900 bg-opacity-90 dark:bg-opacity-90 backdrop-blur-md py-8 px-4 sm:px-6 rounded-3xl shadow-2xl w-full max-w-screen-lg mx-auto text-left transform transition-all duration-300">
+                    <div className="bg-white dark:bg-gray-900 bg-opacity-90 dark:bg-opacity-90 backdrop-blur-md py-8 px-4 sm:px-6 rounded-3xl shadow-2xl w-full max-w-screen-lg mx-auto text-left transform transition duration-300 ease-in-out">
                         {renderMessageBox()}
                         <NavigationMenu />
-                        {view === 'lessonList' && <LessonList />}
-                        {view === 'createLesson' && <CreateLessonForm />}
-                        {view === 'editLesson' && renderEditLessonForm()}
-                        {view === 'createCourse' && renderCreateCourseForm()}
-                        {view === 'editCourse' && renderEditCourseForm()}
-                        {view === 'vocabularyList' && renderVocabularyList()}
-                        {view === 'createVocabulary' && renderCreateVocabularyForm()}
-                        {view === 'editVocabulary' && renderEditVocabularyForm()}
-                        {view === 'passageList' && renderPassageList()}
-                        {view === 'createPassage' && renderPassageForm(false)}
-                        {view === 'editPassage' && renderPassageForm(true)}
-                        {view === 'review' && <ReviewGame />}
-                        {view === 'passageStudy' && renderPassageStudy()}
+                        <AnimatePresence mode="wait">
+                            <motion.div
+                                key={view}
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                exit={{ opacity: 0, y: -20 }}
+                            >
+                                {view === 'lessonList' && <LessonList />}
+                                {view === 'createLesson' && <CreateLessonForm />}
+                                {view === 'editLesson' && renderEditLessonForm()}
+                                {view === 'createCourse' && renderCreateCourseForm()}
+                                {view === 'editCourse' && renderEditCourseForm()}
+                                {view === 'vocabularyList' && renderVocabularyList()}
+                                {view === 'createVocabulary' && renderCreateVocabularyForm()}
+                                {view === 'editVocabulary' && renderEditVocabularyForm()}
+                                {view === 'passageList' && renderPassageList()}
+                                {view === 'createPassage' && renderPassageForm(false)}
+                                {view === 'editPassage' && renderPassageForm(true)}
+                                {view === 'review' && <ReviewGame />}
+                                {view === 'passageStudy' && renderPassageStudy()}
+                            </motion.div>
+                        </AnimatePresence>
                     </div>
                 </div>
             );
