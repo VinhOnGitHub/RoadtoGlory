@@ -4,7 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Web học tiếng Trung của Vinh</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            DEFAULT: '#4f46e5',
+                            100: '#e0e7ff',
+                            700: '#4338ca',
+                            800: '#3730a3',
+                            900: '#312e81',
+                        },
+                    },
+                },
+            },
+        }
+    </script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="icon" href="./assets/img/thumbnail.png" type="image/x-icon" />
     <style>
@@ -180,25 +198,27 @@
 
         // --- Utility components/functions ---
         const LoadingSpinner = () => (
-            <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-indigo-500"></div>
+            <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-primary"></div>
         );
 
         const FullPageLoadingOverlay = ({ message = "Đang tải...", showSpinner = true }) => (
-            <div className="fixed inset-0 bg-white bg-opacity-80 flex flex-col items-center justify-center z-50">
-                {showSpinner && <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-500 mb-4"></div>}
-                <p className="text-lg text-gray-700">{message}</p>
+            <div className="fixed inset-0 bg-white dark:bg-gray-900 bg-opacity-80 dark:bg-opacity-80 flex flex-col items-center justify-center z-50">
+                {showSpinner && <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mb-4"></div>}
+                <p className="text-lg text-gray-700 dark:text-gray-200">{message}</p>
             </div>
         );
 
         const MessageBox = ({ message, type, onClose }) => (
             <div className={`p-4 rounded-lg shadow-md flex items-center justify-between mt-4 ${
-                type === 'success' ? 'bg-green-100 text-green-800' :
-                type === 'error' ? 'bg-red-100 text-red-800' :
-                'bg-blue-100 text-blue-800'
+                type === 'success'
+                    ? 'bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200'
+                    : type === 'error'
+                    ? 'bg-red-100 dark:bg-red-900 text-red-800 dark:text-red-200'
+                    : 'bg-primary-100 text-primary dark:bg-primary-800 dark:text-primary-100'
             }`}>
                 <p>{message}</p>
                 {onClose && (
-                    <button onClick={onClose} className="text-gray-500 hover:text-gray-700 focus:outline-none">
+                    <button onClick={onClose} className="text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 focus:outline-none">
                         <i className="fas fa-times"></i>
                     </button>
                 )}
@@ -2141,16 +2161,16 @@
                         </label>
                     </div>
 
-                    <h2 className="text-3xl font-bold text-gray-800 mb-6 flex justify-between items-center">
+                    <h2 className="text-3xl font-bold text-primary dark:text-primary-100 mb-6 flex justify-between items-center">
                         Danh Sách Khoá Học
                         <div className="space-x-2">
                             <button onClick={() => { setCourseName(''); setView('createCourse'); }}
-                                    className={`bg-indigo-500 text-white text-sm py-2 px-4 rounded-full hover:bg-indigo-600 transition-colors duration-200 shadow-md ${isProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
+                                    className={`bg-primary dark:bg-primary-800 text-white text-sm py-2 px-4 rounded-full hover:bg-primary-700 dark:hover:bg-primary-900 transition-colors duration-200 shadow-md ${isProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
                                     disabled={isProcessing}>
                                 <i className="fas fa-folder-plus mr-1"></i> Tạo Khoá Học
                             </button>
                             <button onClick={() => { setLessonCourseId(courses[0]?.id || ''); setView('createLesson'); }}
-                                    className={`bg-indigo-500 text-white text-sm py-2 px-4 rounded-full hover:bg-indigo-600 transition-colors duration-200 shadow-md ${isProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
+                                    className={`bg-primary dark:bg-primary-800 text-white text-sm py-2 px-4 rounded-full hover:bg-primary-700 dark:hover:bg-primary-900 transition-colors duration-200 shadow-md ${isProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
                                     disabled={isProcessing}>
                                 <i className="fas fa-plus mr-1"></i> Tạo Bài Học
                             </button>
@@ -4022,11 +4042,11 @@
             );
 
             return (
-                <div className="min-h-screen bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 flex items-center justify-center px-4 sm:px-6 py-4">
+                <div className="min-h-screen bg-gradient-to-br from-slate-100 to-slate-300 dark:from-gray-900 dark:to-gray-800 flex items-center justify-center px-4 sm:px-6 py-4">
                     {loading && <FullPageLoadingOverlay message="Đang tải dữ liệu từ bộ nhớ cục bộ..." />}
                     {/* Main Content Container - Increased max-w-4xl for larger UI (was max-w-2xl) */}
                     {/* Dòng gây lỗi đã bị loại bỏ khỏi đây */}
-                    <div className="bg-white bg-opacity-90 backdrop-blur-md py-8 px-4 sm:px-6 rounded-3xl shadow-2xl w-full max-w-screen-lg mx-auto text-left transform transition-all duration-300">
+                    <div className="bg-white dark:bg-gray-900 bg-opacity-90 dark:bg-opacity-90 backdrop-blur-md py-8 px-4 sm:px-6 rounded-3xl shadow-2xl w-full max-w-screen-lg mx-auto text-left transform transition-all duration-300">
                         {renderMessageBox()}
                         {view === 'lessonList' && renderLessonList()}
                         {view === 'createLesson' && renderCreateLessonForm()}
