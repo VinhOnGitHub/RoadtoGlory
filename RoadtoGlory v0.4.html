@@ -7,6 +7,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="icon" href="./assets/img/thumbnail.png" type="image/x-icon" />
+    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
     <style>
         /* Import Inter font from Google Fonts */
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap');
@@ -74,6 +75,10 @@
             max-width: 400px;
             animation: fadeIn 0.3s ease-out;
         }
+        .vocab-tag {
+            background-color: #e6fffa;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
@@ -81,10 +86,37 @@
 
     <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+    <script src="https://unpkg.com/react-quill@2.0.0/dist/react-quill.min.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
     <script type="text/babel">
         const { useState, useEffect, useRef } = React;
+        const ReactQuill = window.ReactQuill.default || window.ReactQuill;
+        const Quill = window.Quill;
+
+        const Inline = Quill.import('blots/inline');
+        class VocabBlot extends Inline {
+            static create(vocabId) {
+                let node = super.create();
+                node.setAttribute('data-vocab-id', vocabId);
+                node.classList.add('vocab-tag');
+                return node;
+            }
+            static formats(node) {
+                return node.getAttribute('data-vocab-id');
+            }
+        }
+        VocabBlot.blotName = 'vocab';
+        VocabBlot.tagName = 'span';
+        Quill.register(VocabBlot);
+
+        const quillModules = {
+            toolbar: [
+                ['bold', 'italic', 'link']
+            ]
+        };
+        const quillFormats = ['bold', 'italic', 'link', 'vocab'];
 
         // Keys for storing data in localStorage and IndexedDB
         const LOCAL_STORAGE_KEY = 'chineseVocabLessons';
@@ -387,6 +419,7 @@
             const [editingPassage, setEditingPassage] = useState(null);
             const [passageTitle, setPassageTitle] = useState('');
             const [passageSentences, setPassageSentences] = useState([{ chinese: '', pinyin: '', vietnamese: '', audioFileBlob: null, audioFileId: null, speaker: '' }]);
+            const passageEditorRefs = useRef([]);
             const [selectedPassage, setSelectedPassage] = useState(null);
             const [passageMode, setPassageMode] = useState('reading');
             const [showPassagePinyin, setShowPassagePinyin] = useState(false);
@@ -1182,8 +1215,10 @@
                     .toLowerCase();
             };
             
+            const stripHtml = (html) => html ? html.replace(/<[^>]*>/g, '') : '';
+
             const normalizeHanTu = (hanTuString) => {
-                return hanTuString.replace(/[^\u4e00-\u9fff\u3400-\u4DBF]/g, ''); 
+                return stripHtml(hanTuString).replace(/[^\u4e00-\u9fff\u3400-\u4DBF]/g, '');
             };
             
             const splitChineseSentence = (sentence) => {
@@ -2924,8 +2959,21 @@
                 );
             };
 
+            const handleTagVocabulary = (index) => {
+                const vocabId = prompt('Nhập ID từ vựng:');
+                if (!vocabId) return;
+                const quill = passageEditorRefs.current[index]?.getEditor();
+                if (quill) {
+                    const range = quill.getSelection();
+                    if (range && range.length > 0) {
+                        quill.format('vocab', vocabId);
+                    }
+                }
+            };
+
             // NEW: Add new empty sentence row
             const handleAddPassageSentence = (speaker = '') => {
+                passageEditorRefs.current.push(null);
                 setPassageSentences(prev => [...prev, { chinese: '', pinyin: '', vietnamese: '', audioFileBlob: null, audioFileId: null, speaker: speaker }]);
             };
 
@@ -2940,6 +2988,7 @@
                     if (sentenceToRemove.audioFileId) {
                         await deleteAudioFile(sentenceToRemove.audioFileId);
                     }
+                    passageEditorRefs.current.splice(index, 1);
                     setPassageSentences(prev => prev.filter((_, i) => i !== index));
                     setMessage({ text: "Câu đã được xóa khỏi bài khóa.", type: "success" });
                 }
@@ -2957,7 +3006,7 @@
                     setMessage({ text: "Tiêu đề bài khóa không được để trống.", type: "error" });
                     return;
                 }
-                const filteredSentences = passageSentences.filter(s => s.chinese.trim());
+                const filteredSentences = passageSentences.filter(s => stripHtml(s.chinese).trim());
                 if (filteredSentences.length === 0) {
                     setMessage({ text: "Bài khóa phải có ít nhất một câu Hán tự.", type: "error" });
                     return;
@@ -2967,14 +3016,14 @@
                 console.log("Starting passage creation process...");
 
                 const processedSentencesPromises = passageSentences.map(async (s) => {
-                    if (!s.chinese.trim()) return null;
+                    if (!stripHtml(s.chinese).trim()) return null;
 
                     let sentenceAudioId = null;
                     if (s.audioFileBlob instanceof File) { 
                         try {
                             sentenceAudioId = await processAndStoreAudio(s.audioFileBlob, s.audioFileId);
                         } catch (e) {
-                            setMessage({ text: `Lỗi lưu file âm thanh cho câu "${s.chinese}": ${e.message}`, type: "error" });
+                            setMessage({ text: `Lỗi lưu file âm thanh cho câu "${stripHtml(s.chinese)}": ${e.message}`, type: "error" });
                             console.error(`Error storing passage sentence audio:`, e);
                             throw e; 
                         }
@@ -3008,6 +3057,7 @@
                 );
                 setMessage({ text: "Bài khóa đã được thêm vào bài học!", type: "success" });
                 setPassageTitle('');
+                passageEditorRefs.current = [];
                 setPassageSentences([{ chinese: '', pinyin: '', vietnamese: '', audioFileBlob: null, audioFileId: null, speaker: '' }]);
                 setView('passageList');
                 setIsProcessing(false);
@@ -3019,6 +3069,7 @@
                 console.log("Entering edit passage mode for:", passage);
                 setEditingPassage(passage);
                 setPassageTitle(passage.title);
+                passageEditorRefs.current = [];
                 const hydratedSentences = passage.sentences.map(s => ({
                     chinese: s.chinese,
                     pinyin: s.pinyin,
@@ -3046,7 +3097,7 @@
                     setMessage({ text: "Tiêu đề bài khóa không được để trống.", type: "error" });
                     return;
                 }
-                const filteredSentences = passageSentences.filter(s => s.chinese.trim());
+                const filteredSentences = passageSentences.filter(s => stripHtml(s.chinese).trim());
                 if (filteredSentences.length === 0) {
                     setMessage({ text: "Bài khóa phải có ít nhất một câu Hán tự.", type: "error" });
                     return;
@@ -3056,7 +3107,7 @@
                 console.log("Starting passage update process for:", editingPassage.id);
 
                 const processedSentencesPromises = passageSentences.map(async (s, index) => {
-                    if (!s.chinese.trim()) { 
+                    if (!stripHtml(s.chinese).trim()) {
                         const oldSentenceAudioId = editingPassage.sentences?.[index]?.audioFile || null;
                         if (oldSentenceAudioId) {
                             await deleteAudioFile(oldSentenceAudioId);
@@ -3071,7 +3122,7 @@
                         try {
                             sentenceAudioId = await processAndStoreAudio(s.audioFileBlob, oldSentenceAudioId);
                         } catch (e) {
-                            setMessage({ text: `Lỗi xử lý file âm thanh cho câu "${s.chinese}": ${e.message}`, type: "error" });
+                            setMessage({ text: `Lỗi xử lý file âm thanh cho câu "${stripHtml(s.chinese)}": ${e.message}`, type: "error" });
                             console.error(`Error during passage sentence audio update:`, e);
                             throw e;
                         }
@@ -3113,6 +3164,7 @@
                 );
                 setMessage({ text: "Bài khóa đã được cập nhật thành công!", type: "success" });
                 setPassageTitle('');
+                passageEditorRefs.current = [];
                 setPassageSentences([{ chinese: '', pinyin: '', vietnamese: '', audioFileBlob: null, audioFileId: null, speaker: '' }]);
                 setEditingPassage(null);
                 setView('passageList');
@@ -3171,7 +3223,7 @@
             // NEW: Play Passage Sentence Audio (now uses speakText)
             const speakSentence = async (sentence) => {
                 if (!sentence || !sentence.chinese) return;
-                speakText(sentence.chinese, sentence.audioFile, passagePlaybackRate);
+                speakText(stripHtml(sentence.chinese), sentence.audioFile, passagePlaybackRate);
             };
             
             // NEW: Function to play entire passage sequentially (now uses speakText)
@@ -3191,8 +3243,8 @@
                     }
 
                     const sentence = selectedPassage.sentences[currentPassageAudioIndex.current];
-                    
-                    speakText(sentence.chinese, sentence.audioFile, passagePlaybackRate, () => {
+
+                    speakText(stripHtml(sentence.chinese), sentence.audioFile, passagePlaybackRate, () => {
                         currentPassageAudioIndex.current++;
                         playNextSentenceInPassage();
                     });
@@ -3209,55 +3261,23 @@
             };
 
 
-            // NEW: Handle click for word pop-up (Reading Mode) - ADVANCED MATCHING
-            const handleWordClickInPassage = (event, sentenceText) => {
+            // NEW: Handle click for word pop-up (Reading Mode) using tagged vocab spans
+            const handleWordClickInPassage = (event) => {
                 stopSpeaking();
                 setPopupWord(null);
                 if (popupRef.current) popupRef.current.style.display = 'none';
 
-                const clickedElement = event.target;
-                if (!clickedElement.classList.contains('hanzi-char-span')) return;
-
-                const textContentBefore = Array.from(clickedElement.parentNode.childNodes)
-                                            .slice(0, Array.from(clickedElement.parentNode.childNodes).indexOf(clickedElement))
-                                            .map(node => node.textContent)
-                                            .join('');
-                const clickedCharIndexInSentence = textContentBefore.length;
-
-                let bestMatch = null;
-                const MAX_WORD_LEN = 4; 
-
-                for (let len = MAX_WORD_LEN; len >= 1; len--) {
-                    for (let startOffset = 0; startOffset < len; startOffset++) {
-                        const wordStart = clickedCharIndexInSentence - startOffset;
-                        if (wordStart < 0) continue; 
-
-                        const wordEnd = wordStart + len;
-                        if (wordEnd > sentenceText.length) continue; 
-
-                        const potentialWordHanTu = sentenceText.substring(wordStart, wordEnd);
-                        if (!potentialWordHanTu.match(/^[\u4e00-\u9fff\u3400-\u4DBF]+$/)) continue; 
-
-                        const foundVocab = allVocabularies.find(vocab => 
-                            normalizeHanTu(vocab.hanTu) === normalizeHanTu(potentialWordHanTu)
-                        );
-
-                        if (foundVocab) {
-                            bestMatch = foundVocab;
-                            break;
-                        }
-                    }
-                    if (bestMatch) break;
-                }
-
+                const target = event.target.closest('.vocab-tag');
+                if (!target) return;
+                const vocabId = target.getAttribute('data-vocab-id');
+                const bestMatch = allVocabularies.find(vocab => vocab.id === vocabId);
 
                 if (bestMatch) {
                     setPopupWord(bestMatch);
-                    console.log("Found best match for popup:", bestMatch);
                     if (popupRef.current) {
                         const { clientX, clientY } = event;
-                        const popupWidth = 300; 
-                        const popupHeight = 250; 
+                        const popupWidth = 300;
+                        const popupHeight = 250;
 
                         const mainContent = document.querySelector('.max-w-7xl');
                         const mainContentRect = mainContent ? mainContent.getBoundingClientRect() : { left: 0, top: 0, right: window.innerWidth, bottom: window.innerHeight };
@@ -3279,15 +3299,10 @@
                         }
                         if (left < mainContentRect.left) left = mainContentRect.left + 10;
                         if (top < mainContentRect.top) top = mainContentRect.top + 10;
-                        
+
                         popupRef.current.style.left = `${left}px`;
                         popupRef.current.style.top = `${top}px`;
                         popupRef.current.style.display = 'block';
-                    }
-                } else {
-                    setPopupWord(null);
-                    if (popupRef.current) {
-                        popupRef.current.style.display = 'none';
                     }
                 }
             };
@@ -3324,7 +3339,7 @@
                 if (!selectedPassage || !selectedPassage.sentences || selectedPassage.sentences.length === 0) return;
 
                 const sentence = selectedPassage.sentences[currentSentenceIndex];
-                const hanTuChars = sentence.chinese.split(''); 
+                const hanTuChars = stripHtml(sentence.chinese).split('');
                 
                 const eligibleIndices = hanTuChars
                                         .map((char, idx) => ({ char, idx }))
@@ -3402,7 +3417,7 @@
                     await speakSentence(selectedPassage.sentences[currentSentenceIndex]);
                 } else {
                     setIsCorrect(false);
-                    setMessage({ text: `Sai rồi! Đáp án đúng là: "${selectedPassage.sentences[currentSentenceIndex].chinese}"`, type: "error" });
+                    setMessage({ text: `Sai rồi! Đáp án đúng là: "${stripHtml(selectedPassage.sentences[currentSentenceIndex].chinese)}"`, type: "error" });
                     setShaking(true);
                     setTimeout(() => setShaking(false), 500);
                 }
@@ -3498,21 +3513,34 @@
                                 </div>
                                 <div>
                                     <label className="block text-sm font-medium text-gray-700">Câu {index + 1} (Hán tự):</label>
-                                    <input type="text" value={sentence.chinese} onChange={(e) => handlePassageSentenceChange(index, 'chinese', e.target.value)}
-                                           className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
-                                           disabled={isProcessing} />
+                                    <ReactQuill ref={el => passageEditorRefs.current[index] = el}
+                                                theme="snow"
+                                                value={sentence.chinese}
+                                                onChange={(content) => handlePassageSentenceChange(index, 'chinese', content)}
+                                                modules={quillModules}
+                                                formats={quillFormats}
+                                                readOnly={isProcessing} />
+                                    <button type="button" onClick={() => handleTagVocabulary(index)}
+                                            className="mt-2 bg-yellow-100 text-yellow-800 py-1 px-2 rounded hover:bg-yellow-200 text-sm"
+                                            disabled={isProcessing}>Gắn ID từ vựng</button>
                                 </div>
                                 <div>
                                     <label className="block text-sm font-medium text-gray-700">Bính âm:</label>
-                                    <input type="text" value={sentence.pinyin} onChange={(e) => handlePassageSentenceChange(index, 'pinyin', e.target.value)}
-                                           className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
-                                           disabled={isProcessing} />
+                                    <ReactQuill theme="snow"
+                                                value={sentence.pinyin}
+                                                onChange={(content) => handlePassageSentenceChange(index, 'pinyin', content)}
+                                                modules={quillModules}
+                                                formats={quillFormats}
+                                                readOnly={isProcessing} />
                                 </div>
                                 <div className="col-span-2">
                                     <label className="block text-sm font-medium text-gray-700">Nghĩa tiếng Việt:</label>
-                                    <input type="text" value={sentence.vietnamese} onChange={(e) => handlePassageSentenceChange(index, 'vietnamese', e.target.value)}
-                                           className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
-                                           disabled={isProcessing} />
+                                    <ReactQuill theme="snow"
+                                                value={sentence.vietnamese}
+                                                onChange={(content) => handlePassageSentenceChange(index, 'vietnamese', content)}
+                                                modules={quillModules}
+                                                formats={quillFormats}
+                                                readOnly={isProcessing} />
                                 </div>
                                 <div className="col-span-2">
                                     <label className="block text-sm font-medium text-gray-700">File âm thanh câu (MP3):</label>
@@ -3747,17 +3775,10 @@
                                             </button>
                                             <div className="flex-grow">
                                                 {sentence.speaker && <span className="font-bold mr-2 text-gray-700">{sentence.speaker}：</span>}
-                                                <span className="passage-sentence-text">
-                                                    {sentence.chinese.split('').map((char, index) => (
-                                                        <span key={`${sIdx}-${index}`}
-                                                              onClick={(e) => handleWordClickInPassage(e, sentence.chinese)}
-                                                              className="hanzi-char-span inline-block cursor-pointer hover:bg-blue-100 rounded-sm px-1 py-0.5 transition-colors duration-100">
-                                                            {char}
-                                                        </span>
-                                                    ))}
-                                                </span>
-                                                {showPassagePinyin && <p className="text-indigo-600 text-lg mt-1">{sentence.pinyin}</p>}
-                                                {showPassageMeaning && <p className="text-gray-700 text-lg mt-1">{sentence.vietnamese}</p>}
+                                                <div className="passage-sentence-text" onClick={handleWordClickInPassage}
+                                                     dangerouslySetInnerHTML={{__html: sentence.chinese}}></div>
+                                                {showPassagePinyin && <p className="text-indigo-600 text-lg mt-1" dangerouslySetInnerHTML={{__html: sentence.pinyin}}></p>}
+                                                {showPassageMeaning && <p className="text-gray-700 text-lg mt-1" dangerouslySetInnerHTML={{__html: sentence.vietnamese}}></p>}
                                             </div>
                                         </div>
                                     ))}
@@ -3802,7 +3823,7 @@
                                     )}
                                     {isCorrect !== null && (
                                         <p className={`mt-2 font-bold ${isCorrect ? 'text-green-600' : 'text-red-600'}`}>
-                                            {isCorrect ? 'Chính xác!' : `Sai! Đáp án đúng: ${currentSentence.chinese}`}
+                                            {isCorrect ? 'Chính xác!' : `Sai! Đáp án đúng: ${stripHtml(currentSentence.chinese)}`}
                                         </p>
                                     )}
                                 </div>
@@ -3831,7 +3852,7 @@
                                     )}
                                     {isCorrect !== null && (
                                         <p className={`mt-2 font-bold ${isCorrect ? 'text-green-600' : 'text-red-600'}`}>
-                                            {isCorrect ? 'Chính xác!' : `Sai! Đáp án đúng: ${currentSentence.chinese}`}
+                                            {isCorrect ? 'Chính xác!' : `Sai! Đáp án đúng: ${stripHtml(currentSentence.chinese)}`}
                                         </p>
                                     )}
                                 </div>
