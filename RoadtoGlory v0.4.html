@@ -219,6 +219,57 @@
             return null;
         };
 
+        const initializeVocabScheduling = (vocab) => {
+            const vocabCreatedAtDate = safeParseDate(vocab.createdAt);
+            const vocabUpdatedAtDate = safeParseDate(vocab.updatedAt);
+            const nextReview = safeParseDate(vocab.nextReviewDate);
+            return {
+                ...vocab,
+                createdAt: vocabCreatedAtDate || new Date(),
+                ...(vocabUpdatedAtDate && { updatedAt: vocabUpdatedAtDate }),
+                wrongAttempts: vocab.wrongAttempts || 0,
+                correctStreak: vocab.correctStreak || 0,
+                hanVietMeaning: vocab.hanVietMeaning || '',
+                interval: vocab.interval || 0,
+                eFactor: vocab.eFactor || 2.5,
+                nextReviewDate: nextReview || new Date()
+            };
+        };
+
+        const isDueForReview = (vocab) => {
+            const reviewDate = safeParseDate(vocab.nextReviewDate);
+            return !reviewDate || reviewDate <= new Date();
+        };
+
+        const applySM2 = (vocab, wasCorrect) => {
+            const quality = wasCorrect ? 5 : 2;
+            let eFactor = vocab.eFactor ?? 2.5;
+            let interval = vocab.interval ?? 0;
+            let correctStreak = wasCorrect ? (vocab.correctStreak || 0) + 1 : 0;
+            let wrongAttempts = wasCorrect
+                ? (correctStreak >= CORRECT_STREAK_TO_GRADUATE ? 0 : vocab.wrongAttempts || 0)
+                : (vocab.wrongAttempts || 0) + 1;
+
+            eFactor = eFactor + (0.1 - (5 - quality) * (0.08 + (5 - quality) * 0.02));
+            if (eFactor < 1.3) eFactor = 1.3;
+
+            if (quality < 3) {
+                interval = 1;
+                correctStreak = 0;
+            } else if (correctStreak === 1) {
+                interval = 1;
+            } else if (correctStreak === 2) {
+                interval = 6;
+            } else {
+                interval = Math.round(interval * eFactor);
+            }
+
+            const nextReviewDate = new Date();
+            nextReviewDate.setDate(nextReviewDate.getDate() + interval);
+
+            return { ...vocab, correctStreak, wrongAttempts, interval, eFactor, nextReviewDate };
+        };
+
         // --- Global Audio Control ---
         let currentAudioInstance = null;
         let currentUtteranceInstance = null;
@@ -396,11 +447,22 @@
             const popupRef = useRef(null);
 
             // Passage playback rate state
-            const [passagePlaybackRate, setPassagePlaybackRate] = useState(1); 
+            const [passagePlaybackRate, setPassagePlaybackRate] = useState(1);
 
             // Ref for controlling full passage playback
             const isPlayingAllPassage = useRef(false);
             const currentPassageAudioIndex = useRef(0);
+
+            const processAnswerResult = (vocabId, wasCorrect) => {
+                setLessons(prevLessons =>
+                    prevLessons.map(lesson => ({
+                        ...lesson,
+                        vocabularies: lesson.vocabularies.map(vocab =>
+                            vocab.id === vocabId ? applySM2(vocab, wasCorrect) : vocab
+                        )
+                    }))
+                );
+            };
 
             // NEW: useEffect for keyboard controls in Review Game
             useEffect(() => {
@@ -490,18 +552,7 @@
                                 ...lesson,
                                 createdAt: createdAtDate || new Date(),
                                 ...(updatedAtDate && { updatedAt: updatedAtDate }),
-                                vocabularies: (lesson.vocabularies || []).map(vocab => {
-                                    const vocabCreatedAtDate = safeParseDate(vocab.createdAt);
-                                    const vocabUpdatedAtDate = safeParseDate(vocab.updatedAt);
-                                    return {
-                                        ...vocab,
-                                        createdAt: vocabCreatedAtDate || new Date(),
-                                        ...(vocabUpdatedAtDate && { updatedAt: vocabUpdatedAtDate }),
-                                        wrongAttempts: vocab.wrongAttempts || 0,
-                                        correctStreak: vocab.correctStreak || 0,
-                                        hanVietMeaning: vocab.hanVietMeaning || '' // Hydrate new field
-                                    };
-                                }),
+                                vocabularies: (lesson.vocabularies || []).map(initializeVocabScheduling),
                                 passages: (lesson.passages || []).map(passage => {
                                     return {
                                         ...passage,
@@ -573,7 +624,10 @@
                                 })),
                                 wrongAttempts: vocab.wrongAttempts || 0,
                                 correctStreak: vocab.correctStreak || 0,
-                                hanVietMeaning: vocab.hanVietMeaning || '' // Save new field
+                                hanVietMeaning: vocab.hanVietMeaning || '',
+                                interval: vocab.interval || 0,
+                                eFactor: vocab.eFactor || 2.5,
+                                nextReviewDate: (vocab.nextReviewDate instanceof Date) ? vocab.nextReviewDate.toISOString() : new Date().toISOString()
                             })),
                             passages: (lesson.passages || []).map(passage => ({
                                 ...passage,
@@ -966,7 +1020,10 @@
                     examples: processedExamples.filter(ex => ex.chinese || ex.vietnamese),
                     createdAt: new Date(),
                     wrongAttempts: 0,
-                    correctStreak: 0
+                    correctStreak: 0,
+                    interval: 0,
+                    eFactor: 2.5,
+                    nextReviewDate: new Date()
                 };
 
                 setLessons(prevLessons =>
@@ -1392,16 +1449,16 @@
 
                 let vocabForReview = [];
                 if (isDifficult) {
-                    vocabForReview = allVocabularies.filter(vocab => vocab.wrongAttempts && vocab.wrongAttempts >= 2);
+                    vocabForReview = allVocabularies.filter(vocab => vocab.wrongAttempts && vocab.wrongAttempts >= 2 && isDueForReview(vocab));
                     if (vocabForReview.length === 0) {
                         setMessage({ text: "Chưa có từ vựng khó nào để ôn tập. Hãy thử làm sai một vài lần!", type: "info" });
                         setShowReviewLimitModal({ isVisible: false, isDifficult: false });
                         return;
                     }
                 } else if (reviewMode === 'allLessons') {
-                    vocabForReview = allVocabularies;
+                    vocabForReview = allVocabularies.filter(isDueForReview);
                 } else if (reviewMode === 'singleLesson' && selectedLesson) {
-                    vocabForReview = allVocabularies.filter(v => v.lessonId === selectedLesson.id);
+                    vocabForReview = allVocabularies.filter(v => v.lessonId === selectedLesson.id && isDueForReview(v));
                 }
 
                 const validVocabForReview = vocabForReview.filter(vocab => 
@@ -1454,22 +1511,7 @@
                     setIsCorrect(true);
                     setScore(prev => prev + 1);
                     const vocabId = question.vocab.id;
-                    setLessons(prevLessons => 
-                        prevLessons.map(lesson => ({
-                            ...lesson,
-                            vocabularies: lesson.vocabularies.map(vocab => {
-                                if (vocab.id === vocabId) {
-                                    const newCorrectStreak = (vocab.correctStreak || 0) + 1;
-                                    return { 
-                                        ...vocab, 
-                                        correctStreak: newCorrectStreak,
-                                        wrongAttempts: newCorrectStreak >= CORRECT_STREAK_TO_GRADUATE ? 0 : vocab.wrongAttempts
-                                    };
-                                }
-                                return vocab;
-                            })
-                        }))
-                    );
+                    processAnswerResult(vocabId, true);
                     playQuestionAudio(question);
                     console.log("Answer correct. Score:", score + 1);
                 } else {
@@ -1477,18 +1519,7 @@
                     setShaking(true);
                     console.log("Answer incorrect.");
                     const vocabId = question.vocab.id;
-                    setLessons(prevLessons => 
-                        prevLessons.map(lesson => ({
-                            ...lesson,
-                            vocabularies: lesson.vocabularies.map(vocab => 
-                                vocab.id === vocabId ? { 
-                                    ...vocab, 
-                                    wrongAttempts: (vocab.wrongAttempts || 0) + 1,
-                                    correctStreak: 0
-                                } : vocab
-                            )
-                        }))
-                    );
+                    processAnswerResult(vocabId, false);
                 }
             };
             
@@ -1503,22 +1534,7 @@
                     setIsCorrect(true);
                     setScore(prev => prev + 1);
                     const vocabId = question.vocab.id;
-                    setLessons(prevLessons => 
-                        prevLessons.map(lesson => ({
-                            ...lesson,
-                            vocabularies: lesson.vocabularies.map(vocab => {
-                                if (vocab.id === vocabId) {
-                                    const newCorrectStreak = (vocab.correctStreak || 0) + 1;
-                                    return { 
-                                        ...vocab, 
-                                        correctStreak: newCorrectStreak,
-                                        wrongAttempts: newCorrectStreak >= CORRECT_STREAK_TO_GRADUATE ? 0 : vocab.wrongAttempts
-                                    };
-                                }
-                                return vocab;
-                            })
-                        }))
-                    );
+                    processAnswerResult(vocabId, true);
                     playQuestionAudio(question);
                     console.log("Pinyin answer correct. Score:", score + 1);
                 } else {
@@ -1526,18 +1542,7 @@
                     setShaking(true);
                     console.log("Pinyin answer incorrect.");
                     const vocabId = question.vocab.id;
-                    setLessons(prevLessons => 
-                        prevLessons.map(lesson => ({
-                            ...lesson,
-                            vocabularies: lesson.vocabularies.map(vocab => 
-                                vocab.id === vocabId ? { 
-                                    ...vocab, 
-                                    wrongAttempts: (vocab.wrongAttempts || 0) + 1,
-                                    correctStreak: 0
-                                } : vocab
-                            )
-                        }))
-                    );
+                    processAnswerResult(vocabId, false);
                 }
             };
 
@@ -1552,22 +1557,7 @@
                     setIsCorrect(true);
                     setScore(prev => prev + 1);
                     const vocabId = question.vocab.id;
-                    setLessons(prevLessons => 
-                        prevLessons.map(lesson => ({
-                            ...lesson,
-                            vocabularies: lesson.vocabularies.map(vocab => {
-                                if (vocab.id === vocabId) {
-                                    const newCorrectStreak = (vocab.correctStreak || 0) + 1;
-                                    return { 
-                                        ...vocab, 
-                                        correctStreak: newCorrectStreak,
-                                        wrongAttempts: newCorrectStreak >= CORRECT_STREAK_TO_GRADUATE ? 0 : vocab.wrongAttempts
-                                    };
-                                }
-                                return vocab;
-                            })
-                        }))
-                    );
+                    processAnswerResult(vocabId, true);
                     playQuestionAudio(question);
                     console.log("HanTu answer correct. Score:", score + 1);
                 } else {
@@ -1575,18 +1565,7 @@
                     setShaking(true);
                     console.log("HanTu answer incorrect.");
                     const vocabId = question.vocab.id;
-                    setLessons(prevLessons => 
-                        prevLessons.map(lesson => ({
-                            ...lesson,
-                            vocabularies: lesson.vocabularies.map(vocab => 
-                                vocab.id === vocabId ? { 
-                                    ...vocab, 
-                                    wrongAttempts: (vocab.wrongAttempts || 0) + 1,
-                                    correctStreak: 0
-                                } : vocab
-                            )
-                        }))
-                    );
+                    processAnswerResult(vocabId, false);
                 }
             };
 
@@ -1611,38 +1590,12 @@
                     setRearrangeIsAnswered(true);
                     playQuestionAudio(question);
                     const vocabId = question.vocab.id;
-                    setLessons(prevLessons => 
-                        prevLessons.map(lesson => ({
-                            ...lesson,
-                            vocabularies: lesson.vocabularies.map(vocab => {
-                                if (vocab.id === vocabId) {
-                                    const newCorrectStreak = (vocab.correctStreak || 0) + 1;
-                                    return { 
-                                        ...vocab, 
-                                        correctStreak: newCorrectStreak,
-                                        wrongAttempts: newCorrectStreak >= CORRECT_STREAK_TO_GRADUATE ? 0 : vocab.wrongAttempts
-                                    };
-                                }
-                                return vocab;
-                            })
-                        }))
-                    );
+                    processAnswerResult(vocabId, true);
                 } else {
                     setIsCorrect(false);
                     setShaking(true);
                     const vocabId = question.vocab.id;
-                    setLessons(prevLessons => 
-                        prevLessons.map(lesson => ({
-                            ...lesson,
-                            vocabularies: lesson.vocabularies.map(vocab => 
-                                vocab.id === vocabId ? { 
-                                    ...vocab, 
-                                    wrongAttempts: (vocab.wrongAttempts || 0) + 1,
-                                    correctStreak: 0
-                                } : vocab
-                            )
-                        }))
-                    );
+                    processAnswerResult(vocabId, false);
                 }
             };
 
@@ -1657,21 +1610,10 @@
                 setRearrangeIsAnswered(true);
                 setIsCorrect(false);
                 setSelectedWords(question.correctSequence);
-                setScrambledWords(prev => prev.map(wordObj => ({ ...wordObj, isUsed: true }))); 
+                setScrambledWords(prev => prev.map(wordObj => ({ ...wordObj, isUsed: true })));
                 playQuestionAudio(question);
                 const vocabId = question.vocab.id;
-                setLessons(prevLessons => 
-                    prevLessons.map(lesson => ({
-                        ...lesson,
-                        vocabularies: lesson.vocabularies.map(vocab => 
-                            vocab.id === vocabId ? { 
-                                ...vocab, 
-                                wrongAttempts: (vocab.wrongAttempts || 0) + 1,
-                                correctStreak: 0
-                            } : vocab
-                        )
-                    }))
-                );
+                processAnswerResult(vocabId, false);
             };
 
 
@@ -1731,7 +1673,10 @@
                                 examples: await Promise.all(serializableExamplesPromises),
                                 wrongAttempts: vocab.wrongAttempts || 0,
                                 correctStreak: vocab.correctStreak || 0,
-                                hanVietMeaning: vocab.hanVietMeaning || ''
+                                hanVietMeaning: vocab.hanVietMeaning || '',
+                                interval: vocab.interval || 0,
+                                eFactor: vocab.eFactor || 2.5,
+                                nextReviewDate: (vocab.nextReviewDate instanceof Date) ? vocab.nextReviewDate.toISOString() : new Date().toISOString()
                             };
                         })),
                         passages: await Promise.all((lesson.passages || []).map(async passage => ({
@@ -1867,15 +1812,18 @@
                                         }
                                         const vocabCreatedAt = safeParseDate(vocabData.createdAt) || new Date();
                                         const vocabUpdatedAt = safeParseDate(vocabData.updatedAt);
-                                        newVocabularies.push({ 
-                                            ...vocabData, 
-                                            audioFile: vocabAudioId, 
+                                        newVocabularies.push({
+                                            ...vocabData,
+                                            audioFile: vocabAudioId,
                                             examples: newExamples,
                                             createdAt: vocabCreatedAt,
                                             ...(vocabUpdatedAt && { updatedAt: vocabUpdatedAt }),
                                             wrongAttempts: vocabData.wrongAttempts || 0,
                                             correctStreak: vocabData.correctStreak || 0,
-                                            hanVietMeaning: vocabData.hanVietMeaning || ''
+                                            hanVietMeaning: vocabData.hanVietMeaning || '',
+                                            interval: vocabData.interval || 0,
+                                            eFactor: vocabData.eFactor || 2.5,
+                                            nextReviewDate: safeParseDate(vocabData.nextReviewDate) || new Date()
                                         });
                                     }
                                     const newPassages = [];
@@ -2019,7 +1967,10 @@
                                     examples: examples,
                                     createdAt: new Date(),
                                     wrongAttempts: 0,
-                                    correctStreak: 0
+                                    correctStreak: 0,
+                                    interval: 0,
+                                    eFactor: 2.5,
+                                    nextReviewDate: new Date()
                                 });
                             }
                         });
@@ -2226,17 +2177,17 @@
                     </h2>
 
                     <button onClick={() => promptForReviewLimit('allLessons')}
-                            className={`w-full bg-green-600 text-white py-3 px-4 rounded-xl hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition-all duration-200 shadow-md mb-6 ${allVocabularies.filter(v => v.meaning || v.pinyin || (v.examples && v.examples.some(ex => ex.chinese && ex.vietnamese && splitChineseSentence(ex.chinese).length > 1))).length === 0 || isProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
-                            disabled={allVocabularies.filter(v => v.meaning || v.pinyin || (v.examples && v.examples.some(ex => ex.chinese && ex.vietnamese && splitChineseSentence(ex.chinese).length > 1))).length === 0 || isProcessing}>
+                            className={`w-full bg-green-600 text-white py-3 px-4 rounded-xl hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition-all duration-200 shadow-md mb-6 ${allVocabularies.filter(v => isDueForReview(v) && (v.meaning || v.pinyin || (v.examples && v.examples.some(ex => ex.chinese && ex.vietnamese && splitChineseSentence(ex.chinese).length > 1)))).length === 0 || isProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
+                            disabled={allVocabularies.filter(v => isDueForReview(v) && (v.meaning || v.pinyin || (v.examples && v.examples.some(ex => ex.chinese && ex.vietnamese && splitChineseSentence(ex.chinese).length > 1)))).length === 0 || isProcessing}>
                         {isProcessing ? <LoadingSpinner /> : <i className="fas fa-play mr-2"></i>}
                         Ôn Tập Tất Cả Từ Vựng
                     </button>
 
                     <button onClick={() => promptForReviewLimit('difficultWords', null, true)}
-                            className={`w-full bg-red-600 text-white py-3 px-4 rounded-xl hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition-all duration-200 shadow-md mb-6 ${allVocabularies.filter(v => v.wrongAttempts >= 2).length === 0 || isProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
-                            disabled={allVocabularies.filter(v => v.wrongAttempts >= 2).length === 0 || isProcessing}>
+                            className={`w-full bg-red-600 text-white py-3 px-4 rounded-xl hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition-all duration-200 shadow-md mb-6 ${allVocabularies.filter(v => v.wrongAttempts >= 2 && isDueForReview(v)).length === 0 || isProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
+                            disabled={allVocabularies.filter(v => v.wrongAttempts >= 2 && isDueForReview(v)).length === 0 || isProcessing}>
                         {isProcessing ? <LoadingSpinner /> : <i className="fas fa-exclamation-triangle mr-2"></i>}
-                        Ôn Tập Từ Khó ({allVocabularies.filter(v => v.wrongAttempts >= 2).length})
+                        Ôn Tập Từ Khó ({allVocabularies.filter(v => v.wrongAttempts >= 2 && isDueForReview(v)).length})
                     </button>
 
                     {error ? (
@@ -2335,10 +2286,10 @@
                                                                     </button>
                                                                     <button onClick={() => promptForReviewLimit('singleLesson', lesson)}
                                                                             className={`bg-green-500 text-white text-xs p-2 rounded-full hover:bg-green-600 transition-colors duration-200 ${
-                                                                                (lessons.find(l => l.id === lesson.id)?.vocabularies?.filter(v => v.meaning || v.pinyin || (v.examples && v.examples.some(ex => ex.chinese && ex.vietnamese && splitChineseSentence(ex.chinese).length > 1)))?.length || 0) === 0 || isProcessing ? 'opacity-50 cursor-not-allowed' : ''
+                                                                                (lessons.find(l => l.id === lesson.id)?.vocabularies?.filter(v => isDueForReview(v) && (v.meaning || v.pinyin || (v.examples && v.examples.some(ex => ex.chinese && ex.vietnamese && splitChineseSentence(ex.chinese).length > 1))))?.length || 0) === 0 || isProcessing ? 'opacity-50 cursor-not-allowed' : ''
                                                                             }`}
                                                                             title="Ôn Tập Bài Học Này"
-                                                                            disabled={(lessons.find(l => l.id === lesson.id)?.vocabularies?.filter(v => v.meaning || v.pinyin || (v.examples && v.examples.some(ex => ex.chinese && ex.vietnamese && splitChineseSentence(ex.chinese).length > 1)))?.length || 0) === 0 || isProcessing}>
+                                                                            disabled={(lessons.find(l => l.id === lesson.id)?.vocabularies?.filter(v => isDueForReview(v) && (v.meaning || v.pinyin || (v.examples && v.examples.some(ex => ex.chinese && ex.vietnamese && splitChineseSentence(ex.chinese).length > 1))))?.length || 0) === 0 || isProcessing}>
                                                                         {isProcessing ? <LoadingSpinner /> : <i className="fas fa-book-open"></i>}
                                                                     </button>
                                                                     <button onClick={() => handleDeleteLesson(lesson.id)}
@@ -2482,8 +2433,8 @@
                         </button>
                     </h2>
                     <button onClick={() => promptForReviewLimit('singleLesson', selectedLesson)}
-                            className={`w-full bg-green-600 text-white py-3 px-4 rounded-xl hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition-all duration-200 shadow-md mb-6 ${vocabularies.filter(v => v.meaning || v.pinyin || (v.examples && v.examples.some(ex => ex.chinese && ex.vietnamese && splitChineseSentence(ex.chinese).length > 1))).length === 0 || isProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
-                            disabled={vocabularies.filter(v => v.meaning || v.pinyin || (v.examples && v.examples.some(ex => ex.chinese && ex.vietnamese && splitChineseSentence(ex.chinese).length > 1))).length === 0 || isProcessing}>
+                            className={`w-full bg-green-600 text-white py-3 px-4 rounded-xl hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition-all duration-200 shadow-md mb-6 ${vocabularies.filter(v => isDueForReview(v) && (v.meaning || v.pinyin || (v.examples && v.examples.some(ex => ex.chinese && ex.vietnamese && splitChineseSentence(ex.chinese).length > 1)))).length === 0 || isProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
+                            disabled={vocabularies.filter(v => isDueForReview(v) && (v.meaning || v.pinyin || (v.examples && v.examples.some(ex => ex.chinese && ex.vietnamese && splitChineseSentence(ex.chinese).length > 1)))).length === 0 || isProcessing}>
                         {isProcessing ? <LoadingSpinner /> : <i className="fas fa-play mr-2"></i>}
                         Ôn Tập Từ Vựng Bài Này
                     </button>
