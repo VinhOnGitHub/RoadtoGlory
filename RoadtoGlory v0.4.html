@@ -327,6 +327,8 @@
             const [selectedLesson, setSelectedLesson] = useState(null);
             const [allVocabularies, setAllVocabularies] = useState([]);
             const [isProcessing, setIsProcessing] = useState(false);
+            const [showSettings, setShowSettings] = useState(false);
+            const settingsRef = useRef(null);
 
             // Form states for creating/editing a lesson
             const [lessonName, setLessonName] = useState('');
@@ -401,6 +403,20 @@
             // Ref for controlling full passage playback
             const isPlayingAllPassage = useRef(false);
             const currentPassageAudioIndex = useRef(0);
+
+            useEffect(() => {
+                const handleClickOutside = (event) => {
+                    if (settingsRef.current && !settingsRef.current.contains(event.target)) {
+                        setShowSettings(false);
+                    }
+                };
+                if (showSettings) {
+                    document.addEventListener('mousedown', handleClickOutside);
+                }
+                return () => {
+                    document.removeEventListener('mousedown', handleClickOutside);
+                };
+            }, [showSettings]);
 
             // NEW: useEffect for keyboard controls in Review Game
             useEffect(() => {
@@ -2161,8 +2177,53 @@
 
 
             const renderLessonList = () => (
-                <>
+                <div className="relative">
                     {loading && <FullPageLoadingOverlay message="Đang tải dữ liệu từ bộ nhớ cục bộ..." />}
+
+                    <button
+                        onClick={() => setShowSettings(!showSettings)}
+                        className={`absolute top-4 right-4 text-gray-600 hover:text-gray-800 transition-colors ${isProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
+                        disabled={isProcessing}
+                    >
+                        {isProcessing ? <LoadingSpinner /> : <i className="fas fa-cog text-2xl"></i>}
+                    </button>
+
+                    {showSettings && (
+                        <div ref={settingsRef} className="absolute top-14 right-4 bg-white border border-gray-200 rounded-md shadow-lg z-50">
+                            <button
+                                onClick={() => { setShowSettings(false); handleExportData(); }}
+                                className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100"
+                                disabled={isProcessing}
+                            >
+                                Xuất Dữ Liệu (Backup)
+                            </button>
+                            <label
+                                className={`block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer ${isProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
+                            >
+                                Nhập Dữ Liệu (Restore)
+                                <input
+                                    type="file"
+                                    accept="application/json"
+                                    onChange={(e) => { handleImportData(e); setShowSettings(false); e.target.value = ''; }}
+                                    className="hidden"
+                                    disabled={isProcessing}
+                                />
+                            </label>
+                            <label
+                                className={`block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer ${isProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
+                            >
+                                Nhập từ HTML
+                                <input
+                                    type="file"
+                                    accept="text/html"
+                                    onChange={(e) => { handleImportFromHtmlFile(e); setShowSettings(false); e.target.value = ''; }}
+                                    className="hidden"
+                                    disabled={isProcessing}
+                                />
+                            </label>
+                        </div>
+                    )}
+
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
                         <div className="bg-blue-50 p-4 rounded-xl shadow-sm border border-blue-200 text-center">
                             <h3 className="text-lg font-bold text-blue-800 mb-2">Mục Tiêu Học Tập</h3>
@@ -2187,26 +2248,6 @@
                                 {isProcessing ? <LoadingSpinner /> : <i className="fas fa-check-circle mr-2"></i>} Điểm Danh Hôm Nay
                             </button>
                         </div>
-                    </div>
-
-                    <div className="flex space-x-4 mb-6">
-                        <button onClick={handleExportData}
-                                className={`flex-1 bg-gray-600 text-white py-3 px-4 rounded-xl hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-all duration-200 shadow-md ${isProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
-                                disabled={isProcessing}>
-                            {isProcessing ? <LoadingSpinner /> : <i className="fas fa-file-export mr-2"></i>} Xuất Dữ Liệu (Backup)
-                        </button>
-                        <label htmlFor="import-file-input"
-                               className={`flex-1 flex items-center justify-center bg-gray-400 text-white py-3 px-4 rounded-xl hover:bg-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-all duration-200 shadow-md cursor-pointer ${isProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
-                               disabled={isProcessing}>
-                            {isProcessing ? <LoadingSpinner /> : <i className="fas fa-file-import mr-2"></i>} Nhập Dữ Liệu (Restore)
-                            <input type="file" id="import-file-input" accept="application/json" onChange={handleImportData} className="hidden" disabled={isProcessing} />
-                        </label>
-                        <label htmlFor="import-html-file-input"
-                               className={`flex-1 flex items-center justify-center bg-blue-400 text-white py-3 px-4 rounded-xl hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all duration-200 shadow-md cursor-pointer ${isProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
-                               disabled={isProcessing}>
-                            {isProcessing ? <LoadingSpinner /> : <i className="fas fa-file-code mr-2"></i>} Nhập từ HTML
-                            <input type="file" id="import-html-file-input" accept="text/html" onChange={handleImportFromHtmlFile} className="hidden" disabled={isProcessing} />
-                        </label>
                     </div>
 
                     <h2 className="text-3xl font-bold text-gray-800 mb-6 flex justify-between items-center">
@@ -2360,7 +2401,7 @@
                         </div>
                     )}
                     {renderReviewLimitModal()}
-                </>
+                </div>
             );
 
             const renderCreateLessonForm = () => (
