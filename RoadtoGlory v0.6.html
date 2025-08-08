@@ -3075,7 +3075,7 @@
                         const popupWidth = 300; 
                         const popupHeight = 250; 
 
-                        const mainContent = document.querySelector('.max-w-7xl');
+                        const mainContent = document.querySelector('.max-w-screen-lg');
                         const mainContentRect = mainContent ? mainContent.getBoundingClientRect() : { left: 0, top: 0, right: window.innerWidth, bottom: window.innerHeight };
 
                         let left = clientX + 10;
@@ -4022,11 +4022,11 @@
             );
 
             return (
-                <div className="min-h-screen bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 flex items-center justify-center p-4">
+                <div className="min-h-screen bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 flex items-center justify-center px-4 sm:px-6 py-4">
                     {loading && <FullPageLoadingOverlay message="Đang tải dữ liệu từ bộ nhớ cục bộ..." />}
                     {/* Main Content Container - Increased max-w-4xl for larger UI (was max-w-2xl) */}
                     {/* Dòng gây lỗi đã bị loại bỏ khỏi đây */}
-                    <div className="bg-white bg-opacity-90 backdrop-blur-md p-8 rounded-3xl shadow-2xl w-full max-w-7xl text-left transform transition-all duration-300">
+                    <div className="bg-white bg-opacity-90 backdrop-blur-md py-8 px-4 sm:px-6 rounded-3xl shadow-2xl w-full max-w-screen-lg mx-auto text-left transform transition-all duration-300">
                         {renderMessageBox()}
                         {view === 'lessonList' && renderLessonList()}
                         {view === 'createLesson' && renderCreateLessonForm()}
