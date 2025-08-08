@@ -25,74 +25,7 @@
     </script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="icon" href="./assets/img/thumbnail.png" type="image/x-icon" />
-    <style>
-        /* Import Inter font from Google Fonts */
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap');
-        body {
-            font-family: 'Inter', sans-serif;
-            margin: 0;
-            padding: 0;
-            overflow-x: hidden;
-        }
-
-        /* Keyframe animation for fade-in effect */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        .animate-fade-in {
-            animation: fadeIn 0.5s ease-out forwards;
-        }
-
-        /* Keyframe animation for shake effect (for wrong answer) */
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
-            20%, 40%, 60%, 80% { transform: translateX(5px); }
-        }
-        .animate-shake {
-            animation: shake 0.5s ease-in-out;
-        }
-
-        /* Overlay for processing state on forms */
-        .form-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: rgba(255, 255, 255, 0.8);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 10;
-            border-radius: inherit;
-        }
-
-        /* Modal specific styles */
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: rgba(0, 0, 0, 0.6);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-        }
-
-        .modal-content {
-            background: white;
-            padding: 2rem;
-            border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-            width: 100%;
-            max-width: 400px;
-            animation: fadeIn 0.3s ease-out;
-        }
-    </style>
+    <link rel="stylesheet" href="./src/styles/styles.css">
 </head>
 <body>
     <div id="root"></div>
@@ -102,7 +35,8 @@
     <script src="https://cdn.jsdelivr.net/npm/framer-motion@10.16.4/dist/framer-motion.umd.min.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
-    <script type="text/babel" data-presets="react" data-plugins="proposal-optional-chaining">
+    <script type="text/babel" data-presets="react" data-plugins="proposal-optional-chaining" data-type="module">
+        import NavigationMenu from './src/components/NavigationMenu.jsx';
         const { useState, useEffect, useRef } = React;
         const { motion, AnimatePresence } = window.FramerMotion || {};
 
@@ -4057,20 +3991,6 @@
                 </div>
             );
 
-            const NavigationMenu = () => (
-                <nav className="grid grid-cols-3 gap-4 mb-6">
-                    <button onClick={() => setView('lessonList')} className="flex items-center justify-center bg-primary text-white py-2 px-4 rounded-lg shadow hover:bg-primary-700">
-                        Danh Sách
-                    </button>
-                    <button onClick={() => setView('createLesson')} className="flex items-center justify-center bg-primary text-white py-2 px-4 rounded-lg shadow hover:bg-primary-700">
-                        Tạo Bài Học
-                    </button>
-                    <button onClick={() => setView('review')} className="flex items-center justify-center bg-primary text-white py-2 px-4 rounded-lg shadow hover:bg-primary-700">
-                        Ôn Tập
-                    </button>
-                </nav>
-            );
-
             return (
                 <div className="min-h-screen bg-gradient-to-br from-slate-100 to-slate-300 dark:from-gray-900 dark:to-gray-800 flex items-center justify-center px-4 sm:px-6 py-4">
                     {loading && <FullPageLoadingOverlay message="Đang tải dữ liệu từ bộ nhớ cục bộ..." />}
@@ -4078,7 +3998,7 @@
                     {/* Dòng gây lỗi đã bị loại bỏ khỏi đây */}
                     <div className="bg-white dark:bg-gray-900 bg-opacity-90 dark:bg-opacity-90 backdrop-blur-md py-8 px-4 sm:px-6 rounded-3xl shadow-2xl w-full max-w-screen-lg mx-auto text-left transform transition duration-300 ease-in-out">
                         {renderMessageBox()}
-                        <NavigationMenu />
+                        <NavigationMenu setView={setView} />
                         <AnimatePresence mode="wait">
                             <motion.div
                                 key={view}
